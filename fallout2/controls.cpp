@@ -381,7 +381,9 @@ static void line_info() {
 
 static int getavatarindex(const void* object) {
 	if(bsdata<stati>::have(object))
-		return bsdata<stati>::source.indexof(object);
+		return ((stati*)object)->avatar;
+	else if(bsdata<perki>::have(object))
+		return ((perki*)object)->avatar;
 	return -1;
 }
 

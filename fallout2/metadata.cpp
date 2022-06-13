@@ -36,7 +36,7 @@ BSMETA(list) = {
 	{}};
 BSMETA(perki) = {
 	BSREQ(id),
-	BSREQ(use),
+	BSREQ(use), BSREQ(avatar),
 	{}};
 BSMETA(point) = {
 	BSREQ(x),
@@ -48,7 +48,7 @@ BSMETA(prototype) = {
 	{}};
 BSMETA(stati) = {
 	BSREQ(id),
-	BSREQ(formula),
+	BSREQ(formula), BSREQ(avatar),
 	BSREQ(minimum), BSREQ(maximum),
 	{}};
 BSMETA(gradei) = {

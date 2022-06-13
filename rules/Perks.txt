@@ -1,24 +1,24 @@
 #Perk
 
-FastMetabolism
-Bruiser
+FastMetabolism avatar(55)
+Bruiser avatar(56)
  use Strenght+2 AP-2
-SmallFrame
+SmallFrame avatar(57)
  use Agility+1 Strenght Multiply-10 CarryWeight+100
-OneHanded
-Finesse
-Kamikaze
-HeavyHanded
-FastShoot
-BloodyMess
-Jinxed
-GoodNatured
-ChemReliant
-ChemResistant
-SexAppeal
-Skilled
+OneHanded avatar(58)
+Finesse avatar(59)
+Kamikaze avatar(60)
+HeavyHanded avatar(61)
+FastShoot avatar(62)
+BloodyMess avatar(63)
+Jinxed avatar(64)
+GoodNatured avatar(65)
+ChemReliant avatar(66)
+ChemResistant avatar(67)
+SexAppeal avatar(68)
+Skilled avatar(69)
  use SkillRate+5 PerkRate+1
-Gifted
+Gifted avatar(70)
  use Strenght+1 Perception+1 Endurance+1 Charisma+1 Intelligence+1 Agility+1 Luck+1\
  SmallGuns-10 BigGuns-10 EnergyWeapon-10 Unarmed-10 MeleeWeapon-10 Throwing-10\
  FirstAid-10 Doctor-10\
@@ -26,8 +26,8 @@ Gifted
  Science-10 Repair-10 Speech-10 Barter-10 Gambling-10 Outdoorsman-10\
  SkillRate-5
 
-EyeDamaged
-BrokeLeftArm
-BrokeRightArm
-BrokeLeftLeg
-BrokeRightLeg
+EyeDamaged avatar(13)
+BrokeLeftArm avatar(15)
+BrokeRightArm avatar(14)
+BrokeLeftLeg avatar(17)
+BrokeRightLeg avatar(16)

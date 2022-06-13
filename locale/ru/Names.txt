@@ -62,7 +62,7 @@ Skills: Навыки
 SmallFrame: Маленький
 SmallGuns: Ручное оружие
 Sneak: Красться
-Speech: РАзговор
+Speech: Разговор
 Steal: Воровать
 Strenght: Сила
 Tags: Специализация

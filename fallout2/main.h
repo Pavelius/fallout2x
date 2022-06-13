@@ -32,24 +32,19 @@ struct nameable {
 	const char*			id;
 	const char*			getname() const { return getnm(id); }
 };
-//class nameidable {
-//	short unsigned		name_id;
-//public:
-//	void				act(const char* format, ...) const { actv(format, xva_start(format)); }
-//	void				actv(const char* format, const char* format_param) const;
-//	const char*			getname() const;
-//};
 struct list : nameable {
 	variants			elements;
 };
 struct stati {
 	const char*			id;
+	int					avatar;
 	variants			formula;
 	short				minimum, maximum;
 };
 struct perki {
 	const char*			id;
 	variants			use;
+	int					avatar;
 };
 struct gradei {
 	const char*			id;

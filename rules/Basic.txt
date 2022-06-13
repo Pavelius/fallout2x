@@ -1,94 +1,94 @@
 #Stat
 
-Strenght maximum(10)
-Perception maximum(10)
-Endurance maximum(10)
-Charisma maximum(10)
-Intelligence maximum(10)
-Agility maximum(10)
-Luck maximum(10)
+Strenght maximum(10) avatar(0)
+Perception maximum(10) avatar(1)
+Endurance maximum(10) avatar(2)
+Charisma maximum(10) avatar(3)
+Intelligence maximum(10) avatar(4)
+Agility maximum(10) avatar(5)
+Luck maximum(10) avatar(6)
 
-HP
+HP avatar(10)
  formula Value+15 Strenght Endurance Endurance
-HPCur
-AP
+HPCur avatar(10)
+AP avatar(19)
  formula Agility Divide+2 AddValue+5
-APCur
-AC
+APCur avatar(19)
+AC avatar(18)
  formula Agility
 
-DamageMelee
+DamageMelee avatar(21)
  formula Strenght AddValue-5 Minimum+1
-DamageResistance
-CarryWeight
+DamageResistance avatar(22)
+CarryWeight avatar(20)
  formula Strenght AddValue+1 Multiply+25
 
-CriticalHit
+CriticalHit avatar(26)
  formula Luck
-CriticalHitTable
-CriticalMiss
-CriticalMissTable
+CriticalHitTable avatar(26)
+CriticalMiss avatar(26)
+CriticalMissTable avatar(26)
 
-Sequence
+Sequence avatar(24)
  formula Perception Perception
-PerkRate
+PerkRate avatar(-1)
  formula Value+3
-SkillRate
+SkillRate avatar(27)
  formula Value+5 Intelligence Intelligence
-HealingRate
+HealingRate avatar(25)
  formula Endurance Divide+3 Minimum+1
-PartyLimit
+PartyLimit avatar(-1)
  formula Charisma Divide+2
 
-PoisonResistance
+PoisonResistance avatar(23)
  formula Endurance Endurance Endurance Endurance Endurance
-RadiationResistance
+RadiationResistance avatar(-1)
  formula Endurance Endurance
 
-Age
-Level
+Age avatar(8)
+Level avatar(7)
 
-PrimaryPoints
-SkillTagPoints
-SkillPoints
-PoisonPoints
-RadiationPoints
+PrimaryPoints avatar(27)
+SkillTagPoints avatar(27)
+SkillPoints avatar(27)
+PoisonPoints avatar(11)
+RadiationPoints avatar(12)
 
-SmallGuns
+SmallGuns avatar(28)
  formula Value+5 Agility Agility Agility Agility
-BigGuns
+BigGuns avatar(29)
  formula Agility Agility
-EnergyWeapon
+EnergyWeapon avatar(30)
  formula Agility Agility
-Unarmed
+Unarmed avatar(31)
  formula Value+30 Strenght Strenght Agility Agility
-MeleeWeapon
+MeleeWeapon avatar(32)
  formula Value+20 Strenght Strenght Agility Agility
-Throwing
+Throwing avatar(33)
  formula Agility Agility Agility Agility
-FirstAid
+FirstAid avatar(34)
  formula Perception Perception Intelligence Intelligence
-Doctor
+Doctor avatar(35)
  formula Value+5 Perception Intelligence
-Sneak
+Sneak avatar(36)
  formula Value+5 Agility Agility Agility 
-Lockpick
+Lockpick avatar(37)
  formula Value+10 Perception Agility
-Steal
+Steal avatar(38)
  formula Agility Agility Agility
-Traps
+Traps avatar(39)
  formula Value+10 Perception Agility
-Science
+Science avatar(40)
  formula Intelligence Intelligence Intelligence Intelligence
-Repair
+Repair avatar(41)
  formula Intelligence Intelligence Intelligence
-Speech
+Speech avatar(42)
  formula Charisma Charisma Charisma Charisma Charisma
-Barter
+Barter avatar(43)
  formula Charisma Charisma Charisma Charisma
-Gambling
+Gambling avatar(44)
  formula Luck Luck Luck Luck Luck
-Outdoorsman
+Outdoorsman avatar(45)
  formula Endurance Endurance Intelligence Intelligence
 
 #List
