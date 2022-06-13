@@ -1,0 +1,66 @@
+#include "main.h"
+#include "script.h"
+
+int last_value, last_stat;
+
+static void clear_value(int bonus, int param) {
+	last_value = 0;
+}
+
+static void add_value(int bonus, int param) {
+	last_value += bonus;
+}
+
+static void set_value(int bonus, int param) {
+	last_value += bonus;
+}
+
+static void divide_value(int bonus, int param) {
+	if(bonus)
+		last_value = last_value / bonus;
+}
+
+static void multiply_value(int bonus, int param) {
+	last_value = last_value * bonus;
+}
+
+static void minimum_value(int bonus, int param) {
+	if(last_value < bonus)
+		last_value = bonus;
+}
+
+static int getbonus(int i) {
+	switch(i) {
+	case 100: return last_value;
+	case -100: return -last_value;
+	default: return i;
+	}
+}
+
+static void script_run(variant v) {
+	if(v.iskind<stati>()) {
+		last_stat = v.value;
+		if(!v.counter)
+			last_value += character::last->stats[v.value];
+		else
+			character::last->stats[v.value] += getbonus(v.counter);
+	} else {
+
+	}
+}
+
+static void add_stat(int bonus, int param) {
+}
+
+void initialize_script() {
+	script::prun = script_run;
+}
+
+BSDATA(script) = {
+	{"AddValue", add_value},
+	{"Divide", divide_value},
+	{"Minimum", minimum_value},
+	{"Multiply", multiply_value},
+	{"Value", set_value},
+};
+BSDATAF(script)

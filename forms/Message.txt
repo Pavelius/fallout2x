@@ -1,0 +1,5 @@
+#Control
+
+BackgroundC 0 -32 normal(217)
+Button 104 101 size(90) command(Cancel)
+TextBlock 32 38 size(240 42) format(TextMessage)

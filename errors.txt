@@ -1,0 +1,5 @@
+﻿In file `forms/CharacterGenerator.txt`:
+ Line 40: Can't find variant `Intellegence`
+ Line 41: Can't find variant `Intellegence`
+ Line 42: Can't find variant `Intellegence`
+ Line 43: Can't find variant `Intellegence`

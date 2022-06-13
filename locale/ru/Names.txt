@@ -1,0 +1,73 @@
+﻿AC: Класс брони
+AP: Очки действия
+Age: Возраст
+Agility: Подвижность
+AppTitle: Ремейк Fallout 2
+Barter: Бартер
+BigGuns: Тяжелое оружие
+BloodyMess: Мясник
+BrokeLeftArm: Сломна левая рука
+BrokeLeftLeg: Сломна левая нога
+BrokeRightArm: Сломна прав. рука
+BrokeRightLeg: Сломна прав. нога
+Bruiser: Верзила
+Cancel: Отмена
+CarryWeight: Макс. груз
+Charisma: Обаяние
+ChemReliant: Наркозаисимый
+ChemResistant: Наркоустойчивый
+CriticalHit: Шанс крит.
+DamageMelee: Урон рукопаш.
+DamageResistance: Уст. к урону
+Doctor: Доктор
+Endurance: Выносливость
+EnergyWeapon: Энерго оружие
+ErrorTagLimit: У вас уже есть максимум из двух особенностей!
+EyeDamaged: Поврежден глаз
+FastMetabolism: Живчик
+FastShoot: Скорострел
+Finesse: Утонченный
+FirstAid: Первая помощь
+Gambling: Игра
+Gender: Пол
+Gifted: Талантливый
+GoodNatured: Добродушный
+HP: Хиты
+HealingRate: Восстановление
+HeavyHanded: Драчун
+Intelligence: Интеллект
+Jinxed: Проклятый
+Kamikaze: Камикадзе
+Lockpick: Взлом
+Luck: Удача
+MeleeWeapon: Хололдное оружие
+Name: Имя
+Narg: Нарг
+Next: Далее
+OneHanded: Праворукий
+Options: Опции
+Outdoorsman: Скиталец
+Perception: Мудрость
+PoisonPoints: Отравление
+PoisonResistance: Уст. к яду
+PrimaryPoints: Основные хар.
+RadiationPoints: Облучение
+RadiationResistance: Уст. к рад.
+Repair: Ремонт
+Science: Наука
+Sequence: Порядок
+SexAppeal: Сексапильный
+Skilled: Умелый
+Skills: Навыки
+SmallFrame: Маленький
+SmallGuns: Ручное оружие
+Sneak: Красться
+Speech: РАзговор
+Steal: Воровать
+Strenght: Сила
+Tags: Специализация
+Throwing: Метание
+Traits: Особенности
+Traps: Ловушки
+Unarmed: Рукопашная
+Years: Лет

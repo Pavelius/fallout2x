@@ -1,0 +1,33 @@
+#Perk
+
+FastMetabolism
+Bruiser
+ use Strenght+2 AP-2
+SmallFrame
+ use Agility+1 Strenght Multiply-10 CarryWeight+100
+OneHanded
+Finesse
+Kamikaze
+HeavyHanded
+FastShoot
+BloodyMess
+Jinxed
+GoodNatured
+ChemReliant
+ChemResistant
+SexAppeal
+Skilled
+ use SkillRate+5 PerkRate+1
+Gifted
+ use Strenght+1 Perception+1 Endurance+1 Charisma+1 Intelligence+1 Agility+1 Luck+1\
+ SmallGuns-10 BigGuns-10 EnergyWeapon-10 Unarmed-10 MeleeWeapon-10 Throwing-10\
+ FirstAid-10 Doctor-10\
+ Sneak-10 Lockpick-10 Steal-10 Traps-10\
+ Science-10 Repair-10 Speech-10 Barter-10 Gambling-10 Outdoorsman-10\
+ SkillRate-5
+
+EyeDamaged
+BrokeLeftArm
+BrokeRightArm
+BrokeLeftLeg
+BrokeRightLeg

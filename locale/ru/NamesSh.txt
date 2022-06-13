@@ -1,0 +1,11 @@
+﻿Grade0: Нет
+Grade1: Гадко
+Grade2: Плохо
+Grade3: Низко
+Grade4: Непло.
+Grade5: Средне
+Grade6: Хорошо
+Grade7: Высоко
+Grade8: Отлич.
+Grade9: Круто
+Grade10: Герой!

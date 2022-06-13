@@ -1,0 +1,100 @@
+#Stat
+
+Strenght maximum(10)
+Perception maximum(10)
+Endurance maximum(10)
+Charisma maximum(10)
+Intelligence maximum(10)
+Agility maximum(10)
+Luck maximum(10)
+
+HP
+ formula Value+15 Strenght Endurance Endurance
+HPCur
+AP
+ formula Agility Divide+2 AddValue+5
+APCur
+AC
+ formula Agility
+
+DamageMelee
+ formula Strenght AddValue-5 Minimum+1
+DamageResistance
+CarryWeight
+ formula Strenght AddValue+1 Multiply+25
+
+CriticalHit
+ formula Luck
+CriticalHitTable
+CriticalMiss
+CriticalMissTable
+
+Sequence
+ formula Perception Perception
+PerkRate
+ formula Value+3
+SkillRate
+ formula Value+5 Intelligence Intelligence
+HealingRate
+ formula Endurance Divide+3 Minimum+1
+PartyLimit
+ formula Charisma Divide+2
+
+PoisonResistance
+ formula Endurance Endurance Endurance Endurance Endurance
+RadiationResistance
+ formula Endurance Endurance
+
+Age
+Level
+
+PrimaryPoints
+SkillTagPoints
+SkillPoints
+PoisonPoints
+RadiationPoints
+
+SmallGuns
+ formula Value+5 Agility Agility Agility Agility
+BigGuns
+ formula Agility Agility
+EnergyWeapon
+ formula Agility Agility
+Unarmed
+ formula Value+30 Strenght Strenght Agility Agility
+MeleeWeapon
+ formula Value+20 Strenght Strenght Agility Agility
+Throwing
+ formula Agility Agility Agility Agility
+FirstAid
+ formula Perception Perception Intelligence Intelligence
+Doctor
+ formula Value+5 Perception Intelligence
+Sneak
+ formula Value+5 Agility Agility Agility 
+Lockpick
+ formula Value+10 Perception Agility
+Steal
+ formula Agility Agility Agility
+Traps
+ formula Value+10 Perception Agility
+Science
+ formula Intelligence Intelligence Intelligence Intelligence
+Repair
+ formula Intelligence Intelligence Intelligence
+Speech
+ formula Charisma Charisma Charisma Charisma Charisma
+Barter
+ formula Charisma Charisma Charisma Charisma
+Gambling
+ formula Luck Luck Luck Luck Luck
+Outdoorsman
+ formula Endurance Endurance Intelligence Intelligence
+
+#List
+
+Skills
+ elements SmallGuns BigGuns EnergyWeapon Unarmed MeleeWeapon Throwing FirstAid Doctor Sneak Lockpick Steal Traps Science Repair Speech Barter Gambling Outdoorsman
+
+PrimaryStats 
+ elements Strenght Perception Endurance Charisma Intelligence Agility Luck

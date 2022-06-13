@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="metadata.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="answers.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="crt.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="crt_file.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="crt_translate.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="stringbuilder.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="win_draw.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="win_io_file.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="win_time.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="draw.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_text.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="color.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="szdup.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="variant.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="bsreq.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="gender.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="condition.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="function.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="statable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="io_bsreq.cpp">
+      <Filter>stream</Filter>
+    </ClCompile>
+    <ClCompile Include="io_stream.cpp">
+      <Filter>stream</Filter>
+    </ClCompile>
+    <ClCompile Include="log.cpp">
+      <Filter>stream</Filter>
+    </ClCompile>
+    <ClCompile Include="logparse.cpp">
+      <Filter>stream</Filter>
+    </ClCompile>
+    <ClCompile Include="script.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="scripting.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="character.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="resid.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="pallette.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="cicling.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="control.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="controls.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="focus.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="command.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="nameidable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="grade.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="commands.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="screenshoot.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="logic">
+      <UniqueIdentifier>{b38cdc33-4e75-4872-bdfa-b6f0743cbfc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{18b4a26c-78f9-4a20-bbc9-809194a62206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{45cba693-bc67-4095-98c6-83f488c469b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="draw">
+      <UniqueIdentifier>{d508057c-c134-4b47-a678-be792d24421b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{bd15eacb-de0b-4458-aec5-ef3dd236d9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stream">
+      <UniqueIdentifier>{d88cfdfb-8cc0-47d3-ab57-1dd15329fec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="forms">
+      <UniqueIdentifier>{2e60f060-3406-4414-85b8-18c2e12f7d36}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="answers.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="crt.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="stringbuilder.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="win.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="draw.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="rect.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="variant.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="bsreq.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="gender.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="condition.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="function.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="flagable.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="io_stream.h">
+      <Filter>stream</Filter>
+    </ClInclude>
+    <ClInclude Include="log.h">
+      <Filter>stream</Filter>
+    </ClInclude>
+    <ClInclude Include="logparse.h">
+      <Filter>stream</Filter>
+    </ClInclude>
+    <ClInclude Include="script.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="resid.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="control.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="dialog.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="focus.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="screenshoot.h">
+      <Filter>draw</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\rules\Basic.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\rules\Prototype.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Names.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\locale\ru\NamesSh.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\rules\Perks.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterGenerator.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\Message.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Descriptions.txt">
+      <Filter>data</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
