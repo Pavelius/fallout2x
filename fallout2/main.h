@@ -13,7 +13,7 @@
 enum stat_s : unsigned char {
 	Strenght, Perception, Endurance, Charisma, Intellegence, Agility, Luck,
 	HP, HPCur, AP, APCur, AC,
-	DamageMelee, DamageResistance, CarryWeight,
+	DamageMelee, EnemyDamageResistance, DamageResistance, CarryWeight,
 	CriticalHit, CriticalHitTable,
 	CriticalMiss, CriticalMissTable,
 	Sequence,

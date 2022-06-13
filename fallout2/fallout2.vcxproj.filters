@@ -115,9 +115,6 @@
     <ClCompile Include="command.cpp">
       <Filter>draw</Filter>
     </ClCompile>
-    <ClCompile Include="nameidable.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="grade.cpp">
       <Filter>logic</Filter>
     </ClCompile>

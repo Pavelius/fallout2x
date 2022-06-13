@@ -168,7 +168,6 @@
     <ClCompile Include="logparse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="metadata.cpp" />
-    <ClCompile Include="nameidable.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="resid.cpp" />

@@ -19,6 +19,7 @@ AC avatar(18)
 
 DamageMelee avatar(21)
  formula Strenght AddValue-5 Minimum+1
+EnemyDamageResistance avatar(22)
 DamageResistance avatar(22)
 CarryWeight avatar(20)
  formula Strenght AddValue+1 Multiply+25

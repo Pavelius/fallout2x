@@ -25,6 +25,8 @@ static void add_trait() {
 		auto total = character::last->getperkstotal();
 		if(total < maximum)
 			character::last->perks.set(id);
+		else
+			draw::message(getnm("ErrorTraitLimit"));
 	}
 	character::last->update();
 }
@@ -38,6 +40,8 @@ static void add_tag() {
 		auto total = character::last->gettaggedskills();
 		if(total < maximum)
 			character::last->settag(id, 1);
+		else
+			draw::message(getnm("ErrorTagLimit"));
 	}
 	character::last->update();
 }

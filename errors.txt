@@ -1,15 +1,2 @@
 ﻿In file `rules/Perks.txt`:
- Line 3: Not found requisit `avatar`
- Line 4: Not found requisit `avatar`
- Line 6: Not found requisit `avatar`
- Line 8: Not found requisit `avatar`
- Line 9: Not found requisit `avatar`
- Line 10: Not found requisit `avatar`
- Line 11: Not found requisit `avatar`
- Line 12: Not found requisit `avatar`
- Line 13: Not found requisit `avatar`
- Line 14: Not found requisit `avatar`
- Line 15: Not found requisit `avatar`
- Line 16: Not found requisit `avatar`
- Line 17: Not found requisit `avatar`
- Line 18: Not found requisit `avatar`
+ Line 10: Can't find variant `CriticalChance`

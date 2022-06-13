@@ -7,12 +7,14 @@ SmallFrame avatar(57)
  use Agility+1 Strenght Multiply-10 CarryWeight+100
 OneHanded avatar(58)
 Finesse avatar(59)
+ use CriticalHit+10 EnemyDamageResistance+25
 Kamikaze avatar(60)
 HeavyHanded avatar(61)
 FastShoot avatar(62)
 BloodyMess avatar(63)
 Jinxed avatar(64)
 GoodNatured avatar(65)
+ use FirstAid+15 Doctor+15 Speech+15 Barter+15 SmallGuns-10 BigGuns-10 EnergyWeapon-10 MeleeWeapon-10 Unarmed-10 Throwing-10
 ChemReliant avatar(66)
 ChemResistant avatar(67)
 SexAppeal avatar(68)

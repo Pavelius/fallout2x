@@ -22,7 +22,8 @@ DamageResistance: Уст. к урону
 Doctor: Доктор
 Endurance: Выносливость
 EnergyWeapon: Энерго оружие
-ErrorTagLimit: У вас уже есть максимум из двух особенностей!
+ErrorTagLimit: У вас уже есть максимум из трех специализаций!
+ErrorTraitLimit: У вас уже есть максимум из двух особенностей!
 EyeDamaged: Поврежден глаз
 FastMetabolism: Живчик
 FastShoot: Скорострел
