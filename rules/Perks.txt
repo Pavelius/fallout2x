@@ -1,15 +1,19 @@
 #Perk
 
-FastMetabolism avatar(55)
+FastMetabolism avatar(55) order(1)
+ use HealingRate+2 PoisonResistance-101 RadiationResistance-101
 Bruiser avatar(56)
  use Strenght+2 AP-2
 SmallFrame avatar(57)
  use Agility+1 Strenght Multiply-10 CarryWeight+100
 OneHanded avatar(58)
+ use OneHandedWeaponBonus+20 TwoHandedWeaponBonus-40
 Finesse avatar(59)
  use CriticalHit+10 EnemyDamageResistance+25
-Kamikaze avatar(60)
+Kamikaze avatar(60) order(1)
+ use Sequence+5 AC-101
 HeavyHanded avatar(61)
+ use DamageMelee+4 CriticalHitTable-30
 FastShoot avatar(62)
 BloodyMess avatar(63)
 Jinxed avatar(64)

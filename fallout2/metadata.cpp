@@ -12,9 +12,10 @@ NOBSDATA(point)
 BSDATAC(character, 256)
 BSDATAC(control, 2048)
 BSDATAC(drawable, 4096*8)
+BSDATAC(globalstati, 128)
+BSDATAC(list, 128)
 BSDATAC(perki, 256)
 BSDATAC(prototype, 32)
-BSDATAC(list, 128)
 BSDATAC(stati, 64)
 BSDATAD(variant)
 
@@ -30,13 +31,17 @@ BSMETA(control) = {
 BSMETA(decorator) = {
 	BSREQ(id),
 	{}};
+BSMETA(globalstati) = {
+	BSREQ(id),
+	{}};
 BSMETA(list) = {
 	BSREQ(id),
 	BSREQ(elements),
 	{}};
 BSMETA(perki) = {
 	BSREQ(id),
-	BSREQ(use), BSREQ(avatar),
+	BSREQ(use),
+	BSREQ(avatar), BSREQ(order),
 	{}};
 BSMETA(point) = {
 	BSREQ(x),
@@ -59,6 +64,7 @@ BSDATA(varianti) = {
 	{"Condition", VRSTD(conditioni), 1},
 	{"Control", VRSTD(control), 3},
 	{"Function", VRSTD(function), 1},
+	{"Global", VRSTD(globalstati), 1},
 	{"Grade", VRSTD(gradei), 1},
 	{"List", VRSTD(list), 1},
 	{"Perk", VRSTD(perki), 1},

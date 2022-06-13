@@ -1,2 +1,2 @@
 ﻿In file `rules/Perks.txt`:
- Line 10: Can't find variant `CriticalChance`
+ Line 15: Can't find variant `MeleeDamage`

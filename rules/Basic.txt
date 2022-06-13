@@ -48,6 +48,8 @@ RadiationResistance avatar(-1)
 
 Age avatar(8)
 Level avatar(7)
+OneHandedWeaponBonus
+TwoHandedWeaponBonus
 
 PrimaryPoints avatar(27)
 SkillTagPoints avatar(27)

@@ -30,18 +30,24 @@ static bool update_minmax() {
 	return need_update;
 }
 
+static void update_perks(int order) {
+	for(auto& e : bsdata<perki>()) {
+		if(e.order != order)
+			continue;
+		auto i = getbsi(&e);
+		if(!character::last->perks.is(i))
+			continue;
+		script::run(e.use);
+	}
+}
+
 void character::update() {
 	auto push_character = character::last;
 	character::last = this;
 	auto need_update = true;
 	while(need_update) {
 		load(basic);
-		for(auto& e : bsdata<perki>()) {
-			auto i = getbsi(&e);
-			if(!perks.is(i))
-				continue;
-			script::run(e.use);
-		}
+		update_perks(0);
 		for(auto& e : bsdata<stati>()) {
 			if(!e.formula)
 				continue;
@@ -49,6 +55,7 @@ void character::update() {
 			script::run(e.formula);
 			stats[getbsi(&e)] += last_value;
 		}
+		update_perks(1);
 		need_update = update_minmax();
 	}
 	apply_skill_tag();

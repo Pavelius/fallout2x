@@ -29,10 +29,12 @@ static void minimum_value(int bonus, int param) {
 		last_value = bonus;
 }
 
-static int getbonus(int i) {
+static int getbonus(int i, int ci) {
 	switch(i) {
 	case 100: return last_value;
+	case 101: return ci;
 	case -100: return -last_value;
+	case -101: return -ci;
 	default: return i;
 	}
 }
@@ -43,7 +45,7 @@ static void script_run(variant v) {
 		if(!v.counter)
 			last_value += character::last->stats[v.value];
 		else
-			character::last->stats[v.value] += getbonus(v.counter);
+			character::last->stats[v.value] += getbonus(v.counter, character::last->stats[v.value]);
 	} else {
 
 	}

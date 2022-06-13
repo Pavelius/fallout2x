@@ -19,6 +19,7 @@ enum stat_s : unsigned char {
 	Sequence,
 	PerkRate, SkillRate, HealingRate, PartyLimit,
 	PoisonResistance, RadiationResistance, Age, Level,
+	OneHandedWeaponBonus, TwoHandedWeaponBonus,
 	PrimaryPoints, SkillTagPoints, SkillPoints, PoisonPoints, RadiationPoints,
 	SmallGuns, BigGuns, EnergyWeapon, Unarmed, MeleeWeapon, Throwing
 };
@@ -41,10 +42,14 @@ struct stati {
 	variants			formula;
 	short				minimum, maximum;
 };
+struct globalstati {
+	const char*			id;
+	short				value;
+};
 struct perki {
 	const char*			id;
 	variants			use;
-	int					avatar;
+	short				avatar, order;
 };
 struct gradei {
 	const char*			id;
