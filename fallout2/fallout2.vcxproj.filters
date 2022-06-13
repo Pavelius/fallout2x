@@ -253,5 +253,8 @@
     <Text Include="..\locale\ru\Descriptions.txt">
       <Filter>data</Filter>
     </Text>
+    <Text Include="..\forms\Options.txt">
+      <Filter>forms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

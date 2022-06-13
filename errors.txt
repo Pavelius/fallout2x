@@ -1,2 +1,5 @@
-﻿In file `rules/Perks.txt`:
- Line 15: Can't find variant `MeleeDamage`
+﻿In file `Names.txt`:
+ Define translate for `Delete`
+ Define translate for `InFile`
+ Define translate for `Load`
+ Define translate for `Save`

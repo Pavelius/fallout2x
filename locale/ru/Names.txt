@@ -13,17 +13,23 @@ BrokeRightLeg: Сломна прав. нога
 Bruiser: Верзила
 Cancel: Отмена
 CarryWeight: Макс. груз
+CharacterDelete: Удалить
+CharacterExport: Экспорт
+CharacterLoad: Загрузить
+CharacterSave: Записать
 Charisma: Обаяние
 ChemReliant: Наркозаисимый
 ChemResistant: Наркоустойчивый
 CriticalHit: Шанс крит.
 DamageMelee: Урон рукопаш.
 DamageResistance: Уст. к урону
+Delete: Удалить
 Doctor: Доктор
 Endurance: Выносливость
 EnergyWeapon: Энерго оружие
 ErrorTagLimit: У вас уже есть максимум из трех специализаций!
 ErrorTraitLimit: У вас уже есть максимум из двух особенностей!
+Export: В Файл
 EyeDamaged: Поврежден глаз
 FastMetabolism: Живчик
 FastShoot: Скорострел
@@ -39,6 +45,7 @@ HeavyHanded: Драчун
 Intelligence: Интеллект
 Jinxed: Проклятый
 Kamikaze: Камикадзе
+Load: Загрузка
 Lockpick: Взлом
 Luck: Удача
 MeleeWeapon: Хололдное оружие
@@ -55,6 +62,7 @@ PrimaryPoints: Основные хар.
 RadiationPoints: Облучение
 RadiationResistance: Уст. к рад.
 Repair: Ремонт
+Save: Запись
 Science: Наука
 Sequence: Порядок
 SexAppeal: Сексапильный

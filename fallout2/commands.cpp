@@ -55,7 +55,23 @@ static void sub_stat() {
 }
 
 static void open_dialog() {
-	draw::message(getnm("ErrorTagLimit"));
+	dialog::open(control::last->command->id, 1);
+}
+
+static void character_export() {
+	dialog::open(control::last->command->id, 1);
+}
+
+static void character_delete() {
+	dialog::open(control::last->command->id, 1);
+}
+
+static void character_load() {
+	dialog::open(control::last->command->id, 1);
+}
+
+static void character_save() {
+	dialog::open(control::last->command->id, 1);
 }
 
 BSDATA(command) = {
@@ -64,6 +80,10 @@ BSDATA(command) = {
 	{"AddTag", KeySpace, add_tag},
 	{"AddTrait", KeySpace, add_trait},
 	{"Cancel", KeyEscape, buttoncancel},
+	{"CharacterDelete", 'D', character_delete},
+	{"CharacterExport", 'E', character_export},
+	{"CharacterLoad", 'L', character_load},
+	{"CharacterSave", 'S', character_save},
 	{"Form"}, // Form control flow 
 	{"Gender", 'G', open_dialog},
 	{"Name", 'N', open_dialog},

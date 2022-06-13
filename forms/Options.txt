@@ -1,0 +1,8 @@
+#Control
+
+BackgroundC 0 -32 normal(220)
+ButtonDF 14 16 size(136 34) normal(221) pressed(222) command(CharacterSave)
+ButtonDF 14 53 size(136 34) normal(221) pressed(222) command(CharacterLoad)
+ButtonDF 14 90 size(136 34) normal(221) pressed(222) command(CharacterExport)
+ButtonDF 14 127 size(136 34) normal(221) pressed(222) command(CharacterDelete)
+ButtonDF 14 164 size(136 34) normal(221) pressed(222) command(Next)
