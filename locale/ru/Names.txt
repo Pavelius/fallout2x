@@ -11,7 +11,7 @@ BrokeLeftLeg: Сломна левая нога
 BrokeRightArm: Сломна прав. рука
 BrokeRightLeg: Сломна прав. нога
 Bruiser: Верзила
-Cancel: Отмена
+Cancel: Назад
 CarryWeight: Макс. груз
 CharacterDelete: Удалить
 CharacterExport: Экспорт

@@ -256,5 +256,8 @@
     <Text Include="..\forms\Options.txt">
       <Filter>forms</Filter>
     </Text>
+    <Text Include="..\forms\CharacterLoad.txt">
+      <Filter>forms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -1,0 +1,5 @@
+#Control
+
+BackgroundC 0 -32 normal(225)
+Button 58 213 size(76) command(Next)
+Button 160 213 size(76) command(Cancel)
