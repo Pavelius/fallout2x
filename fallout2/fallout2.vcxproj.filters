@@ -130,6 +130,9 @@
     <ClCompile Include="filelist.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="information.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -272,6 +275,12 @@
       <Filter>forms</Filter>
     </Text>
     <Text Include="..\forms\CharacterLoad.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterSave.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterExport.txt">
       <Filter>forms</Filter>
     </Text>
   </ItemGroup>

@@ -76,6 +76,7 @@ struct character : prototype {
 	static character*	last;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }
+	void				exporting(const char* id) const;
 	int					get(stat_s v) const { return stats[v]; }
 	int					getperkstotal() const;
 	int					gettaggedskills() const;
@@ -97,5 +98,6 @@ void					messagev(const char* format, const char* format_param, int mode = 1);
 inline void				message(const char* format, ...) { messagev(format, xva_start(format), 1); }
 }
 extern color			getcolor(unsigned char i);
+extern const char*		getedit();
 extern int				last_value, last_stat;
 extern unsigned long	current_tick;

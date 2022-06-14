@@ -1,2 +1,3 @@
-﻿In file `forms/CharacterLoad.txt`:
- Line 4: Not found identifier `List`
+﻿In file `Names.txt`:
+ Define translate for `SkillRate`
+ Define translate for `SkillTagPoints`

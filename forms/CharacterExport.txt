@@ -1,7 +1,7 @@
 #Control
 
 BackgroundC 0 -32 normal(225)
-Text 56 16 size(190) text(CharacterLoad)
+Text 56 16 size(190) text(CharacterExport)
 List 56 48 size(190 120) format(FileList)
 Edit 56 190 size(184) format(FileList)
 Button 58 213 size(76) command(Next)

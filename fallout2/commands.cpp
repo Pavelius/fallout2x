@@ -64,22 +64,32 @@ static void open_dialog() {
 	dialog::open(control::last->command->id, 1);
 }
 
-static void character_export() {
-	dialog::open(control::last->command->id, 1);
-}
-
 static void character_delete() {
 	dialog::open(control::last->command->id, 1);
 }
 
 static void character_load() {
 	last_list_current = -1;
-	filelistsource.choose("art", "*.*", true);
+	filelistsource.choose("characters/premade", "*.chr", true);
 	dialog::open(control::last->command->id, 1);
+	if(!dialog::open(control::last->command->id, 1))
+		return;
 }
 
 static void character_save() {
+	last_list_current = -1;
+	filelistsource.choose("characters/premade", "*.chr", true);
 	dialog::open(control::last->command->id, 1);
+	if(!dialog::open(control::last->command->id, 1))
+		return;
+}
+
+static void character_export() {
+	last_list_current = -1;
+	filelistsource.choose("characters/export", "*.txt", true);
+	if(!dialog::open(control::last->command->id, 1))
+		return;
+	character::last->exporting(getedit());
 }
 
 BSDATA(command) = {

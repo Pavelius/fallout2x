@@ -162,6 +162,7 @@
     <ClCompile Include="function.cpp" />
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="grade.cpp" />
+    <ClCompile Include="information.cpp" />
     <ClCompile Include="interface.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="io_stream.cpp" />
@@ -218,8 +219,10 @@
     <ClInclude Include="win.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\forms\CharacterExport.txt" />
     <Text Include="..\forms\CharacterGenerator.txt" />
     <Text Include="..\forms\CharacterLoad.txt" />
+    <Text Include="..\forms\CharacterSave.txt" />
     <Text Include="..\forms\Message.txt" />
     <Text Include="..\forms\Options.txt" />
     <Text Include="..\locale\ru\Descriptions.txt" />

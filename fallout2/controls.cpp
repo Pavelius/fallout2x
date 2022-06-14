@@ -31,6 +31,10 @@ void setedit(const char* format, ...) {
 	caret_position = sb.getlenght();
 }
 
+const char* getedit() {
+	return edit_buffer;
+}
+
 void theme_inititalize() {
 	fore = getcolor(ColorText);
 }
