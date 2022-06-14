@@ -50,6 +50,8 @@ BSMETA(point) = {
 BSMETA(prototype) = {
 	BSREQ(id),
 	BSDST(stats, stati),
+	BSREQ(tags),
+	BSFLG(perks, perki),
 	{}};
 BSMETA(stati) = {
 	BSREQ(id),

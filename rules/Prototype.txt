@@ -2,3 +2,5 @@
 
 Narg
  stats Strenght(8) Perception(5) Endurance(9) Charisma(3) Intelligence(4) Agility(7) Luck(4) Age(21)
+ tags MeleeWeapon Unarmed Throwing
+ perks Gifted HeavyHanded

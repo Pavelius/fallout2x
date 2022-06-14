@@ -67,8 +67,10 @@ struct statable {
 	int					total(const list& source) const;
 };
 struct prototype : nameable, statable {
+	const stati*		tags[3];
+	perka				perks;
 };
-struct character : prototype {
+struct character : nameable, statable {
 	statable			basic;
 	perka				perks;
 	skilla				tags;

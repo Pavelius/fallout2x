@@ -67,9 +67,15 @@ character* character::add(const char* id) {
 	if(!pt)
 		return 0;
 	auto p = bsdata<character>::add();
-	memcpy(p, pt, sizeof(*pt));
-	p->set(SkillTagPoints, 3);
-	p->basic.load(*p);
+	p->id = pt->id;
+	p->load(*pt);
+	memcpy(&p->perks, &pt->perks, sizeof(pt->perks));
+	p->basic.load(*pt);
+	p->basic.stats[SkillTagPoints] = 3;
+	for(auto pa : pt->tags) {
+		if(pa)
+			p->settag((stat_s)getbsi(pa), 1);
+	}
 	p->update();
 	return p;
 }
