@@ -1,4 +1,5 @@
 #include "archive.h"
+#include "variant.h"
 
 bool archive::signature(const char* id) {
 	char temp[4];
@@ -28,6 +29,13 @@ bool archive::version(short major, short minor) {
 	return true;
 }
 
+void archive::set(void* value, unsigned size) {
+	if(writemode)
+		source.write(value, size);
+	else
+		source.read(value, size);
+}
+
 template<> void archive::set<array>(array& v) {
 	set(v.count);
 	set(v.size);
@@ -36,7 +44,7 @@ template<> void archive::set<array>(array& v) {
 	set(v.data, v.size * v.count);
 }
 
-template<> void archive::set<const char*>(const char*& v) {
+void archive::set(const char*& v) {
 	if(writemode) {
 		int size = zlen(v);
 		set(size);
@@ -57,9 +65,13 @@ template<> void archive::set<const char*>(const char*& v) {
 	}
 }
 
-void archive::set(void* value, unsigned size) {
-	if(writemode)
-		source.write(value, size);
-	else
-		source.read(value, size);
+void archive::setpointer(void** pointer) {
+	if(writemode) {
+		variant value = *pointer;
+		source.write(&value, sizeof(value));
+	} else {
+		variant value;
+		source.read(&value, sizeof(value));
+		*pointer = value.getpointer();
+	}
 }

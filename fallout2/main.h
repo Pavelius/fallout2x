@@ -74,6 +74,7 @@ struct character : prototype {
 	skilla				tags;
 	int					experience;
 	static character*	last;
+	character*			boss;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				exporting(const char* id) const;

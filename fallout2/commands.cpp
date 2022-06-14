@@ -71,19 +71,19 @@ static void character_delete() {
 static void character_load() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	dialog::open(control::last->command->id, 1);
 	if(!dialog::open(control::last->command->id, 1))
 		return;
 	character::last->read(getedit());
+	draw::buttonok();
 }
 
 static void character_save() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	dialog::open(control::last->command->id, 1);
 	if(!dialog::open(control::last->command->id, 1))
 		return;
 	character::last->write(getedit());
+	draw::buttonok();
 }
 
 static void character_export() {
@@ -92,6 +92,7 @@ static void character_export() {
 	if(!dialog::open(control::last->command->id, 1))
 		return;
 	character::last->exporting(getedit());
+	draw::buttonok();
 }
 
 BSDATA(command) = {

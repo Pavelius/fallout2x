@@ -6,12 +6,14 @@
 // Fast and simple driver for streaming binary data.
 // Allow arrays and simple collections.
 struct archive {
-	io::stream&			source;
-	bool				writemode;
+	io::stream&	source;
+	bool		writemode;
 	constexpr archive(io::stream& source, bool writemode) : source(source), writemode(writemode) {}
-	bool				signature(const char* id);
-	bool				version(short major, short minor);
-	void				set(void* value, unsigned size);
+	bool		signature(const char* id);
+	bool		version(short major, short minor);
+	void		set(void* value, unsigned size);
+	void		set(const char*& v);
+	void		setpointer(void** pointer);
 	// Array with fixed count
 	template<typename T, size_t N> void set(T(&value)[N]) {
 		for(int i = 0; i < N; i++)
@@ -26,6 +28,9 @@ struct archive {
 	// All simple types and requisites
 	template<class T> void set(T& value) {
 		set(&value, sizeof(value));
+	}
+	template<class T> void set(T* value) {
+		setpointer((void**)&value);
 	}
 	template<class T> void setc(array& v) {
 		if(writemode) {
@@ -42,4 +47,3 @@ struct archive {
 	}
 };
 template<> void archive::set<array>(array& v);
-template<> void archive::set<const char*>(const char*& v);

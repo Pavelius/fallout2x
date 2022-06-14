@@ -7,7 +7,7 @@ template<> void archive::set<character>(character& e) {
 	set(e.perks);
 	set(e.tags);
 	set(e.experience);
-	e.update();
+	set(e.boss);
 }
 
 static void serial(character* p, const char* id, bool writemode) {
@@ -26,4 +26,5 @@ void character::write(const char* id) const {
 
 void character::read(const char* id) {
 	serial(const_cast<character*>(this), id, false);
+	update();
 }
