@@ -74,6 +74,7 @@ static void character_load() {
 	dialog::open(control::last->command->id, 1);
 	if(!dialog::open(control::last->command->id, 1))
 		return;
+	character::last->read(getedit());
 }
 
 static void character_save() {
@@ -82,6 +83,7 @@ static void character_save() {
 	dialog::open(control::last->command->id, 1);
 	if(!dialog::open(control::last->command->id, 1))
 		return;
+	character::last->write(getedit());
 }
 
 static void character_export() {

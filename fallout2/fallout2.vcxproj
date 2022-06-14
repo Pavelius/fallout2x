@@ -142,7 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="answers.cpp" />
+    <ClCompile Include="archive.cpp" />
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="cicling.cpp" />
@@ -176,6 +176,7 @@
     <ClCompile Include="screenshoot.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
+    <ClCompile Include="serial.cpp" />
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
     <ClCompile Include="stringcopy.cpp" />
@@ -188,7 +189,7 @@
     <ClCompile Include="win_time.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="answers.h" />
+    <ClInclude Include="archive.h" />
     <ClInclude Include="bsreq.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="command.h" />

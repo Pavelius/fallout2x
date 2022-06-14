@@ -1,4 +1,3 @@
-#include "answers.h"
 #include "bsreq.h"
 #include "draw.h"
 #include "main.h"

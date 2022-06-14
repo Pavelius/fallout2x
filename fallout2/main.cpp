@@ -1,4 +1,3 @@
-#include "answers.h"
 #include "bsreq.h"
 #include "dialog.h"
 #include "main.h"

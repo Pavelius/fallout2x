@@ -83,9 +83,11 @@ struct character : prototype {
 	bool				istagged(valuet v) const;
 	static void			initialize();
 	bool				open(const char* id);
+	void				read(const char* id);
 	void				set(stat_s v, int i) { stats[v] = i; }
 	void				settag(valuet v, int i);
 	void				update();
+	void				write(const char* id) const;
 };
 struct drawable {
 	point				position;
