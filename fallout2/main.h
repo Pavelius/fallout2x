@@ -99,8 +99,8 @@ struct drawable {
 	void				paint() const;
 };
 namespace draw {
-void					messagev(const char* format, const char* format_param, int mode = 1);
-inline void				message(const char* format, ...) { messagev(format, xva_start(format), 1); }
+void					messagev(const char* format, const char* format_param);
+inline void				message(const char* format, ...) { messagev(format, xva_start(format)); }
 }
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();

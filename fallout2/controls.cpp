@@ -21,6 +21,7 @@ static rect last_rect;
 static char edit_buffer[512];
 static int caret_position;
 static int last_list_origin;
+static control::viewi cmd_view;
 int last_list_current;
 
 void post_setfocus();
@@ -63,6 +64,8 @@ static void focusing() {
 
 static void execute_standart_command() {
 	auto push_last = control::last;
+	auto push_view = control::view;
+	control::view = cmd_view;
 	control::last = (control*)hot.object;
 	if(hot.param == 1) {
 		auto object = control::last->getobject();
@@ -71,10 +74,12 @@ static void execute_standart_command() {
 	}
 	if(control::last->command)
 		control::last->command->pexecute();
+	control::view = cmd_view;
 	control::last = push_last;
 }
 
 static void execute_standart(int param = 0) {
+	cmd_view = control::view;
 	execute(execute_standart_command, param, 0, control::last);
 }
 
@@ -382,7 +387,7 @@ static void numberap(int digits, int value) {
 }
 
 static void number_standart() {
-	number(2, character::last->stats[control::last->getvalue()]);
+	number(2, control::view.get());
 }
 
 static void number_custom() {
@@ -504,9 +509,6 @@ static void seteditpos(unsigned index) {
 	caret_position = index;
 }
 
-static void custom_event() {
-}
-
 static void edit() {
 	auto title = edit_buffer;
 	int maximum = sizeof(edit_buffer) / sizeof(edit_buffer[0]);
@@ -588,6 +590,11 @@ static void block_information() {
 	font = push_font;
 }
 
+static void hotkey() {
+	if(control::view.key == hot.key)
+		execute_standart();
+}
+
 BSDATA(widget) = {
 	{"Background", background},
 	{"BackgroundC", background_center},
@@ -595,6 +602,7 @@ BSDATA(widget) = {
 	{"ButtonDF", button_def},
 	{"ButtonNT", button_no_text},
 	{"Edit", edit},
+	{"Hotkey", hotkey},
 	{"Information", block_information},
 	{"Image", custom_image},
 	{"Text", center_text_font2},

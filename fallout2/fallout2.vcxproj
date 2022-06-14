@@ -154,6 +154,7 @@
     <ClCompile Include="crt_file.cpp" />
     <ClCompile Include="crt_translate.cpp" />
     <ClCompile Include="controls.cpp" />
+    <ClCompile Include="datasource.cpp" />
     <ClCompile Include="dialog.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="draw_text.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="condition.h" />
     <ClInclude Include="control.h" />
     <ClInclude Include="crt.h" />
+    <ClInclude Include="datasource.h" />
     <ClInclude Include="dialog.h" />
     <ClInclude Include="draw.h" />
     <ClInclude Include="filelist.h" />

@@ -12,7 +12,9 @@ public:
 	void			clear() { memset(this, 0, sizeof(*this)); }
 	constexpr bool	is(short unsigned v) const { return (data[v / s] & (1 << (v % s))) != 0; }
 	constexpr bool	is(const flagable& e) const { for(unsigned i = 0; i < N; i++) if((data[i] & e.data[i]) != 0) return true; return false; }
+	unsigned char&	getbyte(int v) { return data[v / s]; }
 	constexpr int	getcount() const { auto r = 0; for(auto i = 0; i < N * s; i++) if(is(i)) r++; return r; }
+	unsigned char	getmask(int v) const { return 1 << (v % s); }
 	constexpr int	getmaximum() const { return N * s; }
 	constexpr void	remove(short unsigned v) { data[v / s] &= ~(1 << (v % s)); }
 	constexpr void	set(short unsigned v) { data[v / s] |= 1 << (v % s); }

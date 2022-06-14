@@ -1,5 +1,6 @@
 #include "color.h"
 #include "command.h"
+#include "datasource.h"
 #include "point.h"
 #include "variant.h"
 #include "widget.h"
@@ -13,7 +14,7 @@ struct decorator {
 	fnproc				proc;
 };
 struct control : point {
-	struct viewi {
+	struct viewi : datasource {
 		const char*		title;
 		const char*		value;
 		int				number;
@@ -31,6 +32,7 @@ struct control : point {
 	const char*			text;
 	const decorator*	format;
 	const command*		command;
+	static fnevent		pbefore;
 	static point		offset;
 	static const control* last;
 	static viewi		view;

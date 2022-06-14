@@ -5,24 +5,25 @@
 
 using namespace draw;
 
+fnevent control::pbefore;
 control::viewi control::view;
 const control* control::last;
 point control::offset;
 
 void control::paint() const {
-	auto push_caret = caret;
-	auto push_width = width;
-	auto push_height = height;
+	rectpush push;
 	auto push_view = view;
 	auto push_fore = fore;
+	auto push_last = last;
 	caret.x = x + offset.x;
 	caret.y = y + offset.y;
 	width = size.x;
 	height = size.y;
 	view.clear();
+	last = this;
 	if(text)
 		view.title = getnm(text);
-	else if(data.type)
+	else if(data.type && data.geti().isnamed())
 		view.title = data.getname();
 	else if(command)
 		view.title = getnm(command->id);
@@ -30,16 +31,14 @@ void control::paint() const {
 		view.title = type->id;
 	if(command)
 		view.key = command->hotkey;
+	if(pbefore)
+		pbefore();
 	if(format)
 		format->proc(*this);
-	auto push_last = last;
-	last = this; type->paint();
+	type->paint();
 	last = push_last;
 	fore = push_fore;
 	view = push_view;
-	height = push_height;
-	width = push_width;
-	caret = push_caret;
 }
 
 int control::getvalue() const {

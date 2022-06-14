@@ -13,7 +13,10 @@ extern "C" int system(const char* command);
 void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime);
 void check_translation();
 void initialize_translation(const char* locale);
+void focus_beforemodal();
+void focus_finish();
 void load_pallette(unsigned char* p1, int koeff = 4);
+void theme_inititalize();
 
 static color default_palette[256];
 
@@ -35,10 +38,6 @@ static void update_tick() {
 		current_tick += tick - last_tick;
 	last_tick = tick;
 }
-
-void focus_beforemodal();
-void theme_inititalize();
-void focus_finish();
 
 static void beforemodal() {
 	update_tick();

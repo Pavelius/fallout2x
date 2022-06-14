@@ -136,6 +136,9 @@
     <ClCompile Include="archive.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="datasource.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -246,6 +249,9 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="archive.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="datasource.h">
       <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>

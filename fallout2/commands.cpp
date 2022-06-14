@@ -60,14 +60,26 @@ static void sub_stat() {
 	}
 }
 
+static void add_number() {
+	auto i = control::view.get();
+	if(i<100)
+		control::view.set(i + 1);
+}
+
+static void sub_number() {
+	auto i = control::view.get();
+	if(i > 1)
+		control::view.set(i - 1);
+}
+
 static void open_dialog() {
-	dialog::open(control::last->command->id, 1);
+	dialog::open(control::last->command->id);
 }
 
 static void character_delete() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(control::last->command->id, 1))
+	if(!dialog::open(control::last->command->id))
 		return;
 	//if(message(getnm("ReallyWantDelete"), getedit()))
 }
@@ -75,7 +87,7 @@ static void character_delete() {
 static void character_load() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(control::last->command->id, 1))
+	if(!dialog::open(control::last->command->id))
 		return;
 	character::last->read(getedit());
 	draw::buttonok();
@@ -84,7 +96,7 @@ static void character_load() {
 static void character_save() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(control::last->command->id, 1))
+	if(!dialog::open(control::last->command->id))
 		return;
 	character::last->write(getedit());
 	draw::buttonok();
@@ -93,13 +105,29 @@ static void character_save() {
 static void character_export() {
 	last_list_current = -1;
 	filelistsource.choose("characters/export", "*.txt", true);
-	if(!dialog::open(control::last->command->id, 1))
+	if(!dialog::open(control::last->command->id))
 		return;
 	character::last->exporting(getedit());
 	draw::buttonok();
 }
 
+static void character_object() {
+	auto pc = control::last;
+	auto pd = character::last;
+	if(pc->data.iskind<stati>())
+		pc->view.link(pd->stats[pc->data.value]);
+	else if(pc->data.iskind<perki>()) {
+		auto v = pc->data.value;
+		pc->view.link(pd->perks.getbyte(v), pd->perks.getmask(v));
+	}
+}
+
+void character_generate() {
+	dialog::open("CharacterGenerator", character_object);
+}
+
 BSDATA(command) = {
+	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
 	{"AddTag", KeySpace, add_tag},
 	{"AddTrait", KeySpace, add_trait},
@@ -108,12 +136,13 @@ BSDATA(command) = {
 	{"CharacterDelete", 'D', character_delete},
 	{"CharacterExport", 'E', character_export},
 	{"CharacterGender", 'G', open_dialog},
+	{"CharacterGenerator", 'E', character_generate},
 	{"CharacterLoad", 'L', character_load},
 	{"CharacterName", 'N', open_dialog},
 	{"CharacterSave", 'S', character_save},
-	{"Form"}, // Form control flow 
 	{"Next", KeyEnter, buttonok},
 	{"Options", 'O', open_dialog},
+	{"SubNumber", '-', sub_number},
 	{"SubStat", '-', sub_stat},
 };
 BSDATAF(command)
@@ -203,9 +232,9 @@ static void file_list(const control& e) {
 	}
 }
 
-void draw::messagev(const char* format, const char* format_param, int mode) {
+void draw::messagev(const char* format, const char* format_param) {
 	sb.clear(); sb.addv(format, format_param);
-	dialog::open("Message", mode);
+	dialog::open("Message");
 }
 
 BSDATA(decorator) = {

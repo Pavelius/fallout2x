@@ -21,29 +21,43 @@ static void paint_dialog() {
 		e.paint();
 }
 
-int dialog::open(int mode) const {
+bool dialog::isfullscreen() const {
+	if(!controls)
+		return false;
+	auto p = controls.begin();
+	return (p->x == 0) && (p->y == 0);
+}
+
+int dialog::open(fnevent pbefore) const {
+	if(!controls)
+		return 0;
 	auto push_last = last;
 	auto push_screen = screen;
 	auto push_offset = control::offset;
+	auto push_pbefore = control::pbefore;
+	control::pbefore = pbefore;
 	control::offset.clear();
 	last = this;
-	if(mode == 0) {
+	if(isfullscreen()) {
 		screen = 0;
 		draw::scene(paint_dialog);
 	} else {
-		screenshoot push(mode==2);
+		screenshoot push(false);
 		screen = &push;
 		draw::scene(paint_dialog);
 	}
+	control::pbefore = push_pbefore;
 	control::offset = push_offset;
 	last = push_last;
 	screen = push_screen;
 	return getresult();
 }
 
-int dialog::open(const char* id, int mode) {
+int dialog::open(const char* id, fnevent pbefore) {
 	auto p = bsdata<dialog>::find(id);
-	return p ? p->open(mode) : 0;
+	if(!p)
+		return 0;
+	return p->open(pbefore);
 }
 
 static const char* getformfile(stringbuilder& sb, const char* id) {
