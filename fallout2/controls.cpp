@@ -17,12 +17,19 @@ struct number_widget {
 using namespace draw;
 
 static adat<number_widget, 32> number_widgets;
-static int last_normal, last_pressed;
 static rect last_rect;
-static const stati* last_rollup;
-static void* last_focus;
+static char edit_buffer[512];
+static int caret_position;
+static int last_list_origin;
+int last_list_current;
 
 void post_setfocus();
+
+void setedit(const char* format, ...) {
+	stringbuilder sb(edit_buffer);
+	sb.add(format);
+	caret_position = sb.getlenght();
+}
 
 void theme_inititalize() {
 	fore = getcolor(ColorText);
@@ -461,9 +468,83 @@ static void list_paint(int& origin, int& current, int perline) {
 }
 
 static void listview() {
-	static int origin, current;
 	//rectb();
-	list_paint(origin, current, 10);
+	list_paint(last_list_origin, last_list_current, 10);
+}
+
+static void remove_symbol() {
+	auto p = (char*)hot.object;
+	auto i = hot.param;
+	auto m = zlen(p + i);
+	if(!m)
+		return;
+	memmove(p + i, p + i + 1, m);
+	caret_position = i;
+}
+
+static void add_symbol() {
+	auto p = (char*)hot.object;
+	auto i = hot.param;
+	auto s = (char)hot.param2;
+	auto m = zlen(p);
+	auto c = m - i;
+	memmove(p + i + 1, p + i, c);
+	p[i + c + 1] = 0;
+	p[i] = s;
+	caret_position = i + 1;
+}
+
+static void seteditpos(unsigned index) {
+	caret_position = index;
+}
+
+static void custom_event() {
+}
+
+static void edit() {
+	auto title = edit_buffer;
+	int maximum = sizeof(edit_buffer) / sizeof(edit_buffer[0]);
+	int lenght = zlen(title);
+	if(caret_position > lenght)
+		caret_position = lenght;
+	text(title);
+	auto frame = (current_tick / 200) % 3;
+	if(frame != 0) {
+		rectpush push;
+		auto push_alpha = alpha;
+		caret.x += textw(title, caret_position) - 1;
+		width = 3; height = texth() - 1;
+		alpha = 192;
+		rectf();
+		alpha = push_alpha;
+	}
+	switch(hot.key) {
+	case KeyLeft:
+		if(caret_position > 0)
+			execute(cbsetint, caret_position - 1, 0, &caret_position);
+		break;
+	case KeyRight:
+		if(caret_position < lenght)
+			execute(cbsetint, caret_position + 1, 0, &caret_position);
+		break;
+	case KeyHome:
+		execute(cbsetint, 0, 0, &caret_position);
+		break;
+	case KeyEnd:
+		execute(cbsetint, lenght, 0, &caret_position);
+		break;
+	case KeyBackspace:
+		if(caret_position > 0)
+			execute(remove_symbol, caret_position - 1, 0, title);
+		break;
+	case KeyDelete:
+		execute(remove_symbol, caret_position, 0, title);
+		break;
+	case InputSymbol:
+		if(lenght < maximum - 1 && hot.param >= ' ')
+			execute(add_symbol, caret_position, hot.param, title);
+		break;
+	}
 }
 
 static void block_information() {
@@ -502,6 +583,8 @@ BSDATA(widget) = {
 	{"Button", button_radio},
 	{"ButtonDF", button_def},
 	{"ButtonNT", button_no_text},
+	{"Edit", edit},
+	{"Event", custom_event},
 	{"Information", block_information},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},

@@ -3,7 +3,7 @@
 Background 0 0 normal(169)
 
 ButtonDF 13 0 size(138) normal(185) pressed(184) command(Name) format(Name)
-ButtonDF 154 0 size(80) normal(188) pressed(189) command(Age) format(Age)
+ButtonDF 154 0 size(80) normal(188) pressed(189) command(Age) format(Age) data(Age)
 ButtonDF 235 0 size(80) normal(188) pressed(189) command(Gender) format(Gender)
 
 Text 383 5 size(220) text(Skills)

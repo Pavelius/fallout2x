@@ -8,6 +8,9 @@ static char result_text[512];
 static stringbuilder sb(result_text);
 static filelist filelistsource;
 static array any_source;
+extern int last_list_current;
+
+void setedit(const char* format, ...);
 
 using namespace draw;
 
@@ -70,7 +73,8 @@ static void character_delete() {
 }
 
 static void character_load() {
-	filelistsource.choose("art", "*.*");
+	last_list_current = -1;
+	filelistsource.choose("art", "*.*", true);
 	dialog::open(control::last->command->id, 1);
 }
 
@@ -161,7 +165,6 @@ static void character_tagged_total(const control& e) {
 static void text_message(const control& e) {
 	control::view.title = result_text;
 	control::view.flags = AlignCenterCenter;
-	//fore = getcolor(ColorButton);
 }
 
 static void filelist_getname(const void* object, stringbuilder& sb) {
@@ -169,10 +172,18 @@ static void filelist_getname(const void* object, stringbuilder& sb) {
 }
 
 static void file_list(const control& e) {
+	static int auto_complete;
 	control::view.pgetname = filelist_getname;
 	control::view.source.data = filelistsource.data;
 	control::view.source.count = filelistsource.count;
 	control::view.source.size = sizeof(filelistsource.data[0]);
+	if(last_list_current == -1 || last_list_current != auto_complete) {
+		auto_complete = last_list_current;
+		if(last_list_current != -1) {
+			if(last_list_current < (int)filelistsource.count)
+				setedit(filelistsource.data[last_list_current]);
+		}
+	}
 }
 
 void draw::messagev(const char* format, const char* format_param, int mode) {

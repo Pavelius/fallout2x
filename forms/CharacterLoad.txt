@@ -2,5 +2,6 @@
 
 BackgroundC 0 -32 normal(225)
 List 56 48 size(190 120) format(FileList)
+Edit 56 190 size(184) format(FileList)
 Button 58 213 size(76) command(Next)
 Button 160 213 size(76) command(Cancel)

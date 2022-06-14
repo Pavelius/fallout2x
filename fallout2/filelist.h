@@ -4,5 +4,5 @@
 
 class filelist : public stringlist {
 public:
-	void		choose(const char* source, const char* filter);
+	void		choose(const char* source, const char* filter, bool not_extensions = false);
 };
