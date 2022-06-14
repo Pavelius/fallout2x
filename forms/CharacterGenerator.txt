@@ -14,7 +14,7 @@ NumberCustom 126 282 format(PrimaryStatsTotal)
 NumberCustom 524 228 format(TagsTotal)
 
 Button 345 454 size(90) command(Options)
-Button 456 453 size(80) command(Next)
+Button 456 453 size(80) command(Adventure)
 Button 553 454 size(80) command(Cancel)
 
 Number 59 37 data(Strenght)

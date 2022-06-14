@@ -131,6 +131,7 @@ BSDATA(command) = {
 	{"AddStat", '+', add_stat},
 	{"AddTag", KeySpace, add_tag},
 	{"AddTrait", KeySpace, add_trait},
+	{"Adventure", 0, open_dialog},
 	{"Cancel", KeyEscape, buttoncancel},
 	{"CharacterAge", 'A', open_dialog},
 	{"CharacterDelete", 'D', character_delete},

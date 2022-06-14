@@ -139,6 +139,9 @@
     <ClCompile Include="datasource.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="adventure.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -302,6 +305,9 @@
       <Filter>forms</Filter>
     </Text>
     <Text Include="..\forms\CharacterGender.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\Adventure.txt">
       <Filter>forms</Filter>
     </Text>
   </ItemGroup>

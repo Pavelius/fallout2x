@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="adventure.cpp" />
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="character.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="win.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\forms\Adventure.txt" />
     <Text Include="..\forms\CharacterAge.txt" />
     <Text Include="..\forms\CharacterDelete.txt" />
     <Text Include="..\forms\CharacterExport.txt" />

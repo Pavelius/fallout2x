@@ -1,5 +1,6 @@
 ﻿AC: Класс брони
 AP: Очки действия
+Adventure: Игра
 Age: Возраст
 Agility: Подвижность
 AppTitle: Ремейк Fallout 2

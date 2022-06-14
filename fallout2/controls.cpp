@@ -595,7 +595,10 @@ static void hotkey() {
 		execute_standart();
 }
 
+void adventure();
+
 BSDATA(widget) = {
+	{"Adventure", adventure},
 	{"Background", background},
 	{"BackgroundC", background_center},
 	{"Button", button_radio},
