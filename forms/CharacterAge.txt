@@ -1,0 +1,9 @@
+#Control
+
+Background 156 1 normal(208)
+Image 8 8 normal(205)
+Image 15 42 normal(209)
+Number 56 10
+ButtonNT 18 13 normal(122) pressed(123)
+ButtonNT 102 13 normal(124) pressed(125)
+Button 25 45 size(90) command(Next)

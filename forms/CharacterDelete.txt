@@ -1,7 +1,7 @@
 #Control
 
 BackgroundC 0 -32 normal(224)
-Text 56 16 size(190) text(CharacterLoad)
+Text 56 16 size(190) text(CharacterDelete)
 List 56 48 size(190 120) format(FileList)
 Button 58 187 size(76) command(Next)
 Button 160 187 size(76) command(Cancel)

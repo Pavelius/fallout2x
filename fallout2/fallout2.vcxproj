@@ -220,9 +220,13 @@
     <ClInclude Include="win.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\forms\CharacterAge.txt" />
+    <Text Include="..\forms\CharacterDelete.txt" />
     <Text Include="..\forms\CharacterExport.txt" />
+    <Text Include="..\forms\CharacterGender.txt" />
     <Text Include="..\forms\CharacterGenerator.txt" />
     <Text Include="..\forms\CharacterLoad.txt" />
+    <Text Include="..\forms\CharacterName.txt" />
     <Text Include="..\forms\CharacterSave.txt" />
     <Text Include="..\forms\Message.txt" />
     <Text Include="..\forms\Options.txt" />

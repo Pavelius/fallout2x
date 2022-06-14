@@ -65,7 +65,11 @@ static void open_dialog() {
 }
 
 static void character_delete() {
-	dialog::open(control::last->command->id, 1);
+	last_list_current = -1;
+	filelistsource.choose("characters/premade", "*.chr", true);
+	if(!dialog::open(control::last->command->id, 1))
+		return;
+	//if(message(getnm("ReallyWantDelete"), getedit()))
 }
 
 static void character_load() {
@@ -96,18 +100,18 @@ static void character_export() {
 }
 
 BSDATA(command) = {
-	{"Age", 'A', open_dialog},
 	{"AddStat", '+', add_stat},
 	{"AddTag", KeySpace, add_tag},
 	{"AddTrait", KeySpace, add_trait},
 	{"Cancel", KeyEscape, buttoncancel},
+	{"CharacterAge", 'A', open_dialog},
 	{"CharacterDelete", 'D', character_delete},
 	{"CharacterExport", 'E', character_export},
+	{"CharacterGender", 'G', open_dialog},
 	{"CharacterLoad", 'L', character_load},
+	{"CharacterName", 'N', open_dialog},
 	{"CharacterSave", 'S', character_save},
 	{"Form"}, // Form control flow 
-	{"Gender", 'G', open_dialog},
-	{"Name", 'N', open_dialog},
 	{"Next", KeyEnter, buttonok},
 	{"Options", 'O', open_dialog},
 	{"SubStat", '-', sub_stat},

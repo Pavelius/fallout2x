@@ -86,7 +86,9 @@ static void background() {
 	auto p = gres(res::INTRFACE);
 	if(!p)
 		return;
-	image(0, 0, p, p->ganim(control::last->normal, current_tick), ImageNoOffset);
+	control::offset.x = control::last->x;
+	control::offset.y = control::last->y;
+	image(control::offset.x, control::offset.y, p, p->ganim(control::last->normal, current_tick), ImageNoOffset);
 }
 
 static void background_center() {
@@ -551,6 +553,11 @@ static void edit() {
 	}
 }
 
+static void custom_image() {
+	auto p = gres(res::INTRFACE);
+	image(p, p->ganim(control::last->normal, current_tick), ImageNoOffset);
+}
+
 static void block_information() {
 	auto object = getfocus();
 	if(!object)
@@ -588,8 +595,8 @@ BSDATA(widget) = {
 	{"ButtonDF", button_def},
 	{"ButtonNT", button_no_text},
 	{"Edit", edit},
-	{"Event", custom_event},
 	{"Information", block_information},
+	{"Image", custom_image},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},

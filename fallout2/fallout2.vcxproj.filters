@@ -286,5 +286,17 @@
     <Text Include="..\forms\CharacterExport.txt">
       <Filter>forms</Filter>
     </Text>
+    <Text Include="..\forms\CharacterDelete.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterName.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterAge.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterGender.txt">
+      <Filter>forms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

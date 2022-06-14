@@ -1,2 +1,2 @@
-﻿In file `rules/Prototype.txt`:
- Line 6: Not found requisit `perks`
+﻿In file `Names.txt`:
+ Define translate for `CharacterGender`

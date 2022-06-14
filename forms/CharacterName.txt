@@ -1,0 +1,6 @@
+#Control
+
+Background 13 1 normal(208)
+Image 14 10 normal(214)
+Image 15 42 normal(209)
+Button 25 45 size(90) command(Next)

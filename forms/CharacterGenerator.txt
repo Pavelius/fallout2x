@@ -2,9 +2,9 @@
 
 Background 0 0 normal(169)
 
-ButtonDF 13 0 size(138) normal(185) pressed(184) command(Name) format(Name)
-ButtonDF 154 0 size(80) normal(188) pressed(189) command(Age) format(Age) data(Age)
-ButtonDF 235 0 size(80) normal(188) pressed(189) command(Gender) format(Gender)
+ButtonDF 13 0 size(138) normal(185) pressed(184) command(CharacterName) format(Name)
+ButtonDF 154 0 size(80) normal(188) pressed(189) command(CharacterAge) format(Age) data(Age)
+ButtonDF 235 0 size(80) normal(188) pressed(189) command(CharacterGender) format(Gender)
 
 Text 383 5 size(220) text(Skills)
 Text 50 326 size(238) text(Traits)

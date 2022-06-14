@@ -15,7 +15,9 @@ Cancel: Назад
 CarryWeight: Макс. груз
 CharacterDelete: Удалить
 CharacterExport: Экспорт
+CharacterGender: Пол
 CharacterLoad: Загрузить
+CharacterName: Имя
 CharacterSave: Записать
 Charisma: Обаяние
 ChemReliant: Наркозаисимый
