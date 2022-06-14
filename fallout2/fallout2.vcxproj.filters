@@ -142,6 +142,9 @@
     <ClCompile Include="adventure.cpp">
       <Filter>draw</Filter>
     </ClCompile>
+    <ClCompile Include="drawable.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

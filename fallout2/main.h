@@ -96,6 +96,8 @@ struct drawable {
 	point				position;
 	void*				data;
 	unsigned short		frame, frame_stop;
+	unsigned			flags;
+	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				paint() const;
 };
 namespace draw {

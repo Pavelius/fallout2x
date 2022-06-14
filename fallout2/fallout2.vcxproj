@@ -158,6 +158,7 @@
     <ClCompile Include="datasource.cpp" />
     <ClCompile Include="dialog.cpp" />
     <ClCompile Include="draw.cpp" />
+    <ClCompile Include="drawable.cpp" />
     <ClCompile Include="draw_text.cpp" />
     <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
