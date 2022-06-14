@@ -157,6 +157,7 @@
     <ClCompile Include="dialog.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="draw_text.cpp" />
+    <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="gender.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
+    <ClCompile Include="stringcopy.cpp" />
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="control.cpp" />
@@ -194,6 +196,7 @@
     <ClInclude Include="crt.h" />
     <ClInclude Include="dialog.h" />
     <ClInclude Include="draw.h" />
+    <ClInclude Include="filelist.h" />
     <ClInclude Include="flagable.h" />
     <ClInclude Include="focus.h" />
     <ClInclude Include="function.h" />
@@ -208,6 +211,8 @@
     <ClInclude Include="screenshoot.h" />
     <ClInclude Include="script.h" />
     <ClInclude Include="stringbuilder.h" />
+    <ClInclude Include="stringcopy.h" />
+    <ClInclude Include="stringlist.h" />
     <ClInclude Include="variant.h" />
     <ClInclude Include="widget.h" />
     <ClInclude Include="win.h" />

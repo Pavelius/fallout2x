@@ -124,6 +124,12 @@
     <ClCompile Include="screenshoot.cpp">
       <Filter>draw</Filter>
     </ClCompile>
+    <ClCompile Include="stringcopy.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="filelist.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -226,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="screenshoot.h">
       <Filter>draw</Filter>
+    </ClInclude>
+    <ClInclude Include="stringlist.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="stringcopy.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="filelist.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

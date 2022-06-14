@@ -20,6 +20,8 @@ struct control : point {
 		bool			checked, disabled;
 		unsigned		key;
 		unsigned		flags;
+		fnstatus		pgetname;
+		array			source;
 		void			clear() { memset(this, 0, sizeof(*this)); }
 	};
 	const widget*		type;

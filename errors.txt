@@ -1,5 +1,2 @@
-﻿In file `Names.txt`:
- Define translate for `Delete`
- Define translate for `InFile`
- Define translate for `Load`
- Define translate for `Save`
+﻿In file `forms/CharacterLoad.txt`:
+ Line 4: Not found identifier `List`

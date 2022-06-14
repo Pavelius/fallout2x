@@ -28,6 +28,10 @@ void theme_inititalize() {
 	fore = getcolor(ColorText);
 }
 
+static void hilighting() {
+	fore = fore.mix(color(255, 255, 255), 64);
+}
+
 static void focusing() {
 	auto object = control::last->getobject();
 	if(!object)
@@ -37,7 +41,7 @@ static void focusing() {
 		setfocus(object);
 	auto current = getfocus();
 	if(getfocus() == object)
-		fore = fore.mix(color(255, 255, 255), 64);
+		hilighting();
 	else {
 		if(hot.key == MouseLeft && hot.pressed) {
 			if(ishilite())
@@ -387,6 +391,81 @@ static int getavatarindex(const void* object) {
 	return -1;
 }
 
+static void list_input(int& current, int& origin, int perpage, int perline, int maximum) {
+	if(current >= maximum)
+		current = maximum - 1;
+	if(current < 0)
+		current = 0;
+	if(current < origin)
+		origin = current;
+	if(origin + perpage < current)
+		origin = current - perpage;
+	switch(hot.key) {
+	case KeyUp:
+	case MouseWheelUp:
+		if(current)
+			execute(cbsetint, current - 1, 0, &current);
+		break;
+	case MouseWheelDown:
+	case KeyDown:
+		if(current < maximum - 1)
+			execute(cbsetint, current + 1, 0, &current);
+		break;
+	case KeyHome:
+		if(current)
+			execute(cbsetint, 0, 0, &current);
+		break;
+	case KeyEnd:
+		if(current != maximum - 1)
+			execute(cbsetint, maximum - 1, 0, &current);
+		break;
+	case KeyPageUp:
+		if(current)
+			execute(cbsetint, current - perpage, 0, &current);
+		break;
+	case KeyPageDown:
+		execute(cbsetint, current + perpage, 0, &current);
+		break;
+	}
+}
+
+static void list_paint(int& origin, int& current, int perline) {
+	if(!perline)
+		return;
+	auto perpage = height / perline;
+	if(!perpage)
+		return;
+	int maximum = control::view.source.count;
+	list_input(current, origin, perpage, perline, maximum);
+	if(maximum > origin + perpage + 1)
+		maximum = origin + perpage + 1;
+	auto push_height = height;
+	height = perline;
+	char temp[260]; stringbuilder sb(temp);
+	for(auto i = origin; i < maximum; i++) {
+		auto push_fore = fore;
+		if(i == current)
+			hilighting();
+		if(ishilite() && hot.key == MouseLeft && hot.pressed)
+			execute(cbsetint, i, 0, &current);
+		auto object = control::view.source.ptr(i);
+		if(object && control::view.pgetname) {
+			sb.clear();
+			control::view.pgetname(object, sb);
+			text(temp);
+		}
+		fore = push_fore;
+		caret.y += height;
+	}
+	height = push_height;
+}
+
+static void listview() {
+	static int origin, current;
+	//rectb();
+	list_paint(origin, current, 10);
+}
+
 static void block_information() {
 	auto object = getfocus();
 	if(!object)
@@ -431,6 +510,7 @@ BSDATA(widget) = {
 	{"Label", label_left},
 	{"LabelSM", label_checked},
 	{"LineInfo", line_info},
+	{"List", listview},
 	{"Number", number_standart},
 	{"NumberCustom", number_custom},
 };

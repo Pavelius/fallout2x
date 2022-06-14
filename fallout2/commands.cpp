@@ -1,10 +1,13 @@
 #include "command.h"
 #include "draw.h"
 #include "dialog.h"
+#include "filelist.h"
 #include "main.h"
 
 static char result_text[512];
 static stringbuilder sb(result_text);
+static filelist filelistsource;
+static array any_source;
 
 using namespace draw;
 
@@ -67,6 +70,7 @@ static void character_delete() {
 }
 
 static void character_load() {
+	filelistsource.choose("art", "*.*");
 	dialog::open(control::last->command->id, 1);
 }
 
@@ -160,6 +164,17 @@ static void text_message(const control& e) {
 	//fore = getcolor(ColorButton);
 }
 
+static void filelist_getname(const void* object, stringbuilder& sb) {
+	sb.add(*((const char**)object));
+}
+
+static void file_list(const control& e) {
+	control::view.pgetname = filelist_getname;
+	control::view.source.data = filelistsource.data;
+	control::view.source.count = filelistsource.count;
+	control::view.source.size = sizeof(filelistsource.data[0]);
+}
+
 void draw::messagev(const char* format, const char* format_param, int mode) {
 	sb.clear(); sb.addv(format, format_param);
 	dialog::open("Message", mode);
@@ -168,6 +183,7 @@ void draw::messagev(const char* format, const char* format_param, int mode) {
 BSDATA(decorator) = {
 	{"Age", character_age},
 	{"Name", character_name},
+	{"FileList", file_list},
 	{"Gender", character_gender},
 	{"Grade", character_grade},
 	{"Skill", character_skill},
