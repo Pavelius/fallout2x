@@ -180,6 +180,7 @@
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="serial.cpp" />
+    <ClCompile Include="spriteable.cpp" />
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
     <ClCompile Include="stringcopy.cpp" />

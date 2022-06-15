@@ -100,10 +100,16 @@ struct drawable {
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				paint() const;
 };
+struct spriteable : drawable {
+	res					resource;
+	void				paint() const;
+	void				set(res r, short cicle);
+};
 namespace draw {
 void					messagev(const char* format, const char* format_param);
 inline void				message(const char* format, ...) { messagev(format, xva_start(format)); }
 }
+extern spriteable		cursor;
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();
 extern int				last_value, last_stat;

@@ -43,10 +43,17 @@ static void beforemodal() {
 	update_tick();
 	focus_beforemodal();
 	apply_pallette_cicle((unsigned char*)palt, current_tick);
+	cursor.set(res::INTRFACE, 267);
 }
 
 static void finish() {
 	focus_finish();
+}
+
+static void tips() {
+	cursor.position = hot.mouse;
+	caret = cursor.position;
+	cursor.paint();
 }
 
 int start_application(fnevent proc, fnevent afterread) {
@@ -69,10 +76,11 @@ int start_application(fnevent proc, fnevent afterread) {
 	//answers::beforepaint = answers_beforepaint;
 	//answers::paintcell = menubt;
 	pfinish = finish;
-	//ptips = tips;
+	ptips = tips;
 	metrics::border = 6;
 	metrics::padding = 2;
 	initialize(getnm("AppTitle"));
+	syscursor(false);
 	settimer(40);
 	theme_inititalize();
 	setnext(proc);

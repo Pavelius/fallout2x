@@ -145,6 +145,9 @@
     <ClCompile Include="drawable.cpp">
       <Filter>draw</Filter>
     </ClCompile>
+    <ClCompile Include="spriteable.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

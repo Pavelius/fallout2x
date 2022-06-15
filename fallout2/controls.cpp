@@ -22,6 +22,7 @@ static char edit_buffer[512];
 static int caret_position;
 static int last_list_origin;
 static guii cmd_gui;
+spriteable cursor;
 int last_list_current;
 
 void post_setfocus();

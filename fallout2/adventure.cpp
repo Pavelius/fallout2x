@@ -84,7 +84,7 @@ static void scrollmap(int x, int y, int cicle) {
 		rc.y2 = rc.y1 + s;
 	}
 	if(hot.mouse.in(rc)) {
-		//cursor.set(res::INTRFACE, cicle);
+		cursor.set(res::INTRFACE, cicle);
 		if(hot.key == InputTimer)
 			execute(addpoint, x * dx, y * dy, &camera);
 	}
