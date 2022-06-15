@@ -23,6 +23,41 @@ enum stat_s : unsigned char {
 	PrimaryPoints, SkillTagPoints, SkillPoints, PoisonPoints, RadiationPoints,
 	SmallGuns, BigGuns, EnergyWeapon, Unarmed, MeleeWeapon, Throwing
 };
+enum material_s : unsigned char {
+	Glass, Metal, Plastic, Wood, Dirt, Stone, Cement, Leather
+};
+enum animate_s : unsigned char {
+	AnimateStand, AnimateWalk, AnimatePickup, AnimateUse, AnimateDodge,
+	AnimateDamaged, AnimateDamagedRear,
+	AnimateUnarmed1, AnimateUnarmed2, AnimateThrown, AnimateRun,
+	AnimateKnockOutBack, AnimateKnockOutForward,
+	// Kill animation
+	AnimateKilledSingle, AnimateKilledBurst, AnimateKilledBurstAuto, AnimateKilledBlowup, AnimateKilledMelt,
+	AnimateBloodedBack, AnimateBloodedForward,
+	AnimateStandUpBack, AnimateStandUpForward,
+	// Dead body (1 frame animation)
+	AnimateDeadBackNoBlood, AnimateDeadForwardNoBlood,
+	AnimateDeadSingle, AnimateDeadBurst, AnimateDeadBurstAuto, AnimateDeadBlowup, AnimateDeadMelt,
+	AnimateDeadBack, AnimateDeadForward,
+	// Weapon Block
+	FirstWeaponAnimate,
+	AnimateWeaponTakeOn = FirstWeaponAnimate, AnimateWeaponStand, AnimateWeaponTakeOff, AnimateWeaponWalk, AnimateWeaponDodge,
+	AnimateWeaponThrust, AnimateWeaponSwing,
+	AnimateWeaponAim,
+	AnimateWeaponSingle, AnimateWeaponBurst, AnimateWeaponFlame,
+	AnimateWeaponThrow, AnimateWeaponAimEnd,
+	// Weapon Animate
+	AnimateClub,
+	AnimateHammer = AnimateClub + 13,
+	AnimateSpear = AnimateHammer + 13,
+	AnimatePistol = AnimateSpear + 13,
+	AnimateSMG = AnimatePistol + 13,
+	AnimateRifle = AnimateSMG + 13,
+	AnimateHeavyGun = AnimateRifle + 13,
+	AnimateMachineGun = AnimateHeavyGun + 13,
+	AnimateRocketLauncher = AnimateMachineGun + 13,
+	LastAnimation = AnimateRocketLauncher + 13
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90
@@ -32,6 +67,13 @@ typedef flagable<4>		skilla;
 struct nameable {
 	const char*			id;
 	const char*			getname() const { return getnm(id); }
+};
+struct animationi {
+	const char*			id;
+	animate_s			next, next_dead;
+};
+struct materiali {
+	const char*			id;
 };
 struct list : nameable {
 	variants			elements;
@@ -104,6 +146,15 @@ struct spriteable : drawable {
 	res					resource;
 	void				paint() const;
 	void				set(res r, short cicle);
+};
+struct anminfo {
+	unsigned short		fps, frame_count, frame_act;
+	point				offset[6];
+	point				delta[6];
+	static const anminfo* get(const sprite* p);
+	static const anminfo* get(res rid);
+	static const point	getoffset(const sprite* p, int frame);
+	int					getfps() const { return fps ? fps : 10; }
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);

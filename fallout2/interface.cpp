@@ -51,8 +51,7 @@ static void finish() {
 }
 
 static void tips() {
-	cursor.position = hot.mouse;
-	caret = cursor.position;
+	caret = cursor.position = hot.mouse;
 	cursor.paint();
 }
 

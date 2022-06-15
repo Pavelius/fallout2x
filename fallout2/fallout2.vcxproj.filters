@@ -148,6 +148,18 @@
     <ClCompile Include="spriteable.cpp">
       <Filter>draw</Filter>
     </ClCompile>
+    <ClCompile Include="main_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="surface_serial.cpp">
+      <Filter>draw</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -170,6 +182,9 @@
     </Filter>
     <Filter Include="forms">
       <UniqueIdentifier>{2e60f060-3406-4414-85b8-18c2e12f7d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{143b8b8f-8b64-42f5-bca7-2bd5f4e43733}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -261,6 +276,15 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="datasource.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="main_util.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite_util.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="my_initialize_list.h">
       <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,8 +6,10 @@ int start_application(fnevent proc, fnevent afterread);
 void initialize_script();
 void initialize_dialog();
 void character_generate();
+void main_util();
 
 static void start() {
+	main_util();
 	character::last = character::add("Narg");
 	character_generate();
 }

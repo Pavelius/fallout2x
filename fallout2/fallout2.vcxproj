@@ -172,6 +172,8 @@
     <ClCompile Include="log.cpp" />
     <ClCompile Include="logparse.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_util.cpp" />
+    <ClCompile Include="material.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
@@ -181,9 +183,11 @@
     <ClCompile Include="scripting.cpp" />
     <ClCompile Include="serial.cpp" />
     <ClCompile Include="spriteable.cpp" />
+    <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
     <ClCompile Include="stringcopy.cpp" />
+    <ClCompile Include="surface_serial.cpp" />
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="control.cpp" />
@@ -212,11 +216,14 @@
     <ClInclude Include="log.h" />
     <ClInclude Include="logparse.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="main_util.h" />
+    <ClInclude Include="my_initialize_list.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="resid.h" />
     <ClInclude Include="screenshoot.h" />
     <ClInclude Include="script.h" />
+    <ClInclude Include="sprite_util.h" />
     <ClInclude Include="stringbuilder.h" />
     <ClInclude Include="stringcopy.h" />
     <ClInclude Include="stringlist.h" />

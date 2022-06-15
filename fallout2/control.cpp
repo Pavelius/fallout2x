@@ -10,7 +10,6 @@ fncontrol control::pbefore;
 point guii::offset;
 
 void control::paint() const {
-	rectpush push;
 	auto push_fore = fore;
 	caret.x = x + gui.offset.x;
 	caret.y = y + gui.offset.y;

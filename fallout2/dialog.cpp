@@ -32,6 +32,7 @@ bool dialog::isfullscreen() const {
 int dialog::open() const {
 	if(!controls)
 		return 0;
+	rectpush push;
 	auto push_last = last;
 	auto push_screen = screen;
 	auto push_offset = gui.offset;
