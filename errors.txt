@@ -1,2 +1,3 @@
-﻿In file `Names.txt`:
- Define translate for `Adventure`
+﻿In file `forms/CharacterGenerator.txt`:
+ Line 13: Not found identifier `NumberCustom`
+ Line 14: Not found identifier `NumberCustom`

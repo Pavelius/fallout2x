@@ -4,6 +4,7 @@
 
 int start_application(fnevent proc, fnevent afterread);
 void initialize_script();
+void initialize_dialog();
 void character_generate();
 
 static void start() {
@@ -13,6 +14,7 @@ static void start() {
 
 static void initialize() {
 	initialize_script();
+	initialize_dialog();
 	bsreq::read("rules/Perks.txt");
 	bsreq::read("rules/Prototype.txt");
 	character::initialize();

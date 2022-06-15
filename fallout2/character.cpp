@@ -83,7 +83,7 @@ character* character::add(const char* id) {
 bool character::open(const char* id) {
 	auto push_last = last;
 	last = this;
-	auto result = dialog::open(id, 0);
+	auto result = dialog::open(id);
 	last = push_last;
 	return result != 0;
 }

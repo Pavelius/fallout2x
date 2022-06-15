@@ -26,7 +26,7 @@ BSMETA(control) = {
 	BSREQ(type), BSREQ(x), BSREQ(y),
 	BSREQ(size), BSREQ(data),
 	BSREQ(text), BSREQ(command), BSREQ(format),
-	BSREQ(normal), BSREQ(disabled), BSREQ(pressed),
+	BSREQ(normal), BSREQ(pressed),
 	{}};
 BSMETA(decorator) = {
 	BSREQ(id),

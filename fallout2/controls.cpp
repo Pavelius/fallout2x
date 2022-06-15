@@ -21,7 +21,7 @@ static rect last_rect;
 static char edit_buffer[512];
 static int caret_position;
 static int last_list_origin;
-static control::viewi cmd_view;
+static control::guii cmd_gui;
 int last_list_current;
 
 void post_setfocus();
@@ -45,41 +45,38 @@ static void hilighting() {
 }
 
 static void focusing() {
-	auto object = control::last->getobject();
-	if(!object)
+	if(!gui.object)
 		return;
-	addfocus(object);
+	addfocus(gui.object);
 	if(!getfocus())
-		setfocus(object);
+		setfocus(gui.object);
 	auto current = getfocus();
-	if(getfocus() == object)
+	if(getfocus() == gui.object)
 		hilighting();
 	else {
 		if(hot.key == MouseLeft && hot.pressed) {
 			if(ishilite())
-				execute(post_setfocus, 0, 0, object);
+				execute(post_setfocus, 0, 0, gui.object);
 		}
 	}
 }
 
 static void execute_standart_command() {
 	auto push_last = control::last;
-	auto push_view = control::view;
-	control::view = cmd_view;
+	auto push_view = gui; gui = cmd_gui;
 	control::last = (control*)hot.object;
 	if(hot.param == 1) {
-		auto object = control::last->getobject();
-		if(object)
-			setfocus(object);
+		if(gui.object)
+			setfocus(gui.object);
 	}
 	if(control::last->command)
 		control::last->command->pexecute();
-	control::view = cmd_view;
+	gui = push_view;
 	control::last = push_last;
 }
 
 static void execute_standart(int param = 0) {
-	cmd_view = control::view;
+	cmd_gui = gui;
 	execute(execute_standart_command, param, 0, control::last);
 }
 
@@ -108,7 +105,7 @@ static void background_center() {
 }
 
 static void label() {
-	text(control::view.title);
+	text(gui.title);
 }
 
 static bool checkpressed(bool& run, unsigned key, bool execute_by_press = false, bool disabled = false) {
@@ -138,8 +135,8 @@ static bool checkpressed(bool& run, unsigned key, bool execute_by_press = false,
 static void center_text() {
 	char temp[260]; stringbuilder sb(temp);
 	auto push_caret = caret;
-	caret.x += (width - textw(control::view.title)) / 2;
-	draw::text(control::view.title);
+	caret.x += (width - textw(gui.title)) / 2;
+	draw::text(gui.title);
 	caret = push_caret;
 }
 
@@ -148,7 +145,7 @@ static void text_font3() {
 	auto push_fore = fore;
 	font = gres(res::FONT3);
 	setcolor(ColorButton);
-	text(control::view.title);
+	text(gui.title);
 	fore = push_fore;
 	font = push_font;
 }
@@ -186,11 +183,11 @@ static void label_left() {
 	auto push_fore = fore;
 	auto push_height = height;
 	height = texth();
-	if(control::view.checked)
+	if(gui.checked)
 		fore = getcolor(ColorCheck);
 	focusing();
 	label();
-	label_right(control::view.value);
+	label_right(gui.value);
 	//rectb();
 	height = push_height;
 	fore = push_fore;
@@ -214,35 +211,35 @@ static bool buttonf(int cicles_normal, int cicle_pressed, unsigned key, bool che
 }
 
 static void text_block() {
-	texta(control::view.title, control::view.flags);
+	texta(gui.title, gui.flags);
 	//rectb();
 }
 
 static void text_info() {
 	auto push_fore = fore;
 	fore = getcolor(ColorInfo);
-	texta(control::view.title, 0);
+	texta(gui.title, 0);
 	fore = push_fore;
 }
 
 static void text_button(bool rp) {
 	char temp[260]; stringbuilder sb(temp);
 	auto push_caret = caret;
-	caret.x += (width - textw(control::view.title)) / 2 + (rp ? 1 : 0);
+	caret.x += (width - textw(gui.title)) / 2 + (rp ? 1 : 0);
 	caret.y += 7;
 	label();
 	caret = push_caret;
 }
 
 static bool focused() {
-	return control::last->getobject() == getfocus();
+	return gui.object == getfocus();
 }
 
 static void button_no_text() {
 	unsigned key = 0;
 	if(focused())
-		key = control::view.key;
-	if(buttonf(control::last->normal, control::last->pressed, key, control::view.checked, false, 0, control::view.disabled))
+		key = gui.key;
+	if(buttonf(control::last->normal, control::last->pressed, key, gui.checked, false, 0, gui.disabled))
 		execute_standart(1);
 }
 
@@ -250,7 +247,7 @@ static void button_def() {
 	auto old_font = font;
 	auto old_fore = fore;
 	auto rp = false;
-	auto r = buttonf(control::last->normal, control::last->pressed, control::view.key, false, false, &rp, false);
+	auto r = buttonf(control::last->normal, control::last->pressed, gui.key, false, false, &rp, false);
 	font = gres(res::FONT3);
 	setcolor(ColorButton);
 	text_button(rp);
@@ -272,13 +269,13 @@ static void button_radio() {
 	int w1 = width - sx;
 	setcolor(ColorButton);
 	auto push_caret = draw::caret;
-	caret.x += sx + (w1 - draw::textw(control::view.title)) / 2;
-	text(control::view.title);
+	caret.x += sx + (w1 - draw::textw(gui.title)) / 2;
+	text(gui.title);
 	caret = push_caret;
 	last_rect = {caret.x, caret.y, caret.x + width, caret.y + sy};
 	auto a = ishilite(last_rect);
 	auto result = false;
-	if(checkpressed(result, control::view.key))
+	if(checkpressed(result, gui.key))
 		frame++;
 	image(caret.x, caret.y + 1, ps, frame, ImageNoOffset);
 	font = push_font;
@@ -387,11 +384,7 @@ static void numberap(int digits, int value) {
 }
 
 static void number_standart() {
-	number(2, control::view.get());
-}
-
-static void number_custom() {
-	number(2, control::view.number);
+	number(2, gui.number);
 }
 
 static void line_info() {
@@ -453,7 +446,7 @@ static void list_paint(int& origin, int& current, int perline) {
 	auto perpage = height / perline;
 	if(!perpage)
 		return;
-	int maximum = control::view.source.count;
+	int maximum = gui.count;
 	list_input(current, origin, perpage, perline, maximum);
 	if(maximum > origin + perpage + 1)
 		maximum = origin + perpage + 1;
@@ -466,10 +459,10 @@ static void list_paint(int& origin, int& current, int perline) {
 			hilighting();
 		if(ishilite() && hot.key == MouseLeft && hot.pressed)
 			execute(cbsetint, i, 0, &current);
-		auto object = control::view.source.ptr(i);
-		if(object && control::view.pgetname) {
+		auto object = gui.ptr(i);
+		if(object && gui.pgetname) {
 			sb.clear();
-			control::view.pgetname(object, sb);
+			gui.pgetname(object, sb);
 			text(temp);
 		}
 		fore = push_fore;
@@ -591,7 +584,7 @@ static void block_information() {
 }
 
 static void hotkey() {
-	if(control::view.key == hot.key)
+	if(gui.key == hot.key)
 		execute_standart();
 }
 
@@ -617,6 +610,5 @@ BSDATA(widget) = {
 	{"LineInfo", line_info},
 	{"List", listview},
 	{"Number", number_standart},
-	{"NumberCustom", number_custom},
 };
 BSDATAF(widget)

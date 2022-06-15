@@ -61,15 +61,15 @@ static void sub_stat() {
 }
 
 static void add_number() {
-	auto i = control::view.get();
-	if(i<100)
-		control::view.set(i + 1);
+	auto i = gui.get();
+	if(i < 100)
+		gui.set(i + 1);
 }
 
 static void sub_number() {
-	auto i = control::view.get();
+	auto i = gui.get();
 	if(i > 1)
-		control::view.set(i - 1);
+		gui.set(i - 1);
 }
 
 static void open_dialog() {
@@ -111,19 +111,8 @@ static void character_export() {
 	draw::buttonok();
 }
 
-static void character_object() {
-	auto pc = control::last;
-	auto pd = character::last;
-	if(pc->data.iskind<stati>())
-		pc->view.link(pd->stats[pc->data.value]);
-	else if(pc->data.iskind<perki>()) {
-		auto v = pc->data.value;
-		pc->view.link(pd->perks.getbyte(v), pd->perks.getmask(v));
-	}
-}
-
 void character_generate() {
-	dialog::open("CharacterGenerator", character_object);
+	dialog::open("CharacterGenerator");
 }
 
 BSDATA(command) = {
@@ -153,33 +142,33 @@ static const char* character_name() {
 }
 
 static void character_gender(const control& e) {
-	control::view.title = "Ìóæ";
+	gui.title = "Ìóæ";
 }
 
 static void character_age(const control& e) {
 	auto v = character::last->stats[e.data.value];
 	sb.clear(); sb.add("%1i %-Years", v);
-	control::view.title = sb.begin();
+	gui.title = sb.begin();
 }
 
 static void character_trait(const control& e) {
-	control::view.checked = character::last->perks.is(e.getvalue());
+	gui.checked = gui.number;
 }
 
 static void character_skill(const control& e) {
-	control::view.checked = character::last->istagged(e.getvalue());
+	gui.checked = character::last->istagged(e.getvalue());
 	sb.clear(); sb.add("%1i%%", character::last->stats[e.data.value]);
-	control::view.value = sb.begin();
+	gui.value = sb.begin();
 }
 
 static void character_stat(const control& e) {
 	sb.clear(); sb.add("%1i", character::last->stats[e.data.value]);
-	control::view.value = sb.begin();
+	gui.value = sb.begin();
 }
 
 static void character_stat_percent(const control& e) {
 	sb.clear(); sb.add("%1i%%", character::last->stats[e.data.value]);
-	control::view.value = sb.begin();
+	gui.value = sb.begin();
 }
 
 static void character_stat_leveled(const control& e) {
@@ -187,7 +176,7 @@ static void character_stat_leveled(const control& e) {
 }
 
 static void character_name(const control& e) {
-	control::view.title = getnm(character::last->id);
+	gui.title = getnm(character::last->id);
 }
 
 static void character_grade(const control& e) {
@@ -198,20 +187,20 @@ static void character_grade(const control& e) {
 		value = 0;
 	else if(value > bsdata<gradei>::source.getcount())
 		value = bsdata<gradei>::source.getcount() - 1;
-	control::view.title = getnmsh(bsdata<gradei>::elements[value].id);
+	gui.title = getnmsh(bsdata<gradei>::elements[value].id);
 }
 
 static void character_primary_total(const control& e) {
-	control::view.number = character::last->basic.getplayerstats();
+	gui.number = character::last->basic.getplayerstats();
 }
 
 static void character_tagged_total(const control& e) {
-	control::view.number = character::last->get(SkillTagPoints) - character::last->gettaggedskills();
+	gui.number = character::last->get(SkillTagPoints) - character::last->gettaggedskills();
 }
 
 static void text_message(const control& e) {
-	control::view.title = result_text;
-	control::view.flags = AlignCenterCenter;
+	gui.title = result_text;
+	gui.flags = AlignCenterCenter;
 }
 
 static void filelist_getname(const void* object, stringbuilder& sb) {
@@ -220,10 +209,10 @@ static void filelist_getname(const void* object, stringbuilder& sb) {
 
 static void file_list(const control& e) {
 	static int auto_complete;
-	control::view.pgetname = filelist_getname;
-	control::view.source.data = filelistsource.data;
-	control::view.source.count = filelistsource.count;
-	control::view.source.size = sizeof(filelistsource.data[0]);
+	gui.pgetname = filelist_getname;
+	gui.data = filelistsource.data;
+	gui.size = sizeof(filelistsource.data[0]);
+	gui.count = filelistsource.count;
 	if(last_list_current == -1 || last_list_current != auto_complete) {
 		auto_complete = last_list_current;
 		if(last_list_current != -1) {
@@ -236,6 +225,25 @@ static void file_list(const control& e) {
 void draw::messagev(const char* format, const char* format_param) {
 	sb.clear(); sb.addv(format, format_param);
 	dialog::open("Message");
+}
+
+static void pbefore(const control& e) {
+	auto pd = character::last;
+	auto& ei = e.data.geti();
+	if(ei.source)
+		gui.object = ei.source->ptr(e.data.value);
+	if(e.data.iskind<stati>()) {
+		gui.link(pd->stats[e.data.value]);
+		gui.number = pd->stats[e.data.value];
+	} else if(e.data.iskind<perki>()) {
+		auto v = e.data.value;
+		gui.link(pd->perks.getbyte(v), pd->perks.getmask(v));
+		gui.number = pd->perks.is(v) ? 1 : 0;
+	}
+}
+
+void initialize_dialog() {
+	control::pbefore = pbefore;
 }
 
 BSDATA(decorator) = {

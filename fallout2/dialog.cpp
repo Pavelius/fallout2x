@@ -28,14 +28,12 @@ bool dialog::isfullscreen() const {
 	return (p->x == 0) && (p->y == 0);
 }
 
-int dialog::open(fnevent pbefore) const {
+int dialog::open() const {
 	if(!controls)
 		return 0;
 	auto push_last = last;
 	auto push_screen = screen;
 	auto push_offset = control::offset;
-	auto push_pbefore = control::pbefore;
-	control::pbefore = pbefore;
 	control::offset.clear();
 	last = this;
 	if(isfullscreen()) {
@@ -46,18 +44,17 @@ int dialog::open(fnevent pbefore) const {
 		screen = &push;
 		draw::scene(paint_dialog);
 	}
-	control::pbefore = push_pbefore;
 	control::offset = push_offset;
 	last = push_last;
 	screen = push_screen;
 	return getresult();
 }
 
-int dialog::open(const char* id, fnevent pbefore) {
+int dialog::open(const char* id) {
 	auto p = bsdata<dialog>::find(id);
 	if(!p)
 		return 0;
-	return p->open(pbefore);
+	return p->open();
 }
 
 static const char* getformfile(stringbuilder& sb, const char* id) {
