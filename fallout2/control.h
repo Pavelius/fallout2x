@@ -9,22 +9,27 @@
 
 struct control;
 typedef void(*fncontrol)(const control& e);
+struct guii : datasource {
+	const char*			id;
+	const char*			title;
+	const char*			value;
+	void*				object;
+	int					number;
+	bool				checked, disabled;
+	short				normal, pressed;
+	unsigned			key;
+	unsigned			flags;
+	fnstatus			pgetname;
+	fnevent				execute;
+	static point		offset;
+	void				clear() { memset(this, 0, sizeof(*this)); }
+};
+extern guii gui;
 struct decorator {
 	const char*			id;
 	fncontrol			proc;
 };
 struct control : point {
-	struct guii : datasource {
-		const char*		title;
-		const char*		value;
-		void*			object;
-		int				number;
-		bool			checked, disabled;
-		unsigned		key;
-		unsigned		flags;
-		fnstatus		pgetname;
-		void			clear() { memset(this, 0, sizeof(*this)); }
-	};
 	const widget*		type;
 	variant				data;
 	point				size;
@@ -33,9 +38,5 @@ struct control : point {
 	const decorator*	format;
 	const command*		command;
 	static fncontrol	pbefore;
-	static point		offset;
-	static const control* last;
-	int					getvalue() const;
 	void				paint() const;
 };
-extern control::guii gui;

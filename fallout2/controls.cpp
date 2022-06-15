@@ -21,7 +21,7 @@ static rect last_rect;
 static char edit_buffer[512];
 static int caret_position;
 static int last_list_origin;
-static control::guii cmd_gui;
+static guii cmd_gui;
 int last_list_current;
 
 void post_setfocus();
@@ -62,22 +62,24 @@ static void focusing() {
 }
 
 static void execute_standart_command() {
-	auto push_last = control::last;
+	//auto push_last = control::last;
 	auto push_view = gui; gui = cmd_gui;
-	control::last = (control*)hot.object;
+	//control::last = (control*)hot.object;
 	if(hot.param == 1) {
 		if(gui.object)
 			setfocus(gui.object);
 	}
-	if(control::last->command)
-		control::last->command->pexecute();
+	if(gui.execute)
+		gui.execute();
+	//if(control::last->command)
+	//	control::last->command->pexecute();
 	gui = push_view;
-	control::last = push_last;
+	//control::last = push_last;
 }
 
 static void execute_standart(int param = 0) {
 	cmd_gui = gui;
-	execute(execute_standart_command, param, 0, control::last);
+	execute(execute_standart_command, param, 0, 0);
 }
 
 static void setcolor(int value) {
@@ -88,20 +90,19 @@ static void background() {
 	auto p = gres(res::INTRFACE);
 	if(!p)
 		return;
-	control::offset.x = control::last->x;
-	control::offset.y = control::last->y;
-	image(control::offset.x, control::offset.y, p, p->ganim(control::last->normal, current_tick), ImageNoOffset);
+	gui.offset = caret;
+	image(gui.offset.x, gui.offset.y, p, p->ganim(gui.normal, current_tick), ImageNoOffset);
 }
 
 static void background_center() {
 	auto p = gres(res::INTRFACE);
 	if(!p)
 		return;
-	auto frame = p->ganim(control::last->normal, current_tick);
+	auto frame = p->ganim(gui.normal, current_tick);
 	auto& f = p->get(frame);
-	control::offset.x = (getwidth() - f.sx) / 2 + control::last->x;
-	control::offset.y = (getheight() - f.sy) / 2 + control::last->y;
-	image(control::offset.x, control::offset.y, p, frame, ImageNoOffset);
+	gui.offset.x = (getwidth() - f.sx) / 2 + caret.x;
+	gui.offset.y = (getheight() - f.sy) / 2 + caret.y;
+	image(gui.offset.x, gui.offset.y, p, frame, ImageNoOffset);
 }
 
 static void label() {
@@ -239,7 +240,7 @@ static void button_no_text() {
 	unsigned key = 0;
 	if(focused())
 		key = gui.key;
-	if(buttonf(control::last->normal, control::last->pressed, key, gui.checked, false, 0, gui.disabled))
+	if(buttonf(gui.normal, gui.pressed, key, gui.checked, false, 0, gui.disabled))
 		execute_standart(1);
 }
 
@@ -247,7 +248,7 @@ static void button_def() {
 	auto old_font = font;
 	auto old_fore = fore;
 	auto rp = false;
-	auto r = buttonf(control::last->normal, control::last->pressed, gui.key, false, false, &rp, false);
+	auto r = buttonf(gui.normal, gui.pressed, gui.key, false, false, &rp, false);
 	font = gres(res::FONT3);
 	setcolor(ColorButton);
 	text_button(rp);
@@ -550,7 +551,7 @@ static void edit() {
 
 static void custom_image() {
 	auto p = gres(res::INTRFACE);
-	image(p, p->ganim(control::last->normal, current_tick), ImageNoOffset);
+	image(p, p->ganim(gui.normal, current_tick), ImageNoOffset);
 }
 
 static void block_information() {

@@ -15,21 +15,22 @@ void setedit(const char* format, ...);
 using namespace draw;
 
 static void add_stat() {
-	auto id = control::last->getvalue();
 	if(character::last->basic.getplayerstats() > 0) {
-		character::last->basic.stats[id]++;
+		gui.set(gui.get() + 1);
 		character::last->update();
 	}
 }
 
 static void add_trait() {
-	auto id = control::last->getvalue();
-	if(character::last->perks.is(id))
+	auto id = (perki*)gui.object - bsdata<perki>::elements;
+	if(gui.number)
+		//gui.set((gui.get() & (~gui.mask)));
 		character::last->perks.remove(id);
 	else {
 		auto maximum = 2;
 		auto total = character::last->getperkstotal();
 		if(total < maximum)
+			//gui.set((gui.get() | gui.mask));
 			character::last->perks.set(id);
 		else
 			draw::message(getnm("ErrorTraitLimit"));
@@ -38,7 +39,7 @@ static void add_trait() {
 }
 
 static void add_tag() {
-	auto id = control::last->getvalue();
+	auto id = (stat_s)((stati*)gui.object - bsdata<stati>::elements);
 	if(character::last->istagged(id))
 		character::last->settag(id, 0);
 	else {
@@ -53,7 +54,7 @@ static void add_tag() {
 }
 
 static void sub_stat() {
-	auto id = control::last->getvalue();
+	auto id = (stat_s)((stati*)gui.object - bsdata<stati>::elements);
 	if(character::last->basic.stats[id] > 1) {
 		character::last->basic.stats[id]--;
 		character::last->update();
@@ -73,13 +74,13 @@ static void sub_number() {
 }
 
 static void open_dialog() {
-	dialog::open(control::last->command->id);
+	dialog::open(gui.id);
 }
 
 static void character_delete() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(control::last->command->id))
+	if(!dialog::open(gui.id))
 		return;
 	//if(message(getnm("ReallyWantDelete"), getedit()))
 }
@@ -87,7 +88,7 @@ static void character_delete() {
 static void character_load() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(control::last->command->id))
+	if(!dialog::open(gui.id))
 		return;
 	character::last->read(getedit());
 	draw::buttonok();
@@ -96,7 +97,7 @@ static void character_load() {
 static void character_save() {
 	last_list_current = -1;
 	filelistsource.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(control::last->command->id))
+	if(!dialog::open(gui.id))
 		return;
 	character::last->write(getedit());
 	draw::buttonok();
@@ -105,7 +106,7 @@ static void character_save() {
 static void character_export() {
 	last_list_current = -1;
 	filelistsource.choose("characters/export", "*.txt", true);
-	if(!dialog::open(control::last->command->id))
+	if(!dialog::open(gui.id))
 		return;
 	character::last->exporting(getedit());
 	draw::buttonok();
@@ -156,18 +157,19 @@ static void character_trait(const control& e) {
 }
 
 static void character_skill(const control& e) {
-	gui.checked = character::last->istagged(e.getvalue());
-	sb.clear(); sb.add("%1i%%", character::last->stats[e.data.value]);
+	auto id = e.data.value;
+	gui.checked = character::last->istagged(id);
+	sb.clear(); sb.add("%1i%%", gui.get());
 	gui.value = sb.begin();
 }
 
 static void character_stat(const control& e) {
-	sb.clear(); sb.add("%1i", character::last->stats[e.data.value]);
+	sb.clear(); sb.add("%1i", gui.get());
 	gui.value = sb.begin();
 }
 
 static void character_stat_percent(const control& e) {
-	sb.clear(); sb.add("%1i%%", character::last->stats[e.data.value]);
+	sb.clear(); sb.add("%1i%%", gui.get());
 	gui.value = sb.begin();
 }
 
@@ -180,9 +182,7 @@ static void character_name(const control& e) {
 }
 
 static void character_grade(const control& e) {
-	auto p = character::last;
-	auto id = e.getvalue();
-	size_t value = p->stats[id];
+	size_t value = gui.get();
 	if(value < 0)
 		value = 0;
 	else if(value > bsdata<gradei>::source.getcount())

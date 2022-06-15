@@ -5,40 +5,40 @@
 
 using namespace draw;
 
-control::guii gui;
+guii gui;
 fncontrol control::pbefore;
-const control* control::last;
-point control::offset;
+point guii::offset;
 
 void control::paint() const {
 	rectpush push;
 	auto push_fore = fore;
-	auto push_last = last;
-	caret.x = x + offset.x;
-	caret.y = y + offset.y;
+	caret.x = x + gui.offset.x;
+	caret.y = y + gui.offset.y;
 	width = size.x;
 	height = size.y;
 	gui.clear();
-	last = this;
+	gui.normal = normal;
+	gui.pressed = pressed;
 	if(text)
 		gui.title = getnm(text);
-	else if(data.type && data.geti().isnamed())
+	else if(data.type && data.geti().isnamed()) {
+		gui.id = data.getid();
 		gui.title = data.getname();
-	else if(command)
-		gui.title = getnm(command->id);
-	else
+	} else if(command) {
+		gui.id = command->id;
+		gui.title = getnm(gui.id);
+	} else {
+		gui.id = type->id;
 		gui.title = type->id;
-	if(command)
+	}
+	if(command) {
 		gui.key = command->hotkey;
+		gui.execute = command->pexecute;
+	}
 	if(pbefore)
 		pbefore(*this);
 	if(format)
 		format->proc(*this);
 	type->paint();
-	last = push_last;
 	fore = push_fore;
-}
-
-int control::getvalue() const {
-	return data.value;
 }

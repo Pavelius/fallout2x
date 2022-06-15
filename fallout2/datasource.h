@@ -7,6 +7,7 @@ struct datasource {
 	unsigned		count;
 	long			get() const;
 	const char*		getstr() const;
+	bool			is() const { return (get() & mask) != 0; }
 	template<typename T> void link(T& v) { data = (void*)&v; size = sizeof(T); mask = 0; }
 	template<typename T> void link(T& v, unsigned m) { data = (void*)&v; size = sizeof(T); mask = m; }
 	char*			ptr(int i) const { return (char*)data + size * i; }
