@@ -7,11 +7,13 @@ void initialize_script();
 void initialize_dialog();
 void character_generate();
 void main_util();
+void choose_scenery();
 
 static void start() {
 	main_util();
 	character::last = character::add("Narg");
-	character_generate();
+	choose_scenery();
+	//character_generate();
 }
 
 static void initialize() {

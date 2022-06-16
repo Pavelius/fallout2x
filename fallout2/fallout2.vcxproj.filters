@@ -160,6 +160,15 @@
     <ClCompile Include="material.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="editor_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="msg_pro_scen_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="pro_scenery_util.cpp">
+      <Filter>util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

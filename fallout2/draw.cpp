@@ -46,7 +46,6 @@ sprite*				metrics::h2 = (sprite*)loadb("art/font3.pma");
 sprite*				metrics::h3 = (sprite*)loadb("art/font4.pma");
 int					metrics::padding = 2, metrics::border = 4;
 //
-static bool			use_kering = true;
 static bool			break_modal;
 static long			break_result;
 static fnevent		next_proc;
@@ -1444,35 +1443,16 @@ int draw::textw(const char* string, int count) {
 	if(!font)
 		return 0;
 	int x1 = 0;
-	auto pk = font->getheader("KRN");
-	if(!use_kering)
-		pk = 0;
 	unsigned char s0 = 0x0;
 	if(count == -1) {
 		const char *s1 = string;
-		if(pk) {
-			while(*s1) {
-				unsigned char sr = *((unsigned char*)s1);
-				x1 += textw(szget(&s1));
-				s0 = sr;
-			}
-		} else {
-			while(*s1)
-				x1 += textw(szget(&s1));
-		}
+		while(*s1)
+			x1 += textw(szget(&s1));
 	} else {
 		const char *s1 = string;
 		const char *s2 = string + count;
-		if(pk) {
-			while(s1 < s2) {
-				unsigned char sr = *((unsigned char*)s1);
-				x1 += textw(szget(&s1));
-				s0 = sr;
-			}
-		} else {
-			while(s1 < s2)
-				x1 += textw(szget(&s1));
-		}
+		while(s1 < s2)
+			x1 += textw(szget(&s1));
 	}
 	return x1;
 }
@@ -1986,7 +1966,7 @@ void draw::imager(int xm, int ym, const sprite* e, int id, int r) {
 }
 
 void surface::blend(const surface& source, int alpha) {
-	if(bpp!=32 && bpp != source.bpp || height != source.height || width != source.width)
+	if(bpp != 32 && bpp != source.bpp || height != source.height || width != source.width)
 		return;
 	cpy32a(ptr(0, 0), scanline,
 		const_cast<surface&>(source).ptr(0, 0), source.scanline,
@@ -2258,10 +2238,6 @@ static void standart_domodal() {
 	if(draw::ptips)
 		draw::ptips();
 	draw::hot.key = draw::rawinput();
-#ifdef _DEBUG
-	if(hot.key == (Ctrl + 'K'))
-		use_kering = !use_kering;
-#endif
 	if(!draw::hot.key)
 		exit(0);
 }

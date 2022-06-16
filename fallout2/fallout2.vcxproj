@@ -160,6 +160,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="draw_text.cpp" />
+    <ClCompile Include="editor_util.cpp" />
     <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
     <ClCompile Include="function.cpp" />
@@ -175,8 +176,12 @@
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="material.cpp" />
     <ClCompile Include="metadata.cpp" />
+    <ClCompile Include="msg_pro_scen_util.cpp">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</DeploymentContent>
+    </ClCompile>
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="pro_scenery_util.cpp" />
     <ClCompile Include="resid.cpp" />
     <ClCompile Include="screenshoot.cpp" />
     <ClCompile Include="script.cpp" />
