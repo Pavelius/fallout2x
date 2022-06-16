@@ -1043,7 +1043,6 @@ void draw::rectb3d() {
 }
 
 void draw::rectf() {
-	rectpush push;
 	int x1 = caret.x, y1 = caret.y, x2 = caret.x + width, y2 = caret.y + height;
 	if(correct(x1, y1, x2, y2, clipping))
 		set32x(ptr(x1, y1), canvas->scanline, x2 - x1, y2 - y1);

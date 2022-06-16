@@ -321,6 +321,14 @@ void array::setup(size_t size) {
 	this->size = size;
 }
 
+void* reserve_alloc(void* data, size_t count, size_t size, size_t& count_maximum) {
+	count_maximum = rmoptimal(count);
+	if(data)
+		return realloc(data, count_maximum * size);
+	else
+		return malloc(count_maximum * size);
+}
+
 void array::reserve(unsigned count) {
 	if(!isgrowable())
 		return;
@@ -328,11 +336,7 @@ void array::reserve(unsigned count) {
 		return;
 	if(data && count < getmaximum())
 		return;
-	count_maximum = rmoptimal(count);
-	if(data)
-		data = realloc(data, count_maximum * size);
-	else
-		data = malloc(count_maximum * size);
+	data = reserve_alloc(data, count, size, count_maximum);
 }
 
 static bool matchstring(const char* v1, const char* v2, size_t size) {
@@ -365,6 +369,8 @@ void* array::findv(const char* id, unsigned offset) const {
 }
 
 int array::find(int i1, int i2, void* value, unsigned offset, size_t size) const {
+	if(!count)
+		return -1;
 	if(i2 == -1)
 		i2 = getcount() - 1;
 	switch(size) {

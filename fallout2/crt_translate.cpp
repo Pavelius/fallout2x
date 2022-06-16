@@ -139,11 +139,15 @@ static void copy_locale(const char* locale) {
 	sb.add(locale);
 }
 
+void add_locale_names(const char* id, bool required) {
+	setfile(source_name, id, main_locale, false, required);
+}
+
 void initialize_translation(const char* locale) {
 	if(main_locale[0])
 		return;
 	copy_locale(locale);
-	setfile(source_name, "Names", main_locale, false, true);
+	add_locale_names("Names", true);
 	setfile(source_text, "Descriptions", main_locale, false, false);
 	setfile(source_nameof, "NamesOf", main_locale, false, false);
 	setfile(source_namepl, "NamesPl", main_locale, false, false);

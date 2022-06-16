@@ -1,0 +1,13 @@
+﻿AckMissing: Ах! Промах!
+Curb: Обочина
+Dirt: Грязь
+Floor: Пол
+Garden: Огород
+Grate: Щебень
+InvisoRoof: Невидимая Крыша
+Roof: Крыша
+Scotty: Скотти
+Slime: Слизь
+TileEraser: Секция Стирающего Устройства
+Wall: Стена
+WoodenFloor: Деревянный Пол

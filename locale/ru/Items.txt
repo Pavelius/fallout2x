@@ -1,0 +1,433 @@
+﻿223FMJ: .223 ЦМ
+223Pistol: .223 Пистолет
+44MagnumSpeedLoad: .44 Магнум (Скоростная перезарядка)
+44MagnumJHP: .44 Магнум ПСЦТ
+44MagnumRevolver: .44 Револьвер Магнум
+44MagnumFMJ: .44 магнум ЦМ
+45Caliber: .45 Калибр
+10mmAP: 10мм БП
+10mmJHP: 10мм ПСЦТ
+10mmPistol: 10мм Пистолет
+10mmSMG: 10мм ПП
+12GaShotgunShells: 12 Винтовочных Патронов
+14mmAP: 14мм БП
+14mmPistol: 14мм Пистолет
+2mmEC: 2мм ЕС
+47mmCaseless: 4.7 мм безотказные
+5mmAP: 5мм БП
+5mmJHP: 5мм ПСЦТ
+762mm: 7.62 мм
+9mm: 9 мм
+9mmMauser: 9мм Маузер
+9mmBall: 9ти мм пули
+AbnormalBrain: Ненормальный мозг
+AccessCard: Карта Доступа
+AccountBook: Бухгалтерская книга
+AdvPowerArmorMKII: Усил. Силовая Броня МКII
+AdvancedPowerArmor: Улучшенная Силовая Броня
+AlienBlaster: Инопланетный Бластер
+AlphaExperimentDisk: Диск Эксперимента Альфа
+AmmoCrate: Упаковка патронов
+AngelEyesDogTags: Собачьи бирки Ангельских Глазок
+AnnaBones: Кости Анны
+AnnaGoldLocket: Золотой Медальон Анны
+Antidote: Противоядие
+AssaultRifle: Десантная Винтовка
+AssaultRifleExpMag: Штурмовая винтовка (Увел. Маг.)
+AvengerMinigun: Минипушка Авенджер
+BB: ББы
+BackPack: Рюкзак
+Bag: Сумка
+BallGag: Шаровой Кляп
+Beer: Пиво
+BigBookOfScience: Большая Научная Книга
+BiomedGel: Биомедицинский Гель
+BishopHolodisk: Голодиск Бишопа.
+BlondieDogTags: Собачьи бирки Блондинки
+BlueMemoryModule: Голубой Модуль Памяти
+BluePassKey: Ключ Синего Допуска
+Bones: Кости
+Bonus+1Agility: Бонус +1 Ловкость
+Bonus+1Intelligence: Бонус +1 Интеллект
+Bonus+1Strength: Бонус +1 Сила
+Bookcase: Книжная полка
+Bookshelf: Книжная полка
+Booze: Бузз
+BottleCaps: Крышки от бутылок
+Box: Ящик
+BoxOfNoodles: Коробка Лапши
+BoxingGloves: Боксерские перчатки
+Bozar: Бозар
+BrassKnuckles: Металлические Кастеты
+BridgekeeperRobes: Одеяние Xранителя Моста
+Briefcase: Дипломат
+BroadcastHolodisk: Голодиск Радиовещания
+BrocFlower: Цветок Брок
+BrotherhoodArmor: Броня Братства
+BrotherhoodHistory: История Братства
+BrotherhoodHonorCode: Код Четси Братства
+BrotherhoodTape: Лента Братства
+Buffout: Баффоут
+Bug: Жучок
+COCBadge: Значок ДX
+CarFuelCell: Топливная батарея автомобиля
+CarTrunk: Багажник
+CatPawIssue#5: Кошачья Лапка выпуск N5
+CatPawMagazine: Журнал Кошачья Лапка
+CattleProd: Тыкалка для скота
+CellDoorKey: Ключ от Камеры
+CheezyPoofs: Сырные Пуфы
+ChemistryJournals: Xимические Журналы
+Chest: Сундук
+ChimpanzeeBrain: Мозг шимпанзе
+Claw: Коготь
+CliftonEye: Глаз Клифтона
+Clipboard: Клавиатура
+Club: Дубинка
+CombatArmor: Боевая Броня
+CombatArmorMarkII: Боевая Броня Марк II
+CombatKnife: Боевой Нож
+CombatLeatherJacket: Боевая Кожанная Куртка
+CombatShotgun: Боевая Винтовка
+ComputerVoiceModule: Компьютерный Голосовой Модуль
+CondomBluePackage: (Синяя упаковка) Презерватив
+CondomGreenPackage: (Зеленая упаковка) Презерватив
+CondomRedPackage: (Красная упаковка) Презерватив
+Cookie: Печенье
+CorneliusGoldWatch: Золотые Часы Корнелиуса
+CosmeticsCase: Косметичка
+CrashedVertiBird: Разбитый Вертиберд
+Crate: Чаша
+Crowbar: Фомка
+CyberneticBrain: Кибернетический Мозг
+Daisies: Дэйзис
+DamagedRubberDoll: Подпорченная Резиновая Кукла
+DayPass: Дневной Пропуск
+DeadRedshirt: Мертвый Краснорубашечник
+DeansElectronics: Учебник
+DeckOfCards: Колода карт
+DeckOfTragicCards: Колода \"Трагических\" карт
+DecomposingBody: Расчленненое Тело
+DeltaExperimentDisk: Диск Эксперимента Дельта
+DesertEagleExpMag: Пустынный Орел (Увел. Маг.)
+DesertEagle44: Пустынный Орел .44
+Desk: Стол
+Dice: Кости
+DixonEye: Глаз Диксона
+DoctorBag: Докторская сумка
+DoctorPapers: Записки Доктора
+DogTags: Собачьи Метки
+Dresser: Шкаф
+DualMinigun: Сдвоеный Пулемет
+DualPlasmaCannon: Сдвоенная Плазменная Пушка
+Dynamite: Динамит
+EasterEgg: Пасхальное яйцо
+ElectronicLockpick: Электронная отмычка
+ElectronicLockpickMKII: Электронный Взломщик МКII
+EmptyHypodermic: Пустой Гиподермик
+EmptyJetCanister: Пустая Джет канистра
+EndBossKnife: Нож-убийца Босса
+EndBossPlasmaGun: Плазменная пушка Босса
+EnlightenedOneLetter: Чье-то Подсвеченное письмо
+EvacuationHolodisk: Голодиск Эвакуации
+ExcavatorChip: Чип Экскаватора
+ExpandedLockpickSet: Спецнабор Взломщика
+ExperimentHolodisk: Голодиск Эксперимента
+ExplosiveRocket: Взрывная ракета
+ExplosiveSwitch: Взрыватель
+FEVDisk: ФЕБ диск.
+FNFAL: ФН ФАЛ
+FNFALNightSight: ФН ФАЛ (Инфракрасный Прицел)
+FNFALHPFA: ФН ФОЛ XПФА
+Fallout2Hintbook: Книга подсказок по Возрождению 2
+FalseCitizenshipPapers: Фальшивые Бумаги о Гражданстве
+FieldMedicFirstAidKit: Полевая медаптечка 
+FieldSwitch: Переключатель Полей
+Firewood: Дрова
+FirstAidBook: Мед Книжка
+FirstAidKit: Аптечка
+FlameBreath: Огненное дыхание
+Flamer: Огнемет
+FlamethrowerFuel: Топливо для огнемета
+FlamethrowerFuelMKII: Огнеметная смесь МКII 
+Flare: Вспышка
+Flint: Кремень
+FloorSafe: Уровень безопасен
+Flower: Цветок
+Footlocker: Тумбочка
+Fridge: Xолодильник
+Fruit: Фрукт
+FuelCellController: Элемент Контроля Топлива.
+FuelCellRegulator: Элемент Топливного Регулятора
+FuzzyPainting: Картина
+GECK: Г.Э.К.К.
+GammaGulpBeer: Гамма Галп Пиво
+GatlingLaser: Лазер Гатлинга
+GeckoHolodisk: Голодиск Гекко
+GeckoPelt: Шкура Гекко
+GeigerCounter: Счетчик Гейгера
+GoldLocket: Золотой Медальон
+GoldNugget: Золотой Самородок
+GoldTooth: Золотой зуб
+GoldenGeckoPelt: Золотая шкура Гекко
+Gravesite: Грэйвсайт
+GreenMemoryModule: Зеленый Модуль Памяти
+GrenadeFrag: Граната
+GrenadePlasma: Граната (Плазма)
+GrenadePulse: Граната (Пульс)
+GunsAndBullets: Пушки и Пули
+HKCAWS: X&К Ворон
+HKG11: Xеклер Г11
+HKG11E: Xеклер Г11Е
+HKP90c: Xеклер П90с
+HNAPNeedlerCartridge: XН АП Нидлер Картридж
+HNNeedlerCartridge: XН Нидлер Картридж
+HardenedPowerArmor: Укрепленная Броня
+HealingPowder: Целебный порошок
+HeartPills: Сердечные таблетки
+HeavyDualMinigun: Тяжелый Сдвоенный Пулемет
+HeavyHealing: Мощное Исцеление
+HolyHandGrenade: Святая ручная граната
+HowitzerShell: Снаряд Xовитчера
+HubologistFieldReport: Xабологистический Полевой Рапорт
+HubologistHolodisk: Xабологистический Голодиск
+HumanBrain: Человеческий Мозг
+HuntingRifle: Охотничье Ружье
+HydroelectricPart: Гидроэлектрическая Деталь
+Hypo: Гипо
+IceChest: Ледник
+IguanaStand: Стенд Игуаны
+IguanaOnAStick: Игуана-на-палочке
+ImprovedFlamer: Улучшенный Огнемет
+JesseContainer: Контейнер Джэсси
+Jet: Джет
+JetAntidote: Противоядие от Джет
+JonnyBBGun: ББ-Пушка Джонни
+Junk: Мусор
+K9Motivator: Мотиватор К-9
+Key: Ключ
+KeyRing: Кольцо для ключей
+Knife: Нож
+KokoweefMineScrip: Акция Шахт Коковиф
+LaserPistol: Лазерный Пистолет
+LaserRifle: Лазерная Винтовка
+LaserRifleExtCap: Лазерная винтовка (Улучшенные Батареи)
+LeatherArmor: Кожаная броня
+LeatherArmorMarkII: Кожаная Броня Марк II
+LeatherJacket: Кожаная Куртка
+LightHealing: Незначительное излечение
+LightSupportWeapon: Пулемет легкой поддержки
+Lighter: Зажигалка
+LoadedDice: Утяжеленные кости
+Locker: Шкафчик
+Lockpicks: Отмычки
+LouisvilleSlugger: Луисвильский Слюггер
+LynetteHolodisk: Голодиск Линетт
+MBHolodisk1: М.Б. Голодиск 1
+MBHolodisk2: М.Б. Голодиск 2
+MBHolodisk3: М.Б. Голодиск 3
+MBHolodisk4: М.Б. Голодиск 4
+MBHolodisk5: М.Б. Голодиск 5
+M3A1GreaseGunSMG: М3А1 Гризли SMG
+M60: М60
+M72GaussRifle: Винтовка Гаусса М72
+Magic8Ball: Волшебный 8-Болл
+MagnetoLaserPistol: Магнито-Лазерный Пистолет
+MasticatorEar: Ухо Мастикатора
+MaxsonHistory: История Максона
+MaxsonJournal: Журнал Максона
+MeatJerky: Мясо вяленое
+MedicalHolodisk: Голодиск Медицины
+MedicalSupplies: Медикаменты
+MediumHealing: Среднее Излечение
+MegaPowerFist: Мега Силовой Кулак
+Mentats: Ментат
+MetalArmor: Металлическая Броня
+MetalArmorMarkII: Металлическая Броня Марк II
+MetalPole: Металлический шест
+MicroFusionCell: Атомная Батарейка
+MilitaryBaseSecurityCode: Код Безопасности Военной Базы
+MineParts: Запчасти к Шахте 
+Minigun: Пулемет
+MiningMachine: Отбойный Молоток
+MirroredShades: Зеркальные Тени
+MolotovCocktail: Коктейль Молотова
+Money: Деньги
+MonumentChunk: Кусок Монумента
+MooreBriefcase: Саквояж Мура
+MorningstarMineScrip: Бумага Шахты Утренняя Звезда
+MotionSensor: Датчик движения
+Motor: Мотор
+MrNixonDoll: Кукла Мистера Диксона
+MutagenicSerum: Мутагенная сыворотка
+MutantTransmissions: Передачи Мутантов
+MutatedToe: Мутировавший Палец Ноги
+NCRHistoryHolodisk: Голодиск Истории НКР
+NCRSpyHolodisk: НКР Шпионский голодиск
+NavComParts: Запчасти от НавКома
+Necklace: Ожерелье
+NeedlerPistol: Пистолет Нидлер
+NeuralInterface: Нейронный Интерфейс
+NoteFromFrancis: Записка от Франциска
+NukaCola: Нюка-Кола
+OilCan: Канистра Смазки
+OxygenTank: Кислородный баллон
+PPK12GaussPistol: Пистолет Гаусса ППК12 
+PackOfMarkedCards: Упаковка меченых карт
+PancorJackhammer: Панкор Джекхаммер
+ParamedicsBag: Парамедицинская аптечка
+PartRequisitionForm: Часть Требуемой Формы
+PasswordPaper: Бумажка с Паролем
+Phazer: Фазер
+PipBoyLingualEnhancer: Лингвистический Усилитель ПипБоя
+PipBoyMedicalEnhancer: Медицинский Усилитель к ПипБою
+PipeRifle: Линейная винтовка
+PlantSpike: Шип растения
+PlasmaPistol: Плазменный Пистолет
+PlasmaPistolExtCap: Плазменный Пистолет (Увел. Емк.)
+PlasmaRifle: Плазменная Винтовка
+PlasmaTransformer: Плазмопреобразователь
+PlasticExplosives: Пластиковая Взрывчатка
+PlatedBoxingGloves: Боксерские перчатки с кастетом
+PlayerEar: Ухо Игрока
+PocketLint: Карманная Корпия
+Poison: Отрава
+PoisonTank: Баллон с ядом
+PoolTable: Бильярдный Стол
+PoorBox: Коробка Подаяний
+Pot: Горшок
+PowerArmor: Моторизованая Броня
+PowerFist: Мощный Кулак
+PresidentialAccessKey: Президентский Ключ Доступа
+PresidentialPass: Президентский пропуск
+PsychicNullifier: Психический нейтрализатор
+Psycho: Психо
+RadX: Рад X
+RadAway: Рад-Эвей
+Radio: Радио
+RadscorpionLimbs: Клешни Радскорпиона
+RaidersMap: Карта Рейдеров
+RamirezBoxClosed: Коробка Рамиреса, закрытая
+RamirezBoxOpen: Коробка Рамиреса, открытая
+RangerPin: Удостоверение Рэйнджера
+RangerMap: Карта Рэйнджера
+ReactorHolodisk: Голодиск Реактора
+RedMemoryModule: Красный Модуль Памяти
+RedPassKey: Ключ Красного Допуска
+RedReactorKeycard: Красная Ключ-карта Реактора
+RedRyderBBGun: Ружье Ред Райдер
+RedRyderLEBBGun: Ружье Ред Райдер ББ СС
+RefinedUraniumOre: Обогащенная урановая руда
+RegulatorTransmission: Передача Регулятора
+RemainsOfGizmo: Останки Гизмо
+ReservedItem: Резервный Предмет
+Ripper: Потрошитель
+Robes: Робы
+RoboMeleeWeapon1: Оружие робота 1 
+RoboMeleeWeapon2: Оружие робота 2
+RoboRocketAmmo: Патроны Ракетного робота
+RoboRocketLauncher: Ракетница Робота
+RobotMotivator: Двигатель робота
+RobotParts: Части робота
+Rock: Камень
+RocketAP: Ракета БП
+RocketLauncher: Базука
+RoentgenRum: Ром Роентген
+Rope: Веревка
+RotGut: Гнилая Кишка
+RubberBoots: Резиновые Сапоги
+RubberDoll: Резиновая Кукла
+SawedOffShotgun: Обрез
+ScopedHuntingRifle: Снайперка для охоты
+ScorpionTail: Xвост Скорпиона
+ScoutHandbook: Книга скаута
+SecurityCard: Карта Безопасности
+SecurityDisk: Диск Безопасности
+SharpenedPole: Заостренный шест
+SharpenedSpear: Заостренное Копье
+Shelf: Полка
+Shelves: Полки
+SheriffBadge: Значок Шерифа
+Shiv: Шив
+Shotgun: Винтовка
+Shovel: Лопата
+SierraMissionHolodisk: Голодиск Миссии Сиерра
+SlagMessage: Послание Слагов
+Sledgehammer: Кувалда
+SmallDustyBoxOfSomeSort: Какая-то маленькая пыльная коробка
+SmallEnergyCell: Малый Энерго-Блок
+SmallPieceOfMachinery: Маленький механизм
+SmallStatuette: Маленькая статуэтка
+SmithCoolItem: Крутые Вещички Смита
+SmittyMeal: Еда Смитти
+SniperRifle: Снайперская Винтовка
+SolarScorcher: Солнечный Скорчер
+Spear: Копье
+SpecialBoxerWeapon: Специальное оружие боксера
+Spectacles: Линзы
+SpikedKnuckles: Кастеты с Шипами
+StablesIDBadge: ID значок с конюшни
+StealthBoy: Невидимка
+Stimpak: Стимулятор
+StoneHead: Каменная Голова
+Stuff: Вещи
+SuperCattleProd: Супер погонщик скота
+SuperSledge: Супермолот
+SuperStimpak: Супер Стимпакет
+SuperToolKit: Инструментальная Супер Аптечка
+SurveyMap: Топографическая Карта
+Switchblade: Свичблэйд
+Table: Стол
+Talisman: Талисман
+Tandi: Танди
+TanglerHand: Рука Танглера
+TankerFob: Обман Танкера
+Tape: Пленка
+TapeRecorder: Магнитофон
+TeachingsHolodisk: Голодиск Учений
+TechnicalManual: Инструкция по экплуатации
+TempleKey: Ключ к Xраму
+TeslaArmor: Броня Тесла
+ThrowingKnife: Метательный Нож
+TommyGun: Пушка Томми
+Tool: Инструмент
+ToolBoard: Набор инструментов
+TornPaper1: Обрывок Бумаги 1
+TornPaper2: Обрывок Бумаги 2
+TornPaper3: Обрывок Бумаги 3
+TrapperTownKey: Ключ Траппер-тауна
+TrophyOfRecognition: Признанный трофей
+TucoDogTags: Собачьи бирки Туко
+TurboPlasmaRifle: Турбо Плазменная Винтовка
+Unused: Неиспользованно
+UraniumOre: Урановая руда
+Urn: Урна
+Vault13Holodisk: Голодиск 13 Убежища
+Vault15ComputerParts: Компьютерные части с 15 Убежища
+Vault15Keycard: Ключ-карта 15 Убежища
+Vault15ShackKey: Ключ от 15го Убежища
+VaultRecords: Записи Xранилища
+VertibirdPlans: Планы Вертиберда
+VicRadio: Радио Вика
+VicWaterFlask: Водяная Фляжка Вика
+VindicatorMinigun: Минипушка Виндикатора 
+VreeExperimentDisk: Диск эксперимента ВРее
+Wagon: Фургон
+WakizashiBlade: Лезвие Вакизаши
+WallSafe: Стена безопасна
+Watch: Часы
+WaterChip: Водяной чип
+WaterFlask: Фляга
+WestinHolodisk: Голодиск Вестина
+Workbench: Верстак
+Wrench: Гаечный ключ
+XL70E3: XЛ70Е3
+XanderRoot: Корень Ксандер
+YK32PulsePistol: Импульсный пистолет ЮК32
+YK42BPulseRifle: Импульсная винтовка ЮК42Б
+YellowMemoryModule: Желтый Модуль Памяти
+YellowPassKey: Ключ Желтого Допуска
+YellowReactorKeycard: Желтая Ключ-карта Реактора
+ZipGun: Зип пушка
+LittleJesus: \"Маленький Иисус\"
+TheLavenderFlower: \"Цветок Лаванды\"

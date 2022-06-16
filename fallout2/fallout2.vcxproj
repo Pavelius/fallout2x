@@ -192,6 +192,7 @@
     <ClCompile Include="statable.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
     <ClCompile Include="stringcopy.cpp" />
+    <ClCompile Include="stringlib.cpp" />
     <ClCompile Include="surface_serial.cpp" />
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="variant.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="logparse.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="main_util.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="my_initialize_list.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
@@ -231,6 +233,7 @@
     <ClInclude Include="sprite_util.h" />
     <ClInclude Include="stringbuilder.h" />
     <ClInclude Include="stringcopy.h" />
+    <ClInclude Include="stringlib.h" />
     <ClInclude Include="stringlist.h" />
     <ClInclude Include="variant.h" />
     <ClInclude Include="widget.h" />
@@ -251,6 +254,9 @@
     <Text Include="..\locale\ru\Descriptions.txt" />
     <Text Include="..\locale\ru\Names.txt" />
     <Text Include="..\locale\ru\NamesSh.txt" />
+    <Text Include="..\locale\ru\Scenery.txt" />
+    <Text Include="..\locale\ru\Tiles.txt" />
+    <Text Include="..\locale\ru\Walls.txt" />
     <Text Include="..\rules\Basic.txt" />
     <Text Include="..\rules\Perks.txt" />
     <Text Include="..\rules\Prototype.txt" />

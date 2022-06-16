@@ -169,6 +169,9 @@
     <ClCompile Include="pro_scenery_util.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="stringlib.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -296,6 +299,12 @@
     <ClInclude Include="my_initialize_list.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="stringlib.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>support</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Basic.txt">
@@ -348,6 +357,15 @@
     </Text>
     <Text Include="..\forms\Adventure.txt">
       <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Scenery.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Tiles.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Walls.txt">
+      <Filter>data</Filter>
     </Text>
   </ItemGroup>
 </Project>

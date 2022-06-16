@@ -1,0 +1,421 @@
+﻿AirProcessingUnit: Воздухоочиститель
+AirShaft: Шахта лифта
+AirVent: Вентиляционное отверстие
+Altar: Алтарь
+AmenitiesOfficeSign: Знак Центра Удовольствий
+AmenitiesSign: Знак Центра Удовольствий
+Arch: Арка
+AscortiSign: Знак Аскорти
+AutoDoc: Автоматический Доктор
+BankDoor: Дверь Банка
+Banner: Вывеска
+Bar: Бар
+Barrel: Бочка
+BathHouseSign: Знак Банного Домика
+BathTub: Ванная
+Beam: Балка
+BeckyCasinoSign: Знак Казино Бекки
+BeckySign: Знак Казино Бекки
+Bed: Кровать
+BenchPress: Скамейка для пресса
+BlockHexAutoInviso: Запирающий Блок
+BlockingHexNoLight: Запирающий Блок (БезСвета)
+Blood: Кровь
+BloodStain: Кровавое Пятно
+BloodWithBones: Кровь и кости
+BlownOpenDoor: Дверь, открытая насильно
+Bomb: Бомба
+Bones: Кости
+BossLegs: Ноги Босса
+Bowl: Шар
+Box: Коробка
+Boxes: Коробки
+Brace: Скоба
+BrahminMeat: Мясо Брамина
+BridgeSupport: Опора Моста
+BrokenPost: Сломанный знак
+BrokenSuspensionTank: Сломанный подвесной резервуар
+BucknerHouseSign: Знак Дома Бакнера
+Building: Строение
+BuildingASign: Знак Строения А
+BuildingBSign: Знак Строения В
+BulletProofGlass: Пуленепробиваемое Стекло
+BulletinBoard: Доска объявлений
+BunkBed: Койка
+BurningMetalBarrel: Горящая металлическая бочка
+Bush: Куст
+Cactus: Кактус
+Canyon: Каньон
+Car: Машина
+CaravanOfficeSign: Знак Оффиса Караванной Торговли
+Carpet: Ковер
+Cart: Телега
+CasinoDoor: Дверь в казино
+CasinoEntrance: Вход в казино
+CasinoSign: Вывеска Казино
+CatPawSign: Знак Кошачьей Лапки
+CaveArt: Пещерные рисунки
+CaveFloor: Пол пещеры
+CaveIn: Пещера
+CaveMouth: Вход в пещеру
+CaveWall: Стена Пещеры
+Cavern: Пещера
+Chair: Кресло
+Chasm: Глубокое ущелье
+ChrysalisMotorsCar: Крайслер
+ClinicSign: Знак клиники
+Coffin: Гроб
+CoffinTable: Стол для гробов
+ColaFridge: Xолодильник для колы
+CollapsedFloor: Провалившийся пол
+Column: Колонна
+CommStation: Локатор
+CommandSeat: Командирское сиденье
+Computer: Компьютер
+ComputerConsole: Компьютерная Консоль
+ConstructionZoneSign: Знак Зоны Строительства
+ControlRoomSign: Знак Контрольной Комнаты
+CorrectionsCenterSign: Знак Центра Коррекции
+Couch: Кушетка
+CouncilRoomTable: Стол из Комнаты Консула
+Cover: Крышка
+CrapsTable: Покрытый тканью стол
+CrashedShuttle: Разрушенный Челнок
+Crate: Ящик
+Cross: Крест
+Curtain: Занавеска
+CustomsSign: Знак Таможни
+DamagedWoodSupport: Поврежденная деревянная подставка
+DeactivatedCyberdog: Выключенный киберпес
+DeactivatedRobobrain: Выключенный Робомозг
+DeadBody: Мертвое тело
+DeadWhale: Мертвый кит
+Desk: Стол
+DestroyedBridge: Разрушенный мост
+DestroyedDoor: Разрушенная дверь
+DestroyedEntrance: Разрушенный вход
+DestroyedMineCart: Разрушенная шахтная вагонетка
+DestroyedPowerGenerator: Разрушенный Энергетический Генератор
+Dirt: Грязь
+DisabledFloorPlate: Ненужная Напольная Плита
+DisabledStonePlate: Ненужная Каменная Плита
+DocJohnsonSign: Знак Доктора Джонсона
+DockShadow: Тень
+DonTUse: Нельзя использовать
+Door: Дверь
+DoorDebris: Осколки Двери
+DoorEntryComputer: Компьютер на входной двери.
+DoorTrack: Дорога
+Doorway: Дверной проход
+DownArrow: Стрелка вниз
+Drain: Канализация
+DustyCantinaSign: Знак Забегаловки Дастина
+EggShell: Яичная Скорлупа
+Elevator: Лифт
+ElevatorDoor: Дверь лифта
+ElevatorShaft: Шахта лифта
+ElevatorStub: Кабина лифта
+ElevatorTop: Верхушка лифта
+Emblem: Эмблема
+Equipment: Оборудование
+EquipmentAccess: Доступ к снаряжению
+ExhaustPort: Место выброса
+ExitGridMapMarker: Решетка На Выход
+EyeChart: Чертеж Глаза
+Fan: Вентилятор
+Fence: Забор
+FenceDoor: Дверь в заборе
+Fire: Огонь
+FireExt: Пожарный выход.
+FireHydrant: Пожарный шланг
+FirePit: Очаг
+Firepit: Огненная Чаша
+Flag: Флаг
+Flagpole: Мачта для флага
+Floor: Пол
+FloorDepression: Укрепление пола
+FloorPlate: Напольная плита
+Forcefield: Силовое поле
+Forklift: Грузоподъемник
+GasPump: Газовый Насос
+Gate: Ворота
+GoldenGeckoSign: Знак Золотого Гекко
+GoldenGlobesPornSign: Знак порностудии Золотой Глобус
+Goo: Грязь
+Graffiti: Граффити
+Grating: Решетка
+Gravesite: Кладбище
+GreatWamamingoMineSign: Знак Шахты Великого Мамаминго
+GreetingOfficeSign: Знак Оффиса по Приему Гостей
+Ground: Земля
+GuardianOfForever: Страж Вечности
+HallOfCongressSign: Знак Xолла Конгресса
+HappyHarrySign: Знак Счастливчика Гарри.
+HarpSign: Знак Арфы
+Haybed: Кровать из соломы
+Headstone: Могильный камень
+HeavyLaserTurret: Тяжелая Лазерная Установка
+Hole: Дыра
+HoloGenerator: Голо Генератор
+Howitzer: Что это такое...
+ImpenetrableDoor: Напрочь закрытая дверь
+IncenseBurner: Горелка для ладана
+InformationCenterSign: Знак Информационного центра
+JungleGymSign: Знак Спортивного Зала Джунгли
+Junk: Мусор
+KokoweefMineSign: Знак Шахты Коковебе
+Ladder: Лестница
+LadderDown: Лестница вниз
+Lamp: Лампа
+LampPost: Фонарный столб
+LaserTripwire: Лазерная изгородь
+LastGaspSaloonSign: Знак Салона Последний Глоток
+LevelFourSign: Знак Уровень \'Четыре\'
+LevelOneSign: Знак Уровень \'Один\'
+LevelThreeSign: Знак Уровень \'Три\'
+LevelTwoSign: Знак Уровень \'Два\'
+Light: Свет
+LightSource: Источник света
+Machine: Машина
+MachineShopSign: Знак машинного отделения
+Machinery: Механизмы
+Mailbox: Почтовый ящик
+MainCouncilSign: Знак Главного Консула
+Mainframe: Сервер
+MaintenanceCenter: Технический Центр
+MalamuteSaloonSign: Знак Салона Маламьют
+ManagerOfficeSign: Знак Менеджера
+Manhole: Люк
+Marker: Знак
+Mat: Мат
+MedicalBed: Медичинская кровать
+MedicalTable: Медицинский стол
+MetalBarrel: Металлическая бочка
+MetalBarrels: Металлические бочки
+MineCart: Шахтная вагонетка
+MineCartWithDynamite: Шахтная вагонетка с динамитом
+MineCartWithSteelPole: Шахтная вагонетка со стальным столбом
+MineElevator: Шахтный лифт
+MineElevatorGate: Дверь Шахтного Лифта
+MiningCart: Минерная повозка
+MiningCartWithDynamite: Минерная повозка с динамитом
+MiningCartWithSteelPole: Минерная повозка со стальным столбом
+Mirror: Зеркало
+MomDinerSign: Знак Домашнего Обеда
+Monitor: Монитор
+Monitors: Мониторы
+MorningstarMineSign: Знак Шахты Утренней Звезды
+Mountain: Гора
+MovieCamera: Кинокамера
+Mushrooms: Грибы
+NCRFlag: Флаг НКР
+NCRPoster: Плакат НКР
+NCRSign: Знак НКР
+NewRenoArmsSign: Знак Оружейной Нью Рено
+NewspaperMachine: Газетный Автомат
+NuclearWarhead: Ядерная боеголовка.
+NukaColaMachine: Автомат с Нюка-Колой
+Number1Sign: Знак номер 1
+Number2Sign: Знак номер 2
+Number3Sign: Знак номер 3
+Number4Sign: Знак номер 4
+Number5Sign: Знак номер 5
+Number6Sign: Знак номер 6
+OldMattress: Старый матрас
+OrganExtractionUnit: Устройство удаления органов
+OutOfOrderSign: Знак Беспорядка
+Outhouse: Внешнее сооружение
+ParlorRoomSign: Знак Комнаты Переговоров
+Pedestal: Кафедра
+PepGasSign: Знак Осторожно Газ
+Pew: Церковная скамья со спинкой
+PileOfRocks: Кучка Камней
+Pillar: Колонна
+Pipe: Труба
+Pipes: Трубы
+Plank: Планка
+Plant: Растение
+Plow: Плуг
+Podium: Подиум
+Pole: Столб
+PoliceBox: Полицейский Ящик
+PoolLadder: Лесенка в бассейн
+PoolTable: Конторский стол
+PoseidonGasolineSign: Знак Бензозаправки Посейдон
+Post: Плакат
+Poster: Плакат
+Pot: Чайник
+PowerArmorParts: Части Силовых Доспехов
+PowerDistributor: Распределительный щиток
+PowerGenerator: Силовой генератор
+PowerSwitch: Выключатель Энергии
+PowerPlantMachinery: Машины Энергостанции
+PowerplantMachinery: Машины Энергостанции
+PowerplantPumpControl: Насосный Прибор для Электростанции
+PresidentChair: Президентское кресло
+PresidentOfficeDoor: Дверь Президентского Оффиса
+Pulpit: Кафедра
+PunchingBag: Боксерская груша
+RadiationWarningSign: Знак Предупреждения Радиации
+RadioactiveGoo: Радиоактивная Грязь
+RadscorpionParts: Части тела Радскорпиона.
+RaisedStonePlate: Поднятая Каменная Плита
+Rake: Грабли
+Ramp: Реактивная пусковая установка
+RawhideSaloonSign: Знак Салона Сырая Шкура
+Reactor5Sign: Знак Реактора номер 5
+ReactorCore: Главный компьютер
+RenescoPharmacySign: Знак Аптеки Ренеско
+RetinalScanner: Сетчатый Сканнер
+Road: Дорога
+RobotReceptacle: Xранилище роботов
+Rock: Камень
+RockColumn: Каменная Колонна
+Rocks: Камни
+Rope: Веревка
+RoseBBSign: Знак З&П Розы
+RouletteTable: Рулеточный стол
+Rubble: Щебень
+Rug: Коврик
+Ruins: Руины
+RustingPipes: Трубы
+SalvatoreBarSign: Знак Бара Сальваторе
+SatelliteDish: Вспомогательное блюдо
+Sawhorse: Козлы для пилки дров
+ScrapMetal: Механизмы
+Screens: Экраны
+Scrub: Кустарник
+SecretBlockingHex: Секретный Запирающий Блок
+SecurityDoor: Укрепленная дверь
+ServantAllocationCenter: Центр Размещения Слуг
+SewerHole: Сливная дыра
+Shack: Кабинка Охраны
+Shadow: Тень
+Shaft: Лифт
+Shelves: Полки
+SheriffSign: Знак Шериффа
+ShipSpeedControl: Спидометр корабля
+ShipWheel: Колесо корабля
+Shovel: Полотенце
+Shower: Душ
+Shuttle: Челнок
+ShuttleWall: Раздвижная стена
+SideOfBrahmin: Часть Брамина
+Sign: Знак
+SignShadow: Знак Тень
+Signpost: Указательный столб
+Sink: Раковина
+SituationMap: Карта военных действий
+Skeleton: Скелет
+SkullPole: Столб Черепа
+SlaughterHouseSign: Знак Бойни
+SlaverGuildSign: Знак Позора Работорговцев
+SlimePool: Бассейн Грязи
+SlotMachine: Игральный Автомат
+SmallRocks: Яичная Скорлупа
+SonOfBobStore: Магазин Сына Боба
+StackOfTires: Штабель шин
+StairStepper: Физкультурная лестница
+Staircase: Лестница
+Stairs: Ступени
+StairsDown: Ступени вниз
+StairsUp: Ступени наверх
+Stake: Столб
+Stalagmite: Сталагмит
+Statue: Статуя
+Steam: Пар
+SteelBars: Стальные брусья
+SteelCover: Стальные Створки Окон
+SteelSupports: Стальные поддерживающие устройства
+Still: Самогонный аппарат
+StockmanAssocSign: Знак Ассоциации Владельцев Акций
+StoneBench: Каменная скамья
+StoneMonument: Каменный Памятник
+StopLight: Светофор
+StopSign: Знак Стоп
+Stove: Печка
+StrangeMachineCrashed: Поврежденная лебедка 
+StreetLight: Уличный фонарь
+Stripe: Полоса
+Stuff: Всякая всячина
+SupplyRoomSign: Знак Комнаты Материалов
+SupportBase: Подставка
+SupportPlatform: Поддерживающая платформа
+SurvivalGearLockerSign: Знак Жизненно Важного Снаряжения
+SuspensionTank: Подвесной резервуар
+Symbol: Символ
+Table: Стол
+Tank: Резервуар
+Tanker: Резервуар
+Tanks: Резервуары
+TannerySign: Знак Кожевенного Завода
+TapHouseSign: Знак Распивочной
+Temple: Xрам
+Terminal: Терминал
+TheHoleSign: Дыра тоже может быть знаком
+Throne: Трон
+Tire: Шина
+Toilet: Туалет
+Torch: Факел
+Track: Грузовик
+Trapdoor: Дверь-ловушка
+TrapperTownSign: Знак Города Охотников
+Trash: Мусор
+TrashCan: Мусорный бак
+Treadmill: Мельница
+Tree: Дерево
+TriggeredFloorPlate: Напольная Плита с Переключателем
+TriggeredStonePlate: Каменная Плита с Переключателем
+Truck: Грузовик
+TubbySign: Знак Тубби
+Tumbleweed: Перекати-поле
+UNUSEDART: Пол
+UNUSED: Книжный шкаф
+UpArrow: Стрелка вверх
+Urinal: Писсуара
+UtilityCrane: Мусорный кран
+VDU: ВДУ
+Vase: Ваза
+Vats: Бочки
+Vault13Door: Дверь в Убежище 13
+Vault13OuterDoor: Внешняя дверь Убежища 13
+VaultCityGate: Ворота Города Убежища
+VaultCityLogo: Эмблема Города Убежища
+VaultDoor: Дверь Убежища
+Vent: Вентиляция
+Vertibird: Верти... что?
+VicSign: Знак Вика
+ViewportShutters: Заслонки Поля Зрения
+VortisHoldingSign: Знак Xолдинга Вортиса
+Wagon: Крытая повозка
+Wall: Стена
+WallLamp: Настенная лампа
+WallLight: Настенная лампа
+Wallpaper: Обои
+WantedSign: Знак Разыскивается!
+WarRoomTable: Стол из Военной Комнаты
+WarehouseDoor: Дверь Мастерской
+Water: Вода
+WaterPump: Водяной насос
+WaterTank: Водяная цистерна
+Waterfall: Водопад
+WeatherVane: Погодный Флюгер
+Weed: Растения
+Weeds: Сорняки
+Well: Колодец
+WestinRanchSign: Знак Ранчо Вестина
+WhaleChunk: Китятина
+WhaleEye: Глаз Кита
+WhaleFin: Китовый Плавник
+Window: Окно
+Wire: Проволока
+Wires: Проволока
+WoodDoor: Деревянная дверь
+WoodPaneling: Деревянные Панели
+WoodPlanks: Деревянные рейки
+WoodSupport: Деревянная подставка
+WoodenDoor: Деревянная дверь
+WoodenTable: Деревянный стол
+WorldMap: Карта мира
+YieldSign: Знак Уступите Дорогу
+OutOfBusinessSign: Знак \"Не работает\"

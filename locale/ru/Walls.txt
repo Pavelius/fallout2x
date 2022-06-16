@@ -1,0 +1,39 @@
+﻿Archway: Арка
+Bar: Препятствие
+CaveWall: Стена Пещеры
+Column: Столбец
+DestroyedEntrance: Разрушенный Вход
+DoorFrame: Дверной Косяк
+Doorway: Дверной Проем
+Equipment: Снаряжение
+Fence: Ограда
+ForcefieldEmitter: Излучатель Силового Поля
+Gate: Ворота
+Gizmo: Гизмо
+MineEntrance: Вход в Шахту
+Pillar: Столб
+Pipe: Труба
+Pipes: Трубы
+Railing: Ограждение
+ShuttleWall: Вибрирующая Стена
+Steel4WayWall: Перекресток
+SteelRailing: Стальная Ограда
+SteelTWall: Т-образный Перекресток
+SteelWall: Стальная Стена
+SteelWallCorner: Угол Стальной Стены
+SteelWallEnd: Конец Стальной Стены
+SteelWindow: Стальное Окно
+StoneDoorway: Каменный Дверной Проем
+StonePillar: Вибрирующая Стена
+StoneWall: Каменная Стена
+TinDoorway: Дверной Проем
+TinWall: Стена
+Truck: Грузовик
+Wall: Стена
+WallST: Стена с.т.
+WaterTank: Водяной Резервуар
+Window: Окно
+WoodSupport: Деревянные Подпорки
+WoodenDoorway: Дверной Проем из Дерева
+WoodenFence: Деревянная Ограда
+WoodenWall: Деревянная Стена

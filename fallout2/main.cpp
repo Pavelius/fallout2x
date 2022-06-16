@@ -2,12 +2,13 @@
 #include "dialog.h"
 #include "main.h"
 
-int start_application(fnevent proc, fnevent afterread);
+void add_locale_names(const char* id, bool required);
 void initialize_script();
 void initialize_dialog();
 void character_generate();
 void main_util();
 void choose_scenery();
+int start_application(fnevent proc, fnevent afterread);
 
 static void start() {
 	main_util();
@@ -23,6 +24,7 @@ static void initialize() {
 	bsreq::read("rules/Prototype.txt");
 	character::initialize();
 	dialog::initialize();
+	add_locale_names("Scenery", true);
 }
 
 int main(int argc, char* argv[]) {
