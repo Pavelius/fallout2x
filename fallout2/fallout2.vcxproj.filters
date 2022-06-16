@@ -160,17 +160,11 @@
     <ClCompile Include="material.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="editor_util.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="msg_pro_scen_util.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
-    <ClCompile Include="pro_scenery_util.cpp">
-      <Filter>util</Filter>
-    </ClCompile>
     <ClCompile Include="stringlib.cpp">
       <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="editor.cpp">
+      <Filter>draw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +296,6 @@
     <ClInclude Include="stringlib.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="map.h">
-      <Filter>support</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Basic.txt">
@@ -365,6 +356,9 @@
       <Filter>data</Filter>
     </Text>
     <Text Include="..\locale\ru\Walls.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\rules\Scenery.txt">
       <Filter>data</Filter>
     </Text>
   </ItemGroup>

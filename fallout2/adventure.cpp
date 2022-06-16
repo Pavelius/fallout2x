@@ -5,6 +5,7 @@ using namespace draw;
 
 const int tile_width = 128;
 const int tile_height = 128;
+const scenery* current_scenery;
 
 // Получение координаты тайла(x,y) на экране
 point t2s(point v) {
@@ -135,7 +136,19 @@ static void control_map() {
 	scrollmap(-1, 0, 277);
 }
 
+void choose_scenery();
+
+static void press_hotkey() {
+	switch(hot.key) {
+	case 'S':
+		choose_scenery();
+		current_scenery = (scenery*)getresult();
+		break;
+	}
+}
+
 void adventure() {
 	redraw_floor();
+	press_hotkey();
 	control_map();
 }

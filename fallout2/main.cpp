@@ -1,5 +1,6 @@
 #include "bsreq.h"
 #include "dialog.h"
+#include "draw.h"
 #include "main.h"
 
 void add_locale_names(const char* id, bool required);
@@ -7,13 +8,14 @@ void initialize_script();
 void initialize_dialog();
 void character_generate();
 void main_util();
+void adventure();
 void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
 
 static void start() {
-	main_util();
 	character::last = character::add("Narg");
-	choose_scenery();
+	//choose_scenery();
+	draw::scene(adventure);
 	//character_generate();
 }
 
@@ -24,7 +26,9 @@ static void initialize() {
 	bsreq::read("rules/Prototype.txt");
 	character::initialize();
 	dialog::initialize();
+	main_util();
 	add_locale_names("Scenery", true);
+	bsreq::read("rules/Scenery.txt");
 }
 
 int main(int argc, char* argv[]) {

@@ -16,6 +16,7 @@ BSDATAC(globalstati, 128)
 BSDATAC(list, 128)
 BSDATAC(perki, 256)
 BSDATAC(prototype, 32)
+BSDATAC(scenery, 4096)
 BSDATAC(stati, 64)
 BSDATAD(variant)
 
@@ -53,6 +54,10 @@ BSMETA(prototype) = {
 	BSREQ(tags),
 	BSFLG(perks, perki),
 	{}};
+BSMETA(scenery) = {
+	BSREQ(id),
+	BSREQ(frame), BSREQ(index),
+	{}};
 BSMETA(stati) = {
 	BSREQ(id),
 	BSREQ(formula), BSREQ(avatar),
@@ -72,6 +77,7 @@ BSDATA(varianti) = {
 	{"Perk", VRSTD(perki), 1},
 	{"Prototype", VRSTD(prototype), 1},
 	{"Resource", VRSTD(residi), 1},
+	{"Scenery", VRSTD(scenery), 3},
 	{"Script", VRSTD(script), 1},
 	{"Stat", VRSTD(stati), 1},
 };

@@ -156,6 +156,12 @@ struct anminfo {
 	static const point	getoffset(const sprite* p, int frame);
 	int					getfps() const { return fps ? fps : 10; }
 };
+struct scenery : nameable {
+	short				frame, index;
+	void				getinfo(stringbuilder& sb) const;
+	void				painted() const;
+	static scenery*		last;
+};
 namespace draw {
 void					messagev(const char* format, const char* format_param);
 inline void				message(const char* format, ...) { messagev(format, xva_start(format)); }

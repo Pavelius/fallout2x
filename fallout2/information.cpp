@@ -33,3 +33,12 @@ void character::exporting(const char* id) const {
 	}
 	write_export("characters/export", id, temp);
 }
+
+void scenery::getinfo(stringbuilder& sb) const {
+	//sb.adds("(%1i, %2i)", id, cicle);
+	//if(subtype != Generic)
+	//	sb.adds(::getname(subtype));
+	//sb.adds(getactionflags(action_flags, false));
+	//sb.adds(getlightflags(light_flags, false));
+	sb.adds(getdescription(id));
+}
