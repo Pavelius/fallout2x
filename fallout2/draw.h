@@ -250,6 +250,7 @@ bool buttonp(const char* title, unsigned key, fnbutton proc, bool vertical = tru
 void buttoncancel();
 void buttonok();
 void buttonparam();
+void cbsetbool();
 void cbsetsht();
 void cbsetint();
 void cbsetptr();

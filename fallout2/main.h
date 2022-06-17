@@ -12,6 +12,9 @@
 
 #pragma once
 
+const int tile_width = 80; // Width of isometric tile
+const int tile_height = 36; // Height of isometric tile
+
 enum stat_s : unsigned char {
 	Strenght, Perception, Endurance, Charisma, Intellegence, Agility, Luck,
 	HP, HPCur, AP, APCur, AC,
@@ -169,3 +172,7 @@ extern unsigned long	current_tick;
 
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();
+extern point			h2s(point v);
+extern point			s2h(point pt);
+extern point			s2t(point v);
+extern point			t2s(point v);

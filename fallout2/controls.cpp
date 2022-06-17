@@ -135,7 +135,7 @@ static bool checkpressed(bool& run, unsigned key, bool execute_by_press = false,
 }
 
 static void center_text() {
-	char temp[260]; stringbuilder sb(temp);
+	//char temp[260]; stringbuilder sb(temp);
 	auto push_caret = caret;
 	caret.x += (width - textw(gui.title)) / 2;
 	draw::text(gui.title);

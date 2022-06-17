@@ -2301,6 +2301,11 @@ void draw::cbsetint() {
 	*p = hot.param;
 }
 
+void draw::cbsetbool() {
+	auto p = (int*)hot.object;
+	*p = hot.param!=0;
+}
+
 void draw::cbsetsht() {
 	auto p = (short*)hot.object;
 	*p = (short)hot.param;
