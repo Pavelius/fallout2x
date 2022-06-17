@@ -16,6 +16,7 @@ static array source_nameof(sizeof(translate));
 static array source_namesh(sizeof(translate));
 static array source_namepl(sizeof(translate));
 static array source_text(sizeof(translate));
+static array source_errors(sizeof(translate));
 
 static int compare(const void* v1, const void* v2) {
 	auto p1 = (const translate*)v1;
@@ -120,20 +121,6 @@ static void deinitialize() {
 	setfile(source_name, "Names", main_locale, true, false);
 }
 
-static void check(array& source, const char* locale, const char* url) {
-	log::seturl(url);
-	for(auto& e : source.records<translate>()) {
-		if(e.name && e.name[0])
-			continue;
-		log::error(0, " Define translate for `%1`", e.id);
-	}
-}
-
-void check_translation() {
-	atexit(deinitialize);
-	check(source_name, main_locale, "Names.txt");
-}
-
 static void copy_locale(const char* locale) {
 	stringbuilder sb(main_locale);
 	sb.add(locale);
@@ -143,11 +130,26 @@ void add_locale_names(const char* id, bool required) {
 	setfile(source_name, id, main_locale, false, required);
 }
 
+static void check(array& source, const char* locale, const char* url) {
+	log::seturl(url);
+	for(auto& e : source.records<translate>()) {
+		if(e.name && e.name[0])
+			continue;
+		log::error(0, " Define translate for `%1`", e.id);
+	}
+}
+
+static void check_translation() {
+	// atexit(deinitialize);
+	check(source_name, main_locale, "Names.txt");
+}
+
 void initialize_translation(const char* locale) {
 	if(main_locale[0])
 		return;
 	copy_locale(locale);
 	add_locale_names("Names", true);
+	check_translation();
 	setfile(source_text, "Descriptions", main_locale, false, false);
 	setfile(source_nameof, "NamesOf", main_locale, false, false);
 	setfile(source_namepl, "NamesPl", main_locale, false, false);
@@ -164,10 +166,13 @@ const char* getnm(const char* id) {
 	if(!p) {
 #ifdef _DEBUG
 		// Only in debug mode collect new strings
-		p = (translate*)source_name.add();
-		memset(p, 0, sizeof(*p));
-		p->id = szdup(id);
-		update_elements(source_name);
+		auto p = (translate*)bsearch(&key, source_errors.data, source_errors.getcount(), source_errors.getsize(), compare);
+		if(!p) {
+			p = (translate*)source_errors.add();
+			memset(p, 0, sizeof(*p));
+			p->id = szdup(id);
+			update_elements(source_errors);
+		}
 #endif
 		return id;
 	}

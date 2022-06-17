@@ -6,8 +6,9 @@ using namespace draw;
 const int tile_width = 128;
 const int tile_height = 128;
 const scenery* current_scenery;
+static indext current_hexagon;
+static rect play_area = {0, 0, 640, 480 - 99};
 
-// Получение координаты тайла(x,y) на экране
 point t2s(point v) {
 	return {
 		(short)(32 * v.y + 48 * v.x),
@@ -15,14 +16,12 @@ point t2s(point v) {
 	};
 }
 
-// Определение координаты тайла по координатам(x,y) на экране
 point s2t(point pt) {
 	int x = pt.x + 40;
 	int y = pt.y + 26;
 	return{(short)((x - 4 * y / 3) / 64), (short)((x + 4 * y) / 128)};
 }
 
-// Получение координаты хексагона(x,y) на экране
 point h2s(point v) {
 	return{
 		(short)(16 * (v.y + v.x * 2 - v.x / 2)),
@@ -30,11 +29,6 @@ point h2s(point v) {
 	};
 }
 
-//point h2s(indext v) {
-//	return h2s({(short)loc.gethx(v), (short)loc.gethy(v)});
-//}
-
-// Определение координаты хексагона
 point s2h(point pt) {
 	int x1 = pt.x + 15;
 	int y1 = pt.y + 7;
@@ -85,6 +79,7 @@ static void scrollmap(int x, int y, int cicle) {
 		rc.y2 = rc.y1 + s;
 	}
 	if(hot.mouse.in(rc)) {
+		current_hexagon = Blocked;
 		cursor.set(res::INTRFACE, cicle);
 		if(hot.key == InputTimer)
 			execute(addpoint, x * dx, y * dy, &camera);
@@ -136,6 +131,30 @@ static void control_map() {
 	scrollmap(-1, 0, 277);
 }
 
+static void set_hexagon_position() {
+	current_hexagon = Blocked;
+	if(hot.mouse.in(play_area))
+		current_hexagon = h2i(s2h(hot.mouse + camera));
+}
+
+static void redraw_hexagon() {
+	if(current_hexagon == Blocked)
+		return;
+	cursor.clear();
+	auto pt = h2s(i2h(current_hexagon)) - camera;
+	image(pt.x - 15, pt.y - 7, gres(res::INTRFACE), 1, 0);
+}
+
+static void redraw_select_tool() {
+	if(current_hexagon == Blocked)
+		return;
+	auto pt = h2s(i2h(current_hexagon)) - camera;
+	if(scenery::last) {
+		auto rs = gres(res::SCENERY);
+		image(pt.x, pt.y, gres(res::SCENERY), rs->ganim(scenery::last->frame, current_tick / 200), 0);
+	}
+}
+
 void choose_scenery();
 
 static void press_hotkey() {
@@ -148,7 +167,10 @@ static void press_hotkey() {
 }
 
 void adventure() {
-	redraw_floor();
-	press_hotkey();
+	set_hexagon_position();
 	control_map();
+	redraw_floor();
+	redraw_hexagon();
+	redraw_select_tool();
+	press_hotkey();
 }

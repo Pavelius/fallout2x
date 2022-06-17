@@ -11,7 +11,6 @@ unsigned long current_tick, last_tick;
 extern "C" int system(const char* command);
 
 void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime);
-void check_translation();
 void initialize_translation(const char* locale);
 void focus_beforemodal();
 void focus_finish();
@@ -64,7 +63,6 @@ int start_application(fnevent proc, fnevent afterread) {
 	initialize_translation("ru");
 	if(afterread)
 		afterread();
-	check_translation();
 	if(log::geterrors()) {
 		log::stoplogging();
 		openerror();

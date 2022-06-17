@@ -115,5 +115,6 @@ static void scenery_scene() {
 
 void choose_scenery() {
 	scene(scenery_scene);
+	scenery::last = (scenery*)getresult();
 }
 

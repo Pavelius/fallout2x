@@ -166,6 +166,12 @@
     <ClCompile Include="editor.cpp">
       <Filter>draw</Filter>
     </ClCompile>
+    <ClCompile Include="area.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="scenery.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -295,6 +301,9 @@
     </ClInclude>
     <ClInclude Include="stringlib.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="area.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

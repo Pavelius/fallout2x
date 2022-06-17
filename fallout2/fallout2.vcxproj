@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="adventure.cpp" />
     <ClCompile Include="archive.cpp" />
+    <ClCompile Include="area.cpp" />
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="character.cpp" />
     <ClCompile Include="cicling.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="resid.cpp" />
+    <ClCompile Include="scenery.cpp" />
     <ClCompile Include="screenshoot.cpp" />
     <ClCompile Include="script.cpp" />
     <ClCompile Include="scripting.cpp" />
@@ -200,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="archive.h" />
+    <ClInclude Include="area.h" />
     <ClInclude Include="bsreq.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="command.h" />

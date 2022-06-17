@@ -1,3 +1,4 @@
+#include "area.h"
 #include "color.h"
 #include "crt.h"
 #include "flagable.h"
@@ -160,14 +161,16 @@ struct scenery : nameable {
 	short				frame, index;
 	void				getinfo(stringbuilder& sb) const;
 	void				painted() const;
-	static scenery*		last;
+	static const scenery* last;
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);
 inline void				message(const char* format, ...) { messagev(format, xva_start(format)); }
 }
 extern spriteable		cursor;
-extern color			getcolor(unsigned char i);
-extern const char*		getedit();
+extern areai			loc;
 extern int				last_value, last_stat;
 extern unsigned long	current_tick;
+
+extern color			getcolor(unsigned char i);
+extern const char*		getedit();
