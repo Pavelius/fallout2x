@@ -9,6 +9,8 @@ const scenery* current_scenery;
 static indext current_hexagon;
 static rect play_area = {0, 0, 640, 480 - 99};
 
+void paint_drawables();
+
 point t2s(point v) {
 	return {
 		(short)(32 * v.y + 48 * v.x),
@@ -145,6 +147,21 @@ static void redraw_hexagon() {
 	image(pt.x - 15, pt.y - 7, gres(res::INTRFACE), 1, 0);
 }
 
+static void place_tool() {
+	if(current_hexagon == Blocked)
+		return;
+	auto pt = h2s(i2h(current_hexagon));
+	if(bsdata<scenery>::have(hot.object)) {
+		auto p = (scenery*)hot.object;
+		auto pd = drawable::find(pt);
+		if(!pd)
+			pd = drawable::add(pt, p);
+		pd->data = p;
+		pd->frame = p->frame;
+		pd->frame_stop = pd->frame;
+	}
+}
+
 static void redraw_select_tool() {
 	if(current_hexagon == Blocked)
 		return;
@@ -152,6 +169,8 @@ static void redraw_select_tool() {
 	if(scenery::last) {
 		auto rs = gres(res::SCENERY);
 		image(pt.x, pt.y, gres(res::SCENERY), rs->ganim(scenery::last->frame, current_tick / 200), 0);
+		if(hot.key == MouseLeft && hot.pressed)
+			execute(place_tool, 0, 0, scenery::last);
 	}
 }
 
@@ -166,11 +185,22 @@ static void press_hotkey() {
 	}
 }
 
+void scenery::paint() const {
+	auto rs = gres(res::SCENERY);
+	image(gres(res::SCENERY), rs->ganim(frame, current_tick / 200), 0);
+}
+
+void drawable::paint() const {
+	if(bsdata<scenery>::have(data))
+		((scenery*)data)->paint();
+}
+
 void adventure() {
 	set_hexagon_position();
 	control_map();
 	redraw_floor();
 	redraw_hexagon();
+	paint_drawables();
 	redraw_select_tool();
 	press_hotkey();
 }

@@ -212,6 +212,7 @@
     <ClInclude Include="datasource.h" />
     <ClInclude Include="dialog.h" />
     <ClInclude Include="draw.h" />
+    <ClInclude Include="drawable.h" />
     <ClInclude Include="filelist.h" />
     <ClInclude Include="flagable.h" />
     <ClInclude Include="focus.h" />

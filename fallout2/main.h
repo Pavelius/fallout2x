@@ -1,6 +1,7 @@
 #include "area.h"
 #include "color.h"
 #include "crt.h"
+#include "drawable.h"
 #include "flagable.h"
 #include "point.h"
 #include "rect.h"
@@ -135,16 +136,9 @@ struct character : nameable, statable {
 	void				update();
 	void				write(const char* id) const;
 };
-struct drawable {
-	point				position;
-	void*				data;
-	unsigned short		frame, frame_stop;
-	unsigned			flags;
-	void				clear() { memset(this, 0, sizeof(*this)); }
-	void				paint() const;
-};
 struct spriteable : drawable {
 	res					resource;
+	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				paint() const;
 	void				set(res r, short cicle);
 };
@@ -160,6 +154,7 @@ struct anminfo {
 struct scenery : nameable {
 	short				frame, index;
 	void				getinfo(stringbuilder& sb) const;
+	void				paint() const;
 	void				painted() const;
 	static const scenery* last;
 };

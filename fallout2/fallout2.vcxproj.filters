@@ -305,6 +305,9 @@
     <ClInclude Include="area.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="drawable.h">
+      <Filter>draw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Basic.txt">
