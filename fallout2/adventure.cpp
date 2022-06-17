@@ -195,8 +195,8 @@ static void place_tool() {
 	if(current_hexagon == Blocked)
 		return;
 	auto pt = h2s(i2h(current_hexagon));
-	if(bsdata<scenery>::have(hot.object)) {
-		auto p = (scenery*)hot.object;
+	if(bsdata<sceneryi>::have(hot.object)) {
+		auto p = (sceneryi*)hot.object;
 		auto pd = drawable::find(pt);
 		if(!pd)
 			pd = drawable::add(pt, p);
@@ -210,11 +210,11 @@ static void redraw_select_tool() {
 	if(current_hexagon == Blocked)
 		return;
 	auto pt = h2s(i2h(current_hexagon)) - camera;
-	if(scenery::last) {
+	if(sceneryi::last) {
 		auto rs = gres(res::SCENERY);
-		image(pt.x, pt.y, gres(res::SCENERY), rs->ganim(scenery::last->frame, current_tick / 200), 0);
+		image(pt.x, pt.y, gres(res::SCENERY), rs->ganim(sceneryi::last->frame, current_tick / 200), 0);
 		if(hot.key == MouseLeft && hot.pressed)
-			execute(place_tool, 0, 0, scenery::last);
+			execute(place_tool, 0, 0, sceneryi::last);
 	}
 }
 
@@ -224,7 +224,7 @@ static void scenery_list() {
 	width = 128; height = 128;
 	auto dx = push.width / (width + metrics::padding);
 	auto dy = push.height / (height + metrics::padding);
-	auto maximum = bsdata<scenery>::source.getcount();
+	auto maximum = bsdata<sceneryi>::source.getcount();
 	list_input(origin, dx * dy, dx, maximum);
 	for(size_t i = origin; i < maximum; i++) {
 		if(caret.x + width > push.width) {
@@ -233,7 +233,7 @@ static void scenery_list() {
 		}
 		if(caret.y + height > push.height)
 			break;
-		bsdata<scenery>::elements[i].painted();
+		bsdata<sceneryi>::elements[i].painted();
 		caret.x += width + metrics::padding;
 	}
 }
@@ -246,8 +246,8 @@ static void horizline() {
 
 static void status_text() {
 	char temp[2048]; stringbuilder sb(temp); sb.clear();
-	if(bsdata<scenery>::have(hilite_object))
-		((scenery*)hilite_object)->getinfo(sb);
+	if(bsdata<sceneryi>::have(hilite_object))
+		((sceneryi*)hilite_object)->getinfo(sb);
 	if(temp[0])
 		texta(temp, AlignCenterCenter);
 }
@@ -282,8 +282,15 @@ static void tile_list() {
 	const auto max_width = 16;
 	auto need_break = false;
 	auto pr = gres(res::TILES);
-	auto count = pr->cicles;
+	auto count = bsdata<tilei>::source.count;
 	auto push_caret = caret;
+	auto px = hot.mouse + camera; px.y -= tile_height / 2;
+	auto pt = s2t(px);
+	auto hilite = 0;
+	if(pt.x < 0 || pt.y<0 || pt.x > max_width)
+		hilite = 0;
+	else
+		hilite = pt.y * max_width + pt.x;
 	for(auto y = 0; true; y++) {
 		if(need_break)
 			break;
@@ -297,14 +304,21 @@ static void tile_list() {
 			}
 			caret = t2s({(short)x, (short)y}) - camera;
 			auto cicle = y * max_width + x;
-			image(caret.x, caret.y + tile_height / 2, pr, pr->ganim(cicle, current_tick / 200), 0);
+			auto& ei = bsdata<tilei>::elements[tv];
+			image(caret.x, caret.y + tile_height / 2, pr, pr->ganim(ei.frame, current_tick / 200), 0);
 			if(show_tile_index) {
 				sb.clear(); sb.add("%1i", tv);
 				textac(temp);
 			}
-			//if(hilite == tv)
-			//	image(pz.x, pz.y + tile_height / 2, ps, ps->ganim(222, tm), 0);
 		}
+	}
+	if(hilite) {
+		short x = hilite % max_width;
+		short y = hilite / max_width;
+		caret = t2s({x, y}) - camera;
+		image(caret.x, caret.y + tile_height / 2, pr, pr->ganim(222, current_tick / 200), 0);
+		if(hot.key == MouseLeft && !hot.pressed)
+			execute(buttonparam, hilite);
 	}
 	caret = push_caret;
 }
@@ -327,7 +341,7 @@ static void tile_scene() {
 
 void choose_scenery() {
 	scene(scenery_scene);
-	scenery::last = (scenery*)getresult();
+	sceneryi::last = (sceneryi*)getresult();
 }
 
 void choose_tile() {
@@ -347,14 +361,32 @@ static void press_hotkey() {
 	}
 }
 
-void scenery::paint() const {
+void sceneryi::paint() const {
 	auto rs = gres(res::SCENERY);
 	image(gres(res::SCENERY), rs->ganim(frame, current_tick / 200), 0);
 }
 
+void sceneryi::painted() const {
+	auto push_clipping = clipping;
+	auto pr = gres(res::SCENERY);
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	image(caret.x + width / 2, caret.y + height - 32, pr, pr->ganim(frame, current_tick / 200), 0);
+	clipping = push_clipping;
+	if(ishilite()) {
+		rectb();
+		hilite_object = this;
+		if(hot.key == MouseLeft && !hot.pressed)
+			execute(buttonparam, (long)this);
+	}
+	auto push_caret = caret;
+	caret.y += height - 32;
+	texta(getname(), AlignCenter);
+	caret = push_caret;
+}
+
 void drawable::paint() const {
-	if(bsdata<scenery>::have(data))
-		((scenery*)data)->paint();
+	if(bsdata<sceneryi>::have(data))
+		((sceneryi*)data)->paint();
 }
 
 void adventure() {

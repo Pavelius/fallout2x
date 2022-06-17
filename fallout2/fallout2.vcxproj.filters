@@ -163,14 +163,17 @@
     <ClCompile Include="stringlib.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="editor.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="area.cpp">
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="scenery.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="pro_tile.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="pro_scenery.cpp">
+      <Filter>proto</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +200,9 @@
     </Filter>
     <Filter Include="util">
       <UniqueIdentifier>{143b8b8f-8b64-42f5-bca7-2bd5f4e43733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{bd5f45e3-9bea-40e6-8255-68cde886cc85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

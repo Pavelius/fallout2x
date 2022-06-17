@@ -28,7 +28,7 @@ static void initialize() {
 	dialog::initialize();
 	main_util();
 	add_locale_names("Scenery", true);
-	bsreq::read("rules/Scenery.txt");
+	//bsreq::read("rules/Scenery.txt");
 }
 
 int main(int argc, char* argv[]) {

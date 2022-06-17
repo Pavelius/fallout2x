@@ -154,12 +154,18 @@ struct anminfo {
 	static const point	getoffset(const sprite* p, int frame);
 	int					getfps() const { return fps ? fps : 10; }
 };
-struct scenery : nameable {
+struct sceneryi : nameable {
 	short				frame, index;
+	material_s			material;
 	void				getinfo(stringbuilder& sb) const;
 	void				paint() const;
 	void				painted() const;
-	static const scenery* last;
+	static const sceneryi* last;
+};
+struct tilei {
+	const char*			id;
+	short				frame, index;
+	material_s			material;
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);

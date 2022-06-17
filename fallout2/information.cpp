@@ -34,7 +34,7 @@ void character::exporting(const char* id) const {
 	write_export("characters/export", id, temp);
 }
 
-void scenery::getinfo(stringbuilder& sb) const {
+void sceneryi::getinfo(stringbuilder& sb) const {
 	//sb.adds("(%1i, %2i)", id, cicle);
 	//if(subtype != Generic)
 	//	sb.adds(::getname(subtype));

@@ -161,7 +161,6 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="draw_text.cpp" />
-    <ClCompile Include="editor.cpp" />
     <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
     <ClCompile Include="function.cpp" />
@@ -179,6 +178,8 @@
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="pro_scenery.cpp" />
+    <ClCompile Include="pro_tile.cpp" />
     <ClCompile Include="resid.cpp" />
     <ClCompile Include="scenery.cpp" />
     <ClCompile Include="screenshoot.cpp" />
