@@ -16,6 +16,7 @@ int start_application(fnevent proc, fnevent afterread);
 static void start() {
 	character::last = character::add("Narg");
 	//choose_scenery();
+	loc.set(0, 6, 100, 100, 4);
 	draw::scene(adventure);
 	//character_generate();
 }
@@ -29,7 +30,9 @@ static void initialize() {
 	character::initialize();
 	dialog::initialize();
 	main_util();
+	add_locale_names("Tiles", true);
 	add_locale_names("Scenery", true);
+	add_locale_names("Walls", true);
 	//bsreq::read("rules/Scenery.txt");
 }
 

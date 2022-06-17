@@ -4,6 +4,7 @@
 using namespace draw;
 
 static bool show_tile_index = false;
+static const void* current_tool;
 static indext current_hexagon;
 static rect play_area = {0, 0, 640, 480 - 99};
 
@@ -138,23 +139,22 @@ static void redraw_floor() {
 		return;
 	auto tm = current_tick;
 	rect rc = {-tile_width, -tile_height, 640 + tile_width, 480 + tile_height};
-	int xx = 8 - camera.x;
-	int yy = 26 - camera.y;
-	for(auto y = 0; y < 100; y++) {
-		auto prev_xx = xx;
-		auto prev_yy = yy;
-		for(auto x = 0; x < 100; x++) {
-			point pt = {(short)xx, (short)yy};
-			if(pt.in(rc)) {
-				auto tv = 2; //loc.getfloor(loc.geti(x, y));
+	for(short y = 0; y < 100; y++) {
+		for(short x = 0; x < 100; x++) {
+			caret = t2s({x, y}) - camera;
+			caret.x += 8;
+			caret.y += 26;
+			//point pt = {(short)xx, (short)yy};
+			if(caret.in(rc)) {
+				auto tv = bsdata<tilei>::elements[loc.getfloor(t2i({x, y}))].frame;
 				if(tv > 1)
-					draw::image(xx, yy, ps, ps->ganim(tv, tm), 0);
+					draw::image(ps, ps->ganim(tv, tm), 0);
 			}
-			xx += 48;
-			yy -= 12;
+			//xx += 48;
+			//yy -= 12;
 		}
-		xx = prev_xx + 32;
-		yy = prev_yy + 24;
+		//xx = prev_xx + 32;
+		//yy = prev_yy + 24;
 	}
 }
 
@@ -204,17 +204,96 @@ static void place_tool() {
 		pd->frame = p->frame;
 		pd->frame_stop = pd->frame;
 	}
+	if(bsdata<walli>::have(hot.object)) {
+		auto p = (walli*)hot.object;
+		auto pd = drawable::find(pt);
+		if(!pd)
+			pd = drawable::add(pt, p);
+		pd->data = p;
+		pd->frame = p->frame;
+		pd->frame_stop = pd->frame;
+	}
+	if(bsdata<tilei>::have(hot.object)) {
+		auto p = (tilei*)hot.object;
+		auto i = t2i(h2t(i2h(current_hexagon)));
+		loc.setfloor(i, getbsi(p));
+	}
+}
+
+static void paint_tool() {
+	if(bsdata<sceneryi>::have(current_tool))
+		((sceneryi*)current_tool)->paint();
+	else if(bsdata<walli>::have(current_tool))
+		((walli*)current_tool)->paint();
+	else if(bsdata<tilei>::have(current_tool)) {
+		caret = t2s(h2t(i2h(current_hexagon))) - camera;
+		caret.x += 8;
+		caret.y += 26;
+		((tilei*)current_tool)->paint();
+	}
 }
 
 static void redraw_select_tool() {
 	if(current_hexagon == Blocked)
 		return;
-	auto pt = h2s(i2h(current_hexagon)) - camera;
-	if(sceneryi::last) {
-		auto rs = gres(res::SCENERY);
-		image(pt.x, pt.y, gres(res::SCENERY), rs->ganim(sceneryi::last->frame, current_tick / 200), 0);
+	auto push_caret = caret;
+	caret = h2s(i2h(current_hexagon)) - camera;
+	if(current_tool) {
+		paint_tool();
 		if(hot.key == MouseLeft && hot.pressed)
-			execute(place_tool, 0, 0, sceneryi::last);
+			execute(place_tool, 0, 0, current_tool);
+	}
+	caret = push_caret;
+}
+
+static void horizline() {
+	auto push_caret = caret;
+	line(caret.x + width, caret.y);
+	caret = push_caret;
+}
+
+static void status_text() {
+	char temp[2048]; stringbuilder sb(temp); sb.clear();
+	if(bsdata<sceneryi>::have(hilite_object))
+		((sceneryi*)hilite_object)->getinfoed(sb);
+	else if(bsdata<walli>::have(hilite_object))
+		((walli*)hilite_object)->getinfoed(sb);
+	if(temp[0])
+		texta(temp, AlignCenterCenter);
+}
+
+static void status_bar() {
+	auto push_fore = fore;
+	height = texth() * 4;
+	width = width - 1;
+	caret.x = 0;
+	caret.y = getheight() - height - 1;
+	fore = getcolor(ColorInfo);
+	rectf();
+	fore = getcolor(ColorButton);
+	rectb();
+	fore = getcolor(ColorText);
+	status_text();
+	fore = push_fore;
+}
+
+static void wall_list() {
+	static int origin;
+	rectpush push;
+	width = 128; height = 128;
+	auto dx = push.width / (width + metrics::padding);
+	auto dy = push.height / (height + metrics::padding);
+	auto maximum = bsdata<walli>::source.getcount();
+	list_input(origin, dx * dy, dx, maximum);
+	for(size_t i = origin; i < maximum; i++) {
+		if(caret.x + width > push.width) {
+			caret.y += height + metrics::padding;
+			caret.x = push.caret.x;
+		}
+		if(caret.y + height > push.height)
+			break;
+		bsdata<walli>::elements[i].painted();
+		caret.x += width + metrics::padding;
 	}
 }
 
@@ -238,43 +317,16 @@ static void scenery_list() {
 	}
 }
 
-static void horizline() {
-	auto push_caret = caret;
-	line(caret.x + width, caret.y);
-	caret = push_caret;
-}
-
-static void status_text() {
-	char temp[2048]; stringbuilder sb(temp); sb.clear();
-	if(bsdata<sceneryi>::have(hilite_object))
-		((sceneryi*)hilite_object)->getinfo(sb);
-	if(temp[0])
-		texta(temp, AlignCenterCenter);
-}
-
-static void status_bar() {
-	auto push_fore = fore;
-	height = texth() * 4;
-	width = width - 1;
-	caret.x = 0;
-	caret.y = getheight() - height - 1;
-	fore = getcolor(ColorInfo);
-	rectf();
-	fore = getcolor(ColorButton);
-	rectb();
-	fore = getcolor(ColorText);
-	status_text();
-	fore = push_fore;
-}
-
-static void scenery_scene() {
+static fnevent scene_list;
+static void common_scene() {
 	fore = getcolor(ColorDisable);
 	rectf();
 	caret.x += metrics::padding;
 	caret.y += metrics::padding;
 	fore = getcolor(ColorCheck);
-	scenery_list();
+	scene_list();
 	status_bar();
+	cancel_hotkey();
 }
 
 static void tile_list() {
@@ -318,7 +370,7 @@ static void tile_list() {
 		caret = t2s({x, y}) - camera;
 		image(caret.x, caret.y + tile_height / 2, pr, pr->ganim(222, current_tick / 200), 0);
 		if(hot.key == MouseLeft && !hot.pressed)
-			execute(buttonparam, hilite);
+			execute(buttonparam, (long)(bsdata<tilei>::elements + hilite));
 	}
 	caret = push_caret;
 }
@@ -339,31 +391,60 @@ static void tile_scene() {
 	cancel_hotkey();
 }
 
-void choose_scenery() {
-	scene(scenery_scene);
-	sceneryi::last = (sceneryi*)getresult();
+static void choose_scenery() {
+	scene_list = scenery_list;
+	scene(common_scene);
+	if(getresult()) {
+		sceneryi::last = (sceneryi*)getresult();
+		current_tool = sceneryi::last;
+	}
+}
+
+static void choose_wall() {
+	scene_list = wall_list;
+	scene(common_scene);
+	if(getresult()) {
+		walli::last = (walli*)getresult();
+		current_tool = walli::last;
+	}
 }
 
 void choose_tile() {
 	auto push_camera = camera;
 	scene(tile_scene);
 	camera = push_camera;
+	if(getresult()) {
+		tilei::last = (tilei*)getresult();
+		current_tool = tilei::last;
+	}
+}
+
+static void modular() {
+
 }
 
 static void press_hotkey() {
 	switch(hot.key) {
-	case 'S':
-		choose_scenery();
-		break;
-	case 'T':
-		choose_tile();
-		break;
+	case 'M': execute(modular); break;
+	case 'S': execute(choose_scenery); break;
+	case 'T': execute(choose_tile); break;
+	case 'W': execute(choose_wall); break;
 	}
 }
 
 void sceneryi::paint() const {
 	auto rs = gres(res::SCENERY);
-	image(gres(res::SCENERY), rs->ganim(frame, current_tick / 200), 0);
+	image(rs, rs->ganim(frame, current_tick / 200), 0);
+}
+
+void walli::paint() const {
+	auto rs = gres(res::WALLS);
+	image(rs, rs->ganim(frame, current_tick / 200), 0);
+}
+
+void tilei::paint() const {
+	auto rs = gres(res::TILES);
+	image(rs, rs->ganim(frame, current_tick / 200), 0);
 }
 
 void sceneryi::painted() const {
@@ -384,9 +465,29 @@ void sceneryi::painted() const {
 	caret = push_caret;
 }
 
+void walli::painted() const {
+	auto push_clipping = clipping;
+	auto pr = gres(res::WALLS);
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	image(caret.x + width / 2, caret.y + height - 32, pr, pr->ganim(frame, current_tick / 200), 0);
+	clipping = push_clipping;
+	if(ishilite()) {
+		rectb();
+		hilite_object = this;
+		if(hot.key == MouseLeft && !hot.pressed)
+			execute(buttonparam, (long)this);
+	}
+	auto push_caret = caret;
+	caret.y += height - 32;
+	texta(getname(), AlignCenter);
+	caret = push_caret;
+}
+
 static void paint_drawable(const drawable* p) {
 	if(bsdata<sceneryi>::have(p->data))
 		((sceneryi*)p->data)->paint();
+	else if(bsdata<walli>::have(p->data))
+		((walli*)p->data)->paint();
 }
 
 static int getorder(const drawable* p) {

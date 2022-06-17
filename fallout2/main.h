@@ -95,13 +95,19 @@ enum objectf : unsigned {
 };
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
-	ColorState = 0x90
+	ColorState = 0x90,
+	ColorRed = 254
 };
 typedef flagable<16>	perka;
 typedef flagable<4>		skilla;
 struct nameable {
 	const char*			id;
 	const char*			getname() const { return getnm(id); }
+};
+struct lighti : nameable {
+	unsigned			value;
+};
+struct objectfi : lighti {
 };
 struct animationi {
 	const char*			id;
@@ -188,16 +194,27 @@ struct sceneryi : nameable {
 	short				frame, index;
 	material_s			material;
 	unsigned			light, object, action;
-	void				getinfo(stringbuilder& sb) const;
+	void				getinfoed(stringbuilder& sb) const;
 	bool				is(objectf v) const { return (object & v) != 0; }
 	void				paint() const;
 	void				painted() const;
 	static const sceneryi* last;
 };
 struct tilei : nameable {
-	//const char*			id;
 	short				frame, index;
 	material_s			material;
+	void				paint() const;
+	static const tilei*	last;
+};
+struct walli : nameable {
+	short				frame, index;
+	material_s			material;
+	unsigned			light, object;
+	static const walli* last;
+	bool				is(objectf v) const { return (object & v) != 0; }
+	void				getinfoed(stringbuilder& sb) const;
+	void				paint() const;
+	void				painted() const;
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);
@@ -210,7 +227,13 @@ extern unsigned long	current_tick;
 
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();
+inline point			i2t(indext i) { return {(short)(i % ((mps * 2)) / 2), (short)(i / ((mps * 2)) / 2)}; }
+inline point			i2h(indext i) { return {(short)(i % (mps * 2)), (short)(i / (mps * 2))}; }
 extern point			h2s(point v);
+indext					h2i(point pt);
+inline point			h2t(point v) { return {(short)(v.x / 2), (short)(v.y / 2)}; }
 extern point			s2h(point pt);
 extern point			s2t(point v);
+inline indext			t2i(point v) { return v.y * mps + v.x; }
 extern point			t2s(point v);
+inline point			t2h(point v) { return {(short)(v.x * 2), (short)(v.y * 2)}; }

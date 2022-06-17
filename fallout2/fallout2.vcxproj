@@ -89,7 +89,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableModules>false</EnableModules>
     </ClCompile>
     <Link>
@@ -170,16 +170,19 @@
     <ClCompile Include="interface.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="io_stream.cpp" />
+    <ClCompile Include="light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="logparse.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="material.cpp" />
     <ClCompile Include="metadata.cpp" />
+    <ClCompile Include="objectf.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="pro_scenery.cpp" />
     <ClCompile Include="pro_tile.cpp" />
+    <ClCompile Include="pro_wall.cpp" />
     <ClCompile Include="resid.cpp" />
     <ClCompile Include="scenery.cpp" />
     <ClCompile Include="screenshoot.cpp" />
@@ -194,8 +197,11 @@
     <ClCompile Include="stringlib.cpp" />
     <ClCompile Include="surface_serial.cpp" />
     <ClCompile Include="szdup.cpp" />
+    <ClCompile Include="tile.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="control.cpp" />
+    <ClCompile Include="wall.cpp" />
+    <ClCompile Include="wallblock.cpp" />
     <ClCompile Include="widget.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />

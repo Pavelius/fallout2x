@@ -34,11 +34,31 @@ void character::exporting(const char* id) const {
 	write_export("characters/export", id, temp);
 }
 
-void sceneryi::getinfo(stringbuilder& sb) const {
-	//sb.adds("(%1i, %2i)", id, cicle);
-	//if(subtype != Generic)
-	//	sb.adds(::getname(subtype));
-	//sb.adds(getactionflags(action_flags, false));
-	//sb.adds(getlightflags(light_flags, false));
+static const char* getflagsor(unsigned v, array& source) {
+	static char temp[512]; stringbuilder sb(temp);
+	auto c = 0;
+	temp[0] = 0;
+	auto m = source.getcount();
+	for(unsigned i = 0; i < m; i++) {
+		auto& e = *((lighti*)source.ptr(i));
+		if((v & e.value) == 0)
+			continue;
+		sb.adds(e.id);
+		c++;
+	}
+	return temp;
+}
+
+void sceneryi::getinfoed(stringbuilder& sb) const {
+	sb.adds("(%1i, %2i)", index, frame);
+	sb.adds(getflagsor(light, bsdata<lighti>::source));
+	sb.adds(getflagsor(object, bsdata<objectfi>::source));
+	sb.adds(getdescription(id));
+}
+
+void walli::getinfoed(stringbuilder& sb) const {
+	sb.adds("(%1i, %2i)", index, frame);
+	sb.adds(getflagsor(light, bsdata<lighti>::source));
+	sb.adds(getflagsor(object, bsdata<objectfi>::source));
 	sb.adds(getdescription(id));
 }

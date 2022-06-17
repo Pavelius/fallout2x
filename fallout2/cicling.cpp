@@ -29,9 +29,9 @@ void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime) {
 		unsigned dwSlimeCurrentWork = SlimeCurrent;
 
 		for(int i = 3; i >= 0; i--) {
-			pal[229 * 4 + i * 4 + 0] = Slime[dwSlimeCurrentWork * 3]; // Red  
+			pal[229 * 4 + i * 4 + 0] = Slime[dwSlimeCurrentWork * 3 + 3]; // Red  
 			pal[229 * 4 + i * 4 + 1] = Slime[dwSlimeCurrentWork * 3 + 1]; // Green
-			pal[229 * 4 + i * 4 + 2] = Slime[dwSlimeCurrentWork * 3 + 2]; // Blue
+			pal[229 * 4 + i * 4 + 2] = Slime[dwSlimeCurrentWork * 3 + 0]; // Blue
 
 			if(dwSlimeCurrentWork == 3)
 				dwSlimeCurrentWork = 0;
@@ -48,9 +48,9 @@ void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime) {
 		unsigned ShorelineCurrentWork = ShorelineCurrent;
 
 		for(int i = 5; i >= 0; i--) {
-			pal[(744 / 3) * 4 + i * 4] = Shoreline[ShorelineCurrentWork * 3];               // Red  
+			pal[(744 / 3) * 4 + i * 4] = Shoreline[ShorelineCurrentWork * 3 + 3];               // Red  
 			pal[(744 / 3) * 4 + i * 4 + 1] = Shoreline[ShorelineCurrentWork * 3 + 1];       // Green
-			pal[(744 / 3) * 4 + i * 4 + 2] = Shoreline[ShorelineCurrentWork * 3 + 2];       // Blue 
+			pal[(744 / 3) * 4 + i * 4 + 2] = Shoreline[ShorelineCurrentWork * 3 + 0];       // Blue 
 
 			if(ShorelineCurrentWork == 5)
 				ShorelineCurrentWork = 0;
@@ -67,9 +67,9 @@ void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime) {
 		unsigned FireSlowCurrentWork = FireSlowCurrent;
 
 		for(int i = 4; i >= 0; i--) {
-			pal[(714 / 3) * 4 + i * 4] = FireSlow[FireSlowCurrentWork * 3];                 // Red  
+			pal[(714 / 3) * 4 + i * 4] = FireSlow[FireSlowCurrentWork * 3 + 3];                 // Red  
 			pal[(714 / 3) * 4 + i * 4 + 1] = FireSlow[FireSlowCurrentWork * 3 + 1];         // Green
-			pal[(714 / 3) * 4 + i * 4 + 2] = FireSlow[FireSlowCurrentWork * 3 + 2];         // Blue 
+			pal[(714 / 3) * 4 + i * 4 + 2] = FireSlow[FireSlowCurrentWork * 3 + 0];         // Blue 
 
 			if(FireSlowCurrentWork == 4)
 				FireSlowCurrentWork = 0;
@@ -90,9 +90,9 @@ void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime) {
 		unsigned FireFastCurrentWork = FireFastCurrent;
 
 		for(int i = 4; i >= 0; i--) {
-			pal[(729 / 3) * 4 + i * 4] = FireFast[FireFastCurrentWork * 3];                 // Red  
+			pal[(729 / 3) * 4 + i * 4] = FireFast[FireFastCurrentWork * 3 + 3];                 // Red  
 			pal[(729 / 3) * 4 + i * 4 + 1] = FireFast[FireFastCurrentWork * 3 + 1];         // Green
-			pal[(729 / 3) * 4 + i * 4 + 2] = FireFast[FireFastCurrentWork * 3 + 2];         // Blue 
+			pal[(729 / 3) * 4 + i * 4 + 2] = FireFast[FireFastCurrentWork * 3 + 0];         // Blue 
 
 			if(FireFastCurrentWork == 4)
 				FireFastCurrentWork = 0;
@@ -113,9 +113,9 @@ void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime) {
 		unsigned dwMonitorsCurrentWork = MonitorsCurrent;
 
 		for(int i = 4; i >= 0; i--) {
-			pal[(699 / 3) * 4 + i * 4] = Monitors[dwMonitorsCurrentWork * 3]; // Red  
+			pal[(699 / 3) * 4 + i * 4] = Monitors[dwMonitorsCurrentWork * 3 + 3]; // Red  
 			pal[(699 / 3) * 4 + i * 4 + 1] = Monitors[dwMonitorsCurrentWork * 3 + 1]; // Green
-			pal[(699 / 3) * 4 + i * 4 + 2] = Monitors[dwMonitorsCurrentWork * 3 + 2]; // Blue 
+			pal[(699 / 3) * 4 + i * 4 + 2] = Monitors[dwMonitorsCurrentWork * 3 + 0]; // Blue 
 
 			if(dwMonitorsCurrentWork == 4)
 				dwMonitorsCurrentWork = 0;
