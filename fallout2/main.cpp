@@ -4,6 +4,7 @@
 #include "main.h"
 
 void add_locale_names(const char* id, bool required);
+void initialize_adventure();
 void initialize_script();
 void initialize_dialog();
 void character_generate();
@@ -20,6 +21,7 @@ static void start() {
 }
 
 static void initialize() {
+	initialize_adventure();
 	initialize_script();
 	initialize_dialog();
 	bsreq::read("rules/Perks.txt");

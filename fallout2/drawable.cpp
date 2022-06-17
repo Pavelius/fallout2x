@@ -6,10 +6,16 @@ using namespace draw;
 
 BSDATAC(drawable, 2048)
 static adat<drawable*, 1024> drawables;
+drawable::fnevent drawable::paint;
+drawable::fnget drawable::getorder;
 
 static int compare(const void* v1, const void* v2) {
 	auto p1 = *((drawable**)v1);
 	auto p2 = *((drawable**)v2);
+	auto o1 = drawable::getorder(p1);
+	auto o2 = drawable::getorder(p2);
+	if(o1 != o2)
+		return o1 - o2;
 	if(p1->position.y != p2->position.y)
 		return p1->position.y - p2->position.y;
 	return p1->position.x - p2->position.x;
@@ -41,7 +47,7 @@ void paint_drawables() {
 	sort_drawables();
 	for(auto p : drawables) {
 		caret = p->position - camera;
-		p->paint();
+		drawable::paint(p);
 	}
 }
 

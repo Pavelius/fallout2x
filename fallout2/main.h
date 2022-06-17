@@ -63,6 +63,36 @@ enum animate_s : unsigned char {
 	AnimateRocketLauncher = AnimateMachineGun + 13,
 	LastAnimation = AnimateRocketLauncher + 13
 };
+enum lightf : short unsigned {
+	NorthSouth = 0,
+	EastWest = 0x0800,
+	NorthCorner = 0x1000,
+	SouthCorner = 0x2000,
+	EastCorner = 0x4000,
+	WestCorner = 0x8000
+};
+enum actionf {
+	KneelDownWhenUsing = 0x0001,
+	CanBeUsed = 0x0008,
+	UseOnSomething = 0x0010,
+	CanLookAt = 0x0020,
+	CanTalkWith = 0x0040,
+	CanPickUp = 0x0080,
+};
+enum objectf : unsigned {
+	Flat = 0x00000008,
+	NoBlock = 0x00000010, // Doesn't block the tile
+	MultiHex = 0x00000800,
+	NoHighlight = 0x00001000, // Doesn't highlight the border; used for containers
+	TransRed = 0x00004000,
+	TransNone = 0x00008000, // Opaque
+	TransWall = 0x00010000,
+	TransGlass = 0x00020000,
+	TransSteam = 0x00040000,
+	TransEnergy = 0x00080000,
+	LightThru = 0x20000000,
+	ShootThru = 0x80000000
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90
@@ -157,13 +187,15 @@ struct anminfo {
 struct sceneryi : nameable {
 	short				frame, index;
 	material_s			material;
+	unsigned			light, object, action;
 	void				getinfo(stringbuilder& sb) const;
+	bool				is(objectf v) const { return (object & v) != 0; }
 	void				paint() const;
 	void				painted() const;
 	static const sceneryi* last;
 };
-struct tilei {
-	const char*			id;
+struct tilei : nameable {
+	//const char*			id;
 	short				frame, index;
 	material_s			material;
 };

@@ -384,9 +384,20 @@ void sceneryi::painted() const {
 	caret = push_caret;
 }
 
-void drawable::paint() const {
-	if(bsdata<sceneryi>::have(data))
-		((sceneryi*)data)->paint();
+static void paint_drawable(const drawable* p) {
+	if(bsdata<sceneryi>::have(p->data))
+		((sceneryi*)p->data)->paint();
+}
+
+static int getorder(const drawable* p) {
+	if(bsdata<sceneryi>::have(p->data))
+		return ((sceneryi*)p->data)->is(Flat) ? 0 : 1;
+	return 1;
+}
+
+void initialize_adventure() {
+	drawable::paint = paint_drawable;
+	drawable::getorder = getorder;
 }
 
 void adventure() {
