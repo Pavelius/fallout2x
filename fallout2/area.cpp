@@ -33,6 +33,20 @@ void areai::set(indext i, short unsigned v, short w, short h, int random) {
 	}
 }
 
+int	areai::reapeated(int x0, int x1, int y) const {
+	auto p = floor + y * mps;
+	auto result = 1;
+	auto v = p[x0];
+	for(auto x = x0; x < x1 - 1; x++) {
+		if(p[x + 1] == (v + 1)) {
+			result++;
+			v++;
+		} else
+			break;
+	}
+	return result;
+}
+
 //void areai::set(indext i, int v, int w, int h) {
 //	auto x0 = getx(i), y0 = gety(i);
 //	auto x1 = x0 + w, y1 = y0 + h;

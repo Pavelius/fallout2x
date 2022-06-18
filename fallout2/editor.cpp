@@ -20,6 +20,32 @@ void paint_editor(point h, const walli* p);
 void redraw_floor();
 void redraw_hexagon();
 
+static void place_editor(point bt, const tilegroup* p) {
+	auto index = p->start;
+	for(auto& e : *p) {
+		point t = bt + e.offset;
+		for(auto i = 0; i < e.count; i++) {
+			loc.setfloor(t2i(t), index++);
+			t.x++;
+		}
+	}
+}
+
+static void paint_editor(const tilegroup* p) {
+	auto push_caret = caret;
+	auto pr = gres(res::TILES);
+	auto index = p->start;
+	for(auto& e : *p) {
+		caret = push_caret + t2s(e.offset);
+		for(auto i = 0; i < e.count; i++) {
+			image(pr, bsdata<tilei>::elements[index++].frame, 0);
+			caret.x += 48;
+			caret.y -= 12;
+		}
+	}
+	caret = push_caret;
+}
+
 void add_object(point h, const void* p, short frame) {
 	auto pt = h2s(h);
 	auto pd = drawable::find(pt);
@@ -60,6 +86,9 @@ static void place_tool() {
 		auto p = (tilei*)hot.object;
 		auto i = t2i(h2t(i2h(current_hexagon)));
 		loc.setfloor(i, getbsi(p));
+	} else if(bsdata<tilegroup>::have(hot.object)) {
+		auto p = (tilegroup*)hot.object;
+		place_editor(h2t(i2h(current_hexagon)), p);
 	}
 }
 
@@ -68,7 +97,12 @@ static void paint_tool() {
 		((sceneryi*)current_tool)->paint();
 	else if(bsdata<walli>::have(current_tool))
 		paint_editor(i2h(current_hexagon), (walli*)current_tool);
-	else if(bsdata<tilei>::have(current_tool)) {
+	else if(bsdata<tilegroup>::have(current_tool)) {
+		caret = t2s(h2t(i2h(current_hexagon))) - camera;
+		caret.x += 8;
+		caret.y += 26;
+		paint_editor((tilegroup*)current_tool);
+	} else if(bsdata<tilei>::have(current_tool)) {
 		caret = t2s(h2t(i2h(current_hexagon))) - camera;
 		caret.x += 8;
 		caret.y += 26;
@@ -232,6 +266,31 @@ static void common_scene() {
 	cancel_hotkey();
 }
 
+static void tilegroup_list() {
+	static int index;
+	if(index > (int)bsdata<tilegroup>::source.getcount() - 1)
+		index = (int)bsdata<tilegroup>::source.getcount() - 1;
+	if(index < 0)
+		index = 0;
+	auto p = bsdata<tilegroup>::elements + index;
+	auto push_caret = caret;
+	caret = {120, 480 / 2};
+	paint_editor(p);
+	switch(hot.key) {
+	case KeyLeft:
+		execute(cbsetint, index - 1, 0, &index);
+		break;
+	case KeyRight:
+		execute(cbsetint, index + 1, 0, &index);
+		break;
+	case KeySpace:
+	case KeyEnter:
+		execute(buttonparam, (long)p);
+		break;
+	}
+	caret = push_caret;
+}
+
 static void tile_list() {
 	char temp[260]; stringbuilder sb(temp);
 	const auto max_width = 16;
@@ -299,27 +358,35 @@ static void choose_scenery() {
 	}
 }
 
-//static void choose_wallblock() {
-//	static int origin;
-//	list_origin = origin;
-//	choose_source = bsdata<wallblock>::source_ptr;
-//	scene(common_scene);
-//	if(getresult()) {
-//		origin = list_origin;
-//		current_tool = (void*)getresult();
-//	}
-//}
-
 static void choose_wall() {
 	static int origin;
 	list_origin = origin;
+	auto push_filter = choose_filter_value;
 	choose_filter_value = filter_walls;
+	choose_filter = 0;
 	choose_source = bsdata<walli>::source_ptr;
 	scene(common_scene);
+	choose_filter_value = push_filter;
 	if(getresult()) {
 		origin = list_origin;
 		current_tool = (walli*)getresult();
 	}
+}
+
+static void tilegroup_scene() {
+	fore = getcolor(ColorDisable);
+	rectf();
+	fore = getcolor(ColorText);
+	tilegroup_list();
+	control_map();
+	tile_hotkey();
+	cancel_hotkey();
+}
+
+static void choose_tilegroup() {
+	scene(tilegroup_scene);
+	if(getresult())
+		current_tool = (tilegroup*)getresult();
 }
 
 static void choose_tile() {
@@ -359,6 +426,7 @@ void editor_hotkey() {
 	case Ctrl + 'R': execute(read_map); break;
 	case 'T': execute(choose_tile); break;
 	case 'W': execute(choose_wall); break;
+	case 'G': execute(choose_tilegroup); break;
 	}
 }
 

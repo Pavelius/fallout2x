@@ -199,6 +199,18 @@ struct sceneryi : nameable {
 	void				paint() const;
 	static const sceneryi* last;
 };
+struct tilegroup {
+	struct element {
+		int				count;
+		point			offset;
+	};
+	short				start;
+	point				size;
+	size_t				count;
+	element				elements[16];
+	const element*		begin() const { return elements; }
+	const element*		end() const { return elements + count; }
+};
 struct tilei : nameable {
 	short				frame, index;
 	material_s			material;

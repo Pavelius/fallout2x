@@ -4,7 +4,7 @@
 
 namespace {
 enum direction : unsigned char {
-	ST, RT, RD, RD2, RU, RS, DD, DDS
+	ST, RT, RD, RU, RS, LT, DD, DDS
 };
 typedef std::initializer_list<direction> directiona;
 typedef std::initializer_list<short> indexa;
@@ -24,23 +24,37 @@ static void oddh(point& h) {
 	h.x = ((short unsigned)h.x & 0xFFFE) + 1;
 	h.y = ((short unsigned)h.y & 0xFFFE) + 1;
 }
-static bool show_index = true;
+static bool show_index = false;
 }
 
 BSDATA(wallgroup) = {
-	{"WallH", {1, 2, 4, 6, 8, 23, 96, 98, 100, 102, 130}, {ST, RU}, oddh},
-	{"WallV", {10, 12, 14, 16, 108, 110, 112, 114, 120}, {ST, DD}},
+	{"WallH", {1, 2, 4, 6, 8, 23, 96, 98, 100, 102, 130, 174, 176, 178, 180, 182}, {ST, RU}, oddh},
+	{"WallH", {125}, {ST, RU, RD, RU}},
+	{"WallV", {10, 12, 14, 16, 108, 110, 112, 114, 120, 190, 192, 194, 196}, {ST, DD}},
+	{"WallVC", {198}, {ST, DD}},
+	{"WallV", {116}, {ST, DD, DD, DD}},
+	{"WallV", {160}, {ST, DD, DD, DDS, DD, DD, DD}},
 	{"DoorH3", {39, 42}, {ST, RU, RS, RT}, oddh},
-	{"DoorV3", {104, 131}, {ST, DD, DDS, DD}},
+	{"DoorH31", {104, 131}, {ST, RS, RT, RU}},
+	{"DoorV2", {106}, {ST, DDS, DD}},
 	{"WindowH", {50}, {ST, RU, RD, RU, RD, RU}},
+	{"WindowH3", {122}, {ST, RU, RD}},
+	{"Corner", {133}, {ST, DD, DD, RU, RD, RU}},
+	{"Corner", {184}, {ST, DD, RT, RD, RU, DD}},
 };
 BSDATAF(wallgroup)
 
 BSDATA(wallcomplex) = {
 	{"Bar", 467, {ST, DD, DD, DD, DD, RT, RD, RU, RD, RU}},
-	{"Bar", 477, {ST, RT, RT, RT, RT, RT, RD2, DD, DD, RT}},
+	{"Bar", 477, {ST, RT, RT, RT, RT, RT, DDS, DD, DD, DD, RT}},
 	{"HanharR", 251, {ST, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, RT, RT, DD, RU, DD, RT}},
 	{"HanharL", 268, {ST, DD, RU, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD}},
+	{"Car", 281, {ST, DD, RT, RT, RT, RT, RT}},
+	{"CarWall", 288, {ST, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, RU, RT, DD}},
+	{"CarWall", 288, {ST, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, RU, RT, DD}},
+	{"CarWall", 310, {ST, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, DD, RU, DD, RT}},
+	{"CarWall", 326, {ST, DD, RU, RD, RU, RD, RU, RD, RU, RD, RU, RD, RU, RD, RU, RD, RU}},
+	{"CarBarell", 343, {ST, RU, RD, RU, RD, RU, RD, RU, RD}},
 };
 BSDATAF(wallcomplex)
 
@@ -55,8 +69,10 @@ short walli::next(short i) {
 	case 48: return 46;
 	case 105: return 97;
 	case 124: return 129;
-	case 132: return 129;
 	case 130: return 129;
+	case 132: return 129;
+	case 137: return 97;
+	case 160: return 155;
 	default: return i + 1;
 	}
 }
@@ -98,12 +114,12 @@ static void next(point& h, direction d) {
 	case RT: case RS:
 		h.x++;
 		break;
+	case LT:
+		h.x--;
+		break;
 	case RD:
 		h.y++;
 		h.x++;
-		break;
-	case RD2:
-		h.y+=2;
 		break;
 	case RU:
 		h.y--;
