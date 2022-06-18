@@ -9,7 +9,7 @@ void initialize_script();
 void initialize_dialog();
 void character_generate();
 void main_util();
-void adventure();
+void editor();
 void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
 
@@ -17,7 +17,7 @@ static void start() {
 	character::last = character::add("Narg");
 	//choose_scenery();
 	loc.set(0, 6, 100, 100, 4);
-	draw::scene(adventure);
+	draw::scene(editor);
 	//character_generate();
 }
 

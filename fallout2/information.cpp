@@ -57,7 +57,7 @@ void sceneryi::getinfoed(stringbuilder& sb) const {
 }
 
 void walli::getinfoed(stringbuilder& sb) const {
-	sb.adds("(%1i, %2i)", index, frame);
+	sb.adds("(%3i %1i %2i)", index, frame, this-bsdata<walli>::elements);
 	sb.adds(getflagsor(light, bsdata<lighti>::source));
 	sb.adds(getflagsor(object, bsdata<objectfi>::source));
 	sb.adds(getdescription(id));

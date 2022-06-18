@@ -3,12 +3,13 @@
 
 using namespace draw;
 
-static bool show_tile_index = false;
-static const void* current_tool;
-static indext current_hexagon;
+indext current_hexagon;
 static rect play_area = {0, 0, 640, 480 - 99};
 
+void editor_hotkey();
 void paint_drawables();
+void paint_drawables();
+void redraw_select_tool();
 
 point t2s(point v) {
 	return {
@@ -52,7 +53,7 @@ point s2h(point pt) {
 	return{(short)-x, (short)y};
 }
 
-static void cancel_hotkey() {
+void cancel_hotkey() {
 	if(hot.key == KeyEscape)
 		execute(buttoncancel);
 }
@@ -92,48 +93,7 @@ static void scrollmap(int x, int y, int cicle) {
 	}
 }
 
-void list_input(int& origin, int perpage, int perline, int maximum) {
-	auto maximum_row = (maximum / perline) * perline;
-	if(origin + perline > maximum_row)
-		origin = maximum_row;
-	switch(hot.key) {
-	case KeyUp:
-	case MouseWheelUp:
-		if(origin)
-			execute(cbsetint, origin - perline, 0, &origin);
-		break;
-	case MouseWheelDown:
-	case KeyDown:
-		if(origin < maximum_row)
-			execute(cbsetint, origin + perline, 0, &origin);
-		break;
-	case KeyHome:
-		if(origin)
-			execute(cbsetint, 0, 0, &origin);
-		break;
-	case KeyEnd:
-		if(origin != maximum_row)
-			execute(cbsetint, maximum_row, 0, &origin);
-		break;
-	case KeyPageUp:
-		if(origin)
-			execute(cbsetint, origin - perpage, 0, &origin);
-		break;
-	case KeyPageDown:
-		execute(cbsetint, origin + perpage, 0, &origin);
-		break;
-	}
-}
-
-static void textac(const char* format) {
-	auto push_caret = caret;
-	caret.x -= textw(format) / 2;
-	caret.y -= texth() / 2;
-	text(format);
-	caret = push_caret;
-}
-
-static void redraw_floor() {
+void redraw_floor() {
 	auto ps = gres(res::TILES);
 	if(!ps)
 		return;
@@ -144,17 +104,12 @@ static void redraw_floor() {
 			caret = t2s({x, y}) - camera;
 			caret.x += 8;
 			caret.y += 26;
-			//point pt = {(short)xx, (short)yy};
 			if(caret.in(rc)) {
 				auto tv = bsdata<tilei>::elements[loc.getfloor(t2i({x, y}))].frame;
 				if(tv > 1)
 					draw::image(ps, ps->ganim(tv, tm), 0);
 			}
-			//xx += 48;
-			//yy -= 12;
 		}
-		//xx = prev_xx + 32;
-		//yy = prev_yy + 24;
 	}
 }
 
@@ -177,259 +132,18 @@ void control_map() {
 	scrollmap(-1, 0, 277);
 }
 
-static void set_hexagon_position() {
+void set_hexagon_position() {
 	current_hexagon = Blocked;
 	if(hot.mouse.in(play_area))
 		current_hexagon = h2i(s2h(hot.mouse + camera));
 }
 
-static void redraw_hexagon() {
+void redraw_hexagon() {
 	if(current_hexagon == Blocked)
 		return;
 	cursor.clear();
 	auto pt = h2s(i2h(current_hexagon)) - camera;
 	image(pt.x - 15, pt.y - 7, gres(res::INTRFACE), 1, 0);
-}
-
-static void place_tool() {
-	if(current_hexagon == Blocked)
-		return;
-	auto pt = h2s(i2h(current_hexagon));
-	if(bsdata<sceneryi>::have(hot.object)) {
-		auto p = (sceneryi*)hot.object;
-		auto pd = drawable::find(pt);
-		if(!pd)
-			pd = drawable::add(pt, p);
-		pd->data = p;
-		pd->frame = p->frame;
-		pd->frame_stop = pd->frame;
-	}
-	if(bsdata<walli>::have(hot.object)) {
-		auto p = (walli*)hot.object;
-		auto pd = drawable::find(pt);
-		if(!pd)
-			pd = drawable::add(pt, p);
-		pd->data = p;
-		pd->frame = p->frame;
-		pd->frame_stop = pd->frame;
-	}
-	if(bsdata<tilei>::have(hot.object)) {
-		auto p = (tilei*)hot.object;
-		auto i = t2i(h2t(i2h(current_hexagon)));
-		loc.setfloor(i, getbsi(p));
-	}
-}
-
-static void paint_tool() {
-	if(bsdata<sceneryi>::have(current_tool))
-		((sceneryi*)current_tool)->paint();
-	else if(bsdata<walli>::have(current_tool))
-		((walli*)current_tool)->paint();
-	else if(bsdata<tilei>::have(current_tool)) {
-		caret = t2s(h2t(i2h(current_hexagon))) - camera;
-		caret.x += 8;
-		caret.y += 26;
-		((tilei*)current_tool)->paint();
-	}
-}
-
-static void redraw_select_tool() {
-	if(current_hexagon == Blocked)
-		return;
-	auto push_caret = caret;
-	caret = h2s(i2h(current_hexagon)) - camera;
-	if(current_tool) {
-		paint_tool();
-		if(hot.key == MouseLeft && hot.pressed)
-			execute(place_tool, 0, 0, current_tool);
-	}
-	caret = push_caret;
-}
-
-static void horizline() {
-	auto push_caret = caret;
-	line(caret.x + width, caret.y);
-	caret = push_caret;
-}
-
-static void status_text() {
-	char temp[2048]; stringbuilder sb(temp); sb.clear();
-	if(bsdata<sceneryi>::have(hilite_object))
-		((sceneryi*)hilite_object)->getinfoed(sb);
-	else if(bsdata<walli>::have(hilite_object))
-		((walli*)hilite_object)->getinfoed(sb);
-	if(temp[0])
-		texta(temp, AlignCenterCenter);
-}
-
-static void status_bar() {
-	auto push_fore = fore;
-	height = texth() * 4;
-	width = width - 1;
-	caret.x = 0;
-	caret.y = getheight() - height - 1;
-	fore = getcolor(ColorInfo);
-	rectf();
-	fore = getcolor(ColorButton);
-	rectb();
-	fore = getcolor(ColorText);
-	status_text();
-	fore = push_fore;
-}
-
-static void wall_list() {
-	static int origin;
-	rectpush push;
-	width = 128; height = 128;
-	auto dx = push.width / (width + metrics::padding);
-	auto dy = push.height / (height + metrics::padding);
-	auto maximum = bsdata<walli>::source.getcount();
-	list_input(origin, dx * dy, dx, maximum);
-	for(size_t i = origin; i < maximum; i++) {
-		if(caret.x + width > push.width) {
-			caret.y += height + metrics::padding;
-			caret.x = push.caret.x;
-		}
-		if(caret.y + height > push.height)
-			break;
-		bsdata<walli>::elements[i].painted();
-		caret.x += width + metrics::padding;
-	}
-}
-
-static void scenery_list() {
-	static int origin;
-	rectpush push;
-	width = 128; height = 128;
-	auto dx = push.width / (width + metrics::padding);
-	auto dy = push.height / (height + metrics::padding);
-	auto maximum = bsdata<sceneryi>::source.getcount();
-	list_input(origin, dx * dy, dx, maximum);
-	for(size_t i = origin; i < maximum; i++) {
-		if(caret.x + width > push.width) {
-			caret.y += height + metrics::padding;
-			caret.x = push.caret.x;
-		}
-		if(caret.y + height > push.height)
-			break;
-		bsdata<sceneryi>::elements[i].painted();
-		caret.x += width + metrics::padding;
-	}
-}
-
-static fnevent scene_list;
-static void common_scene() {
-	fore = getcolor(ColorDisable);
-	rectf();
-	caret.x += metrics::padding;
-	caret.y += metrics::padding;
-	fore = getcolor(ColorCheck);
-	scene_list();
-	status_bar();
-	cancel_hotkey();
-}
-
-static void tile_list() {
-	char temp[260]; stringbuilder sb(temp);
-	const auto max_width = 16;
-	auto need_break = false;
-	auto pr = gres(res::TILES);
-	auto count = bsdata<tilei>::source.count;
-	auto push_caret = caret;
-	auto px = hot.mouse + camera; px.y -= tile_height / 2;
-	auto pt = s2t(px);
-	auto hilite = 0;
-	if(pt.x < 0 || pt.y<0 || pt.x > max_width)
-		hilite = 0;
-	else
-		hilite = pt.y * max_width + pt.x;
-	for(auto y = 0; true; y++) {
-		if(need_break)
-			break;
-		for(int x = 0; x < max_width; x++) {
-			unsigned tv = y * max_width + x;
-			if(!tv)
-				continue;
-			if(tv >= count) {
-				need_break = true;
-				break;
-			}
-			caret = t2s({(short)x, (short)y}) - camera;
-			auto cicle = y * max_width + x;
-			auto& ei = bsdata<tilei>::elements[tv];
-			image(caret.x, caret.y + tile_height / 2, pr, pr->ganim(ei.frame, current_tick / 200), 0);
-			if(show_tile_index) {
-				sb.clear(); sb.add("%1i", tv);
-				textac(temp);
-			}
-		}
-	}
-	if(hilite) {
-		short x = hilite % max_width;
-		short y = hilite / max_width;
-		caret = t2s({x, y}) - camera;
-		image(caret.x, caret.y + tile_height / 2, pr, pr->ganim(222, current_tick / 200), 0);
-		if(hot.key == MouseLeft && !hot.pressed)
-			execute(buttonparam, (long)(bsdata<tilei>::elements + hilite));
-	}
-	caret = push_caret;
-}
-
-static void tile_hotkey() {
-	switch(hot.key) {
-	case 'I': execute(cbsetbool, show_tile_index ? 0 : 1, 0, &show_tile_index); break;
-	}
-}
-
-static void tile_scene() {
-	fore = getcolor(ColorDisable);
-	rectf();
-	fore = getcolor(ColorText);
-	tile_list();
-	control_map();
-	tile_hotkey();
-	cancel_hotkey();
-}
-
-static void choose_scenery() {
-	scene_list = scenery_list;
-	scene(common_scene);
-	if(getresult()) {
-		sceneryi::last = (sceneryi*)getresult();
-		current_tool = sceneryi::last;
-	}
-}
-
-static void choose_wall() {
-	scene_list = wall_list;
-	scene(common_scene);
-	if(getresult()) {
-		walli::last = (walli*)getresult();
-		current_tool = walli::last;
-	}
-}
-
-void choose_tile() {
-	auto push_camera = camera;
-	scene(tile_scene);
-	camera = push_camera;
-	if(getresult()) {
-		tilei::last = (tilei*)getresult();
-		current_tool = tilei::last;
-	}
-}
-
-static void modular() {
-
-}
-
-static void press_hotkey() {
-	switch(hot.key) {
-	case 'M': execute(modular); break;
-	case 'S': execute(choose_scenery); break;
-	case 'T': execute(choose_tile); break;
-	case 'W': execute(choose_wall); break;
-	}
 }
 
 void sceneryi::paint() const {
@@ -445,42 +159,6 @@ void walli::paint() const {
 void tilei::paint() const {
 	auto rs = gres(res::TILES);
 	image(rs, rs->ganim(frame, current_tick / 200), 0);
-}
-
-void sceneryi::painted() const {
-	auto push_clipping = clipping;
-	auto pr = gres(res::SCENERY);
-	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
-	image(caret.x + width / 2, caret.y + height - 32, pr, pr->ganim(frame, current_tick / 200), 0);
-	clipping = push_clipping;
-	if(ishilite()) {
-		rectb();
-		hilite_object = this;
-		if(hot.key == MouseLeft && !hot.pressed)
-			execute(buttonparam, (long)this);
-	}
-	auto push_caret = caret;
-	caret.y += height - 32;
-	texta(getname(), AlignCenter);
-	caret = push_caret;
-}
-
-void walli::painted() const {
-	auto push_clipping = clipping;
-	auto pr = gres(res::WALLS);
-	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
-	image(caret.x + width / 2, caret.y + height - 32, pr, pr->ganim(frame, current_tick / 200), 0);
-	clipping = push_clipping;
-	if(ishilite()) {
-		rectb();
-		hilite_object = this;
-		if(hot.key == MouseLeft && !hot.pressed)
-			execute(buttonparam, (long)this);
-	}
-	auto push_caret = caret;
-	caret.y += height - 32;
-	texta(getname(), AlignCenter);
-	caret = push_caret;
 }
 
 static void paint_drawable(const drawable* p) {
@@ -507,6 +185,4 @@ void adventure() {
 	redraw_floor();
 	redraw_hexagon();
 	paint_drawables();
-	redraw_select_tool();
-	press_hotkey();
 }

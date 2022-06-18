@@ -161,6 +161,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="draw_text.cpp" />
+    <ClCompile Include="editor.cpp" />
     <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
     <ClCompile Include="function.cpp" />

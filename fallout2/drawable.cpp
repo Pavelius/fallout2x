@@ -51,7 +51,7 @@ void paint_drawables() {
 	}
 }
 
-drawable* drawable::add(point pt, void* object) {
+drawable* drawable::add(point pt, const void* object) {
 	auto p = bsdata<drawable>::add();
 	p->position = pt;
 	p->data = object;
@@ -75,4 +75,12 @@ drawable* drawable::find(const point pt) {
 			return &e;
 	}
 	return 0;
+}
+
+drawable* drawable::findadd(const point pt, const void* object) {
+	for(auto& e : bsdata<drawable>()) {
+		if(e.position == pt && e.data==object)
+			return &e;
+	}
+	return add(pt, object);
 }

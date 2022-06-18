@@ -100,6 +100,7 @@ enum {
 };
 typedef flagable<16>	perka;
 typedef flagable<4>		skilla;
+struct wallblock;
 struct nameable {
 	const char*			id;
 	const char*			getname() const { return getnm(id); }
@@ -197,7 +198,6 @@ struct sceneryi : nameable {
 	void				getinfoed(stringbuilder& sb) const;
 	bool				is(objectf v) const { return (object & v) != 0; }
 	void				paint() const;
-	void				painted() const;
 	static const sceneryi* last;
 };
 struct tilei : nameable {
@@ -207,14 +207,19 @@ struct tilei : nameable {
 	static const tilei*	last;
 };
 struct walli : nameable {
+	struct doori {
+		short			start, count;
+		short			scenery;
+		bool			vertical;
+	};
 	short				frame, index;
 	material_s			material;
 	unsigned			light, object;
 	static const walli* last;
-	bool				is(objectf v) const { return (object & v) != 0; }
 	void				getinfoed(stringbuilder& sb) const;
+	bool				is(objectf v) const { return (object & v) != 0; }
+	static short		next(short i);
 	void				paint() const;
-	void				painted() const;
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);
