@@ -20,7 +20,11 @@ void redraw_hexagon();
 void set_hexagon_position();
 
 void add_object(point h, const void* p, short frame) {
-	auto pd = drawable::findadd(h2s(h), p);
+	auto pt = h2s(h);
+	auto pd = drawable::find(pt);
+	if(!pd)
+		pd = drawable::add(pt, p);
+	pd->data = p;
 	pd->frame = frame;
 	pd->frame_stop = pd->frame;
 }
@@ -33,14 +37,24 @@ static void textac(const char* format) {
 	caret = push_caret;
 }
 
+static point horz(point h) {
+	h.x++;
+	return h;
+}
+
+static point vert(point h) {
+	h.y++;
+	return h;
+}
+
 static void place_tool() {
 	if(current_hexagon == Blocked)
 		return;
-	auto pt = h2s(i2h(current_hexagon));
+	auto h = i2h(current_hexagon);
 	if(bsdata<sceneryi>::have(hot.object))
-		add_object(i2h(current_hexagon), hot.object, ((sceneryi*)hot.object)->frame);
+		add_object(h, hot.object, ((sceneryi*)hot.object)->frame);
 	if(bsdata<walli>::have(hot.object))
-		add_object(i2h(current_hexagon), (walli*)hot.object, ((walli*)hot.object)->frame);
+		walli::set(h, ((walli*)hot.object)->index);
 	else if(bsdata<tilei>::have(hot.object)) {
 		auto p = (tilei*)hot.object;
 		auto i = t2i(h2t(i2h(current_hexagon)));
@@ -184,12 +198,14 @@ static void status_window() {
 }
 
 static void common_scene() {
+	auto push_fore = fore;
 	fore = getcolor(ColorDisable);
 	rectf();
 	caret.x += metrics::padding;
 	caret.y += metrics::padding;
 	fore = getcolor(ColorCheck);
 	choose_list();
+	fore = push_fore;
 	status_window();
 	status_text();
 	cancel_hotkey();
@@ -323,6 +339,7 @@ static void status_text_main() {
 		auto h = i2h(current_hexagon);
 		sb.add("(%1i %2i %3i)", h.x, h.y, current_hexagon);
 	}
+	sb.adds("Drawables %1i", bsdata<drawable>::source.getcount());
 	if(temp[0])
 		texta(temp, AlignCenterCenter);
 }

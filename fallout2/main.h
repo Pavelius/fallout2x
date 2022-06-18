@@ -216,10 +216,14 @@ struct walli : nameable {
 	material_s			material;
 	unsigned			light, object;
 	static const walli* last;
+	static walli*		findindex(short i);
 	void				getinfoed(stringbuilder& sb) const;
+	bool				is(lightf v) const { return (light & v) != 0; }
 	bool				is(objectf v) const { return (object & v) != 0; }
+	const walli*		next() const;
 	static short		next(short i);
 	void				paint() const;
+	static void			set(point h, short i);
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);

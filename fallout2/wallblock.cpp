@@ -4,15 +4,33 @@
 
 using namespace draw;
 
-struct wallblock {
+struct wallblock_old {
 	const char*		id;
 	short unsigned	start;
 	std::initializer_list<point> points;
 	void			paint(bool show_center) const;
-	void			painted() const;
+};
+
+enum direction_s : unsigned char {
+	Hor, Ver, HorSkip, VerSkip,
+};
+
+struct wallblock {
+	struct element {
+		direction_s	d;
+		char		c;
+	};
+	const char*		id;
+	short unsigned	start;
+	element			blocks[4];
+	void			paint(bool show_center) const;
 };
 
 BSDATA(wallblock) = {
+	{"TableSE", 1, {{Ver, 5}, {Hor, 5}}},
+};
+
+BSDATA(wallblock_old) = {
 	{"TableSE", 1, {{0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}, {1, 4}, {2, 5}, {3, 4}, {4, 5}, {5, 4}}},
 	{"TableES", 11, {{0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {5, 2}, {5, 3}, {5, 4}, {6, 4}}},
 	//{"CaveWallW", 24, {{0, 0}, {1, -1}}},
@@ -127,61 +145,6 @@ BSDATAF(wallblock)
 void list_input(int& origin, int perpage, int perline, int maximum);
 void add_object(point h, const void* p, short frame);
 
-short find_index(short frame) {
-	for(auto& e : bsdata<walli>()) {
-		if(e.frame == frame)
-			return &e - bsdata<walli>::elements;
-	}
-	return 0;
-}
-
-void place_wallblock(point h, const wallblock* ps) {
-	auto index = ps->start;
-	for(auto e : ps->points) {
-		auto pt = h + e;
-		auto p = bsdata<walli>::elements + find_index(index);
-		add_object(pt, p, p->frame);
-		index++;
-	}
-}
-
-void wallblock::painted() const {
-	auto push_clipping = clipping;
-	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
-	paint(false);
-	clipping = push_clipping;
-	if(ishilite()) {
-		rectb();
-		hilite_object = this;
-		if(hot.key == MouseLeft && !hot.pressed)
-			execute(buttonparam, (long)this);
-	}
-	auto push_caret = caret;
-	caret.y += height - 32;
-	texta(id, AlignCenter);
-	caret = push_caret;
-}
-
-void wallblock_list() {
-	static int origin;
-	rectpush push;
-	width = 128; height = 128;
-	auto dx = push.width / (width + metrics::padding);
-	auto dy = push.height / (height + metrics::padding);
-	auto maximum = bsdata<wallblock>::source.getcount();
-	list_input(origin, dx * dy, dx, maximum);
-	for(size_t i = origin; i < maximum; i++) {
-		if(caret.x + width > push.width) {
-			caret.y += height + metrics::padding;
-			caret.x = push.caret.x;
-		}
-		if(caret.y + height > push.height)
-			break;
-		bsdata<wallblock>::elements[i].painted();
-		caret.x += width + metrics::padding;
-	}
-}
-
 static void marker() {
 	auto push_caret = caret;
 	auto push_fore = fore;
@@ -195,15 +158,66 @@ static void marker() {
 	caret = push_caret;
 }
 
+short find_index(short frame) {
+	for(auto& e : bsdata<walli>()) {
+		if(e.frame == frame)
+			return &e - bsdata<walli>::elements;
+	}
+	return 0;
+}
+
+//void place_wallblock(point h, const wallblock* ps) {
+//	auto index = ps->start;
+//	for(auto e : ps->points) {
+//		auto pt = h + e;
+//		auto p = bsdata<walli>::elements + find_index(index);
+//		add_object(pt, p, p->frame);
+//		index++;
+//	}
+//}
+
+static point next_point(int i, point h, direction_s d) {
+	switch(d) {
+	case Ver:
+		h.y++;
+		break;
+	case Hor:
+		h.x++;
+		break;
+	default: break;
+	}
+	return h;
+}
+
+void place_wallblock(point h, const wallblock* ps) {
+	auto index = ps->start;
+	for(auto& e : ps->blocks) {
+		for(auto i = 0; i < e.c; i++) {
+			if(index != ps->start)
+				h = next_point(i, h, e.d);
+			auto p = bsdata<walli>::elements + find_index(index);
+			add_object(h, p, p->frame);
+			index++;
+		}
+	}
+}
+
 void wallblock::paint(bool show_center) const {
 	auto ps = gres(res::WALLS);
 	auto index = start;
-	for(auto e : points) {
-		auto pt = caret + h2s(e);
-		image(pt.x, pt.y, ps, ps->ganim(bsdata<walli>::elements[find_index(index)].frame, 0), 0);
-		if(show_center)
-			marker();
-		index++;
+	point h = {0, 0};
+	for(auto e : blocks) {
+		if(!e.c)
+			break;
+		for(auto i = 0; i < e.c; i++) {
+			if(index != start)
+				h = next_point(i, h, e.d);
+			auto pt = caret + h2s(h);
+			image(pt.x, pt.y, ps, ps->ganim(bsdata<walli>::elements[find_index(index)].frame, 0), 0);
+			if(show_center)
+				marker();
+			index++;
+		}
 	}
 }
 
