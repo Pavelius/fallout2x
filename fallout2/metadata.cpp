@@ -60,6 +60,9 @@ BSMETA(prototype) = {
 	BSREQ(tags),
 	BSFLG(perks, perki),
 	{}};
+BSMETA(sceneryi) = {
+	BSREQ(id),
+	{}};
 BSMETA(stati) = {
 	BSREQ(id),
 	BSREQ(formula), BSREQ(avatar),
@@ -68,8 +71,12 @@ BSMETA(stati) = {
 BSMETA(tilei) = {
 	BSREQ(id),
 	{}};
+BSMETA(walli) = {
+	BSREQ(id),
+	{}};
 
 BSDATA(varianti) = {
+	{"NoVariant"},
 	{"Condition", VRSTD(conditioni), 1},
 	{"Control", VRSTD(control), 3},
 	{"Function", VRSTD(function), 1},
@@ -79,8 +86,10 @@ BSDATA(varianti) = {
 	{"Perk", VRSTD(perki), 1},
 	{"Prototype", VRSTD(prototype), 1},
 	{"Resource", VRSTD(residi), 1},
+	{"Scenery", VRSTD(sceneryi)},
 	{"Script", VRSTD(script), 1},
 	{"Stat", VRSTD(stati), 1},
 	{"Tile", VRSTD(tilei)},
+	{"Wall", VRSTD(walli)},
 };
 BSDATAF(varianti)

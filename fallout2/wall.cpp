@@ -1,8 +1,9 @@
 #include "main.h"
 
-static short horiz_wall[] = {1, 2, 4, 6, 8, 23};
-static short vert_wall[] = {10, 12, 14, 16};
+static short horiz_wall[] = {1, 2, 4, 6, 8, 23, 96, 98, 100, 102, 130};
+static short vert_wall[] = {10, 12, 14, 16, 108, 110, 112, 114, 120};
 static short horiz_door3[] = {39, 42};
+static short horiz_door2[] = {104, 131};
 static short horiz_window6[] = {50};
 
 const walli* walli::last;
@@ -23,6 +24,10 @@ short walli::next(short i) {
 	case 1: return 3;
 	case 18: return 21;
 	case 48: return 46;
+	case 105: return 97;
+	case 124: return 129;
+	case 132: return 129;
+	case 130: return 129;
 	default: return i + 1;
 	}
 }
@@ -71,7 +76,27 @@ void walli::set(point h, short v) {
 		add(nexth(h), next(v));
 	} else if(have(vert_wall, v)) {
 		add(h, v);
-		add(nextv(h), next(v));
+		h = nextv(h);
+		v = next(v);
+		add(h, v);
+	} else if(have(horiz_door2, v)) {
+		add(h, v);
+		h = nexth(h);
+		h = nexth(h);
+		v = next(v);
+		add(h, v);
+		h = nexth(h);
+		v = next(v);
+		add(h, v);
+	} else if(have(horiz_door3, v)) {
+		add(h, v);
+		h = nexth(h);
+		v = next(v);
+		add(h, v);
+		h = nexth(h);
+		h = nexth(h);
+		v = next(v);
+		add(h, v);
 	} else
 		add(h, v);
 }

@@ -323,10 +323,20 @@ static void modular() {
 	}
 }
 
+static void save_map() {
+	loc.write("test");
+}
+
+static void read_map() {
+	loc.read("test");
+}
+
 void editor_hotkey() {
 	switch(hot.key) {
 	case 'M': execute(modular); break;
 	case 'S': execute(choose_scenery); break;
+	case Ctrl + 'S': execute(save_map); break;
+	case Ctrl + 'R': execute(read_map); break;
 	case 'T': execute(choose_tile); break;
 	case 'W': execute(choose_wall); break;
 	case 'B': execute(choose_wallblock); break;

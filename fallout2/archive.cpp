@@ -67,8 +67,17 @@ void archive::set(const char*& v) {
 
 void archive::setpointer(void** pointer) {
 	if(writemode) {
-		variant value = *pointer;
-		source.write(&value, sizeof(value));
+		auto pv = *pointer;
+		if(!pv)
+			source.write(&pv, sizeof(pv));
+		else {
+			variant value = *pointer;
+			if(value)
+				source.write(&value, sizeof(value));
+			else {
+				// ERROR
+			}
+		}
 	} else {
 		variant value;
 		source.read(&value, sizeof(value));

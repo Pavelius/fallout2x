@@ -29,17 +29,17 @@ struct archive {
 	template<class T> void set(T& value) {
 		set(&value, sizeof(value));
 	}
-	template<class T> void set(T* value) {
+	template<class T> void set(T*& value) {
 		setpointer((void**)&value);
 	}
 	template<class T> void setc(array& v) {
 		if(writemode) {
 			set(v.count);
 		} else {
-			size_t size;
-			set(size);
-			v.reserve(size);
-			v.setcount(size);
+			size_t need_count = 0;
+			set(need_count);
+			v.reserve(need_count);
+			v.setcount(need_count);
 		}
 		auto pe = v.end();
 		for(auto p = v.begin(); p < pe; p += v.size)
