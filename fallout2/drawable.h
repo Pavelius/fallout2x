@@ -9,10 +9,12 @@ struct drawable {
 	const void*			data;
 	unsigned short		frame, frame_stop;
 	unsigned			flags;
+	static fnget		getorder;
+	static fnevent		paint;
+	explicit operator bool() const { return data != 0; }
 	static drawable*	add(point v, const void* object);
+	void				clear();
 	static drawable*	find(const void* object);
 	static drawable*	find(const point pt);
 	static drawable*	findadd(const point pt, const void* object);
-	static fnget		getorder;
-	static fnevent		paint;
 };

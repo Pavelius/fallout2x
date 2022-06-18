@@ -84,3 +84,7 @@ drawable* drawable::findadd(const point pt, const void* object) {
 	}
 	return add(pt, object);
 }
+
+void drawable::clear() {
+	memset(this, 0, sizeof(*this));
+}

@@ -81,6 +81,9 @@ void archive::setpointer(void** pointer) {
 	} else {
 		variant value;
 		source.read(&value, sizeof(value));
-		*pointer = value.getpointer();
+		if(value.geti().source)
+			*pointer = value.getpointer();
+		else
+			*pointer = 0;
 	}
 }

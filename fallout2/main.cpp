@@ -3,6 +3,8 @@
 #include "draw.h"
 #include "main.h"
 
+extern const void* current_tool;
+
 void add_locale_names(const char* id, bool required);
 void initialize_adventure();
 void initialize_script();
@@ -17,6 +19,7 @@ static void start() {
 	character::last = character::add("Narg");
 	//choose_scenery();
 	loc.set(0, 6, 100, 100, 4);
+	current_tool = bsdata<walli>::elements + 466;
 	draw::scene(editor);
 	//character_generate();
 }

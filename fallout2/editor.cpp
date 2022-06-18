@@ -3,6 +3,8 @@
 
 using namespace draw;
 
+typedef size_t(*fnfilter)(void** result);
+
 static array* choose_source;
 const void* current_tool;
 static bool show_tile_index = false;
@@ -12,12 +14,11 @@ extern indext current_hexagon;
 
 void cancel_hotkey();
 void control_map();
+size_t filter_walls(void** pbegin);
 void paint_drawables();
-void paint_wallblock(wallblock* p);
-void place_wallblock(point h, const wallblock* p);
+void paint_editor(point h, const walli* p);
 void redraw_floor();
 void redraw_hexagon();
-void set_hexagon_position();
 
 void add_object(point h, const void* p, short frame) {
 	auto pt = h2s(h);
@@ -59,22 +60,20 @@ static void place_tool() {
 		auto p = (tilei*)hot.object;
 		auto i = t2i(h2t(i2h(current_hexagon)));
 		loc.setfloor(i, getbsi(p));
-	} else if(bsdata<wallblock>::have(hot.object))
-		place_wallblock(i2h(current_hexagon), (wallblock*)hot.object);
+	}
 }
 
 static void paint_tool() {
 	if(bsdata<sceneryi>::have(current_tool))
 		((sceneryi*)current_tool)->paint();
 	else if(bsdata<walli>::have(current_tool))
-		((walli*)current_tool)->paint();
+		paint_editor(i2h(current_hexagon), (walli*)current_tool);
 	else if(bsdata<tilei>::have(current_tool)) {
 		caret = t2s(h2t(i2h(current_hexagon))) - camera;
 		caret.x += 8;
 		caret.y += 26;
 		((tilei*)current_tool)->paint();
-	} else if(bsdata<wallblock>::have(current_tool))
-		paint_wallblock((wallblock*)current_tool);
+	}
 }
 
 void redraw_select_tool() {
@@ -129,19 +128,16 @@ void list_input(int& origin, int perpage, int perline, int maximum) {
 	}
 }
 
-static void choose_list_element(int i) {
+static void choose_list_element(const void* object) {
 	auto push_clipping = clipping;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	auto push_caret = caret;
 	caret.x += width / 2;
 	caret.y += height - 32;
-	auto object = choose_source->ptr(i);
-	if(choose_source == bsdata<sceneryi>::source_ptr)
+	if(bsdata<sceneryi>::have(object))
 		((sceneryi*)object)->paint();
-	else if(choose_source == bsdata<walli>::source_ptr)
+	else if(bsdata<walli>::have(object))
 		((walli*)object)->paint();
-	else if(choose_source == bsdata<wallblock>::source_ptr)
-		paint_wallblock((wallblock*)object);
 	caret = push_caret;
 	clipping = push_clipping;
 	if(ishilite()) {
@@ -155,12 +151,19 @@ static void choose_list_element(int i) {
 	caret = push_caret;
 }
 
+static fnfilter choose_filter, choose_filter_value;
+
 static void choose_list() {
+	static void* source_data[1024];
 	rectpush push;
 	width = 128; height = 128;
 	auto dx = push.width / (width + metrics::padding);
 	auto dy = push.height / (height + metrics::padding);
-	auto maximum = choose_source->getcount();
+	size_t maximum = 0;
+	if(choose_filter)
+		maximum = choose_filter(source_data);
+	else
+		maximum = choose_source->getcount();
 	list_input(list_origin, dx * dy, dx, maximum);
 	for(size_t i = list_origin; i < maximum; i++) {
 		if(caret.x + width > push.width) {
@@ -169,7 +172,10 @@ static void choose_list() {
 		}
 		if(caret.y + height > push.height)
 			break;
-		choose_list_element(i);
+		if(choose_filter)
+			choose_list_element(source_data[i]);
+		else
+			choose_list_element(choose_source->ptr(i));
 		caret.x += width + metrics::padding;
 	}
 }
@@ -186,7 +192,7 @@ static void status_text() {
 
 static void status_window() {
 	auto push_fore = fore;
-	height = texth() * 4;
+	height = texth() * 4 + 2;
 	width = width - 1;
 	caret.x = 0;
 	caret.y = getheight() - height - 1;
@@ -195,6 +201,20 @@ static void status_window() {
 	fore = getcolor(ColorButton);
 	rectb();
 	fore = push_fore;
+}
+
+static void choose_filter_set() {
+	if(choose_filter)
+		choose_filter = 0;
+	else
+		choose_filter = choose_filter_value;
+}
+
+static void choose_hotkey() {
+	switch(hot.key) {
+	case 'F': execute(choose_filter_set); break;
+	default: break;
+	}
 }
 
 static void common_scene() {
@@ -208,6 +228,7 @@ static void common_scene() {
 	fore = push_fore;
 	status_window();
 	status_text();
+	choose_hotkey();
 	cancel_hotkey();
 }
 
@@ -278,20 +299,21 @@ static void choose_scenery() {
 	}
 }
 
-static void choose_wallblock() {
-	static int origin;
-	list_origin = origin;
-	choose_source = bsdata<wallblock>::source_ptr;
-	scene(common_scene);
-	if(getresult()) {
-		origin = list_origin;
-		current_tool = (void*)getresult();
-	}
-}
+//static void choose_wallblock() {
+//	static int origin;
+//	list_origin = origin;
+//	choose_source = bsdata<wallblock>::source_ptr;
+//	scene(common_scene);
+//	if(getresult()) {
+//		origin = list_origin;
+//		current_tool = (void*)getresult();
+//	}
+//}
 
 static void choose_wall() {
 	static int origin;
 	list_origin = origin;
+	choose_filter_value = filter_walls;
 	choose_source = bsdata<walli>::source_ptr;
 	scene(common_scene);
 	if(getresult()) {
@@ -301,25 +323,15 @@ static void choose_wall() {
 }
 
 static void choose_tile() {
+	static point tile_camera;
 	auto push_camera = camera;
+	camera = tile_camera;
 	scene(tile_scene);
+	tile_camera = camera;
 	camera = push_camera;
 	if(getresult()) {
 		tilei::last = (tilei*)getresult();
 		current_tool = tilei::last;
-	}
-}
-
-static void modular() {
-	if(current_hexagon == Blocked)
-		return;
-	if(!walli::last)
-		return;
-	auto pi = walli::last;
-	auto ph = i2h(current_hexagon);
-	for(auto i = 0; i < 4; i++) {
-		add_object(ph, pi, pi->frame);
-		ph.x++; pi++;
 	}
 }
 
@@ -331,15 +343,22 @@ static void read_map() {
 	loc.read("test");
 }
 
+static void delete_object() {
+	if(current_hexagon == Blocked)
+		return;
+	auto p = drawable::find(h2s(i2h(current_hexagon)));
+	if(p)
+		p->clear();
+}
+
 void editor_hotkey() {
 	switch(hot.key) {
-	case 'M': execute(modular); break;
+	case KeyDelete: execute(delete_object); break;
 	case 'S': execute(choose_scenery); break;
 	case Ctrl + 'S': execute(save_map); break;
 	case Ctrl + 'R': execute(read_map); break;
 	case 'T': execute(choose_tile); break;
 	case 'W': execute(choose_wall); break;
-	case 'B': execute(choose_wallblock); break;
 	}
 }
 
@@ -352,6 +371,13 @@ static void status_text_main() {
 	sb.adds("Drawables %1i", bsdata<drawable>::source.getcount());
 	if(temp[0])
 		texta(temp, AlignCenterCenter);
+}
+
+static void set_hexagon_position() {
+	static rect play_area = {0, 0, width, height - texth() * 4 - 2};
+	current_hexagon = Blocked;
+	if(hot.mouse.in(play_area))
+		current_hexagon = h2i(s2h(hot.mouse + camera));
 }
 
 void editor() {
