@@ -160,13 +160,23 @@ struct prototype : nameable, statable {
 	const stati*		tags[3];
 	perka				perks;
 };
-struct character : nameable, statable {
+struct animable : nameable, statable {
+	res					naked;
+	animate_s			animate;
+	direction_s			direction;
+	void				appear(point h);
+	void				focusing() const;
+	static short		getframe(direction_s v);
+	static short		getframe(animate_s v, int weapon_index);
+	drawable*			getui() const;
+	void				paint(short frame) const;
+};
+struct character : animable {
 	statable			basic;
 	perka				perks;
 	skilla				tags;
 	int					experience;
 	specie_s			species;
-	res					naked;
 	static character*	last;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }

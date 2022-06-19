@@ -190,9 +190,6 @@
     <ClCompile Include="wallblock.cpp">
       <Filter>draw</Filter>
     </ClCompile>
-    <ClCompile Include="tile.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="editor.cpp">
       <Filter>draw</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="terrain.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="animable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>

@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="adventure.cpp" />
+    <ClCompile Include="animable.cpp" />
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="area.cpp" />
     <ClCompile Include="bsreq.cpp" />
@@ -201,7 +202,6 @@
     <ClCompile Include="surface_serial.cpp" />
     <ClCompile Include="szdup.cpp" />
     <ClCompile Include="terrain.cpp" />
-    <ClCompile Include="tile.cpp" />
     <ClCompile Include="tilegroup.cpp" />
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="control.cpp" />

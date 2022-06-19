@@ -1,6 +1,6 @@
+#include "crt.h"
 #include "draw.h"
 #include "drawable.h"
-#include "main.h"
 
 using namespace draw;
 

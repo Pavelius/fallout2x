@@ -106,3 +106,10 @@ BSDATA(tilegroup) = {
 	{"UnknownSet", 3097, 2, {{2, {0, 0}}, {2, {0, 1}}}}
 };
 BSDATAF(tilegroup)
+
+int	tilegroup::getendid() const {
+	auto result = 0;
+	for(auto& e : elements)
+		result += e.count;
+	return start + result - 1;
+}
