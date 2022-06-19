@@ -1,0 +1,8 @@
+#Terrain
+
+Cave
+ blocks Center(90)
+CaveRocks
+ blocks Center(110) Left(104) Right(109) Up(111) Down(107) RightDown(139) RightUp(141) LeftUp(138) LeftDown(140)
+PavingSlabs alternate(161 162 163)
+ blocks Center(160) Left(152) Right(155) Up(157) Down(146) RightDown(154) RightUp(158) LeftUp(159) LeftDown(145)

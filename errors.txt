@@ -1,3 +1,2 @@
-﻿In file `rules/Scenery.txt`:
- Line 77: Expected symbol `#`
- Line 77: Expected identifier
+﻿In file `rules/Terrain.txt`:
+ Line 6: Not found requisit `bloc1ks`

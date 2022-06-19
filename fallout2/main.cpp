@@ -16,9 +16,15 @@ void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
 
 static void start() {
+	point t = {10, 6};
+	point h = t2h(t);
+	indext i = t2i(t);
+	point t1 = i2t(i);
+	indext i1 = loc.tot(i, Up);
+	point t2 = i2t(i);
 	character::last = character::add("Narg");
 	//choose_scenery();
-	loc.set(0, 30, 100, 100, 9);
+	loc.set(0, 90, 100, 100, 4);
 	current_tool = bsdata<walli>::elements + 466;
 	draw::scene(editor);
 	//character_generate();
@@ -30,9 +36,12 @@ static void initialize() {
 	initialize_dialog();
 	bsreq::read("rules/Perks.txt");
 	bsreq::read("rules/Prototype.txt");
+	bsreq::read("rules/Terrain.txt");
 	character::initialize();
 	dialog::initialize();
+#ifdef _DEBUG
 	main_util();
+#endif // _DEBUG
 	add_locale_names("Tiles", true);
 	add_locale_names("Scenery", true);
 	add_locale_names("Walls", true);

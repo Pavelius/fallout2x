@@ -56,6 +56,35 @@ short areai::find(short v, short x0, short x1, short y, bool need_roof) const {
 	return -1;
 }
 
+indext areai::tot(indext i, direction_s d) {
+	point t = i2t(i);
+	switch(d) {
+	case Up:
+		if(t.y == 0)
+			return Blocked;
+		t.y--;
+		break;
+	case Down:
+		if(t.y == mps - 1)
+			return Blocked;
+		t.y++;
+		break;
+	case Right:
+		if(t.x == mps - 1)
+			return Blocked;
+		t.x++;
+		break;
+	case Left:
+		if(t.x == 0)
+			return Blocked;
+		t.x--;
+		break;
+	default:
+		return Blocked;
+	}
+	return t2i(t);
+}
+
 //void areai::set(indext i, int v, int w, int h) {
 //	auto x0 = getx(i), y0 = gety(i);
 //	auto x1 = x0 + w, y1 = y0 + h;

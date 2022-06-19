@@ -117,18 +117,17 @@ struct lighti : nameable {
 };
 struct objectfi : lighti {
 };
-struct animationi {
-	const char*			id;
+struct directioni : nameable {
+};
+struct animationi : nameable {
 	animate_s			next, next_dead;
 };
-struct materiali {
-	const char*			id;
+struct materiali : nameable {
 };
 struct list : nameable {
 	variants			elements;
 };
-struct stati {
-	const char*			id;
+struct stati : nameable {
 	int					avatar;
 	variants			formula;
 	short				minimum, maximum;
@@ -224,6 +223,19 @@ struct tilegroup {
 	void				getinfoed(stringbuilder& sb) const;
 	void				getinfolist(stringbuilder& sb) const;
 };
+struct terrain : nameable {
+	short				blocks[LeftUp + 1];
+	short				alternate[4];
+	static void			correct();
+	static void			correct(indext i);
+	short				correct(short t, unsigned char c) const;
+	static void			correctaround(indext i);
+	bool				isalternate(short v) const;
+	bool				iscentral(short v) const;
+	static const terrain* find(short v);
+	bool				have(short v) const;
+	short				random() const;
+};
 struct tilei : nameable {
 	short				frame, index;
 	material_s			material;
@@ -251,15 +263,11 @@ extern areai			loc;
 extern int				last_value, last_stat;
 extern unsigned long	current_tick;
 
+inline int				d100() { return rand() % 100; }
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();
-inline point			i2t(indext i) { return {(short)(i % ((mps * 2)) / 2), (short)(i / ((mps * 2)) / 2)}; }
-inline point			i2h(indext i) { return {(short)(i % (mps * 2)), (short)(i / (mps * 2))}; }
 extern point			h2s(point v);
 indext					h2i(point pt);
-inline point			h2t(point v) { return {(short)(v.x / 2), (short)(v.y / 2)}; }
 extern point			s2h(point pt);
 extern point			s2t(point v);
-inline indext			t2i(point v) { return v.y * mps + v.x; }
 extern point			t2s(point v);
-inline point			t2h(point v) { return {(short)(v.x * 2), (short)(v.y * 2)}; }

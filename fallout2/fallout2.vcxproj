@@ -159,6 +159,7 @@
     <ClCompile Include="controls.cpp" />
     <ClCompile Include="datasource.cpp" />
     <ClCompile Include="dialog.cpp" />
+    <ClCompile Include="direction.cpp" />
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="draw_text.cpp" />
@@ -199,6 +200,7 @@
     <ClCompile Include="stringlib.cpp" />
     <ClCompile Include="surface_serial.cpp" />
     <ClCompile Include="szdup.cpp" />
+    <ClCompile Include="terrain.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="tilegroup.cpp" />
     <ClCompile Include="variant.cpp" />
@@ -269,7 +271,7 @@
     <Text Include="..\rules\Basic.txt" />
     <Text Include="..\rules\Perks.txt" />
     <Text Include="..\rules\Prototype.txt" />
-    <Text Include="..\rules\Scenery.txt" />
+    <Text Include="..\rules\Terrain.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

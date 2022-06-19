@@ -16,8 +16,8 @@ BSDATAC(globalstati, 128)
 BSDATAC(list, 128)
 BSDATAC(perki, 256)
 BSDATAC(prototype, 32)
-//BSDATAC(sceneryi, 2)
 BSDATAC(stati, 64)
+BSDATAC(terrain, 16)
 BSDATAD(variant)
 
 BSMETA(variant) = {{}};
@@ -28,6 +28,9 @@ BSMETA(control) = {
 	BSREQ(size), BSREQ(data),
 	BSREQ(text), BSREQ(command), BSREQ(format),
 	BSREQ(normal), BSREQ(pressed),
+	{}};
+BSMETA(directioni) = {
+	BSREQ(id),
 	{}};
 BSMETA(decorator) = {
 	BSREQ(id),
@@ -68,6 +71,11 @@ BSMETA(stati) = {
 	BSREQ(formula), BSREQ(avatar),
 	BSREQ(minimum), BSREQ(maximum),
 	{}};
+BSMETA(terrain) = {
+	BSREQ(id),
+	BSDST(blocks, directioni),
+	BSREQ(alternate),
+	{}};
 BSMETA(tilei) = {
 	BSREQ(id),
 	{}};
@@ -89,6 +97,7 @@ BSDATA(varianti) = {
 	{"Scenery", VRSTD(sceneryi)},
 	{"Script", VRSTD(script), 1},
 	{"Stat", VRSTD(stati), 1},
+	{"Terrain", VRSTD(terrain), 1},
 	{"Tile", VRSTD(tilei)},
 	{"Wall", VRSTD(walli)},
 };

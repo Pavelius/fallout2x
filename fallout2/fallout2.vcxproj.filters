@@ -199,6 +199,12 @@
     <ClCompile Include="tilegroup.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="direction.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -227,6 +233,9 @@
     </Filter>
     <Filter Include="proto">
       <UniqueIdentifier>{bd5f45e3-9bea-40e6-8255-68cde886cc85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="localize">
+      <UniqueIdentifier>{9b8ac0be-98e9-4671-94eb-101e1c686719}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -346,12 +355,6 @@
     <Text Include="..\rules\Prototype.txt">
       <Filter>data</Filter>
     </Text>
-    <Text Include="..\locale\ru\Names.txt">
-      <Filter>data</Filter>
-    </Text>
-    <Text Include="..\locale\ru\NamesSh.txt">
-      <Filter>data</Filter>
-    </Text>
     <Text Include="..\rules\Perks.txt">
       <Filter>data</Filter>
     </Text>
@@ -360,9 +363,6 @@
     </Text>
     <Text Include="..\forms\Message.txt">
       <Filter>forms</Filter>
-    </Text>
-    <Text Include="..\locale\ru\Descriptions.txt">
-      <Filter>data</Filter>
     </Text>
     <Text Include="..\forms\Options.txt">
       <Filter>forms</Filter>
@@ -391,16 +391,25 @@
     <Text Include="..\forms\Adventure.txt">
       <Filter>forms</Filter>
     </Text>
+    <Text Include="..\locale\ru\Descriptions.txt">
+      <Filter>localize</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Names.txt">
+      <Filter>localize</Filter>
+    </Text>
+    <Text Include="..\locale\ru\NamesSh.txt">
+      <Filter>localize</Filter>
+    </Text>
     <Text Include="..\locale\ru\Scenery.txt">
-      <Filter>data</Filter>
+      <Filter>localize</Filter>
     </Text>
     <Text Include="..\locale\ru\Tiles.txt">
-      <Filter>data</Filter>
+      <Filter>localize</Filter>
     </Text>
     <Text Include="..\locale\ru\Walls.txt">
-      <Filter>data</Filter>
+      <Filter>localize</Filter>
     </Text>
-    <Text Include="..\rules\Scenery.txt">
+    <Text Include="..\rules\Terrain.txt">
       <Filter>data</Filter>
     </Text>
   </ItemGroup>

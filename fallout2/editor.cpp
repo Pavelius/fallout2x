@@ -87,6 +87,11 @@ static void place_tool() {
 		auto p = (tilei*)hot.object;
 		auto i = t2i(h2t(i2h(current_hexagon)));
 		loc.setfloor(i, getbsi(p));
+	} else if(bsdata<terrain>::have(hot.object)) {
+		auto p = (terrain*)hot.object;
+		auto i = t2i(h2t(i2h(current_hexagon)));
+		loc.setfloor(i, p->blocks[Center]);
+		terrain::correct();
 	} else if(bsdata<tilegroup>::have(hot.object)) {
 		auto p = (tilegroup*)hot.object;
 		place_editor(h2t(i2h(current_hexagon)), p);
@@ -98,7 +103,12 @@ static void paint_tool() {
 		((sceneryi*)current_tool)->paint();
 	else if(bsdata<walli>::have(current_tool))
 		paint_editor(i2h(current_hexagon), (walli*)current_tool);
-	else if(bsdata<tilegroup>::have(current_tool)) {
+	else if(bsdata<terrain>::have(current_tool)) {
+		caret = t2s(h2t(i2h(current_hexagon))) - camera;
+		caret.x += 8;
+		caret.y += 26;
+		bsdata<tilei>::elements[((terrain*)current_tool)->blocks[Center]].paint();
+	} else if(bsdata<tilegroup>::have(current_tool)) {
 		caret = t2s(h2t(i2h(current_hexagon))) - camera;
 		caret.x += 8;
 		caret.y += 26;
@@ -173,6 +183,8 @@ static void choose_list_element(const void* object) {
 		((sceneryi*)object)->paint();
 	else if(bsdata<walli>::have(object))
 		((walli*)object)->paint();
+	else if(bsdata<terrain>::have(object))
+		bsdata<tilei>::elements[((terrain*)object)->blocks[Center]].paint();
 	caret = push_caret;
 	clipping = push_clipping;
 	if(ishilite()) {
@@ -481,6 +493,17 @@ static void choose_scenery() {
 	}
 }
 
+static void choose_terrain() {
+	static int origin;
+	list_origin = origin;
+	choose_source = bsdata<terrain>::source_ptr;
+	scene(common_scene);
+	if(getresult()) {
+		origin = list_origin;
+		current_tool = (void*)getresult();
+	}
+}
+
 static void choose_wall() {
 	static int origin;
 	list_origin = origin;
@@ -546,6 +569,7 @@ static void delete_object() {
 void editor_hotkey() {
 	switch(hot.key) {
 	case KeyDelete: execute(delete_object); break;
+	case 'R': execute(choose_terrain); break;
 	case 'S': execute(choose_scenery); break;
 	case Ctrl + 'S': execute(save_map); break;
 	case Ctrl + 'R': execute(read_map); break;

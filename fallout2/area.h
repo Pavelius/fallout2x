@@ -6,6 +6,10 @@ const unsigned short Blocked = 0xFFFF;
 typedef unsigned short indext;
 const int				mps = 128;
 
+enum direction_s : unsigned char {
+	Center, Up, RightUp, Right, RightDown, Down, LeftDown, Left, LeftUp,
+};
+
 class areai {
 	unsigned short		floor[mps * mps];
 	unsigned short		roof[mps * mps];
@@ -20,5 +24,12 @@ public:
 	void				setfloor(indext i, int v) { floor[i] = v; }
 	void				set(indext i, short unsigned v, short w, short h);
 	void				set(indext i, short unsigned v, short w, short h, int random);
+	static indext		tot(indext i, direction_s d);
 	void				write(const char* id) const;
 };
+
+inline point			h2t(point v) { return {(short)(v.x / 2), (short)(v.y / 2)}; }
+inline point			i2t(indext i) { return {(short)(i % mps), (short)(i / mps)}; }
+inline point			i2h(indext i) { return {(short)(i % (mps * 2)), (short)(i / (mps * 2))}; }
+inline indext			t2i(point v) { return v.y * mps + v.x; }
+inline point			t2h(point v) { return {(short)(v.x * 2), (short)(v.y * 2)}; }
