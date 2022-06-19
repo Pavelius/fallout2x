@@ -1,4 +1,5 @@
 #include "draw.h"
+#include "io_stream.h"
 #include "main.h"
 
 using namespace draw;
@@ -220,6 +221,8 @@ static void status_text() {
 		((sceneryi*)hilite_object)->getinfoed(sb);
 	else if(bsdata<walli>::have(hilite_object))
 		((walli*)hilite_object)->getinfoed(sb);
+	else if(bsdata<tilegroup>::have(hilite_object))
+		((tilegroup*)hilite_object)->getinfoed(sb);
 	if(temp[0])
 		texta(temp, AlignCenterCenter);
 }
@@ -266,6 +269,116 @@ static void common_scene() {
 	cancel_hotkey();
 }
 
+static void export_tilegroup() {
+	auto p = (const tilegroup*)hot.object;
+	const char* lf = "\n";
+	io::file es("rules/export.txt", StreamWrite | StreamText);
+	if(!es)
+		return;
+	es << "{";
+	es << "\"" << "\"" << ", ";
+	es << (int)p->start << ", ";
+	es << (int)p->count << ", ";
+	es << "{";
+	auto need_block_coma = false;
+	for(auto& ge : *p) {
+		if(need_block_coma)
+			es << ", ";
+		es << "{";
+		es << (int)ge.count << ", ";
+		auto pt = ge.offset;
+		es << "{" << pt.x << ", " << pt.y << "}";
+		es << "}";
+		need_block_coma = true;
+	}
+	es << "}";
+	es << "}";
+}
+
+static void update_next_tile(tilegroup* p) {
+	auto p1 = p + 1;
+	if(p1 >= bsdata<tilegroup>::end())
+		return;
+	p1->start = p->getendid() + 1;
+}
+
+static void tilegroup_info(tilegroup* p) {
+	static int current_line;
+	if(current_line < 0)
+		current_line = (int)p->count - 1;
+	if(current_line >= (int)p->count)
+		current_line = 0;
+	rectpush push;
+	auto push_fore = fore;
+	char temp[512]; stringbuilder sb(temp);
+	p->getinfolist(sb);
+	caret.x = 2; caret.y = 2;
+	auto index = p->start;
+	auto line = 0;
+	for(auto& e : *p) {
+		if(line == current_line)
+			fore = getcolor(ColorCheck);
+		else
+			fore = getcolor(ColorText);
+		sb.clear();
+		sb.addn("%1i-%2i (%3i,%4i) %6i", index, index + e.count - 1, e.offset.x, e.offset.y, line+1, e.count);
+		text(temp); caret.y += texth();
+		index += e.count;
+		line++;
+	}
+	switch(hot.key) {
+	case KeyUp: execute(cbsetint, current_line - 1, 0, &current_line); break;
+	case KeyDown: execute(cbsetint, current_line + 1, 0, &current_line); break;
+	case KeyHome: execute(cbsetsht, p->elements[current_line].offset.x - 1, 0, &p->elements[current_line].offset.x); break;
+	case KeyEnd: execute(cbsetsht, p->elements[current_line].offset.x + 1, 0, &p->elements[current_line].offset.x); break;
+	case KeyPageUp: execute(cbsetsht, p->elements[current_line].offset.y - 1, 0, &p->elements[current_line].offset.y); break;
+	case KeyPageDown: execute(cbsetsht, p->elements[current_line].offset.y + 1, 0, &p->elements[current_line].offset.y); break;
+	case KeyLeft:
+		hot.key = 0;
+		if(p->elements[current_line].count > 1) {
+			p->elements[current_line].count -= 1;
+			update_next_tile(p);
+		}
+		break;
+	case KeyRight:
+		hot.key = 0;
+		p->elements[current_line].count += 1;
+		update_next_tile(p);
+		break;
+	case KeyTab:
+		hot.key = 0;
+		if((unsigned)p->count >= sizeof(p->elements) / sizeof(p->elements[0]))
+			break;
+		p->elements[p->count] = p->elements[p->count - 1];
+		p->elements[p->count].offset.y++;
+		p->count++;
+		update_next_tile(p);
+		break;
+	case Ctrl + 'S':
+		execute(export_tilegroup, 0, 0, p);
+		break;
+	case KeyDelete:
+		hot.key = 0;
+		if(p->count > 1) {
+			p->count--;
+			update_next_tile(p);
+		}
+		break;
+	case 'Q':
+		hot.key = 0;
+		p->start++;
+		update_next_tile(p);
+		break;
+	case 'A':
+		hot.key = 0;
+		p->start--;
+		update_next_tile(p);
+		break;
+	default:
+		break;
+	}
+}
+
 static void tilegroup_list() {
 	static int index;
 	if(index > (int)bsdata<tilegroup>::source.getcount() - 1)
@@ -273,14 +386,15 @@ static void tilegroup_list() {
 	if(index < 0)
 		index = 0;
 	auto p = bsdata<tilegroup>::elements + index;
+	hilite_object = p;
 	auto push_caret = caret;
-	caret = {120, 480 / 2};
+	caret = point{120, 480 / 2} - camera;
 	paint_editor(p);
 	switch(hot.key) {
-	case KeyLeft:
+	case '-':
 		execute(cbsetint, index - 1, 0, &index);
 		break;
-	case KeyRight:
+	case '+':
 		execute(cbsetint, index + 1, 0, &index);
 		break;
 	case KeySpace:
@@ -288,6 +402,15 @@ static void tilegroup_list() {
 		execute(buttonparam, (long)p);
 		break;
 	}
+	caret = push_caret;
+	tilegroup_info(p);
+}
+
+static void textbl(const char* format) {
+	auto push_caret = caret;
+	caret.x = 2;
+	caret.y = getheight() - texth() - 2;
+	text(format);
 	caret = push_caret;
 }
 
@@ -379,14 +502,18 @@ static void tilegroup_scene() {
 	fore = getcolor(ColorText);
 	tilegroup_list();
 	control_map();
-	tile_hotkey();
 	cancel_hotkey();
 }
 
 static void choose_tilegroup() {
+	static point loc_camera;
+	auto push_camera = camera;
+	camera = loc_camera;
 	scene(tilegroup_scene);
 	if(getresult())
 		current_tool = (tilegroup*)getresult();
+	loc_camera = camera;
+	camera = push_camera;
 }
 
 static void choose_tile() {
@@ -396,10 +523,8 @@ static void choose_tile() {
 	scene(tile_scene);
 	tile_camera = camera;
 	camera = push_camera;
-	if(getresult()) {
-		tilei::last = (tilei*)getresult();
-		current_tool = tilei::last;
-	}
+	if(getresult())
+		current_tool = (tilei*)getresult();
 }
 
 static void save_map() {

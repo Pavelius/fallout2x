@@ -93,6 +93,14 @@ enum objectf : unsigned {
 	LightThru = 0x20000000,
 	ShootThru = 0x80000000
 };
+enum specie_s : unsigned char {
+	Men, Women, Children,
+	SuperMutants, Ghouls,
+	Brahmin, Radscorpions, Rats,
+	Floaters, Centaurs, Robots, Dogs, Manti,
+	DeathClaws, Plants, Geckos, Aliens, GiantAnts,
+	BigBadBoss
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90,
@@ -158,8 +166,9 @@ struct character : nameable, statable {
 	perka				perks;
 	skilla				tags;
 	int					experience;
+	specie_s			species;
+	res					naked;
 	static character*	last;
-	character*			boss;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				exporting(const char* id) const;
@@ -204,18 +213,21 @@ struct tilegroup {
 		int				count;
 		point			offset;
 	};
+	const char*			id;
 	short				start;
-	point				size;
 	size_t				count;
-	element				elements[16];
+	element				elements[32];
 	const element*		begin() const { return elements; }
 	const element*		end() const { return elements + count; }
+	int					getbeginid() const { return start; }
+	int					getendid() const;
+	void				getinfoed(stringbuilder& sb) const;
+	void				getinfolist(stringbuilder& sb) const;
 };
 struct tilei : nameable {
 	short				frame, index;
 	material_s			material;
 	void				paint() const;
-	static const tilei*	last;
 };
 struct walli : nameable {
 	short				frame, index;

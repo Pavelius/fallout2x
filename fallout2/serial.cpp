@@ -8,7 +8,8 @@ template<> void archive::set<character>(character& e) {
 	set(e.perks);
 	set(e.tags);
 	set(e.experience);
-	set(e.boss);
+	set(e.species);
+	set(e.naked);
 }
 
 template<> void archive::set<areai>(areai& e) {

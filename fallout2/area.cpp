@@ -33,8 +33,8 @@ void areai::set(indext i, short unsigned v, short w, short h, int random) {
 	}
 }
 
-int	areai::reapeated(int x0, int x1, int y) const {
-	auto p = floor + y * mps;
+int	areai::reapeated(int x0, int x1, int y, bool need_roof) const {
+	auto p = (need_roof ? roof : floor) + y * mps;
 	auto result = 1;
 	auto v = p[x0];
 	for(auto x = x0; x < x1 - 1; x++) {
@@ -45,6 +45,15 @@ int	areai::reapeated(int x0, int x1, int y) const {
 			break;
 	}
 	return result;
+}
+
+short areai::find(short v, short x0, short x1, short y, bool need_roof) const {
+	auto p = (need_roof ? roof : floor) + y * mps;
+	for(auto x = x0; x < x1; x++) {
+		if(p[x] == v)
+			return x;
+	}
+	return -1;
 }
 
 //void areai::set(indext i, int v, int w, int h) {

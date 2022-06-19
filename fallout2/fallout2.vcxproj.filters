@@ -196,8 +196,8 @@
     <ClCompile Include="editor.cpp">
       <Filter>draw</Filter>
     </ClCompile>
-    <ClCompile Include="tiles_group.cpp">
-      <Filter>proto</Filter>
+    <ClCompile Include="tilegroup.cpp">
+      <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
