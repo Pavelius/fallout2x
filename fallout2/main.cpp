@@ -18,7 +18,7 @@ int start_application(fnevent proc, fnevent afterread);
 static void start() {
 	character::last = character::add("Narg");
 	//choose_scenery();
-	loc.set(0, 6, 100, 100, 4);
+	loc.set(0, 30, 100, 100, 9);
 	current_tool = bsdata<walli>::elements + 466;
 	draw::scene(editor);
 	//character_generate();

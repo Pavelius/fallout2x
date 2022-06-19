@@ -20,6 +20,5 @@ public:
 	void				setfloor(indext i, int v) { floor[i] = v; }
 	void				set(indext i, short unsigned v, short w, short h);
 	void				set(indext i, short unsigned v, short w, short h, int random);
-	void				setwall(indext i, short unsigned v);
 	void				write(const char* id) const;
 };
