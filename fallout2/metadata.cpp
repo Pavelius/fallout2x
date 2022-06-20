@@ -7,12 +7,15 @@
 
 #define VRSTD(T) bsmeta<T>::meta, bsdata<T>::source_ptr
 
+NOBSDATA(itemi::imagei)
 NOBSDATA(point)
 
 BSDATAC(character, 256)
 BSDATAC(control, 2048)
 BSDATAC(drawable, 4096*8)
 BSDATAC(globalstati, 128)
+BSDATAC(itemi, 2048)
+BSDATAC(itemwear, 4096)
 BSDATAC(list, 128)
 BSDATAC(perki, 256)
 BSDATAC(prototype, 32)
@@ -27,7 +30,7 @@ BSMETA(control) = {
 	BSREQ(type), BSREQ(x), BSREQ(y),
 	BSREQ(size), BSREQ(data),
 	BSREQ(text), BSREQ(command), BSREQ(format),
-	BSREQ(normal), BSREQ(pressed),
+	BSREQ(normal), BSREQ(pressed), BSREQ(lines),
 	{}};
 BSMETA(directioni) = {
 	BSREQ(id),
@@ -40,6 +43,16 @@ BSMETA(globalstati) = {
 	{}};
 BSMETA(gradei) = {
 	BSREQ(id),
+	{}};
+BSMETA(itemi::imagei) = {
+	BSREQ(inventory),
+	BSREQ(ground),
+	BSREQ(animation),
+	{}};
+BSMETA(itemi) = {
+	BSREQ(id),
+	BSREQ(size), BSREQ(weight), BSREQ(cost),
+	BSREQ(avatar),
 	{}};
 BSMETA(list) = {
 	BSREQ(id),
@@ -93,6 +106,7 @@ BSDATA(varianti) = {
 	{"Function", VRSTD(function), 1},
 	{"Global", VRSTD(globalstati), 1},
 	{"Grade", VRSTD(gradei), 1},
+	{"Item", VRSTD(itemi), 1},
 	{"List", VRSTD(list), 1},
 	{"Perk", VRSTD(perki), 1},
 	{"Prototype", VRSTD(prototype), 1},
@@ -103,6 +117,6 @@ BSDATA(varianti) = {
 	{"Terrain", VRSTD(terrain), 1},
 	{"Tile", VRSTD(tilei)},
 	{"Wall", VRSTD(walli)},
-	{"Wear", VRSTD(weari)},
+	{"Wear", VRSTD(weari), 1},
 };
 BSDATAF(varianti)

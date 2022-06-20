@@ -30,6 +30,11 @@ static void start() {
 	//current_tool = bsdata<walli>::elements + 466;
 	character::last->appear({28, 28});
 	character::last->focusing();
+	character::last->wear[BodyArmor] = "LeatherArmor";
+	character::last->wear[LeftHandItem] = "Pistol10mm";
+	character::last->wear[RightHandItem] = "Pistol9mm";
+	character::last->wearable::add("Pistol10mm");
+	character::last->wearable::add("Pistol9mm");
 	//draw::scene(editor);
 	draw::scene(adventure);
 	//character_generate();
@@ -39,6 +44,7 @@ static void initialize() {
 	initialize_adventure();
 	initialize_script();
 	initialize_dialog();
+	bsreq::read("rules/Item.txt");
 	bsreq::read("rules/Perks.txt");
 	bsreq::read("rules/Prototype.txt");
 	bsreq::read("rules/Terrain.txt");

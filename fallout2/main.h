@@ -149,13 +149,54 @@ struct perki {
 struct gradei {
 	const char*			id;
 };
+struct itemi : nameable {
+	struct ammoi {
+		short unsigned	ammo;
+		unsigned char	count;
+		char			ac, dr;
+		short			dam_bonus = 100;
+	};
+	struct armori {
+		char			ac;
+		res				male, female;
+		char			threshold[10];
+		char			resistance[10];
+	};
+	struct imagei {
+		short			inventory;
+		short			ground;
+		short			animation;
+	};
+	struct weaponi {
+		unsigned char	min, max;
+		unsigned char	min_strenght;
+		//damage_s		type;
+		unsigned char	ap, range;
+		short unsigned	ammo;
+		unsigned char	ammo_count;
+		unsigned char	burst;
+		short unsigned	critical_fail; // Number of critical failure table
+	};
+	int					size, weight, cost;
+	imagei				avatar;
+	material_s			material;
+	weaponi				weapon;
+	armori				armor;
+	ammoi				ammo;
+	short unsigned		use;
+};
 struct item {
 	unsigned short		type;
 	unsigned short		count;
-	unsigned short		clip : 3;
-	unsigned short		nobarter : 1;
+	unsigned short		ammo_type;
 	unsigned short		ammo;
-	constexpr operator bool() const { return type!=0; }
+	item() = default;
+	item(const char* id);
+	constexpr operator bool() const { return count != 0; }
+	void				clear() { memset(this, 0, sizeof(*this)); }
+	int					getcount() const { return count; }
+	const itemi&		geti() const { return bsdata<itemi>::elements[type]; }
+	const char*			getname() const { return geti().getname(); }
 };
 struct statable {
 	typedef unsigned short valuet;
@@ -173,7 +214,18 @@ struct prototype : nameable, statable {
 	const stati*		tags[3];
 	perka				perks;
 };
-struct animable : nameable, statable, drawable {
+struct wearable;
+struct itemwear : item {
+	wearable*			owner;
+};
+struct wearable : nameable, statable {
+	item				wear[LeftHandItem + 1];
+	void				add(const item& v);
+};
+struct itemlist : adat<item*, 256> {
+	void				select(const wearable* pv);
+};
+struct animable : wearable, drawable {
 	res					naked;
 	animate_s			animate;
 	direction_s			direction;

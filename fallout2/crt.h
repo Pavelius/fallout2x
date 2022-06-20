@@ -50,6 +50,7 @@ namespace metrics {
 const codepage						code = codepage::W1251;
 }
 // Common used templates
+template<class T> inline void		copy(T& v1, const T& v2) { v1=v2; }
 inline int							ifloor(double n) { return (int)n; }
 template<class T> inline T			imax(T a, T b) { return a > b ? a : b; }
 template<class T> inline T			imin(T a, T b) { return a < b ? a : b; }

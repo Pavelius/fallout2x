@@ -18,6 +18,7 @@ void control::paint() const {
 	gui.clear();
 	gui.normal = normal;
 	gui.pressed = pressed;
+	gui.lines = lines;
 	if(text)
 		gui.title = getnm(text);
 	else if(data.type && data.geti().isnamed()) {

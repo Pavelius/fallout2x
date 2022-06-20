@@ -208,6 +208,18 @@
     <ClCompile Include="wear.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="itemlist.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="itemwear.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="wearable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -414,6 +426,9 @@
     </Text>
     <Text Include="..\forms\CharacterInvertory.txt">
       <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\rules\Item.txt">
+      <Filter>data</Filter>
     </Text>
   </ItemGroup>
 </Project>

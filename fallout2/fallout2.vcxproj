@@ -175,6 +175,9 @@
     <ClCompile Include="interface.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="io_stream.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="itemlist.cpp" />
+    <ClCompile Include="itemwear.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="logparse.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="control.cpp" />
     <ClCompile Include="wall.cpp" />
     <ClCompile Include="wear.cpp" />
+    <ClCompile Include="wearable.cpp" />
     <ClCompile Include="widget.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />
@@ -270,6 +274,7 @@
     <Text Include="..\locale\ru\Tiles.txt" />
     <Text Include="..\locale\ru\Walls.txt" />
     <Text Include="..\rules\Basic.txt" />
+    <Text Include="..\rules\Item.txt" />
     <Text Include="..\rules\Perks.txt" />
     <Text Include="..\rules\Prototype.txt" />
     <Text Include="..\rules\Terrain.txt" />

@@ -1,2 +1,2 @@
-﻿In file `rules/Terrain.txt`:
- Line 6: Not found requisit `bloc1ks`
+﻿In file `forms/CharacterInvertory.txt`:
+ Line 8: Not found identifier `Wears`

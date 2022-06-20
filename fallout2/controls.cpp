@@ -16,6 +16,8 @@ struct number_widget {
 
 using namespace draw;
 
+typedef void(*fnlistrow)(const void* object);
+
 static adat<number_widget, 32> number_widgets;
 static rect last_rect;
 static char edit_buffer[512];
@@ -264,6 +266,7 @@ static void item_avatar() {
 			rectpush push;
 			surface zoom(isx, isy, 32);
 			auto push_clip = clipping;
+			auto push_canvas = canvas;
 			canvas = &zoom; setclip();
 			fore.r = fore.g = fore.b = fore.a = 0xFF;
 			caret.x = caret.y = 0;
@@ -272,6 +275,7 @@ static void item_avatar() {
 			image(ps, fr, ImageNoOffset);
 			blit(real, 0, 0, real.width, real.height, 0, zoom, 0, 0, zoom.width, zoom.height);
 			clipping = push_clip;
+			canvas = push_canvas;
 		}
 		blit(*draw::canvas,
 			caret.x + (width - real.width) / 2,
@@ -279,6 +283,41 @@ static void item_avatar() {
 			real.width, real.height,
 			ImageTransparent, real, 0, 0);
 	}
+}
+
+static void text_hint(const char* format) {
+	auto push_fore = fore;
+	auto push_caret = caret;
+	fore = getcolor(ColorCheck);
+	caret.x += 4; caret.y += 4;
+	text(format);
+	fore = push_fore;
+	caret = push_caret;
+}
+
+static void text_hint(const char* format, int v) {
+	char temp[64]; stringbuilder sb(temp);
+	sb.add(format, v);
+	text_hint(temp);
+}
+
+static void item_button() {
+	auto pi = (item*)gui.data;
+	if(!pi)
+		return;
+	auto a = ishilite();
+	if(a)
+		hilite_object = pi;
+	if(!(*pi))
+		return;
+	if(true) {
+		rectpush push;
+		setoffset(4, 4);
+		item_avatar();
+	}
+	auto count = pi->getcount();
+	if(count > 1)
+		text_hint("x%1i", count);
 }
 
 static void button_no_text() {
@@ -486,7 +525,36 @@ static void list_input(int& current, int& origin, int perpage, int perline, int 
 	}
 }
 
-static void list_paint(int& origin, int& current, int perline) {
+static void list_input_nocurrent(int& origin, int perpage, int perline, int maximum) {
+	if(origin + perpage >= maximum)
+		origin = maximum - perpage;
+	if(origin < 0)
+		origin = 0;
+	switch(hot.key) {
+	case KeyUp:
+	case MouseWheelUp:
+		execute(cbsetint, origin - 1, 0, &origin);
+		break;
+	case MouseWheelDown:
+	case KeyDown:
+		execute(cbsetint, origin + 1, 0, &origin);
+		break;
+	case KeyHome:
+		execute(cbsetint, 0, 0, &origin);
+		break;
+	case KeyEnd:
+		execute(cbsetint, maximum, 0, &origin);
+		break;
+	case KeyPageUp:
+		execute(cbsetint, origin - perpage, 0, &origin);
+		break;
+	case KeyPageDown:
+		execute(cbsetint, origin + perpage, 0, &origin);
+		break;
+	}
+}
+
+static void list_paint(int& origin, int& current, int perline, fnlistrow prow) {
 	if(!perline)
 		return;
 	auto perpage = height / perline;
@@ -498,28 +566,68 @@ static void list_paint(int& origin, int& current, int perline) {
 		maximum = origin + perpage + 1;
 	auto push_height = height;
 	height = perline;
-	char temp[260]; stringbuilder sb(temp);
 	for(auto i = origin; i < maximum; i++) {
 		auto push_fore = fore;
 		if(i == current)
 			hilighting();
 		if(ishilite() && hot.key == MouseLeft && hot.pressed)
 			execute(cbsetint, i, 0, &current);
-		auto object = gui.ptr(i);
-		if(object && gui.pgetname) {
-			sb.clear();
-			gui.pgetname(object, sb);
-			text(temp);
-		}
+		if(prow)
+			prow(gui.ptr(i));
 		fore = push_fore;
 		caret.y += height;
 	}
 	height = push_height;
 }
 
-static void listview() {
-	//rectb();
-	list_paint(last_list_origin, last_list_current, 10);
+static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
+	if(!perline)
+		return;
+	auto perpage = height / perline;
+	if(!perpage)
+		return;
+	if(!prow)
+		return;
+	int maximum = gui.count;
+	list_input_nocurrent(origin, perpage, perline, maximum);
+	if(maximum > origin + perpage + 1)
+		maximum = origin + perpage + 1;
+	auto push_height = height;
+	height = perline;
+	for(auto i = origin; i < maximum; i++) {
+		prow(gui.ptr(i));
+		caret.y += height;
+	}
+	height = push_height;
+}
+
+static void string_row(const void* object) {
+	if(!gui.pgetname)
+		return;
+	char temp[260]; stringbuilder sb(temp);
+	sb.clear();
+	gui.pgetname(object, sb);
+	text(temp);
+}
+
+static void text_list() {
+	list_paint(last_list_origin, last_list_current, gui.lines, string_row);
+}
+
+static void item_row(const void* object) {
+	auto push_gui = gui;
+	auto pi = *((item**)object);
+	gui.title = pi->getname();
+	gui.data = pi;
+	gui.normal = 1;
+	gui.number = pi->geti().avatar.inventory;
+	item_button();
+	gui = push_gui;
+}
+
+static void items_list() {
+	static int origin;
+	list_paint_nocurrent(origin, gui.lines, item_row);
 }
 
 static void remove_symbol() {
@@ -648,6 +756,8 @@ BSDATA(widget) = {
 	{"Information", block_information},
 	{"Image", custom_image},
 	{"ItemAvatar", item_avatar},
+	{"ItemButton", item_button},
+	{"ItemList", items_list},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},
@@ -655,7 +765,7 @@ BSDATA(widget) = {
 	{"Label", label_left},
 	{"LabelSM", label_checked},
 	{"LineInfo", line_info},
-	{"List", listview},
+	{"List", text_list},
 	{"Number", number_standart},
 };
 BSDATAF(widget)

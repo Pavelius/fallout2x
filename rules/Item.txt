@@ -1,0 +1,5 @@
+#Item
+
+LeatherArmor avatar(3)
+Pistol10mm avatar(5)
+Pistol9mm avatar(6)

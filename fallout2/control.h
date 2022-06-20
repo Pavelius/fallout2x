@@ -16,7 +16,7 @@ struct guii : datasource {
 	void*				object;
 	int					number;
 	bool				checked, disabled;
-	short				normal, pressed;
+	short				normal, pressed, lines;
 	unsigned			key;
 	unsigned			flags;
 	fnstatus			pgetname;
@@ -33,7 +33,7 @@ struct control : point {
 	const widget*		type;
 	variant				data;
 	point				size;
-	short				normal, pressed;
+	short				normal, pressed, lines;
 	const char*			text;
 	const decorator*	format;
 	const command*		command;

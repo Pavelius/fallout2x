@@ -6,7 +6,8 @@
 
 static char result_text[512];
 static stringbuilder sb(result_text);
-static filelist filelistsource;
+static filelist files;
+static itemlist items;
 static array any_source;
 extern int last_list_current;
 
@@ -79,7 +80,7 @@ static void open_dialog() {
 
 static void character_delete() {
 	last_list_current = -1;
-	filelistsource.choose("characters/premade", "*.chr", true);
+	files.choose("characters/premade", "*.chr", true);
 	if(!dialog::open(gui.id))
 		return;
 	//if(message(getnm("ReallyWantDelete"), getedit()))
@@ -87,7 +88,7 @@ static void character_delete() {
 
 static void character_load() {
 	last_list_current = -1;
-	filelistsource.choose("characters/premade", "*.chr", true);
+	files.choose("characters/premade", "*.chr", true);
 	if(!dialog::open(gui.id))
 		return;
 	character::last->read(getedit());
@@ -96,7 +97,7 @@ static void character_load() {
 
 static void character_save() {
 	last_list_current = -1;
-	filelistsource.choose("characters/premade", "*.chr", true);
+	files.choose("characters/premade", "*.chr", true);
 	if(!dialog::open(gui.id))
 		return;
 	character::last->write(getedit());
@@ -105,7 +106,7 @@ static void character_save() {
 
 static void character_export() {
 	last_list_current = -1;
-	filelistsource.choose("characters/export", "*.txt", true);
+	files.choose("characters/export", "*.txt", true);
 	if(!dialog::open(gui.id))
 		return;
 	character::last->exporting(getedit());
@@ -207,17 +208,20 @@ static void filelist_getname(const void* object, stringbuilder& sb) {
 	sb.add(*((const char**)object));
 }
 
+static void character_wears(const control& e) {
+	items.select(character::last);
+	gui.linklist(items.data, items.count);
+}
+
 static void file_list(const control& e) {
 	static int auto_complete;
+	gui.linklist(files.data, files.count);
 	gui.pgetname = filelist_getname;
-	gui.data = filelistsource.data;
-	gui.size = sizeof(filelistsource.data[0]);
-	gui.count = filelistsource.count;
 	if(last_list_current == -1 || last_list_current != auto_complete) {
 		auto_complete = last_list_current;
 		if(last_list_current != -1) {
-			if(last_list_current < (int)filelistsource.count)
-				setedit(filelistsource.data[last_list_current]);
+			if(last_list_current < (int)files.count)
+				setedit(files.data[last_list_current]);
 		}
 	}
 }
@@ -239,6 +243,10 @@ static void pbefore(const control& e) {
 		auto v = e.data.value;
 		gui.link(pd->perks.getbyte(v), pd->perks.getmask(v));
 		gui.number = pd->perks.is(v) ? 1 : 0;
+	} else if(e.data.iskind<weari>()) {
+		auto v = e.data.value;
+		gui.link(pd->wear[v]);
+		gui.number = pd->wear[v].geti().avatar.inventory;
 	}
 }
 
@@ -260,5 +268,6 @@ BSDATA(decorator) = {
 	{"PrimaryStatsTotal", character_primary_total},
 	{"Trait", character_trait},
 	{"TextMessage", text_message},
+	{"Wears", character_wears},
 };
 BSDATAF(decorator)
