@@ -282,8 +282,6 @@ static bool iscrlevel(int n) {
 	return false;
 }
 
-static void read_scalar(void* object, const bsreq* req, int level);
-
 static void read_dictionary(void* object, const bsreq* type, int level, bool need_linefeed = true) {
 	while(allowparse && ischa(*p)) {
 		readid();
@@ -303,24 +301,11 @@ static void read_dictionary(void* object, const bsreq* type, int level, bool nee
 			} else if(req->is(KindDSet))
 				read_dset(object, req);
 			else if(req->is(KindScalar) && req->count > 0)
-				read_scalar(object, req, level + 1);
+				read_dictionary(req->ptr(object), req->type, level + 1, false);
 			else
 				read_array(object, req);
 			skipsymcr();
 		}
-	}
-}
-
-static void read_scalar(void* object, const bsreq* req, int level) {
-	auto index = 0;
-	while(allowparse && iscrlevel(level + 1)) {
-		void* p1 = 0;
-		unsigned i = index;
-		if(i >= req->count)
-			i = 0;
-		p1 = req->ptr(object, i);
-		read_dictionary(p1, req->type, level + 1, false);
-		index++;
 	}
 }
 

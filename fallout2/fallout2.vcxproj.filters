@@ -220,6 +220,9 @@
     <ClCompile Include="wearable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="damage.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -428,6 +431,9 @@
       <Filter>forms</Filter>
     </Text>
     <Text Include="..\rules\Item.txt">
+      <Filter>data</Filter>
+    </Text>
+    <Text Include="..\rules\itemsorg.txt">
       <Filter>data</Filter>
     </Text>
   </ItemGroup>

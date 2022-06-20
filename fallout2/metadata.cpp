@@ -7,7 +7,10 @@
 
 #define VRSTD(T) bsmeta<T>::meta, bsdata<T>::source_ptr
 
+NOBSDATA(itemi::ammoi)
+NOBSDATA(itemi::armori)
 NOBSDATA(itemi::imagei)
+NOBSDATA(itemi::weaponi)
 NOBSDATA(point)
 
 BSDATAC(character, 256)
@@ -32,6 +35,9 @@ BSMETA(control) = {
 	BSREQ(text), BSREQ(command), BSREQ(format),
 	BSREQ(normal), BSREQ(pressed), BSREQ(lines),
 	{}};
+BSMETA(damagei) = {
+	BSREQ(id),
+	{}};
 BSMETA(directioni) = {
 	BSREQ(id),
 	{}};
@@ -44,15 +50,38 @@ BSMETA(globalstati) = {
 BSMETA(gradei) = {
 	BSREQ(id),
 	{}};
+BSMETA(itemi::ammoi) = {
+	BSREQ(ammo),
+	BSREQ(count),
+	BSREQ(ac), BSREQ(dr), BSREQ(dam_bonus),
+	{}};
 BSMETA(itemi::imagei) = {
 	BSREQ(inventory),
 	BSREQ(ground),
 	BSREQ(animation),
 	{}};
+BSMETA(itemi::weaponi) = {
+	BSREQ(min), BSREQ(max),
+	BSREQ(strenght),
+	BSENM(type, damagei),
+	BSREQ(ap), BSREQ(range),
+	BSREQ(ammo), BSREQ(ammo_count),
+	BSREQ(burst), BSREQ(critical_fail),
+	{}};
+BSMETA(itemi::armori) = {
+	BSREQ(ac),
+	BSENM(male, residi), BSENM(female, residi),
+	BSREQ(threshold), BSREQ(resistance),
+	{}};
 BSMETA(itemi) = {
 	BSREQ(id),
 	BSREQ(size), BSREQ(weight), BSREQ(cost),
+	BSENM(material, materiali),
 	BSREQ(avatar),
+	BSREQ(weapon),
+	BSREQ(armor),
+	BSREQ(ammo),
+	BSENM(use, stati),
 	{}};
 BSMETA(list) = {
 	BSREQ(id),

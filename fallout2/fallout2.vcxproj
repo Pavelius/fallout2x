@@ -159,6 +159,7 @@
     <ClCompile Include="crt_file.cpp" />
     <ClCompile Include="crt_translate.cpp" />
     <ClCompile Include="controls.cpp" />
+    <ClCompile Include="damage.cpp" />
     <ClCompile Include="datasource.cpp" />
     <ClCompile Include="dialog.cpp" />
     <ClCompile Include="direction.cpp" />
@@ -275,6 +276,7 @@
     <Text Include="..\locale\ru\Walls.txt" />
     <Text Include="..\rules\Basic.txt" />
     <Text Include="..\rules\Item.txt" />
+    <Text Include="..\rules\itemsorg.txt" />
     <Text Include="..\rules\Perks.txt" />
     <Text Include="..\rules\Prototype.txt" />
     <Text Include="..\rules\Terrain.txt" />

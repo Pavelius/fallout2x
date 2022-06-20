@@ -22,7 +22,6 @@ static adat<number_widget, 32> number_widgets;
 static rect last_rect;
 static char edit_buffer[512];
 static int caret_position;
-static int last_list_origin;
 static guii cmd_gui;
 spriteable cursor;
 int last_list_current;
@@ -593,11 +592,14 @@ static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
 	if(maximum > origin + perpage + 1)
 		maximum = origin + perpage + 1;
 	auto push_height = height;
+	auto push_clip = clipping;
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	height = perline;
 	for(auto i = origin; i < maximum; i++) {
 		prow(gui.ptr(i));
 		caret.y += height;
 	}
+	clipping = push_clip;
 	height = push_height;
 }
 
@@ -611,7 +613,8 @@ static void string_row(const void* object) {
 }
 
 static void text_list() {
-	list_paint(last_list_origin, last_list_current, gui.lines, string_row);
+	static int origin;
+	list_paint(origin, last_list_current, gui.lines, string_row);
 }
 
 static void item_row(const void* object) {

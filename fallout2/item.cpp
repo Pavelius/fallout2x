@@ -6,5 +6,5 @@ item::item(const char* id) {
 	if(!pi)
 		return;
 	type = getbsi(pi);
-	count = 1;
+	count = pi->ammo.count ? pi->ammo.count : 1;
 }

@@ -26,7 +26,10 @@ enum stat_s : unsigned char {
 	PoisonResistance, RadiationResistance, Age, Level,
 	OneHandedWeaponBonus, TwoHandedWeaponBonus,
 	PrimaryPoints, SkillTagPoints, SkillPoints, PoisonPoints, RadiationPoints,
-	SmallGuns, BigGuns, EnergyWeapon, Unarmed, MeleeWeapon, Throwing
+	SmallGuns, BigGuns, EnergyWeapon, Unarmed, MeleeWeapon, Throwing,
+	FirstAid, Doctor,
+	Sneak, Lockpick, Steal, Traps,
+	Science, Repair, Speech, Barter, Gambling, Outdoorsman
 };
 enum wear_s : unsigned char {
 	BodyArmor, RightHandItem, LeftHandItem,
@@ -104,6 +107,9 @@ enum specie_s : unsigned char {
 	DeathClaws, Plants, Geckos, Aliens, GiantAnts,
 	BigBadBoss
 };
+enum damage_s : unsigned char {
+	Phisycal, Laser, Fire, Plasma, Electrical, EMP, Explosive,
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90,
@@ -146,6 +152,8 @@ struct perki {
 	variants			use;
 	short				avatar, order;
 };
+struct damagei : nameable {
+};
 struct gradei {
 	const char*			id;
 };
@@ -154,23 +162,24 @@ struct itemi : nameable {
 		short unsigned	ammo;
 		unsigned char	count;
 		char			ac, dr;
-		short			dam_bonus = 100;
+		short			dam_bonus;
 	};
 	struct armori {
 		char			ac;
 		res				male, female;
-		char			threshold[10];
-		char			resistance[10];
+		char			threshold[Explosive + 1];
+		char			resistance[Explosive + 1];
 	};
 	struct imagei {
 		short			inventory;
 		short			ground;
 		short			animation;
+		short			projectile;
 	};
 	struct weaponi {
 		unsigned char	min, max;
-		unsigned char	min_strenght;
-		//damage_s		type;
+		unsigned char	strenght;
+		damage_s		type;
 		unsigned char	ap, range;
 		short unsigned	ammo;
 		unsigned char	ammo_count;
@@ -183,7 +192,7 @@ struct itemi : nameable {
 	weaponi				weapon;
 	armori				armor;
 	ammoi				ammo;
-	short unsigned		use;
+	stat_s				use;
 };
 struct item {
 	unsigned short		type;
