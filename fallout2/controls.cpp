@@ -740,6 +740,20 @@ static void block_information() {
 	font = push_font;
 }
 
+static void paper_doll() {
+	auto push_caret = caret;
+	auto push_clip = clipping;
+	//rectb();
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	auto p = gres(character::last->naked);
+	auto f = character::last->getframe(AnimateStand) + (current_tick/500) % 6;
+	caret.x += width / 2;
+	caret.y += height - 12;
+	image(p, p->ganim(f, 0), 0);
+	clipping = push_clip;
+	caret = push_caret;
+}
+
 static void hotkey() {
 	if(gui.key == hot.key)
 		execute_standart();
@@ -761,6 +775,7 @@ BSDATA(widget) = {
 	{"ItemAvatar", item_avatar},
 	{"ItemButton", item_button},
 	{"ItemList", items_list},
+	{"PaperDoll", paper_doll},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},

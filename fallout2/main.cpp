@@ -25,6 +25,7 @@ static void start() {
 	indext i1 = loc.tot(i, Up);
 	point t2 = i2t(i);
 	character::last = character::add("Narg");
+	character::last->naked = res::HMLTHR;
 	//choose_scenery();
 	loc.set(0, 90, 100, 100, 4);
 	//current_tool = bsdata<walli>::elements + 466;
