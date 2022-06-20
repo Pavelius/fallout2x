@@ -160,7 +160,7 @@ struct prototype : nameable, statable {
 	const stati*		tags[3];
 	perka				perks;
 };
-struct animable : nameable, statable {
+struct animable : nameable, statable, drawable {
 	res					naked;
 	animate_s			animate;
 	direction_s			direction;
@@ -169,7 +169,6 @@ struct animable : nameable, statable {
 	static animate_s	getbase(animate_s v, int* w);
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
-	drawable*			getui() const;
 	void				nextanimate();
 	void				paint(short frame, short unsigned flags) const;
 	void				setanimate(animate_s v);

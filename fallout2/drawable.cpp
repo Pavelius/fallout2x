@@ -8,6 +8,7 @@ BSDATAC(drawable, 2048)
 static adat<drawable*, 1024> drawables;
 drawable::fnevent drawable::paint;
 drawable::fnget drawable::getorder;
+drawable::fnselect drawable::select;
 
 static int compare(const void* v1, const void* v2) {
 	auto p1 = *((drawable**)v1);
@@ -31,6 +32,8 @@ static void prepare_drawables() {
 		if(ps < pe)
 			*ps++ = &e;
 	}
+	if(drawable::select)
+		ps = drawable::select(ps, pe);
 	drawables.count = ps - drawables.data;
 }
 

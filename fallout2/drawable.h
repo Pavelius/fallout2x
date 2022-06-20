@@ -5,6 +5,7 @@
 struct drawable {
 	typedef void(*fnevent)(const drawable* p);
 	typedef int(*fnget)(const drawable* p);
+	typedef drawable**(*fnselect)(drawable** ps, drawable* const* pe);
 	point				position;
 	const void*			data;
 	unsigned short		frame_start, frame_stop;
@@ -12,6 +13,7 @@ struct drawable {
 	int					timer;
 	static fnget		getorder;
 	static fnevent		paint;
+	static fnselect		select;
 	explicit operator bool() const { return data != 0; }
 	static drawable*	add(point v, const void* object);
 	void				clear();

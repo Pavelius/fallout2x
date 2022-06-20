@@ -192,9 +192,18 @@ static int getorder(const drawable* p) {
 	return 1;
 }
 
+static drawable** select_drawables(drawable** ps, drawable* const* pe) {
+	for(auto& e : bsdata<character>()) {
+		if(ps < pe)
+			*ps++ = &e;
+	}
+	return ps;
+}
+
 void initialize_adventure() {
 	drawable::paint = paint_drawable;
 	drawable::getorder = getorder;
+	drawable::select = select_drawables;
 }
 
 void adventure() {

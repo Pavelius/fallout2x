@@ -51,10 +51,6 @@ BSDATA(animationi) = {
 };
 assert_enum(animationi, AnimateWeaponAimEnd)
 
-drawable* animable::getui() const {
-	return drawable::find(this);
-}
-
 static bool isweaponanimate(animate_s v) {
 	return v >= FirstWeaponAnimate;
 }
@@ -103,36 +99,28 @@ static void correctposition(drawable* pd, const sprite* ps, animate_s a) {
 }
 
 void animable::setanimate(animate_s v) {
-	auto pd = getui();
-	if(!pd)
-		return;
 	animate = v;
 	auto ps = gres(naked);
 	auto cicle = getframe(animate) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
 	if(!pc || !pc->count)
 		return;
-	pd->setanimate(pc->start, pc->count);
-	correctposition(pd, ps, animate);
+	drawable::setanimate(pc->start, pc->count);
+	correctposition(this, ps, animate);
 }
 
 void animable::appear(point h) {
-	auto p = drawable::find(this);
-	if(!p) {
-		p = drawable::add(h2s(h), this);
-		direction = RightDown;
-		setanimate(AnimateStand);
-	}
+	data = this;
+	position = h2s(h);
+	direction = RightDown;
+	setanimate(AnimateStand);
 }
 
 void animable::focusing() const {
-	auto p = getui();
-	if(p) {
-		auto pt = p->position;
-		pt.x -= 640 / 2;
-		pt.y -= 480 / 2;
-		camera = pt;
-	}
+	auto pt = position;
+	pt.x -= 640 / 2;
+	pt.y -= 480 / 2;
+	camera = pt;
 }
 
 short animable::getframe(direction_s d) {
@@ -148,10 +136,9 @@ short animable::getframe(direction_s d) {
 }
 
 void animable::nextanimate() {
-	auto p = getui();
 	switch(animate) {
 	case AnimateStand:
-		p->timer += xrand(3, 7) * 1000;
+		timer += xrand(3, 7) * 1000;
 		break;
 	}
 }
@@ -165,7 +152,7 @@ void animable::updateui() {
 	last_tick = current_tick;
 	if(d > 1000) // Game resume from pause
 		return;
-	for(auto& e : bsdata<drawable>()) {
+	for(auto& e : bsdata<character>()) {
 		if(!e)
 			continue;
 		e.timer -= d;
@@ -178,13 +165,11 @@ void animable::updateui() {
 		else if(e.frame_start < e.frame_stop) {
 			if(e.frame < e.frame_stop) {
 				e.frame++;
-				auto pa = ((animable*)e.data);
-				correctposition(&e, gres(pa->naked), pa->animate);
+				correctposition(&e, gres(e.naked), e.animate);
 			} else {
 				next_action = true;
 				e.frame = e.frame_start;
-				auto pa = ((animable*)e.data);
-				correctposition(&e, gres(pa->naked), pa->animate);
+				correctposition(&e, gres(e.naked), e.animate);
 			}
 		} else {
 			if(e.frame > e.frame_stop)
@@ -195,6 +180,6 @@ void animable::updateui() {
 			}
 		}
 		if(next_action)
-			((animable*)e.data)->nextanimate();
+			e.nextanimate();
 	}
 }
