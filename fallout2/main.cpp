@@ -17,6 +17,7 @@ void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
 
 static void start() {
+	auto is = sizeof(item);
 	point t = {10, 6};
 	point h = t2h(t);
 	indext i = t2i(t);

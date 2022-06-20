@@ -237,6 +237,50 @@ static bool focused() {
 	return gui.object == getfocus();
 }
 
+static void item_avatar() {
+	if(!gui.number)
+		return;
+	auto ps = gres(res::INVEN);
+	if(!ps)
+		return;
+	auto fr = ps->ganim(gui.number, 0);
+	int isx = ps->get(fr).sx;
+	int isy = ps->get(fr).sy;
+	if(!gui.normal || (isx <= width && isy <= height))
+		image(caret.x + (width - isx) / 2, caret.y + (height - isy) / 2, ps, fr, ImageNoOffset);
+	else {
+		int rsx = width;
+		int rsy = height;
+		if(isx > width)
+			rsy = (isy * width) / isx;
+		else
+			rsx = (isx * height) / isy;
+		if(rsy > height) {
+			rsy = height;
+			rsx = (isx * height) / isy;
+		}
+		surface real(rsx, rsy, 32);
+		if(true) {
+			rectpush push;
+			surface zoom(isx, isy, 32);
+			auto push_clip = clipping;
+			canvas = &zoom; setclip();
+			fore.r = fore.g = fore.b = fore.a = 0xFF;
+			caret.x = caret.y = 0;
+			width = isx; height = isy;
+			rectf();
+			image(ps, fr, ImageNoOffset);
+			blit(real, 0, 0, real.width, real.height, 0, zoom, 0, 0, zoom.width, zoom.height);
+			clipping = push_clip;
+		}
+		blit(*draw::canvas,
+			caret.x + (width - real.width) / 2,
+			caret.y + (height - real.height) / 2,
+			real.width, real.height,
+			ImageTransparent, real, 0, 0);
+	}
+}
+
 static void button_no_text() {
 	unsigned key = 0;
 	if(focused())
@@ -603,6 +647,7 @@ BSDATA(widget) = {
 	{"Hotkey", hotkey},
 	{"Information", block_information},
 	{"Image", custom_image},
+	{"ItemAvatar", item_avatar},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},

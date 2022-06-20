@@ -205,6 +205,9 @@
     <ClCompile Include="anminfo.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="wear.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

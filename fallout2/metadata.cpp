@@ -82,6 +82,9 @@ BSMETA(tilei) = {
 BSMETA(walli) = {
 	BSREQ(id),
 	{}};
+BSMETA(weari) = {
+	BSREQ(id),
+	{}};
 
 BSDATA(varianti) = {
 	{"NoVariant"},
@@ -100,5 +103,6 @@ BSDATA(varianti) = {
 	{"Terrain", VRSTD(terrain), 1},
 	{"Tile", VRSTD(tilei)},
 	{"Wall", VRSTD(walli)},
+	{"Wear", VRSTD(weari)},
 };
 BSDATAF(varianti)

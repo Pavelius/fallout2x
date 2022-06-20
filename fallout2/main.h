@@ -28,6 +28,9 @@ enum stat_s : unsigned char {
 	PrimaryPoints, SkillTagPoints, SkillPoints, PoisonPoints, RadiationPoints,
 	SmallGuns, BigGuns, EnergyWeapon, Unarmed, MeleeWeapon, Throwing
 };
+enum wear_s : unsigned char {
+	BodyArmor, RightHandItem, LeftHandItem,
+};
 enum material_s : unsigned char {
 	Glass, Metal, Plastic, Wood, Dirt, Stone, Cement, Leather
 };
@@ -112,6 +115,8 @@ struct nameable {
 	const char*			id;
 	const char*			getname() const { return getnm(id); }
 };
+struct weari : nameable {
+};
 struct lighti : nameable {
 	unsigned			value;
 };
@@ -143,6 +148,14 @@ struct perki {
 };
 struct gradei {
 	const char*			id;
+};
+struct item {
+	unsigned short		type;
+	unsigned short		count;
+	unsigned short		clip : 3;
+	unsigned short		nobarter : 1;
+	unsigned short		ammo;
+	constexpr operator bool() const { return type!=0; }
 };
 struct statable {
 	typedef unsigned short valuet;
