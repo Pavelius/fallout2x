@@ -28,6 +28,7 @@ static void start() {
 	//current_tool = bsdata<walli>::elements + 466;
 	character::last->appear({28, 28});
 	character::last->focusing();
+	character::last->direction = RightUp;
 	character::last->setanimate(AnimateWalk);
 	draw::scene(editor);
 	//character_generate();

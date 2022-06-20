@@ -207,7 +207,6 @@
     <ClCompile Include="variant.cpp" />
     <ClCompile Include="control.cpp" />
     <ClCompile Include="wall.cpp" />
-    <ClCompile Include="wallblock.cpp" />
     <ClCompile Include="widget.cpp" />
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />

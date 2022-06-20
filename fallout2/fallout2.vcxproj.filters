@@ -187,9 +187,6 @@
     <ClCompile Include="objectf.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="wallblock.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="editor.cpp">
       <Filter>draw</Filter>
     </ClCompile>

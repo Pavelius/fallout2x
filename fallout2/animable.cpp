@@ -55,6 +55,19 @@ drawable* animable::getui() const {
 	return drawable::find(this);
 }
 
+static bool isweaponanimate(animate_s v) {
+	return v >= FirstWeaponAnimate;
+}
+
+animate_s animable::getbase(animate_s v, int* w) {
+	if(isweaponanimate(v)) {
+		if(w)
+			*w = (v - FirstWeaponAnimate) / 13;
+		return animate_s(FirstWeaponAnimate + (v - FirstWeaponAnimate) % 13);
+	}
+	return v;
+}
+
 short animable::getframe(animate_s v, int weapon_index) {
 	if(weapon_index > 0) {
 		switch(v) {
@@ -71,7 +84,7 @@ short animable::getframe(animate_s v, int weapon_index) {
 }
 
 static bool ismoving(animate_s v) {
-	switch(v) {
+	switch(animable::getbase(v, 0)) {
 	case AnimateWalk:
 	case AnimateWeaponWalk:
 	case AnimateRun:
@@ -82,11 +95,11 @@ static bool ismoving(animate_s v) {
 }
 
 static void correctposition(drawable* pd, const sprite* ps, animate_s a) {
-	//if(ismoving(a)) {
-	//	auto pt = anminfo::getoffset(ps, pd->frame);
-	//	pd->position.x += pt.x;
-	//	pd->position.y += pt.y;
-	//}
+	if(ismoving(a)) {
+		auto pt = anminfo::getoffset(ps, pd->frame);
+		pd->position.x += pt.x;
+		pd->position.y += pt.y;
+	}
 }
 
 void animable::setanimate(animate_s v) {
@@ -99,10 +112,6 @@ void animable::setanimate(animate_s v) {
 	auto pc = ps->gcicle(cicle);
 	if(!pc || !pc->count)
 		return;
-	if(ismoving(v))
-		pd->flags = ImageNoOffset;
-	else
-		pd->flags = 0;
 	pd->setanimate(pc->start, pc->count);
 	correctposition(pd, ps, animate);
 }
@@ -174,6 +183,8 @@ void animable::updateui() {
 			} else {
 				next_action = true;
 				e.frame = e.frame_start;
+				auto pa = ((animable*)e.data);
+				correctposition(&e, gres(pa->naked), pa->animate);
 			}
 		} else {
 			if(e.frame > e.frame_stop)

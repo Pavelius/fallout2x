@@ -156,11 +156,20 @@ void walli::paint() const {
 	image(rs, rs->ganim(frame, current_tick / 200), 0);
 }
 
+static void marker() {
+	auto push_caret = caret;
+	caret.x -= 4; line(caret.x + 8, caret.y);
+	caret = push_caret;
+	caret.y -= 4; line(caret.x, caret.y + 8);
+	caret = push_caret;
+}
+
 void animable::paint(short frame, unsigned short flags) const {
 	auto rs = gres(naked);
 	if(!rs)
 		return;
 	image(rs, frame, flags);
+	marker();
 }
 
 void tilei::paint() const {

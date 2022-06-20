@@ -166,6 +166,7 @@ struct animable : nameable, statable {
 	direction_s			direction;
 	void				appear(point h);
 	void				focusing() const;
+	static animate_s	getbase(animate_s v, int* w);
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
 	drawable*			getui() const;
