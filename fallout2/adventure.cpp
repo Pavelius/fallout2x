@@ -1,3 +1,4 @@
+#include "dialog.h"
 #include "main.h"
 #include "draw.h"
 
@@ -164,12 +165,12 @@ static void marker() {
 	caret = push_caret;
 }
 
-void animable::paint(short frame, unsigned short flags) const {
+void animable::paint() const {
 	auto rs = gres(naked);
 	if(!rs)
 		return;
 	image(rs, frame, flags);
-	marker();
+	//marker();
 }
 
 void tilei::paint() const {
@@ -183,7 +184,7 @@ static void paint_drawable(const drawable* p) {
 	else if(bsdata<walli>::have(p->data))
 		((walli*)p->data)->paint();
 	else if(bsdata<character>::have(p->data))
-		((character*)p->data)->paint(p->frame, p->flags);
+		((character*)p->data)->paint();
 }
 
 static int getorder(const drawable* p) {
@@ -206,10 +207,26 @@ void initialize_adventure() {
 	drawable::select = select_drawables;
 }
 
+void update_animation();
+
+static void open_dialog() {
+	auto id = (const char*)hot.param;
+	dialog::open(id);
+}
+
+static void adventure_hotkey() {
+	switch(hot.key) {
+	case 'I': execute(open_dialog, (long)"CharacterInvertory"); break;
+	default: break;
+	}
+}
+
 void adventure() {
+	update_animation();
 	set_hexagon_position();
 	control_map();
 	redraw_floor();
 	redraw_hexagon();
 	paint_drawables();
+	adventure_hotkey();
 }

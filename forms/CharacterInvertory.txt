@@ -1,0 +1,4 @@
+#Control
+
+Background 70 50 normal(48)
+ButtonNT 432 322 normal(299) pressed(300) command(Cancel)

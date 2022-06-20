@@ -143,7 +143,32 @@ void animable::nextanimate() {
 	}
 }
 
-void animable::updateui() {
+void animable::updateframe() {
+	auto next_action = false;
+	if(frame_start == frame_stop)
+		timer += 1000;
+	else if(frame_start < frame_stop) {
+		if(frame < frame_stop) {
+			frame++;
+			correctposition(this, gres(naked), animate);
+		} else {
+			next_action = true;
+			frame = frame_start;
+			correctposition(this, gres(naked), animate);
+		}
+	} else {
+		if(frame > frame_stop)
+			frame--;
+		else {
+			next_action = true;
+			frame = frame_start;
+		}
+	}
+	if(next_action)
+		nextanimate();
+}
+
+void update_animation() {
 	const int fps = 150;
 	static unsigned long last_tick;
 	if(!last_tick)
@@ -159,27 +184,6 @@ void animable::updateui() {
 		if(e.timer > 0)
 			continue;
 		e.timer += fps;
-		auto next_action = false;
-		if(e.frame_start == e.frame_stop)
-			e.timer += 1000; // Check every second
-		else if(e.frame_start < e.frame_stop) {
-			if(e.frame < e.frame_stop) {
-				e.frame++;
-				correctposition(&e, gres(e.naked), e.animate);
-			} else {
-				next_action = true;
-				e.frame = e.frame_start;
-				correctposition(&e, gres(e.naked), e.animate);
-			}
-		} else {
-			if(e.frame > e.frame_stop)
-				e.frame--;
-			else {
-				next_action = true;
-				e.frame = e.frame_start;
-			}
-		}
-		if(next_action)
-			e.nextanimate();
+		e.updateframe();
 	}
 }

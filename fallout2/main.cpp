@@ -11,6 +11,7 @@ void initialize_script();
 void initialize_dialog();
 void character_generate();
 void main_util();
+void adventure();
 void editor();
 void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
@@ -28,9 +29,8 @@ static void start() {
 	//current_tool = bsdata<walli>::elements + 466;
 	character::last->appear({28, 28});
 	character::last->focusing();
-	character::last->direction = RightUp;
-	character::last->setanimate(AnimateWalk);
-	draw::scene(editor);
+	//draw::scene(editor);
+	draw::scene(adventure);
 	//character_generate();
 }
 

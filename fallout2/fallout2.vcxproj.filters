@@ -388,9 +388,6 @@
     <Text Include="..\forms\CharacterGender.txt">
       <Filter>forms</Filter>
     </Text>
-    <Text Include="..\forms\Adventure.txt">
-      <Filter>forms</Filter>
-    </Text>
     <Text Include="..\locale\ru\Descriptions.txt">
       <Filter>localize</Filter>
     </Text>
@@ -411,6 +408,9 @@
     </Text>
     <Text Include="..\rules\Terrain.txt">
       <Filter>data</Filter>
+    </Text>
+    <Text Include="..\forms\CharacterInvertory.txt">
+      <Filter>forms</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -170,9 +170,10 @@ struct animable : nameable, statable, drawable {
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
 	void				nextanimate();
-	void				paint(short frame, short unsigned flags) const;
+	void				paint() const;
 	void				setanimate(animate_s v);
 	static void			updateui();
+	void				updateframe();
 };
 struct character : animable {
 	statable			basic;
