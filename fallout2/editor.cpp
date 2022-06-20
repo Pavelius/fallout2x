@@ -597,7 +597,12 @@ static void set_hexagon_position() {
 		current_hexagon = h2i(s2h(hot.mouse + camera));
 }
 
+static void update_animation() {
+	animable::updateui();
+}
+
 void editor() {
+	update_animation();
 	set_hexagon_position();
 	control_map();
 	redraw_floor();

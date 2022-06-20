@@ -88,3 +88,11 @@ drawable* drawable::findadd(const point pt, const void* object) {
 void drawable::clear() {
 	memset(this, 0, sizeof(*this));
 }
+
+void drawable::setanimate(unsigned short v, unsigned short count) {
+	if(!count)
+		return;
+	frame = v;
+	frame_start = frame;
+	frame_stop = frame_start + count - 1;
+}

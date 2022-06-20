@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="adventure.cpp" />
     <ClCompile Include="animable.cpp" />
+    <ClCompile Include="anminfo.cpp" />
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="area.cpp" />
     <ClCompile Include="bsreq.cpp" />

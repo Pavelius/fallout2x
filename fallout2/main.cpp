@@ -25,10 +25,10 @@ static void start() {
 	character::last = character::add("Narg");
 	//choose_scenery();
 	loc.set(0, 90, 100, 100, 4);
-	current_tool = bsdata<walli>::elements + 466;
-	character::last->direction = RightDown;
+	//current_tool = bsdata<walli>::elements + 466;
 	character::last->appear({28, 28});
 	character::last->focusing();
+	character::last->setanimate(AnimateWalk);
 	draw::scene(editor);
 	//character_generate();
 }

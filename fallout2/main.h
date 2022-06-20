@@ -167,9 +167,12 @@ struct animable : nameable, statable {
 	void				appear(point h);
 	void				focusing() const;
 	static short		getframe(direction_s v);
-	static short		getframe(animate_s v, int weapon_index);
+	static short		getframe(animate_s v, int weapon_index = 0);
 	drawable*			getui() const;
-	void				paint(short frame) const;
+	void				nextanimate();
+	void				paint(short frame, short unsigned flags) const;
+	void				setanimate(animate_s v);
+	static void			updateui();
 };
 struct character : animable {
 	statable			basic;
@@ -204,7 +207,7 @@ struct anminfo {
 	point				offset[6];
 	point				delta[6];
 	static const anminfo* get(const sprite* p);
-	static const anminfo* get(res rid);
+	static const anminfo* get(res rid) { return get(gres(rid)); }
 	static const point	getoffset(const sprite* p, int frame);
 	int					getfps() const { return fps ? fps : 10; }
 };

@@ -156,11 +156,11 @@ void walli::paint() const {
 	image(rs, rs->ganim(frame, current_tick / 200), 0);
 }
 
-void animable::paint(short frame) const {
+void animable::paint(short frame, unsigned short flags) const {
 	auto rs = gres(naked);
 	if(!rs)
 		return;
-	image(rs, rs->ganim(frame, current_tick / 150), 0);
+	image(rs, frame, flags);
 }
 
 void tilei::paint() const {
@@ -174,7 +174,7 @@ static void paint_drawable(const drawable* p) {
 	else if(bsdata<walli>::have(p->data))
 		((walli*)p->data)->paint();
 	else if(bsdata<character>::have(p->data))
-		((character*)p->data)->paint(p->frame);
+		((character*)p->data)->paint(p->frame, p->flags);
 }
 
 static int getorder(const drawable* p) {
