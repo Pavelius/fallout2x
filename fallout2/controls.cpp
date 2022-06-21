@@ -43,8 +43,7 @@ static guii cmd_gui;
 static char edit_buffer[512];
 static char info_buffer[1024];
 
-static bool info_mode;
-static bool mouse_clicked;
+static bool info_mode, mouse_clicked, allow_quick_info;
 
 static int caret_position;
 
@@ -90,6 +89,8 @@ static actionparam* findaction(action_s v) {
 }
 
 static void addaction(action_s v, fnevent proc, const void* object = 0) {
+	if(!info_mode)
+		return;
 	auto pa = findaction(v);
 	if(pa)
 		return;
@@ -830,6 +831,7 @@ static void hotkey() {
 }
 
 static void apply_info_mode() {
+	allow_quick_info = gui.normal;
 	if(hot.key == MouseRight && hot.pressed)
 		execute(cbsetbool, !info_mode, 0, &info_mode);
 	cursor.set(res::INTRFACE, info_mode ? 250 : 286);
@@ -866,6 +868,7 @@ static void beforemodal() {
 	update_mouse_tick();
 	focus_beforemodal();
 	apply_pallette_cicle((unsigned char*)palt, current_tick);
+	allow_quick_info = false;
 	if(pfinish) {
 		actions.clear();
 		cursor.set(res::INTRFACE, 267);
@@ -880,7 +883,7 @@ static void action_row(const void* object) {
 		return;
 	auto pa = (actionparam*)object;
 	auto frame = bsdata<actioni>::elements[pa->action].frame;
-	auto hilite = (gui.ptr(current_action)==object);
+	auto hilite = (gui.ptr(current_action) == object);
 	if(!hilite)
 		frame++;
 	image(ps, ps->ganim(frame, 0), 0);
@@ -896,7 +899,7 @@ static void paint_action_list() {
 	caret = cursor.position;
 	caret.x += 48;
 	caret.y += dy;
-	current_action = (hot.mouse.y - cursor.position.y) / (dy/20);
+	current_action = (hot.mouse.y - cursor.position.y) / (dy / 20);
 	list_paint(origin, current_action, dy, action_row);
 }
 
@@ -906,6 +909,10 @@ static void context_menu_loop() {
 	if(!hot.pressed)
 		execute(buttonparam, current_action);
 	paint_action_list();
+}
+
+static void set_allow_quick_info() {
+	allow_quick_info = gui.normal;
 }
 
 static void do_nothing() {
@@ -932,24 +939,39 @@ static void context_menu_modal() {
 	}
 }
 
+static void paint_quickaction() {
+	auto ps = gres(res::INTRFACE);
+	if(!ps || !actions)
+		return;
+	auto& e = actions[0];
+	auto frame = bsdata<actioni>::elements[e.action].frame;
+	image(cursor.position.x + 48, cursor.position.y + 40, ps, ps->ganim(frame + 1, 0), 0);
+}
+
 static void context_menu() {
 	static const void* tips_object;
 	auto ps = gres(res::INTRFACE);
 	if(!ps)
 		return;
 	if(ps && cursor.resource == res::INTRFACE && cursor.frame == ps->gcicle(250)->start) {
-		if(actions && istips(500)) {
-			if(mouse_clicked && hot.pressed)
-				execute(context_menu_modal);
-			else {
-				auto& e = actions[0];
-				auto frame = bsdata<actioni>::elements[e.action].frame;
-				cursor.paint();
-				image(cursor.position.x + 48, cursor.position.y + 40, ps, ps->ganim(frame + 1, 0), 0);
-				if(tips_object != e.object) {
-					tips_object = e.object;
-					if(e.proc)
-						execute(e.proc, e.action, 0, e.object);
+		if(actions) {
+			if(istips(500)) {
+				paint_quickaction();
+				if(mouse_clicked && hot.pressed)
+					execute(context_menu_modal);
+				else if(allow_quick_info) {
+					auto& e = actions[0];
+					if(tips_object != e.object) {
+						tips_object = e.object;
+						cursor.paint();
+						if(e.proc)
+							execute(e.proc, e.action, 0, e.object);
+					}
+				}
+			} else {
+				if(hot.key == MouseLeft && hot.pressed) {
+					auto& e = actions[0];
+					execute(e.proc, e.action, 0, e.object);
 				}
 			}
 		}
