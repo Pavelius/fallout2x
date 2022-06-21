@@ -70,4 +70,5 @@ Throwing: Метание
 Traits: Особенности
 Traps: Ловушки
 Unarmed: Рукопашная
+Weight: Вес
 Years: Лет

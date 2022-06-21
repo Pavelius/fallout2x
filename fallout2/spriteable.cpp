@@ -15,6 +15,12 @@ void spriteable::set(res r, short cicle) {
 void spriteable::paint() const {
 	auto push_caret = draw::caret;
 	draw::caret = position;
-	draw::image(gres(resource), frame, 0);
+	if(resource == res::INVEN) {
+		auto& f = gres(resource)->get(frame);
+		caret.x -= f.sx / 2;
+		caret.y -= f.sy / 2;
+		draw::image(gres(resource), frame, ImageNoOffset);
+	} else
+		draw::image(gres(resource), frame, 0);
 	draw::caret = push_caret;
 }

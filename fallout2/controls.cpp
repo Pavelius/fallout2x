@@ -40,6 +40,10 @@ static adat<actionparam, 16> actions;
 static rect last_rect;
 static guii cmd_gui;
 
+static item drag_copy;
+
+static void* drag_target;
+
 static char edit_buffer[512];
 static char info_buffer[1024];
 
@@ -96,7 +100,10 @@ static void addaction(action_s v, fnevent proc, const void* object = 0) {
 		return;
 	pa = actions.add();
 	pa->action = v;
-	pa->proc = proc;
+	if(proc)
+		pa->proc = proc;
+	else
+		pa->proc = bsdata<actioni>::elements[v].proc;
 	pa->object = object;
 }
 
@@ -365,14 +372,47 @@ static void get_object_information() {
 	pi->getinfo(sb);
 }
 
+static void drag_item() {
+	drag_target = 0;
+	if(!hot.pressed)
+		execute(buttonok);
+	dialog::paint();
+	cursor.set(res::INVEN, drag_copy.geti().avatar.inventory);
+}
+
+static void begin_drag_item() {
+	auto p1 = (item*)getdragged();
+	drag_copy = *p1;
+	p1->clear();
+	draw::scene(drag_item);
+	dragend();
+	if(!drag_target)
+		*p1 = drag_copy;
+	else
+		drag_copy.transfer(*p1, *((item*)drag_target));
+}
+
 static void item_button() {
 	auto pi = (item*)gui.data;
 	if(!pi)
 		return;
+	if(bsdata<character>::have(pi)) {
+		if(isdragtarget())
+			drag_target = pi;
+	}
 	auto a = ishilite();
 	if(a) {
 		hilite_object = pi;
-		addaction(Examine, get_object_information, pi);
+		if(info_mode) {
+			addaction(Examine, get_object_information, pi);
+			if(pi->getclip())
+				addaction(ReloadWeapon, 0, pi);
+		} else {
+			if(hot.key == MouseLeft && hot.pressed) {
+				dragbegin(pi);
+				execute(begin_drag_item);
+			}
+		}
 	}
 	if(!(*pi))
 		return;
@@ -660,6 +700,8 @@ static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
 		maximum = origin + perpage + 1;
 	auto push_height = height;
 	auto push_clip = clipping;
+	if(isdragtarget())
+		drag_target = gui.data;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	height = perline;
 	for(auto i = origin; i < maximum; i++) {
@@ -815,9 +857,10 @@ static void paper_doll() {
 	auto push_caret = caret;
 	auto push_clip = clipping;
 	//rectb();
+	auto pc = character::last;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
-	auto p = gres(character::last->naked);
-	auto f = character::last->getframe(AnimateStand) + (current_tick / 500) % 6;
+	auto p = gres(pc->getlook());
+	auto f = pc->getframe(AnimateStand, pc->getweaponindex()) + (current_tick / 500) % 6;
 	caret.x += width / 2;
 	caret.y += height - 12;
 	image(p, p->ganim(f, 0), 0);

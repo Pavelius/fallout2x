@@ -101,7 +101,7 @@ static int handle(MSG& msg) {
 		hot.mouse.y = HIWORD(msg.lParam);
 		if(canvas && size.y)
 			hot.mouse.y = (short)((long)(hot.mouse.y) * (long)canvas->height / (long)size.y);
-		if(draw::dragactive())
+		if(draw::getdragged())
 			return MouseMove;
 		if(hot.mouse.in(sys_static_area))
 			return InputNoUpdate;

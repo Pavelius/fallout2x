@@ -176,12 +176,12 @@ void					blit(surface& dest, int x, int y, int width, int height, unsigned flags
 void					circle(int size);
 void					circlef(int size);
 void					create(int x, int y, int width, int height, unsigned flags, int bpp);
-bool					dragactive(const void* p);
-bool					dragactive();
 void					dragbegin(const void* p);
+void					dragend();
 void					execute(fnevent proc, long value = 0, long value2 = 0, const void* object = 0);
 void					fhexagon();
 int						getbpp();
+const void*				getdragged();
 inline rect				getrect() { return {caret.x, caret.y, caret.x + width, caret.y + height}; }
 int						getheight();
 int						getwidth();
@@ -193,6 +193,7 @@ const sprite*			gres(const char* name, const char* folder = 0, point size = {}, 
 void					hexagon();
 int						hittest(int x, int test_x, const char* string, int lenght);
 int						hittest(rect rc, const char* string, unsigned state, point mouse);
+bool					isdragtarget();
 bool					ishilite(const rect& rc);
 inline bool				ishilite() { return ishilite({caret.x, caret.y, caret.x + width, caret.y + height}); }
 inline bool				ishilite(int size) { return ishilite({caret.x-size, caret.y - size, caret.x + size, caret.y + size}); }

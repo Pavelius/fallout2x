@@ -190,6 +190,7 @@
     <ClCompile Include="objectf.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
+    <ClCompile Include="pro_criters_util.cpp" />
     <ClCompile Include="pro_scenery.cpp" />
     <ClCompile Include="pro_tile.cpp" />
     <ClCompile Include="pro_wall.cpp" />
@@ -277,8 +278,7 @@
     <Text Include="..\locale\ru\Tiles.txt" />
     <Text Include="..\locale\ru\Walls.txt" />
     <Text Include="..\rules\Basic.txt" />
-    <Text Include="..\rules\Item.txt" />
-    <Text Include="..\rules\itemsorg.txt" />
+    <Text Include="..\rules\Items.txt" />
     <Text Include="..\rules\Perks.txt" />
     <Text Include="..\rules\Prototype.txt" />
     <Text Include="..\rules\Terrain.txt" />

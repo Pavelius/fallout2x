@@ -869,21 +869,19 @@ void draw::dragbegin(const void* p) {
 	dragmouse = hot.mouse;
 }
 
-bool draw::dragactive() {
-	return drag_object != 0;
+void draw::dragend() {
+	drag_object = 0;
 }
 
-bool draw::dragactive(const void* p) {
-	if(drag_object == p) {
-		if(!hot.pressed || hot.key == KeyEscape) {
-			drag_object = 0;
-			hot.key = InputUpdate;
-			hot.cursor = cursor::Arrow;
-			return false;
-		}
-		return true;
-	}
-	return false;
+const void* draw::getdragged() {
+	return drag_object;
+}
+
+bool draw::isdragtarget() {
+	if(!drag_object)
+		return false;
+	rect rc = {caret.x, caret.y, caret.x + width, caret.y + height};
+	return hot.mouse.in(rc);
 }
 
 int draw::getbpp() {
@@ -1306,7 +1304,7 @@ bool draw::ishilite(const rect& rc) {
 	if(hot.key == InputNoUpdate)
 		return false;
 	intersect_rect(sys_static_area, rc);
-	if(dragactive())
+	if(getdragged())
 		return false;
 	if(!hot.mouse.in(clipping))
 		return false;

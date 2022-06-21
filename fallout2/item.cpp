@@ -1,10 +1,16 @@
 #include "main.h"
 
-item::item(const char* id) {
+item::item(const itemi* pi) {
 	clear();
-	auto pi = bsdata<itemi>::find(id);
 	if(!pi)
 		return;
 	type = getbsi(pi);
 	count = pi->ammo.count ? pi->ammo.count : 1;
+}
+
+void item::transfer(item& from, item& to) {
+	auto need_update = false;
+	auto iswf = (bsdata<character>::source.indexof(&from)!=-1);
+	auto iswt = (bsdata<character>::source.indexof(&to) != -1);
+	from = *this;
 }

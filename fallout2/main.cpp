@@ -6,6 +6,7 @@
 extern const void* current_tool;
 
 void add_locale_names(const char* id, bool required);
+void add_locale_descriptions(const char* id);
 void initialize_adventure();
 void initialize_script();
 void initialize_dialog();
@@ -25,7 +26,6 @@ static void start() {
 	indext i1 = loc.tot(i, Up);
 	point t2 = i2t(i);
 	character::last = character::add("Narg");
-	character::last->naked = res::HMLTHR;
 	//choose_scenery();
 	loc.set(0, 90, 100, 100, 4);
 	//current_tool = bsdata<walli>::elements + 466;
@@ -34,13 +34,14 @@ static void start() {
 	character::last->wear[BodyArmor] = "LeatherArmor";
 	character::last->wear[LeftHandItem] = "Knife";
 	character::last->wear[RightHandItem] = "N10mmPistol";
-	character::last->wearable::add("Crowbar");
-	character::last->wearable::add("N5mmAP");
-	character::last->wearable::add("IceChest");
-	character::last->wearable::add("Dynamite");
-	character::last->wearable::add("StealthBoy");
-	character::last->wearable::add("BigBookOfScience");
-	character::last->wearable::add("N10mmAP");
+	character::last->wearable::additem("Crowbar");
+	character::last->wearable::additem("N5mmAP");
+	character::last->wearable::additem("IceChest");
+	character::last->wearable::additem("Dynamite");
+	character::last->wearable::additem("StealthBoy");
+	character::last->wearable::additem("BigBookOfScience");
+	character::last->wearable::additem("N10mmAP");
+	character::last->setanimate(character::last->animate);
 	//draw::scene(editor);
 	draw::scene(adventure);
 	//draw::opendialog("CharacterGenerator");
@@ -50,7 +51,7 @@ static void initialize() {
 	initialize_adventure();
 	initialize_script();
 	initialize_dialog();
-	bsreq::read("rules/Item.txt");
+	bsreq::read("rules/Items.txt");
 	bsreq::read("rules/Perks.txt");
 	bsreq::read("rules/Prototype.txt");
 	bsreq::read("rules/Terrain.txt");
@@ -59,7 +60,8 @@ static void initialize() {
 #ifdef _DEBUG
 	main_util();
 #endif // _DEBUG
-	add_locale_names("Items", true);
+	add_locale_names("ItemNames", true);
+	add_locale_descriptions("ItemDescriptions");
 	add_locale_names("Tiles", true);
 	add_locale_names("Scenery", true);
 	add_locale_names("Walls", true);

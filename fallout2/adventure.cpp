@@ -166,11 +166,10 @@ static void marker() {
 }
 
 void animable::paint() const {
-	auto rs = gres(naked);
+	auto rs = gres(getlook());
 	if(!rs)
 		return;
 	image(rs, frame, flags);
-	//marker();
 }
 
 void tilei::paint() const {

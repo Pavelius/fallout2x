@@ -77,7 +77,7 @@ character* character::add(const char* id) {
 			p->settag((stat_s)getbsi(pa), 1);
 	}
 	p->update();
-	p->naked = res::HFLTHR;
+	p->naked = res::HMWARR;
 	return p;
 }
 

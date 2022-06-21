@@ -130,6 +130,10 @@ void add_locale_names(const char* id, bool required) {
 	setfile(source_name, id, main_locale, false, required);
 }
 
+void add_locale_descriptions(const char* id) {
+	setfile(source_text, id, main_locale, false, false);
+}
+
 static void check(array& source, const char* locale, const char* url) {
 	log::seturl(url);
 	for(auto& e : source.records<translate>()) {

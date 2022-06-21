@@ -79,7 +79,9 @@ void tilegroup::getinfolist(stringbuilder& sb) const {
 }
 
 void item::getinfo(stringbuilder& sb) const {
+	auto& ei = geti();
 	sb.add(getname());
 	sb.addn("---");
-	sb.adds("Description here.");
+	sb.addn(getdescription(ei.id));
+	sb.addn("%Weight: %1i", ei.weight);
 }

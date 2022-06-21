@@ -55,6 +55,14 @@ static bool isweaponanimate(animate_s v) {
 	return v >= FirstWeaponAnimate;
 }
 
+res	animable::getlook() const {
+	if(wear[BodyArmor]) {
+		auto& ei = wear[BodyArmor].geti();
+		return iswoman() ? ei.armor.female : ei.armor.male;
+	}
+	return naked;
+}
+
 animate_s animable::getbase(animate_s v, int* w) {
 	if(isweaponanimate(v)) {
 		if(w)
@@ -100,8 +108,8 @@ static void correctposition(drawable* pd, const sprite* ps, animate_s a) {
 
 void animable::setanimate(animate_s v) {
 	animate = v;
-	auto ps = gres(naked);
-	auto cicle = getframe(animate) + getframe(direction);
+	auto ps = gres(getlook());
+	auto cicle = getframe(animate, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
 	if(!pc || !pc->count)
 		return;
@@ -143,18 +151,25 @@ void animable::nextanimate() {
 	}
 }
 
+int	animable::getweaponindex() const {
+	if(wear[RightHandItem])
+		return wear[RightHandItem].geti().avatar.animation;
+	return 0;
+}
+
 void animable::updateframe() {
 	auto next_action = false;
+	auto ps = gres(getlook());
 	if(frame_start == frame_stop)
 		timer += 1000;
 	else if(frame_start < frame_stop) {
 		if(frame < frame_stop) {
 			frame++;
-			correctposition(this, gres(naked), animate);
+			correctposition(this, ps, animate);
 		} else {
 			next_action = true;
 			frame = frame_start;
-			correctposition(this, gres(naked), animate);
+			correctposition(this, ps, animate);
 		}
 	} else {
 		if(frame > frame_stop)

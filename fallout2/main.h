@@ -127,6 +127,7 @@ struct nameable {
 };
 struct actioni : nameable {
 	short				frame;
+	fnevent				proc;
 };
 struct weari : nameable {
 };
@@ -207,13 +208,17 @@ struct item {
 	unsigned short		ammo_type;
 	unsigned short		ammo_count;
 	item() = default;
-	item(const char* id);
+	item(unsigned short type, unsigned short count = 1) : type(type), count(count), ammo_type(0), ammo_count(0) {}
+	item(const itemi* pi);
+	item(const char* id) : item(bsdata<itemi>::find(id)) {}
 	constexpr operator bool() const { return count != 0; }
 	void				clear() { memset(this, 0, sizeof(*this)); }
+	item				getclip() const { return item(ammo_type, ammo_count); }
 	int					getcount() const { return count; }
 	const itemi&		geti() const { return bsdata<itemi>::elements[type]; }
 	void				getinfo(stringbuilder& sb) const;
 	const char*			getname() const { return geti().getname(); }
+	void				transfer(item& from, item& to);
 };
 struct statable {
 	typedef unsigned short valuet;
@@ -223,6 +228,7 @@ struct statable {
 	static list			primary_list;
 	static valuet		first_skill;
 	short				stats[64];
+	bool				iswoman() const { return false; }
 	void				load(const statable& v);
 	int					getplayerstats() const;
 	int					total(const list& source) const;
@@ -237,7 +243,7 @@ struct itemwear : item {
 };
 struct wearable : nameable, statable {
 	item				wear[LeftHandItem + 1];
-	void				add(const item& v);
+	void				additem(const item& v);
 };
 struct itemlist : adat<item*, 256> {
 	void				select(const wearable* pv);
@@ -257,6 +263,8 @@ struct animable : wearable, spriteable {
 	static animate_s	getbase(animate_s v, int* w);
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
+	res					getlook() const;
+	int					getweaponindex() const;
 	void				nextanimate();
 	void				paint() const;
 	void				setanimate(animate_s v);
