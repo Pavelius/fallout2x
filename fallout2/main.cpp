@@ -35,11 +35,15 @@ static void start() {
 	character::last->wear[LeftHandItem] = "Knife";
 	character::last->wear[RightHandItem] = "N10mmPistol";
 	character::last->wearable::additem("Crowbar");
+	character::last->wearable::additem("Crowbar");
+	character::last->wearable::additem("N5mmAP");
+	character::last->wearable::additem("N5mmAP");
 	character::last->wearable::additem("N5mmAP");
 	character::last->wearable::additem("IceChest");
 	character::last->wearable::additem("Dynamite");
 	character::last->wearable::additem("StealthBoy");
 	character::last->wearable::additem("BigBookOfScience");
+	character::last->wearable::additem("N10mmAP");
 	character::last->wearable::additem("N10mmAP");
 	character::last->setanimate(character::last->animate);
 	//draw::scene(editor);

@@ -32,7 +32,7 @@ enum stat_s : unsigned char {
 	Science, Repair, Speech, Barter, Gambling, Outdoorsman
 };
 enum wear_s : unsigned char {
-	BodyArmor, RightHandItem, LeftHandItem,
+	BodyArmor, RightHandItem, LeftHandItem, Backpack,
 };
 enum material_s : unsigned char {
 	Glass, Metal, Plastic, Wood, Dirt, Stone, Cement, Leather
@@ -201,7 +201,9 @@ struct itemi : nameable {
 	armori				armor;
 	ammoi				ammo;
 	stat_s				use;
+	bool				isallow(wear_s id) const;
 };
+struct character;
 struct item {
 	unsigned short		type;
 	unsigned short		count;
@@ -218,6 +220,9 @@ struct item {
 	const itemi&		geti() const { return bsdata<itemi>::elements[type]; }
 	void				getinfo(stringbuilder& sb) const;
 	const char*			getname() const { return geti().getname(); }
+	character*			getowner() const;
+	wear_s				getownerslot() const;
+	void				join(item& v);
 	void				transfer(item& from, item& to);
 };
 struct statable {
@@ -237,13 +242,12 @@ struct prototype : nameable, statable {
 	const stati*		tags[3];
 	perka				perks;
 };
-struct wearable;
 struct itemwear : item {
-	wearable*			owner;
+	character*			owner;
 };
 struct wearable : nameable, statable {
 	item				wear[LeftHandItem + 1];
-	void				additem(const item& v);
+	void				additem(item v);
 };
 struct itemlist : adat<item*, 256> {
 	void				select(const wearable* pv);
