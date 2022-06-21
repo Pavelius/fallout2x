@@ -360,7 +360,7 @@ int array::findps(const char* value, unsigned offset, size_t size) const {
 }
 
 void* array::findv(const char* id, unsigned offset) const {
-	if(!id)
+	if(!id || id[0]==0)
 		return 0;
 	auto i = findps(id, offset, zlen(id));
 	if(i == -1)

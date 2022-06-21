@@ -81,14 +81,6 @@ character* character::add(const char* id) {
 	return p;
 }
 
-bool character::open(const char* id) {
-	auto push_last = last;
-	last = this;
-	auto result = dialog::open(id);
-	last = push_last;
-	return result != 0;
-}
-
 bool character::istagged(valuet v) const {
 	if(v >= first_skill)
 		return tags.is(v - first_skill);

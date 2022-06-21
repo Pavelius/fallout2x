@@ -1,6 +1,7 @@
 #Control
 
 Background 70 50 normal(48)
+ApplyInfoMode 0 0
 ButtonNT 432 322 normal(299) pressed(300) command(Cancel)
 ItemButton 152 184 size(92 60) normal(1) data(BodyArmor)
 ItemButton 152 287 size(92 60) normal(1) data(RightHandItem)

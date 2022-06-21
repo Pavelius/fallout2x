@@ -74,14 +74,14 @@ static void sub_number() {
 		gui.set(i - 1);
 }
 
-static void open_dialog() {
-	dialog::open(gui.id);
+static void opendialog() {
+	opendialog(gui.id);
 }
 
 static void character_delete() {
 	last_list_current = -1;
 	files.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(gui.id))
+	if(!opendialog(gui.id))
 		return;
 	//if(message(getnm("ReallyWantDelete"), getedit()))
 }
@@ -89,7 +89,7 @@ static void character_delete() {
 static void character_load() {
 	last_list_current = -1;
 	files.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(gui.id))
+	if(!opendialog(gui.id))
 		return;
 	character::last->read(getedit());
 	draw::buttonok();
@@ -98,7 +98,7 @@ static void character_load() {
 static void character_save() {
 	last_list_current = -1;
 	files.choose("characters/premade", "*.chr", true);
-	if(!dialog::open(gui.id))
+	if(!opendialog(gui.id))
 		return;
 	character::last->write(getedit());
 	draw::buttonok();
@@ -107,14 +107,10 @@ static void character_save() {
 static void character_export() {
 	last_list_current = -1;
 	files.choose("characters/export", "*.txt", true);
-	if(!dialog::open(gui.id))
+	if(!opendialog(gui.id))
 		return;
 	character::last->exporting(getedit());
 	draw::buttonok();
-}
-
-void character_generate() {
-	dialog::open("CharacterGenerator");
 }
 
 BSDATA(command) = {
@@ -122,18 +118,18 @@ BSDATA(command) = {
 	{"AddStat", '+', add_stat},
 	{"AddTag", KeySpace, add_tag},
 	{"AddTrait", KeySpace, add_trait},
-	{"Adventure", 0, open_dialog},
+	{"Adventure", 0, opendialog},
 	{"Cancel", KeyEscape, buttoncancel},
-	{"CharacterAge", 'A', open_dialog},
+	{"CharacterAge", 'A', opendialog},
 	{"CharacterDelete", 'D', character_delete},
 	{"CharacterExport", 'E', character_export},
-	{"CharacterGender", 'G', open_dialog},
-	{"CharacterGenerator", 'E', character_generate},
+	{"CharacterGender", 'G', opendialog},
+	{"CharacterGenerator", 'E', opendialog},
 	{"CharacterLoad", 'L', character_load},
-	{"CharacterName", 'N', open_dialog},
+	{"CharacterName", 'N', opendialog},
 	{"CharacterSave", 'S', character_save},
 	{"Next", KeyEnter, buttonok},
-	{"Options", 'O', open_dialog},
+	{"Options", 'O', opendialog},
 	{"SubNumber", '-', sub_number},
 	{"SubStat", '-', sub_stat},
 };
@@ -228,7 +224,7 @@ static void file_list(const control& e) {
 
 void draw::messagev(const char* format, const char* format_param) {
 	sb.clear(); sb.addv(format, format_param);
-	dialog::open("Message");
+	opendialog("Message");
 }
 
 static void pbefore(const control& e) {

@@ -6,7 +6,6 @@
 struct dialog {
 	const char*		id;
 	slice<control>	controls;
-	static int		open(const char* id);
 	int				open() const;
 	static const dialog* last;
 	static void		initialize();

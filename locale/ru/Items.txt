@@ -1,25 +1,25 @@
-﻿223FMJ: .223 ЦМ
-223Pistol: .223 Пистолет
-44MagnumSpeedLoad: .44 Магнум (Скоростная перезарядка)
-44MagnumJHP: .44 Магнум ПСЦТ
-44MagnumRevolver: .44 Револьвер Магнум
-44MagnumFMJ: .44 магнум ЦМ
-45Caliber: .45 Калибр
-10mmAP: 10мм БП
-10mmJHP: 10мм ПСЦТ
-10mmPistol: 10мм Пистолет
-10mmSMG: 10мм ПП
-12GaShotgunShells: 12 Винтовочных Патронов
-14mmAP: 14мм БП
-14mmPistol: 14мм Пистолет
-2mmEC: 2мм ЕС
-47mmCaseless: 4.7 мм безотказные
-5mmAP: 5мм БП
-5mmJHP: 5мм ПСЦТ
-762mm: 7.62 мм
-9mm: 9 мм
-9mmMauser: 9мм Маузер
-9mmBall: 9ти мм пули
+﻿N223FMJ: .223 ЦМ
+N223Pistol: .223 Пистолет
+N44MagnumSpeedLoad: .44 Магнум (Скоростная перезарядка)
+N44MagnumJHP: .44 Магнум ПСЦТ
+N44MagnumRevolver: .44 Револьвер Магнум
+N44MagnumFMJ: .44 магнум ЦМ
+N45Caliber: .45 Калибр
+N10mmAP: 10мм БП
+N10mmJHP: 10мм ПСЦТ
+N10mmPistol: 10мм Пистолет
+N10mmSMG: 10мм ПП
+N12GaShotgunShells: 12 Винтовочных Патронов
+N14mmAP: 14мм БП
+N14mmPistol: 14мм Пистолет
+N2mmEC: 2мм ЕС
+N47mmCaseless: 4.7 мм безотказные
+N5mmAP: 5мм БП
+N5mmJHP: 5мм ПСЦТ
+N762mm: 7.62 мм
+N9mm: 9 мм
+N9mmMauser: 9мм Маузер
+N9mmBall: 9ти мм пули
 AbnormalBrain: Ненормальный мозг
 AccessCard: Карта Доступа
 AccountBook: Бухгалтерская книга
@@ -47,9 +47,9 @@ BlondieDogTags: Собачьи бирки Блондинки
 BlueMemoryModule: Голубой Модуль Памяти
 BluePassKey: Ключ Синего Допуска
 Bones: Кости
-Bonus+1Agility: Бонус +1 Ловкость
-Bonus+1Intelligence: Бонус +1 Интеллект
-Bonus+1Strength: Бонус +1 Сила
+Bonus1Agility: Бонус +1 Ловкость
+Bonus1Intelligence: Бонус +1 Интеллект
+Bonus1Strength: Бонус +1 Сила
 Bookcase: Книжная полка
 Bookshelf: Книжная полка
 Booze: Бузз
@@ -72,7 +72,7 @@ Bug: Жучок
 COCBadge: Значок ДX
 CarFuelCell: Топливная батарея автомобиля
 CarTrunk: Багажник
-CatPawIssue#5: Кошачья Лапка выпуск N5
+CatPawIssue5: Кошачья Лапка выпуск N5
 CatPawMagazine: Журнал Кошачья Лапка
 CattleProd: Тыкалка для скота
 CellDoorKey: Ключ от Камеры

@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="action.cpp" />
     <ClCompile Include="adventure.cpp" />
     <ClCompile Include="animable.cpp" />
     <ClCompile Include="anminfo.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="draw.cpp" />
     <ClCompile Include="drawable.cpp" />
     <ClCompile Include="draw_text.cpp" />
+    <ClCompile Include="draw_textf.cpp" />
     <ClCompile Include="editor.cpp" />
     <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
@@ -178,7 +180,6 @@
     <ClCompile Include="io_stream.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="itemlist.cpp" />
-    <ClCompile Include="itemwear.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="logparse.cpp" />
@@ -269,6 +270,7 @@
     <Text Include="..\forms\Message.txt" />
     <Text Include="..\forms\Options.txt" />
     <Text Include="..\locale\ru\Descriptions.txt" />
+    <Text Include="..\locale\ru\Items.txt" />
     <Text Include="..\locale\ru\Names.txt" />
     <Text Include="..\locale\ru\NamesSh.txt" />
     <Text Include="..\locale\ru\Scenery.txt" />

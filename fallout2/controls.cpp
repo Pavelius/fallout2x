@@ -2,10 +2,15 @@
 #include "dialog.h"
 #include "draw.h"
 #include "focus.h"
+#include "io_stream.h"
+#include "log.h"
 #include "main.h"
 #include "screenshoot.h"
 
+using namespace draw;
+
 namespace {
+typedef void(*fnlistrow)(const void* object);
 struct number_widget {
 	point		position;
 	int			value;
@@ -14,19 +19,46 @@ struct number_widget {
 };
 }
 
-using namespace draw;
+extern "C" int system(const char* command);
 
-typedef void(*fnlistrow)(const void* object);
+void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime);
+void initialize_translation(const char* locale);
+void focus_beforemodal();
+void focus_finish();
+void load_pallette(unsigned char* p1, int koeff = 4);
+void post_setfocus();
 
+static color default_palette[256];
 static adat<number_widget, 32> number_widgets;
+static adat<action_s, 16> actions;
 static rect last_rect;
-static char edit_buffer[512];
-static int caret_position;
 static guii cmd_gui;
+
+static char edit_buffer[512];
+static char info_buffer[1024];
+
+static bool info_mode;
+
+static int caret_position;
+
 spriteable cursor;
+
 int last_list_current;
 
-void post_setfocus();
+unsigned long current_tick;
+static unsigned long last_tick, mouse_tick;
+
+color getcolor(unsigned char i) {
+	return default_palette[i];
+}
+
+static void openerror() {
+	char dir[512]; char temp[512];
+	io::file::getdir(dir, sizeof(dir));
+	stringbuilder sb(temp);
+	sb.add("notepad \"%1\\errors.txt\"", dir);
+	system(temp);
+}
 
 void setedit(const char* format, ...) {
 	stringbuilder sb(edit_buffer);
@@ -40,6 +72,11 @@ const char* getedit() {
 
 void theme_inititalize() {
 	fore = getcolor(ColorText);
+}
+
+static void addaction(action_s v) {
+	if(actions.find(v) == -1)
+		actions.add(v);
 }
 
 static void hilighting() {
@@ -63,25 +100,26 @@ static void focusing() {
 	}
 }
 
-static void execute_standart_command() {
-	//auto push_last = control::last;
+static bool istips(unsigned t) {
+	if(!mouse_tick)
+		return false;
+	return (current_tick - mouse_tick) >= t;
+}
+
+static void button_command() {
 	auto push_view = gui; gui = cmd_gui;
-	//control::last = (control*)hot.object;
 	if(hot.param == 1) {
 		if(gui.object)
 			setfocus(gui.object);
 	}
 	if(gui.execute)
 		gui.execute();
-	//if(control::last->command)
-	//	control::last->command->pexecute();
 	gui = push_view;
-	//control::last = push_last;
 }
 
-static void execute_standart(int param = 0) {
+static void execute_button_command(int param = 0) {
 	cmd_gui = gui;
-	execute(execute_standart_command, param, 0, 0);
+	execute(button_command, param, 0, 0);
 }
 
 static void setcolor(int value) {
@@ -305,8 +343,10 @@ static void item_button() {
 	if(!pi)
 		return;
 	auto a = ishilite();
-	if(a)
+	if(a) {
 		hilite_object = pi;
+		addaction(Examine);
+	}
 	if(!(*pi))
 		return;
 	if(true) {
@@ -324,7 +364,7 @@ static void button_no_text() {
 	if(focused())
 		key = gui.key;
 	if(buttonf(gui.normal, gui.pressed, key, gui.checked, false, 0, gui.disabled))
-		execute_standart(1);
+		execute_button_command(1);
 }
 
 static void button_def() {
@@ -336,7 +376,7 @@ static void button_def() {
 	setcolor(ColorButton);
 	text_button(rp);
 	if(r)
-		execute_standart();
+		execute_button_command();
 	font = old_font;
 	fore = old_fore;
 }
@@ -365,7 +405,7 @@ static void button_radio() {
 	font = push_font;
 	fore = push_fore;
 	if(result)
-		execute_standart();
+		execute_button_command();
 }
 
 static number_widget* find_number_widget(point pt) {
@@ -756,13 +796,110 @@ static void paper_doll() {
 
 static void hotkey() {
 	if(gui.key == hot.key)
-		execute_standart();
+		execute_button_command();
 }
 
-void adventure();
+static void apply_info_mode() {
+	if(hot.key == MouseRight && hot.pressed)
+		execute(cbsetbool, !info_mode, 0, &info_mode);
+	cursor.set(res::INTRFACE, info_mode ? 250 : 286);
+}
+
+int draw::opendialog(const char* id) {
+	auto p = bsdata<dialog>::find(id);
+	if(!p)
+		return 0;
+	info_mode = false;
+	return p->open();
+}
+
+static void update_tick() {
+	auto tick = getcputime();
+	if(last_tick && tick > last_tick)
+		current_tick += tick - last_tick;
+	last_tick = tick;
+}
+
+static void update_mouse_tick() {
+	static point last;
+	if(last != hot.mouse) {
+		last = hot.mouse;
+		mouse_tick = current_tick;
+	}
+}
+
+static void beforemodal() {
+	update_tick();
+	update_mouse_tick();
+	focus_beforemodal();
+	apply_pallette_cicle((unsigned char*)palt, current_tick);
+	actions.clear();
+	cursor.set(res::INTRFACE, 267);
+}
+
+static void finish() {
+	focus_finish();
+}
+
+static void context_menu() {
+	auto ps = gres(res::INTRFACE);
+	if(!ps)
+		return;
+	if(ps && cursor.resource==res::INTRFACE && cursor.frame == ps->gcicle(250)->start) {
+		if(actions && istips(500)) {
+			auto v = actions[0];
+			auto frame = bsdata<actioni>::elements[v].frame;
+			image(cursor.position.x + 48, cursor.position.y + 40, ps, ps->ganim(frame + 1, 0), 0);
+			//if(tips_object != e.object) {
+			//	tips_object = e.object;
+			//	if(action_getname) {
+			//		char temp[260]; stringbuilder sb(temp);
+			//		game.add(action_getname(tips_object, sb));
+			//	}
+			//}
+		}
+	}
+}
+
+static void tips() {
+	caret = cursor.position = hot.mouse;
+	cursor.paint();
+	context_menu();
+}
+
+int start_application(fnevent proc, fnevent afterread) {
+	if(!proc)
+		return -1;
+	palt = default_palette;
+	load_pallette((unsigned char*)palt);
+	bsreq::read("rules/Basic.txt");
+	initialize_translation("ru");
+	if(afterread)
+		afterread();
+	if(log::geterrors()) {
+		log::stoplogging();
+		openerror();
+		return -1;
+	}
+	pbeforemodal = beforemodal;
+	//pbackground = paint;
+	//answers::beforepaint = answers_beforepaint;
+	//answers::paintcell = menubt;
+	pfinish = finish;
+	ptips = tips;
+	metrics::border = 6;
+	metrics::padding = 2;
+	initialize(getnm("AppTitle"));
+	syscursor(false);
+	settimer(40);
+	theme_inititalize();
+	setnext(proc);
+	start();
+	return 0;
+}
 
 BSDATA(widget) = {
-	{"Adventure", adventure},
+	{"ApplyInfoMode", apply_info_mode},
 	{"Background", background},
 	{"BackgroundC", background_center},
 	{"Button", button_radio},

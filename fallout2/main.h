@@ -110,6 +110,10 @@ enum specie_s : unsigned char {
 enum damage_s : unsigned char {
 	Phisycal, Laser, Fire, Plasma, Electrical, EMP, Explosive,
 };
+enum action_s : unsigned char {
+	NoAction,
+	Examine, DropItem, ReloadWeapon, UseItem, UseSkillOnItem,
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90,
@@ -120,6 +124,9 @@ typedef flagable<4>		skilla;
 struct nameable {
 	const char*			id;
 	const char*			getname() const { return getnm(id); }
+};
+struct actioni : nameable {
+	short				frame;
 };
 struct weari : nameable {
 };
@@ -198,7 +205,7 @@ struct item {
 	unsigned short		type;
 	unsigned short		count;
 	unsigned short		ammo_type;
-	unsigned short		ammo;
+	unsigned short		ammo_count;
 	item() = default;
 	item(const char* id);
 	constexpr operator bool() const { return count != 0; }
@@ -264,7 +271,6 @@ struct character : animable {
 	int					gettaggedskills() const;
 	bool				istagged(valuet v) const;
 	static void			initialize();
-	bool				open(const char* id);
 	void				read(const char* id);
 	void				set(stat_s v, int i) { stats[v] = i; }
 	void				settag(valuet v, int i);
@@ -345,6 +351,7 @@ struct walli : nameable {
 namespace draw {
 void					messagev(const char* format, const char* format_param);
 inline void				message(const char* format, ...) { messagev(format, xva_start(format)); }
+int						opendialog(const char* id);
 }
 extern spriteable		cursor;
 extern areai			loc;

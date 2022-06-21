@@ -51,13 +51,6 @@ int dialog::open() const {
 	return getresult();
 }
 
-int dialog::open(const char* id) {
-	auto p = bsdata<dialog>::find(id);
-	if(!p)
-		return 0;
-	return p->open();
-}
-
 static const char* getformfile(stringbuilder& sb, const char* id) {
 	sb.clear(); sb.add("forms/%1.txt", id);
 	return sb.begin();

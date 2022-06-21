@@ -210,8 +210,7 @@ void initialize_adventure() {
 void update_animation();
 
 static void open_dialog() {
-	auto id = (const char*)hot.param;
-	dialog::open(id);
+	opendialog((const char*)hot.param);
 }
 
 static void adventure_hotkey() {

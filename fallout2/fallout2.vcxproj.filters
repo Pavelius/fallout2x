@@ -94,22 +94,13 @@
     <ClCompile Include="cicling.cpp">
       <Filter>draw</Filter>
     </ClCompile>
-    <ClCompile Include="control.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="widget.cpp">
       <Filter>draw</Filter>
     </ClCompile>
     <ClCompile Include="controls.cpp">
       <Filter>draw</Filter>
     </ClCompile>
-    <ClCompile Include="dialog.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="focus.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
-    <ClCompile Include="command.cpp">
       <Filter>draw</Filter>
     </ClCompile>
     <ClCompile Include="grade.cpp">
@@ -140,9 +131,6 @@
       <Filter>support</Filter>
     </ClCompile>
     <ClCompile Include="adventure.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
-    <ClCompile Include="drawable.cpp">
       <Filter>draw</Filter>
     </ClCompile>
     <ClCompile Include="spriteable.cpp">
@@ -214,14 +202,29 @@
     <ClCompile Include="itemlist.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="itemwear.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="wearable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="damage.cpp">
       <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="control.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="command.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="dialog.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="drawable.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="action.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="draw_textf.cpp">
+      <Filter>draw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,16 +320,7 @@
     <ClInclude Include="widget.h">
       <Filter>draw</Filter>
     </ClInclude>
-    <ClInclude Include="control.h">
-      <Filter>draw</Filter>
-    </ClInclude>
-    <ClInclude Include="dialog.h">
-      <Filter>draw</Filter>
-    </ClInclude>
     <ClInclude Include="focus.h">
-      <Filter>draw</Filter>
-    </ClInclude>
-    <ClInclude Include="command.h">
       <Filter>draw</Filter>
     </ClInclude>
     <ClInclude Include="screenshoot.h">
@@ -362,8 +356,17 @@
     <ClInclude Include="area.h">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="control.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="dialog.h">
+      <Filter>support</Filter>
+    </ClInclude>
     <ClInclude Include="drawable.h">
-      <Filter>draw</Filter>
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -435,6 +438,9 @@
     </Text>
     <Text Include="..\rules\itemsorg.txt">
       <Filter>data</Filter>
+    </Text>
+    <Text Include="..\locale\ru\Items.txt">
+      <Filter>localize</Filter>
     </Text>
   </ItemGroup>
 </Project>
