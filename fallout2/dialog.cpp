@@ -14,7 +14,7 @@ BSDATAC(dialog, 256)
 const dialog* dialog::last;
 static screenshoot* screen;
 
-static void paint_dialog() {
+void dialog::paint() {
 	if(screen)
 		screen->restore();
 	gui.offset.clear();
@@ -39,11 +39,11 @@ int dialog::open() const {
 	last = this;
 	if(isfullscreen()) {
 		screen = 0;
-		draw::scene(paint_dialog);
+		draw::scene(paint);
 	} else {
 		screenshoot push(false);
 		screen = &push;
-		draw::scene(paint_dialog);
+		draw::scene(paint);
 	}
 	gui.offset = push_offset;
 	last = push_last;

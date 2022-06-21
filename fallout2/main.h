@@ -242,7 +242,13 @@ struct wearable : nameable, statable {
 struct itemlist : adat<item*, 256> {
 	void				select(const wearable* pv);
 };
-struct animable : wearable, drawable {
+struct spriteable : drawable {
+	res					resource;
+	void				clear() { memset(this, 0, sizeof(*this)); }
+	void				paint() const;
+	void				set(res r, short cicle);
+};
+struct animable : wearable, spriteable {
 	res					naked;
 	animate_s			animate;
 	direction_s			direction;
@@ -277,12 +283,6 @@ struct character : animable {
 	void				settag(valuet v, int i);
 	void				update();
 	void				write(const char* id) const;
-};
-struct spriteable : drawable {
-	res					resource;
-	void				clear() { memset(this, 0, sizeof(*this)); }
-	void				paint() const;
-	void				set(res r, short cicle);
 };
 struct anminfo {
 	unsigned short		fps, frame_count, frame_act;

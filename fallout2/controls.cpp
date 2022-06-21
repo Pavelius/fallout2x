@@ -33,6 +33,7 @@ void focus_finish();
 void load_pallette(unsigned char* p1, int koeff = 4);
 void post_setfocus();
 
+static screenshoot* screen;
 static color default_palette[256];
 static adat<number_widget, 32> number_widgets;
 static adat<actionparam, 16> actions;
@@ -43,6 +44,7 @@ static char edit_buffer[512];
 static char info_buffer[1024];
 
 static bool info_mode;
+static bool mouse_clicked;
 
 static int caret_position;
 
@@ -814,7 +816,7 @@ static void paper_doll() {
 	//rectb();
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	auto p = gres(character::last->naked);
-	auto f = character::last->getframe(AnimateStand) + (current_tick/500) % 6;
+	auto f = character::last->getframe(AnimateStand) + (current_tick / 500) % 6;
 	caret.x += width / 2;
 	caret.y += height - 12;
 	image(p, p->ganim(f, 0), 0);
@@ -850,10 +852,13 @@ static void update_tick() {
 
 static void update_mouse_tick() {
 	static point last;
-	if(last != hot.mouse) {
+	if(last != hot.mouse || hot.key == MouseLeft || hot.key == MouseRight) {
 		last = hot.mouse;
 		mouse_tick = current_tick;
+		mouse_clicked = false;
 	}
+	if(hot.key == MouseLeft)
+		mouse_clicked = true;
 }
 
 static void beforemodal() {
@@ -861,8 +866,70 @@ static void beforemodal() {
 	update_mouse_tick();
 	focus_beforemodal();
 	apply_pallette_cicle((unsigned char*)palt, current_tick);
-	actions.clear();
-	cursor.set(res::INTRFACE, 267);
+	if(pfinish) {
+		actions.clear();
+		cursor.set(res::INTRFACE, 267);
+	}
+}
+
+static int current_action;
+
+static void action_row(const void* object) {
+	auto ps = gres(res::INTRFACE);
+	if(!ps)
+		return;
+	auto pa = (actionparam*)object;
+	auto frame = bsdata<actioni>::elements[pa->action].frame;
+	auto hilite = (gui.ptr(current_action)==object);
+	if(!hilite)
+		frame++;
+	image(ps, ps->ganim(frame, 0), 0);
+}
+
+static void paint_action_list() {
+	static int origin;
+	const auto dy = 40;
+	width = dy;
+	height = actions.count * dy;
+	gui.clear();
+	gui.linklist(actions.data, actions.count);
+	caret = cursor.position;
+	caret.x += 48;
+	caret.y += dy;
+	current_action = (hot.mouse.y - cursor.position.y) / (dy/20);
+	list_paint(origin, current_action, dy, action_row);
+}
+
+static void context_menu_loop() {
+	if(screen)
+		screen->restore();
+	if(!hot.pressed)
+		execute(buttonparam, current_action);
+	paint_action_list();
+}
+
+static void do_nothing() {
+}
+
+static int choose_action() {
+	auto push_finish = pfinish; pfinish = 0;
+	auto push_screen = screen;
+	screenshoot save; screen = &save;
+	addaction(NoAction, do_nothing, 0);
+	draw::scene(context_menu_loop);
+	pfinish = push_finish;
+	screen = push_screen;
+	return getresult();
+}
+
+static void context_menu_modal() {
+	auto i = choose_action();
+	auto& e = actions.data[i];
+	if(e.proc) {
+		hot.param = e.action;
+		hot.object = e.object;
+		e.proc();
+	}
 }
 
 static void context_menu() {
@@ -870,16 +937,20 @@ static void context_menu() {
 	auto ps = gres(res::INTRFACE);
 	if(!ps)
 		return;
-	if(ps && cursor.resource==res::INTRFACE && cursor.frame == ps->gcicle(250)->start) {
+	if(ps && cursor.resource == res::INTRFACE && cursor.frame == ps->gcicle(250)->start) {
 		if(actions && istips(500)) {
-			auto& e = actions[0];
-			auto frame = bsdata<actioni>::elements[e.action].frame;
-			cursor.paint();
-			image(cursor.position.x + 48, cursor.position.y + 40, ps, ps->ganim(frame + 1, 0), 0);
-			if(tips_object != e.object) {
-				tips_object = e.object;
-				if(e.proc)
-					execute(e.proc, 0, 0, e.object);
+			if(mouse_clicked && hot.pressed)
+				execute(context_menu_modal);
+			else {
+				auto& e = actions[0];
+				auto frame = bsdata<actioni>::elements[e.action].frame;
+				cursor.paint();
+				image(cursor.position.x + 48, cursor.position.y + 40, ps, ps->ganim(frame + 1, 0), 0);
+				if(tips_object != e.object) {
+					tips_object = e.object;
+					if(e.proc)
+						execute(e.proc, e.action, 0, e.object);
+				}
 			}
 		}
 	}
@@ -898,6 +969,8 @@ static void tips() {
 int start_application(fnevent proc, fnevent afterread) {
 	if(!proc)
 		return -1;
+	metrics::border = 2;
+	metrics::padding = 2;
 	palt = default_palette;
 	load_pallette((unsigned char*)palt);
 	bsreq::read("rules/Basic.txt");
@@ -910,13 +983,8 @@ int start_application(fnevent proc, fnevent afterread) {
 		return -1;
 	}
 	pbeforemodal = beforemodal;
-	//pbackground = paint;
-	//answers::beforepaint = answers_beforepaint;
-	//answers::paintcell = menubt;
 	pfinish = finish;
 	ptips = tips;
-	metrics::border = 2;
-	metrics::padding = 2;
 	initialize(getnm("AppTitle"));
 	syscursor(false);
 	settimer(40);

@@ -9,5 +9,6 @@ struct dialog {
 	int				open() const;
 	static const dialog* last;
 	static void		initialize();
+	static void		paint();
 	bool			isfullscreen() const;
 };
