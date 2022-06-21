@@ -212,6 +212,7 @@ struct item {
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	int					getcount() const { return count; }
 	const itemi&		geti() const { return bsdata<itemi>::elements[type]; }
+	void				getinfo(stringbuilder& sb) const;
 	const char*			getname() const { return geti().getname(); }
 };
 struct statable {

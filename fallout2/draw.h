@@ -233,6 +233,8 @@ void					texta(const char* string, unsigned state = 0);
 void					textas(const char* string);
 void					textc(const char* string, int count = -1, unsigned flags = 0);
 int						textbc(const char* string, int width);
+void					textf(const char* p);
+void					textfs(const char* p);
 int						texth();
 int						texth(const char* string, int width);
 int						textw(int sym);

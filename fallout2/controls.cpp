@@ -17,6 +17,11 @@ struct number_widget {
 	int			frame;
 	unsigned	start;
 };
+struct actionparam {
+	action_s	action;
+	fnevent		proc;
+	const void*	object;
+};
 }
 
 extern "C" int system(const char* command);
@@ -30,7 +35,7 @@ void post_setfocus();
 
 static color default_palette[256];
 static adat<number_widget, 32> number_widgets;
-static adat<action_s, 16> actions;
+static adat<actionparam, 16> actions;
 static rect last_rect;
 static guii cmd_gui;
 
@@ -74,9 +79,22 @@ void theme_inititalize() {
 	fore = getcolor(ColorText);
 }
 
-static void addaction(action_s v) {
-	if(actions.find(v) == -1)
-		actions.add(v);
+static actionparam* findaction(action_s v) {
+	for(auto& e : actions) {
+		if(e.action == v)
+			return &e;
+	}
+	return 0;
+}
+
+static void addaction(action_s v, fnevent proc, const void* object = 0) {
+	auto pa = findaction(v);
+	if(pa)
+		return;
+	pa = actions.add();
+	pa->action = v;
+	pa->proc = proc;
+	pa->object = object;
 }
 
 static void hilighting() {
@@ -338,6 +356,12 @@ static void text_hint(const char* format, int v) {
 	text_hint(temp);
 }
 
+static void get_object_information() {
+	auto pi = (item*)hot.object;
+	stringbuilder sb(info_buffer);
+	pi->getinfo(sb);
+}
+
 static void item_button() {
 	auto pi = (item*)gui.data;
 	if(!pi)
@@ -345,7 +369,7 @@ static void item_button() {
 	auto a = ishilite();
 	if(a) {
 		hilite_object = pi;
-		addaction(Examine);
+		addaction(Examine, get_object_information, pi);
 	}
 	if(!(*pi))
 		return;
@@ -780,6 +804,10 @@ static void block_information() {
 	font = push_font;
 }
 
+static void object_information() {
+	textf(info_buffer);
+}
+
 static void paper_doll() {
 	auto push_caret = caret;
 	auto push_clip = clipping;
@@ -837,34 +865,34 @@ static void beforemodal() {
 	cursor.set(res::INTRFACE, 267);
 }
 
-static void finish() {
-	focus_finish();
-}
-
 static void context_menu() {
+	static const void* tips_object;
 	auto ps = gres(res::INTRFACE);
 	if(!ps)
 		return;
 	if(ps && cursor.resource==res::INTRFACE && cursor.frame == ps->gcicle(250)->start) {
 		if(actions && istips(500)) {
-			auto v = actions[0];
-			auto frame = bsdata<actioni>::elements[v].frame;
+			auto& e = actions[0];
+			auto frame = bsdata<actioni>::elements[e.action].frame;
+			cursor.paint();
 			image(cursor.position.x + 48, cursor.position.y + 40, ps, ps->ganim(frame + 1, 0), 0);
-			//if(tips_object != e.object) {
-			//	tips_object = e.object;
-			//	if(action_getname) {
-			//		char temp[260]; stringbuilder sb(temp);
-			//		game.add(action_getname(tips_object, sb));
-			//	}
-			//}
+			if(tips_object != e.object) {
+				tips_object = e.object;
+				if(e.proc)
+					execute(e.proc, 0, 0, e.object);
+			}
 		}
 	}
 }
 
-static void tips() {
+static void finish() {
+	focus_finish();
 	caret = cursor.position = hot.mouse;
-	cursor.paint();
 	context_menu();
+}
+
+static void tips() {
+	cursor.paint();
 }
 
 int start_application(fnevent proc, fnevent afterread) {
@@ -887,7 +915,7 @@ int start_application(fnevent proc, fnevent afterread) {
 	//answers::paintcell = menubt;
 	pfinish = finish;
 	ptips = tips;
-	metrics::border = 6;
+	metrics::border = 2;
 	metrics::padding = 2;
 	initialize(getnm("AppTitle"));
 	syscursor(false);
@@ -912,6 +940,7 @@ BSDATA(widget) = {
 	{"ItemAvatar", item_avatar},
 	{"ItemButton", item_button},
 	{"ItemList", items_list},
+	{"ObjectInformation", object_information},
 	{"PaperDoll", paper_doll},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},

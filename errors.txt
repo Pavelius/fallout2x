@@ -1,2 +1,2 @@
-﻿In file `rules/Item.txt`:
- Line 0: Expected symbol `#`
+﻿In file `forms/CharacterInvertory.txt`:
+ Line 11: Not found identifier `InformationObject`

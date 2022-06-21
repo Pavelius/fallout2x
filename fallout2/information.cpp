@@ -77,3 +77,9 @@ void tilegroup::getinfolist(stringbuilder& sb) const {
 		line++;
 	}
 }
+
+void item::getinfo(stringbuilder& sb) const {
+	sb.add(getname());
+	sb.addn("---");
+	sb.adds("Description here.");
+}

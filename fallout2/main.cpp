@@ -42,8 +42,8 @@ static void start() {
 	character::last->wearable::add("BigBookOfScience");
 	character::last->wearable::add("N10mmAP");
 	//draw::scene(editor);
-	//draw::scene(adventure);
-	draw::opendialog("CharacterGenerator");
+	draw::scene(adventure);
+	//draw::opendialog("CharacterGenerator");
 }
 
 static void initialize() {
@@ -59,6 +59,7 @@ static void initialize() {
 #ifdef _DEBUG
 	main_util();
 #endif // _DEBUG
+	add_locale_names("Items", true);
 	add_locale_names("Tiles", true);
 	add_locale_names("Scenery", true);
 	add_locale_names("Walls", true);
