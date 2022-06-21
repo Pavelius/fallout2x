@@ -40,9 +40,6 @@
     <ClCompile Include="color.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="interface.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="szdup.cpp">
       <Filter>support</Filter>
     </ClCompile>

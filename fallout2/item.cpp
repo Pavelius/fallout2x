@@ -21,17 +21,22 @@ static void put(item& it, item itv) {
 void item::transfer(item& i1, item& i2) {
 	auto i1_item = *this;
 	auto i2_item = i2;
-	if(i2.geti().isallow(i1.getownerslot()) && i1.geti().isallow(i2.getownerslot())) {
+	auto s1 = i1.getownerslot();
+	auto s2 = i2.getownerslot();
+	if(i2.isallow(s1) && i1.isallow(s2)) {
 		put(i2, i1_item);
 		put(i1, i2_item);
 	} else
 		i1 = *this;
 }
 
-bool itemi::isallow(wear_s id) const {
+bool item::isallow(wear_s id) const {
+	if(!(*this))
+		return true;
+	auto& ei = geti();
 	switch(id) {
-	case BodyArmor: return armor.male != res::None;
-	case LeftHandItem: case RightHandItem: return weapon.max != 0; break;
+	case BodyArmor: return ei.armor.male != res::None;
+	case LeftHandItem: case RightHandItem: return ei.weapon.max != 0; break;
 	default: return true;
 	}
 }

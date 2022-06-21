@@ -396,10 +396,8 @@ static void item_button() {
 	auto pi = (item*)gui.data;
 	if(!pi)
 		return;
-	if(bsdata<character>::have(pi)) {
-		if(isdragtarget())
-			drag_target = pi;
-	}
+	if(isdragtarget())
+		drag_target = pi;
 	auto a = ishilite();
 	if(a) {
 		hilite_object = pi;
@@ -700,8 +698,6 @@ static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
 		maximum = origin + perpage + 1;
 	auto push_height = height;
 	auto push_clip = clipping;
-	if(isdragtarget())
-		drag_target = gui.data;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	height = perline;
 	for(auto i = origin; i < maximum; i++) {

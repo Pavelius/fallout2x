@@ -201,7 +201,6 @@ struct itemi : nameable {
 	armori				armor;
 	ammoi				ammo;
 	stat_s				use;
-	bool				isallow(wear_s id) const;
 };
 struct character;
 struct item {
@@ -223,6 +222,7 @@ struct item {
 	character*			getowner() const;
 	wear_s				getownerslot() const;
 	void				join(item& v);
+	bool				isallow(wear_s id) const;
 	void				transfer(item& from, item& to);
 };
 struct statable {

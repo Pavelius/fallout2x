@@ -83,5 +83,6 @@ void item::getinfo(stringbuilder& sb) const {
 	sb.add(getname());
 	sb.addn("---");
 	sb.addn(getdescription(ei.id));
+	sb.add("\n\n");
 	sb.addn("%Weight: %1i", ei.weight);
 }

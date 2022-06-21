@@ -175,7 +175,6 @@
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="information.cpp" />
-    <ClCompile Include="interface.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="io_stream.cpp" />
     <ClCompile Include="item.cpp" />

@@ -104,10 +104,10 @@ static const char* text_block(const char* p, int x1, int x2) {
 			p = skipspcr(p);
 			auto push_x = caret.x;
 			caret.y += 1;
-			caret.x = x1 - metrics::border;
-			line(x2 + metrics::border, caret.y);
+			//caret.x = x1 - metrics::border;
+			line(x2, caret.y);
 			caret.x = push_x;
-			caret.y += 4;
+			caret.y += 5;
 		} else
 			p = textfln(p, x1, x2, fore, font);
 	}
