@@ -49,7 +49,10 @@ static char info_buffer[1024];
 
 static bool info_mode, mouse_clicked, allow_quick_info;
 
+static int* list_current;
+
 static int caret_position;
+static int list_maximum;
 
 spriteable cursor;
 
@@ -593,9 +596,10 @@ static int getavatarindex(const void* object) {
 	return -1;
 }
 
-static void list_input(int& current, int& origin, int perpage, int perline, int maximum) {
-	if(current >= maximum)
-		current = maximum - 1;
+static void list_input(int& current, int& origin, int perpage, int perline) {
+	list_current = &current;
+	if(current >= list_maximum)
+		current = list_maximum - 1;
 	if(current < 0)
 		current = 0;
 	if(current < origin)
@@ -610,7 +614,7 @@ static void list_input(int& current, int& origin, int perpage, int perline, int 
 		break;
 	case MouseWheelDown:
 	case KeyDown:
-		if(current < maximum - 1)
+		if(current < list_maximum - 1)
 			execute(cbsetint, current + 1, 0, &current);
 		break;
 	case KeyHome:
@@ -618,8 +622,8 @@ static void list_input(int& current, int& origin, int perpage, int perline, int 
 			execute(cbsetint, 0, 0, &current);
 		break;
 	case KeyEnd:
-		if(current != maximum - 1)
-			execute(cbsetint, maximum - 1, 0, &current);
+		if(current != list_maximum - 1)
+			execute(cbsetint, list_maximum - 1, 0, &current);
 		break;
 	case KeyPageUp:
 		if(current)
@@ -629,11 +633,14 @@ static void list_input(int& current, int& origin, int perpage, int perline, int 
 		execute(cbsetint, current + perpage, 0, &current);
 		break;
 	}
+	if(list_maximum > origin + perpage + 1)
+		list_maximum = origin + perpage + 1;
 }
 
-static void list_input_nocurrent(int& origin, int perpage, int perline, int maximum) {
-	if(origin + perpage >= maximum)
-		origin = maximum - perpage;
+static void list_input_nocurrent(int& origin, int perpage, int perline) {
+	list_current = &origin;
+	if(origin + perpage >= list_maximum)
+		origin = list_maximum - perpage;
 	if(origin < 0)
 		origin = 0;
 	switch(hot.key) {
@@ -649,7 +656,7 @@ static void list_input_nocurrent(int& origin, int perpage, int perline, int maxi
 		execute(cbsetint, 0, 0, &origin);
 		break;
 	case KeyEnd:
-		execute(cbsetint, maximum, 0, &origin);
+		execute(cbsetint, list_maximum, 0, &origin);
 		break;
 	case KeyPageUp:
 		execute(cbsetint, origin - perpage, 0, &origin);
@@ -658,6 +665,8 @@ static void list_input_nocurrent(int& origin, int perpage, int perline, int maxi
 		execute(cbsetint, origin + perpage, 0, &origin);
 		break;
 	}
+	if(list_maximum > origin + perpage + 1)
+		list_maximum = origin + perpage + 1;
 }
 
 static void list_paint(int& origin, int& current, int perline, fnlistrow prow) {
@@ -666,13 +675,11 @@ static void list_paint(int& origin, int& current, int perline, fnlistrow prow) {
 	auto perpage = height / perline;
 	if(!perpage)
 		return;
-	int maximum = gui.count;
-	list_input(current, origin, perpage, perline, maximum);
-	if(maximum > origin + perpage + 1)
-		maximum = origin + perpage + 1;
+	list_maximum = gui.count;
+	list_input(current, origin, perpage, perline);
 	auto push_height = height;
 	height = perline;
-	for(auto i = origin; i < maximum; i++) {
+	for(auto i = origin; i < list_maximum; i++) {
 		auto push_fore = fore;
 		if(i == current)
 			hilighting();
@@ -694,17 +701,15 @@ static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
 		return;
 	if(!prow)
 		return;
-	int maximum = gui.count;
-	list_input_nocurrent(origin, perpage, perline, maximum);
-	if(maximum > origin + perpage + 1)
-		maximum = origin + perpage + 1;
+	list_maximum = gui.count;
+	list_input_nocurrent(origin, perpage, perline);
 	auto push_height = height;
 	auto push_clip = clipping;
 	rect rc = {caret.x, caret.y, caret.x + width, caret.y + height};
 	auto a = getdragged() && hot.mouse.in(rc);
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	height = perline;
-	for(auto i = origin; i < maximum; i++) {
+	for(auto i = origin; i < list_maximum; i++) {
 		prow(gui.ptr(i));
 		caret.y += height;
 	}
@@ -868,6 +873,20 @@ static void paper_doll() {
 	image(p, p->ganim(f, 0), 0);
 	clipping = push_clip;
 	caret = push_caret;
+}
+
+static void scroll_up() {
+	if(list_current) {
+		if(buttonf(gui.normal, gui.pressed, KeyUp, false, false, 0, (*list_current) == 0))
+			execute(cbsetint, *list_current - 1, 0, list_current);
+	}
+}
+
+static void scroll_down() {
+	if(list_current) {
+		if(buttonf(gui.normal, gui.pressed, KeyDown, false, false, 0, false))
+			execute(cbsetint, *list_current + 1, 0, list_current);
+	}
 }
 
 static void hotkey() {
@@ -1077,6 +1096,8 @@ BSDATA(widget) = {
 	{"ItemList", items_list},
 	{"ObjectInformation", object_information},
 	{"PaperDoll", paper_doll},
+	{"ScrollDown", scroll_down},
+	{"ScrollUp", scroll_up},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},
