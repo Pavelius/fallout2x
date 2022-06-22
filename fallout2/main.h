@@ -37,6 +37,9 @@ enum wear_s : unsigned char {
 enum material_s : unsigned char {
 	Glass, Metal, Plastic, Wood, Dirt, Stone, Cement, Leather
 };
+enum itemkind_s : unsigned char {
+	Armor, Container, Drug, Weapon, Ammo, Misc, LockKey
+};
 enum animate_s : unsigned char {
 	AnimateStand, AnimateWalk, AnimatePickup, AnimateUse, AnimateDodge,
 	AnimateDamaged, AnimateDamagedRear,
@@ -201,6 +204,7 @@ struct itemi : nameable {
 	armori				armor;
 	ammoi				ammo;
 	stat_s				use;
+	variants			effect;
 };
 struct character;
 struct item {
@@ -214,10 +218,12 @@ struct item {
 	item(const char* id) : item(bsdata<itemi>::find(id)) {}
 	constexpr operator bool() const { return count != 0; }
 	void				clear() { memset(this, 0, sizeof(*this)); }
+	void				dropdown();
 	item				getclip() const { return item(ammo_type, ammo_count); }
 	int					getcount() const { return count; }
 	const itemi&		geti() const { return bsdata<itemi>::elements[type]; }
 	void				getinfo(stringbuilder& sb) const;
+	itemkind_s			getkind() const;
 	const char*			getname() const { return geti().getname(); }
 	character*			getowner() const;
 	wear_s				getownerslot() const;

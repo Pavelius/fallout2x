@@ -8,35 +8,45 @@ item::item(const itemi* pi) {
 	count = pi->ammo.count ? pi->ammo.count : 1;
 }
 
-static void put(item& it, item itv) {
+itemkind_s item::getkind() const {
+	auto& ei = geti();
+	if(ei.weapon.max)
+		return Weapon;
+	if(ei.armor.male != res::None)
+		return Armor;
+	if(ei.ammo.count != 0)
+		return Ammo;
+	if(ei.effect)
+		return Drug;
+	return Misc;
+}
+
+static void put(item& it, item& itv) {
 	auto slot = it.getownerslot();
-	if(slot == Backpack) {
+	if(slot != Backpack && itv.isallow(slot))
+		it = itv;
+	else {
 		auto p = it.getowner();
 		if(p)
 			p->additem(itv);
-	} else
-		it = itv;
+	}
 }
 
 void item::transfer(item& i1, item& i2) {
 	auto i1_item = *this;
 	auto i2_item = i2;
-	auto s1 = i1.getownerslot();
-	auto s2 = i2.getownerslot();
-	if(i2.isallow(s1) && i1.isallow(s2)) {
-		put(i2, i1_item);
-		put(i1, i2_item);
-	} else
-		i1 = *this;
+	i2.clear();
+	put(i2, i1_item);
+	put(i1, i2_item);
 }
 
 bool item::isallow(wear_s id) const {
 	if(!(*this))
 		return true;
-	auto& ei = geti();
+	auto type = getkind();
 	switch(id) {
-	case BodyArmor: return ei.armor.male != res::None;
-	case LeftHandItem: case RightHandItem: return ei.weapon.max != 0; break;
+	case BodyArmor: return type == Armor;
+	case LeftHandItem: case RightHandItem: return type == Weapon || type == Drug || type == Misc;
 	default: return true;
 	}
 }

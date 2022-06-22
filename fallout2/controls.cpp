@@ -388,6 +388,8 @@ static void begin_drag_item() {
 	dragend();
 	if(!drag_target)
 		*p1 = drag_copy;
+	else if(drag_target == character::last)
+		character::last->additem(drag_copy);
 	else
 		drag_copy.transfer(*p1, *((item*)drag_target));
 }
@@ -698,12 +700,16 @@ static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
 		maximum = origin + perpage + 1;
 	auto push_height = height;
 	auto push_clip = clipping;
+	rect rc = {caret.x, caret.y, caret.x + width, caret.y + height};
+	auto a = getdragged() && hot.mouse.in(rc);
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
 	height = perline;
 	for(auto i = origin; i < maximum; i++) {
 		prow(gui.ptr(i));
 		caret.y += height;
 	}
+	if(a && !drag_target)
+		drag_target = character::last;
 	clipping = push_clip;
 	height = push_height;
 }

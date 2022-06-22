@@ -23,5 +23,5 @@ void wearable::additem(item v) {
 	if(!p)
 		p = bsdata<itemwear>::add();
 	copy<item>(*p, v);
-	p->owner = static_cast<character*>(this);
+	p->owner = pc;
 }
