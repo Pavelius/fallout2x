@@ -6,13 +6,13 @@ MetalArmor size(10) weight(35) cost(1100) avatar(1 33) material(Metal)
  armor ac(10) male(HMMETL) female(HFMETL) threshold(4 6 4 4 0 0 4) resistance(30 75 10 20 0 0 25)
 
 N10mmSMG size(3) weight(5) cost(1000) avatar(2 44 6) material(Metal) use(SmallGuns)
- weapon min(5) max(12) strenght(4) type(Phisycal) ap(5) range(25) ammo_count(30) burst(10) critical_fail(2)
+ weapon mode(FireSingle FireBurst) min(5) max(12) strenght(4) type(Phisycal) ap(5) range(25) ammo_count(30) burst(10) critical_fail(2)
 
 LeatherArmor size(10) weight(8) cost(700) avatar(3 29) material(Leather)
  armor ac(15) male(HMLTHR) female(HFLTHR) threshold(2 0 0 0 0 0 0) resistance(25 20 20 10 30 0 20)
 
 N10mmPistol size(2) weight(3) cost(250) avatar(4 34 5) material(Metal) use(SmallGuns)
- weapon min(5) max(12) strenght(3) type(Phisycal) ap(5) range(25) ammo_count(12) burst(1) critical_fail(2)
+ weapon mode(FireSingle) min(5) max(12) strenght(3) type(Phisycal) ap(5) range(25) ammo_count(12) burst(1) critical_fail(2)
 
 Sledgehammer size(4) weight(12) cost(120) avatar(5 40 3) material(Metal) use(MeleeWeapon)
  weapon min(4) max(9) strenght(6) type(Phisycal) ap(4) range(2) critical_fail(1)

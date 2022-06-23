@@ -80,7 +80,7 @@ enum lightf : short unsigned {
 	EastCorner = 0x4000,
 	WestCorner = 0x8000
 };
-enum actionf {
+enum actionof {
 	KneelDownWhenUsing = 0x0001,
 	CanBeUsed = 0x0008,
 	UseOnSomething = 0x0010,
@@ -113,14 +113,16 @@ enum specie_s : unsigned char {
 enum damage_s : unsigned char {
 	Phisycal, Laser, Fire, Plasma, Electrical, EMP, Explosive,
 };
+enum actionf : unsigned char {
+	Aimed,
+};
 enum action_s : unsigned char {
 	NoAction,
-	ThrowPunch, KickLeg,
-	Swing, Thrust, Throw,
-	FireSingle, FireBurst, Reload,
+	ThrowPunch, ThrowPunchAimed, KickLeg,
+	Swing, SwingAimed, Thrust, ThrustAimed, Throw,
+	FireSingle, FireSingleAimed, FireBurst, Reload,
 	Drop, Look, Talk, Turn, Unload,
 	Use, UseOnObject, UseSkill,
-	//Examine, DropItem, ReloadWeapon, UseItem, UseSkillOnItem,
 };
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
@@ -135,7 +137,9 @@ struct nameable {
 };
 struct actioni : nameable {
 	short				frame;
-	fnevent				proc;
+	action_s			base;
+	unsigned			flags;
+	bool				is(actionf v) const { return (flags & FG(Aimed)) != 0; }
 };
 typedef adat<action_s, 16> actiona;
 struct weari : nameable {
@@ -202,6 +206,7 @@ struct itemi : nameable {
 		unsigned char	ammo_count;
 		unsigned char	burst;
 		short unsigned	critical_fail; // Number of critical failure table
+		action_s		mode[2];
 	};
 	int					size, weight, cost;
 	imagei				avatar;
@@ -225,6 +230,7 @@ struct item {
 	constexpr operator bool() const { return count != 0; }
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				dropdown();
+	actiona				getactions() const;
 	item				getclip() const { return item(ammo_type, ammo_count); }
 	int					getcount() const { return count; }
 	const itemi&		geti() const { return bsdata<itemi>::elements[type]; }
@@ -293,6 +299,7 @@ struct character : animable {
 	skilla				tags;
 	int					experience;
 	specie_s			species;
+	char				action_index[2];
 	static character*	last;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }

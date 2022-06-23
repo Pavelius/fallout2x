@@ -34,6 +34,7 @@ static void start() {
 	character::last->wear[RightHandItem] = "N10mmPistol";
 	character::last->wearable::additem("Crowbar");
 	character::last->wearable::additem("Crowbar");
+	character::last->wearable::additem("N10mmSMG");
 	character::last->wearable::additem("N5mmAP");
 	character::last->wearable::additem("N5mmAP");
 	character::last->wearable::additem("N5mmAP");

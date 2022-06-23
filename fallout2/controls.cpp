@@ -114,8 +114,8 @@ static void addaction(action_s v, fnevent proc, const void* object = 0) {
 	pa->action = v;
 	if(proc)
 		pa->proc = proc;
-	else
-		pa->proc = bsdata<actioni>::elements[v].proc;
+	//else
+	//	pa->proc = bsdata<actioni>::elements[v].proc;
 	pa->object = object;
 }
 
@@ -993,9 +993,17 @@ void control_map() {
 
 void paint_drawables();
 
+static void action_number(int x, int y, int v) {
+	auto push_caret = caret;
+	caret.x += x; caret.y += y;
+	numberap(1, v);
+	caret = push_caret;
+}
+
 static void action_item_button() {
+	auto ps = gres(res::INTRFACE);
 	auto pi = (item*)gui.data;
-	if(!pi)
+	if(!pi || !ps)
 		return;
 	auto a = ishilite();
 	if(a && hot.pressed) {
@@ -1005,7 +1013,19 @@ static void action_item_button() {
 	if(!(*pi))
 		return;
 	gui.number = pi->geti().avatar.inventory;
-	if(true) {
+	auto actions = pi->getactions();
+	if(actions) {
+		auto index = character::last->action_index[0];
+		if(index > actions.getcount())
+			index = actions.getcount() - 1;
+		auto ac = actions.data[index];
+		auto ap = pi->geti().weapon.ap;
+		auto& ai = bsdata<actioni>::elements[ac];
+		image(caret.x + width - 30, caret.y + 16, ps, ps->ganim(ai.frame, current_tick), 0);
+		if(ai.is(Aimed))
+			image(caret.x + width - 10, caret.y + 36, ps, ps->ganim(288, current_tick), 0);
+		image(caret.x + 16, caret.y + 56, ps, ps->ganim(289, 0), 0);
+		action_number(30, 45, ap);
 		rectpush push;
 		setoffset(4, 4);
 		item_avatar();

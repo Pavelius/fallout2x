@@ -29,6 +29,9 @@ BSDATAD(variant)
 BSMETA(variant) = {{}};
 BSMETA(varianti) = {BSREQ(id), {}};
 
+BSMETA(actioni) = {
+	BSREQ(id),
+	{}};
 BSMETA(control) = {
 	BSREQ(type), BSREQ(x), BSREQ(y),
 	BSREQ(size), BSREQ(data),
@@ -62,6 +65,7 @@ BSMETA(itemi::imagei) = {
 	{}};
 BSMETA(itemi::weaponi) = {
 	BSREQ(min), BSREQ(max),
+	BSENM(mode, actioni),
 	BSREQ(strenght),
 	BSENM(type, damagei),
 	BSREQ(ap), BSREQ(range),
