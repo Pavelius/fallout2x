@@ -17,7 +17,7 @@ static screenshoot* screen;
 void dialog::paint() {
 	if(screen)
 		screen->restore();
-	gui.offset.clear();
+	gui.shift.clear();
 	for(auto& e : dialog::last->controls)
 		e.paint();
 }
@@ -35,7 +35,7 @@ int dialog::open() const {
 	rectpush push;
 	auto push_last = last;
 	auto push_screen = screen;
-	auto push_offset = gui.offset;
+	auto push_offset = gui.shift;
 	last = this;
 	if(isfullscreen()) {
 		screen = 0;
@@ -45,7 +45,7 @@ int dialog::open() const {
 		screen = &push;
 		draw::scene(paint);
 	}
-	gui.offset = push_offset;
+	gui.shift = push_offset;
 	last = push_last;
 	screen = push_screen;
 	return getresult();

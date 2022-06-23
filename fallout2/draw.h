@@ -71,7 +71,7 @@ struct sprite : pma {
 		short			ox, oy;
 		encodes			encode;
 		unsigned		pallette;
-		unsigned		offset;
+		unsigned		shift;
 		rect			getrect(int x, int y, unsigned flags) const;
 	};
 	struct cicle {
@@ -84,7 +84,7 @@ struct sprite : pma {
 	unsigned			cicles; // count of anim structure
 	unsigned			cicles_offset;
 	frame				frames[1];
-	int					esize() const { return frames[0].offset - (sizeof(sprite) + sizeof(frame)*(count - 1)); }
+	int					esize() const { return frames[0].shift - (sizeof(sprite) + sizeof(frame)*(count - 1)); }
 	const unsigned char* edata() const { return (const unsigned char*)this + sizeof(sprite) + sizeof(frame)*(count - 1); }
 	int					ganim(int index, int tick);
 	const frame&		get(int id) const { return frames[(id >= count) ? 0 : id]; }

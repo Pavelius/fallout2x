@@ -14,8 +14,8 @@ struct rect {
 	inline int			height() const { return y2 - y1; }
 	bool				intersect(const rect& rc) const { return x1<rc.x2 && x2>rc.x1 && y1<rc.y2 && y2>rc.y1; }
 	void				move(int x, int y) { x1 += x; x2 += x; y1 += y; y2 += y; }
-	void				offset(int x, int y) { x1 += x; x2 -= x; y1 += y; y2 -= y; }
-	void				offset(int n) { offset(n, n); }
+	void				shift(int x, int y) { x1 += x; x2 -= x; y1 += y; y2 -= y; }
+	void				shift(int n) { shift(n, n); }
 	void				set(int px1, int py1, int px2, int py2) { x1 = px1; x2 = px2; y1 = py1; y2 = py2; }
 	inline int			width() const { return x2 - x1; }
 };

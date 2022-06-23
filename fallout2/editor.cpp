@@ -28,7 +28,7 @@ static void cancel_hotkey() {
 static void place_editor(point bt, const tilegroup* p) {
 	auto index = p->start;
 	for(auto& e : *p) {
-		point t = bt + e.offset;
+		point t = bt + e.shift;
 		for(auto i = 0; i < e.count; i++) {
 			loc.setfloor(t2i(t), index++);
 			t.x++;
@@ -41,7 +41,7 @@ static void paint_editor(const tilegroup* p) {
 	auto pr = gres(res::TILES);
 	auto index = p->start;
 	for(auto& e : *p) {
-		caret = push_caret + t2s(e.offset);
+		caret = push_caret + t2s(e.shift);
 		for(auto i = 0; i < e.count; i++) {
 			image(pr, bsdata<tilei>::elements[index++].frame, 0);
 			caret.x += 48;
@@ -302,7 +302,7 @@ static void export_tilegroup() {
 			es << ", ";
 		es << "{";
 		es << (int)ge.count << ", ";
-		auto pt = ge.offset;
+		auto pt = ge.shift;
 		es << "{" << pt.x << ", " << pt.y << "}";
 		es << "}";
 		need_block_coma = true;
@@ -337,7 +337,7 @@ static void tilegroup_info(tilegroup* p) {
 		else
 			fore = getcolor(ColorText);
 		sb.clear();
-		sb.addn("%1i-%2i (%3i,%4i) %6i", index, index + e.count - 1, e.offset.x, e.offset.y, line+1, e.count);
+		sb.addn("%1i-%2i (%3i,%4i) %6i", index, index + e.count - 1, e.shift.x, e.shift.y, line+1, e.count);
 		text(temp); caret.y += texth();
 		index += e.count;
 		line++;
@@ -345,10 +345,10 @@ static void tilegroup_info(tilegroup* p) {
 	switch(hot.key) {
 	case KeyUp: execute(cbsetint, current_line - 1, 0, &current_line); break;
 	case KeyDown: execute(cbsetint, current_line + 1, 0, &current_line); break;
-	case KeyHome: execute(cbsetsht, p->elements[current_line].offset.x - 1, 0, &p->elements[current_line].offset.x); break;
-	case KeyEnd: execute(cbsetsht, p->elements[current_line].offset.x + 1, 0, &p->elements[current_line].offset.x); break;
-	case KeyPageUp: execute(cbsetsht, p->elements[current_line].offset.y - 1, 0, &p->elements[current_line].offset.y); break;
-	case KeyPageDown: execute(cbsetsht, p->elements[current_line].offset.y + 1, 0, &p->elements[current_line].offset.y); break;
+	case KeyHome: execute(cbsetsht, p->elements[current_line].shift.x - 1, 0, &p->elements[current_line].shift.x); break;
+	case KeyEnd: execute(cbsetsht, p->elements[current_line].shift.x + 1, 0, &p->elements[current_line].shift.x); break;
+	case KeyPageUp: execute(cbsetsht, p->elements[current_line].shift.y - 1, 0, &p->elements[current_line].shift.y); break;
+	case KeyPageDown: execute(cbsetsht, p->elements[current_line].shift.y + 1, 0, &p->elements[current_line].shift.y); break;
 	case KeyLeft:
 		hot.key = 0;
 		if(p->elements[current_line].count > 1) {
@@ -366,7 +366,7 @@ static void tilegroup_info(tilegroup* p) {
 		if((unsigned)p->count >= sizeof(p->elements) / sizeof(p->elements[0]))
 			break;
 		p->elements[p->count] = p->elements[p->count - 1];
-		p->elements[p->count].offset.y++;
+		p->elements[p->count].shift.y++;
 		p->count++;
 		update_next_tile(p);
 		break;

@@ -1635,7 +1635,7 @@ void draw::image(int x, int y, const sprite* e, int id, int flags) {
 	if(!e)
 		return;
 	const sprite::frame& f = e->get(id);
-	if(!f.offset)
+	if(!f.shift)
 		return;
 	if(!canvas)
 		return;
@@ -1659,7 +1659,7 @@ void draw::image(int x, int y, const sprite* e, int id, int flags) {
 			y -= f.oy;
 		y2 = y + f.sy;
 	}
-	unsigned char* s = (unsigned char*)e + f.offset;
+	unsigned char* s = (unsigned char*)e + f.shift;
 	if(y2<clipping.y1 || y>clipping.y2 || x2<clipping.x1 || x>clipping.x2)
 		return;
 	if(y < clipping.y1) {
@@ -1934,7 +1934,7 @@ void draw::imager(int xm, int ym, const sprite* e, int id, int r) {
 	if(!e)
 		return;
 	auto& f = e->get(id);
-	if(!f.offset)
+	if(!f.shift)
 		return;
 	if(r > f.sx / 2)
 		r = f.sx / 2;
@@ -1945,7 +1945,7 @@ void draw::imager(int xm, int ym, const sprite* e, int id, int r) {
 	auto sx = f.sx;
 	auto x1 = xm - f.sx / 2;
 	auto y1 = ym - f.sy / 2;
-	unsigned char* s = (unsigned char*)e + f.offset;
+	unsigned char* s = (unsigned char*)e + f.shift;
 	int x = -r, y = 0, err = 2 - 2 * r, y2 = -1000;
 	do {
 		if(y2 != y) {
@@ -2063,7 +2063,7 @@ int sprite::glyph(unsigned sym) const {
 
 rect sprite::frame::getrect(int x, int y, unsigned flags) const {
 	int x2, y2;
-	if(!offset)
+	if(!shift)
 		return{0, 0, 0, 0};
 	if(flags & ImageMirrorH) {
 		x2 = x;
@@ -2345,7 +2345,7 @@ void draw::setneedupdate() {
 void draw::initialize(const char* title) {
 	draw::width = 320;
 	draw::font = metrics::font;
-	draw::create(-1, -1, 640, 480, WFResize, 32);
+	draw::create(-1, -1, 640, 480, WFResize|WFMinmax, 32);
 	draw::setcaption(title);
 }
 

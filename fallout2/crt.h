@@ -114,9 +114,9 @@ public:
 // Abstract array vector
 class array {
 	size_t							count_maximum;
-	void							grow(unsigned offset, size_t delta);
-	void							shrink(unsigned offset, size_t delta);
-	void							zero(unsigned offset, size_t delta);
+	void							grow(unsigned shift, size_t delta);
+	void							shrink(unsigned shift, size_t delta);
+	void							zero(unsigned shift, size_t delta);
 public:
 	void*							data;
 	size_t							count, size;
@@ -133,16 +133,16 @@ public:
 	void*							addu(const void* element, unsigned count);
 	const char*						addus(const char* element, unsigned count);
 	char*							begin() const { return (char*)data; }
-	void							change(unsigned offset, int size);
+	void							change(unsigned shift, int size);
 	void							clear();
 	char*							end() const { return (char*)data + size * count; }
-	int								find(const char* value, unsigned offset) const { return findps(value, offset, zlen(value)); }
-	int								find(int i1, int i2, void* value, unsigned offset, size_t size) const;
-	int								find(void* value, unsigned offset, size_t size) const { return find(0, -1, value, offset, size); }
-	int								findps(const char* value, unsigned offset, size_t size) const;
+	int								find(const char* value, unsigned shift) const { return findps(value, shift, zlen(value)); }
+	int								find(int i1, int i2, void* value, unsigned shift, size_t size) const;
+	int								find(void* value, unsigned shift, size_t size) const { return find(0, -1, value, shift, size); }
+	int								findps(const char* value, unsigned shift, size_t size) const;
 	const void*						findu(const void* value, size_t size) const;
 	const char*						findus(const char* value, size_t size) const;
-	void*							findv(const char* value, unsigned offset) const;
+	void*							findv(const char* value, unsigned shift) const;
 	size_t							getmaximum() const { return count_maximum & 0x7FFFFFFF; }
 	size_t							getcount() const { return count; }
 	size_t							getsize() const { return size; }

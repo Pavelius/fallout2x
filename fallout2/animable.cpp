@@ -71,7 +71,7 @@ res	animable::getlook() const {
 animate_s animable::getbase(animate_s v, int* w) {
 	if(isweaponanimate(v)) {
 		if(w)
-			*w = (v - FirstWeaponAnimate) / 13;
+			*w = 1 + (v - FirstWeaponAnimate) / 13;
 		return animate_s(FirstWeaponAnimate + (v - FirstWeaponAnimate) % 13);
 	}
 	return v;
@@ -116,6 +116,12 @@ int animable::getdelay() const {
 	if(pi && pi->fps)
 		return 1000 / pi->fps;
 	return 1000 / 10;
+}
+
+void animable::turn(int d) {
+	unsigned w = (int)direction + d;
+	direction = direction_s(w % 6);
+	setanimate(animate);
 }
 
 void animable::setanimate(animate_s v) {

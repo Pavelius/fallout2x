@@ -120,6 +120,14 @@ static void change_weapon() {
 	character::last->changeweapon();
 }
 
+static void turn_right() {
+	character::last->turn(1);
+}
+
+static void turn_left() {
+	character::last->turn(-1);
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -150,6 +158,8 @@ BSDATA(command) = {
 	{"Options", 'O', opendialog},
 	{"SubNumber", '-', sub_number},
 	{"SubStat", '-', sub_stat},
+	{"TurnRight", '.', turn_left},
+	{"TurnLeft", ',', turn_right},
 };
 BSDATAF(command)
 

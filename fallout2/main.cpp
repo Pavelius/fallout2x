@@ -14,6 +14,7 @@ void main_util();
 void editor();
 void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
+void test_animate();
 
 static void start() {
 	auto is = sizeof(item);
@@ -47,7 +48,8 @@ static void start() {
 	character::last->update();
 	//draw::scene(editor);
 	//draw::scene(adventure);
-	draw::opendialog("CharacterGame");
+	//draw::opendialog("CharacterGame");
+	test_animate();
 }
 
 static void initialize() {

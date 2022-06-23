@@ -6,7 +6,7 @@ BSMETA(int) = {{"number"}, {}};
 BSMETA(const char*) = {{"text"}, {}};
 BSMETA(bsreq) = {
 	BSREQ(id),
-	BSREQ(offset),
+	BSREQ(shift),
 	BSREQ(size),
 	BSREQ(lenght),
 	BSREQ(count),
@@ -49,7 +49,7 @@ int bsreq::findenum(const char* name) const {
 	auto pn = type->find("id", bsmeta<const char*>::meta);
 	if(!pn)
 		return -1;
-	return source->find(name, pn->offset);
+	return source->find(name, pn->shift);
 }
 
 long bsreq::get(const void* p) const {

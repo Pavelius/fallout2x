@@ -72,7 +72,7 @@ void tilegroup::getinfolist(stringbuilder& sb) const {
 	auto index = start;
 	auto line = 1;
 	for(auto& e : *this) {
-		sb.addn("#%5i %1i-%2i (%3i,%4i) %6i", index, index + e.count - 1, e.offset.x, e.offset.y, line, e.count);
+		sb.addn("#%5i %1i-%2i (%3i,%4i) %6i", index, index + e.count - 1, e.shift.x, e.shift.y, line, e.count);
 		index += e.count;
 		line++;
 	}

@@ -347,10 +347,10 @@ static bool matchstring(const char* v1, const char* v2, size_t size) {
 	return v1[size] == 0;
 }
 
-int array::findps(const char* value, unsigned offset, size_t size) const {
+int array::findps(const char* value, unsigned shift, size_t size) const {
 	auto m = getcount();
 	for(unsigned i = 0; i < m; i++) {
-		auto p = (const char**)((char*)ptr(i) + offset);
+		auto p = (const char**)((char*)ptr(i) + shift);
 		if(!(*p))
 			continue;
 		if(matchstring(*p, value, size))
@@ -359,16 +359,16 @@ int array::findps(const char* value, unsigned offset, size_t size) const {
 	return -1;
 }
 
-void* array::findv(const char* id, unsigned offset) const {
+void* array::findv(const char* id, unsigned shift) const {
 	if(!id || id[0]==0)
 		return 0;
-	auto i = findps(id, offset, zlen(id));
+	auto i = findps(id, shift, zlen(id));
 	if(i == -1)
 		return 0;
 	return ptr(i);
 }
 
-int array::find(int i1, int i2, void* value, unsigned offset, size_t size) const {
+int array::find(int i1, int i2, void* value, unsigned shift, size_t size) const {
 	if(!count)
 		return -1;
 	if(i2 == -1)
@@ -376,25 +376,25 @@ int array::find(int i1, int i2, void* value, unsigned offset, size_t size) const
 	switch(size) {
 	case 4:
 		for(auto i = i1; i <= i2; i++) {
-			if(*((int*)value) == *((int*)((char*)ptr(i) + offset)))
+			if(*((int*)value) == *((int*)((char*)ptr(i) + shift)))
 				return i;
 		}
 		break;
 	case 2:
 		for(auto i = i1; i <= i2; i++) {
-			if(*((int*)value) == *((int*)((char*)ptr(i) + offset)))
+			if(*((int*)value) == *((int*)((char*)ptr(i) + shift)))
 				return i;
 		}
 		break;
 	case 1:
 		for(auto i = i1; i <= i2; i++) {
-			if(*((int*)value) == *((int*)((char*)ptr(i) + offset)))
+			if(*((int*)value) == *((int*)((char*)ptr(i) + shift)))
 				return i;
 		}
 		break;
 	default:
 		for(auto i = i1; i <= i2; i++) {
-			if(memcmp(value, (char*)ptr(i) + offset, size) == 0)
+			if(memcmp(value, (char*)ptr(i) + shift, size) == 0)
 				return i;
 		}
 		break;
@@ -469,17 +469,17 @@ void array::shift(int i1, int i2, size_t c1, size_t c2) {
 	}
 }
 
-void array::shrink(unsigned offset, size_t delta) {
-	if(offset + delta > size)
+void array::shrink(unsigned shift, size_t delta) {
+	if(shift + delta > size)
 		return;
 	auto p1 = (char*)data;
 	auto p2 = (char*)data;
-	const auto s2 = size - delta - offset;
+	const auto s2 = size - delta - shift;
 	auto pe = p1 + count * size;
 	while(p1 < pe) {
-		if(offset) {
-			memcpy(p2, p1, offset);
-			p2 += offset; p1 += offset;
+		if(shift) {
+			memcpy(p2, p1, shift);
+			p2 += shift; p1 += shift;
 		}
 		p1 += delta;
 		if(s2) {
@@ -492,7 +492,7 @@ void array::shrink(unsigned offset, size_t delta) {
 	size = new_size;
 }
 
-void array::grow(unsigned offset, size_t delta) {
+void array::grow(unsigned shift, size_t delta) {
 	if(!delta)
 		return;
 	if(!isgrowable())
@@ -505,37 +505,37 @@ void array::grow(unsigned offset, size_t delta) {
 		data = malloc(new_size_bytes);
 	auto p1 = (char*)data + new_size * count;
 	auto p2 = (char*)data + size * count;
-	auto s2 = size - offset;
+	auto s2 = size - shift;
 	while(p1 > data) {
 		if(s2) {
 			memcpy(p1 - s2, p1 - s2, s2);
 			p2 -= s2; p1 -= s2;
 		}
 		p1 -= delta;
-		if(offset) {
-			memcpy(p1, p2, offset);
-			p2 -= offset; p1 -= offset;
+		if(shift) {
+			memcpy(p1, p2, shift);
+			p2 -= shift; p1 -= shift;
 		}
 	}
 	size = new_size;
 }
 
-void array::zero(unsigned offset, size_t delta) {
+void array::zero(unsigned shift, size_t delta) {
 	if(!delta)
 		return;
 	auto pe = (char*)data + size * count;
-	for(auto p = (char*)data + offset; p < pe; p += size)
+	for(auto p = (char*)data + shift; p < pe; p += size)
 		memset(p, 0, delta);
 }
 
-void array::change(unsigned offset, int size) {
+void array::change(unsigned shift, int size) {
 	if(!size)
 		return;
 	if(size > 0) {
-		grow(offset, size);
-		zero(offset, size);
+		grow(shift, size);
+		zero(shift, size);
 	} else
-		shrink(offset, -size);
+		shrink(shift, -size);
 }
 
 const void* array::findu(const void* value, size_t size) const {

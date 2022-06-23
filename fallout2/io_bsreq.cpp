@@ -127,14 +127,14 @@ static void read_value(valuei& e, const bsreq* req) {
 			v1.counter = last_bonus;
 			e.number = v1.u;
 		} else {
-			auto offset = 0;
+			auto shift = 0;
 			auto pk = getkey(req->type);
 			if(pk)
-				offset = pk->offset;
+				shift = pk->shift;
 			if(!req->source)
 				log::error(p, "Invalid source array where read identifier `%1`", temp);
 			else {
-				e.number = req->source->find(temp, offset);
+				e.number = req->source->find(temp, shift);
 				if(e.number == -1) {
 					log::error(p, "Not found identifier `%1`", temp);
 					e.number = 0;

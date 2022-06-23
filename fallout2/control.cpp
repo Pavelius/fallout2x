@@ -7,12 +7,12 @@ using namespace draw;
 
 guii gui;
 fncontrol control::pbefore;
-point guii::offset;
+point guii::shift;
 
 void control::paint() const {
 	auto push_fore = fore;
-	caret.x = x + gui.offset.x;
-	caret.y = y + gui.offset.y;
+	caret.x = x + gui.shift.x;
+	caret.y = y + gui.shift.y;
 	width = size.x;
 	height = size.y;
 	gui.clear();

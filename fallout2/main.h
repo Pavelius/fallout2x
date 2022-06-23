@@ -53,9 +53,10 @@ enum animate_s : unsigned char {
 	AnimateDeadBackNoBlood, AnimateDeadForwardNoBlood,
 	AnimateDeadSingle, AnimateDeadBurst, AnimateDeadBurstAuto, AnimateDeadBlowup, AnimateDeadMelt,
 	AnimateDeadBack, AnimateDeadForward,
-	// Weapon Block
+	// Weapon Block (Animate Knife)
 	FirstWeaponAnimate,
-	AnimateWeaponTakeOn = FirstWeaponAnimate, AnimateWeaponStand, AnimateWeaponTakeOff, AnimateWeaponWalk, AnimateWeaponDodge,
+	AnimateWeaponTakeOn = FirstWeaponAnimate, AnimateWeaponStand, AnimateWeaponTakeOff,
+	AnimateWeaponWalk, AnimateWeaponDodge,
 	AnimateWeaponThrust, AnimateWeaponSwing,
 	AnimateWeaponAim,
 	AnimateWeaponSingle, AnimateWeaponBurst, AnimateWeaponFlame,
@@ -299,6 +300,7 @@ struct animable : wearable, spriteable {
 	void				nextanimate();
 	void				paint() const;
 	void				setanimate(animate_s v);
+	void				turn(int d);
 	void				updateframe();
 	void				wait();
 };
@@ -327,7 +329,7 @@ private:
 };
 struct anminfo {
 	unsigned short		fps, frame_count, frame_act;
-	point				offset[6];
+	point				shift[6];
 	point				delta[6];
 	static const anminfo* get(const sprite* p);
 	static const anminfo* get(res rid) { return get(gres(rid)); }
@@ -346,7 +348,7 @@ struct sceneryi : nameable {
 struct tilegroup {
 	struct element {
 		int				count;
-		point			offset;
+		point			shift;
 	};
 	const char*			id;
 	short				start;

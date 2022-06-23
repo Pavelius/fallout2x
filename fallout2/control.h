@@ -21,7 +21,7 @@ struct guii : datasource {
 	unsigned			flags;
 	fnstatus			pgetname;
 	fnevent				execute;
-	static point		offset;
+	static point		shift;
 	void				clear() { memset(this, 0, sizeof(*this)); }
 };
 extern guii gui;

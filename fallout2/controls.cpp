@@ -170,8 +170,8 @@ static void background() {
 	auto p = gres(res::INTRFACE);
 	if(!p)
 		return;
-	gui.offset = caret;
-	image(gui.offset.x, gui.offset.y, p, p->ganim(gui.normal, current_tick), ImageNoOffset);
+	gui.shift = caret;
+	image(gui.shift.x, gui.shift.y, p, p->ganim(gui.normal, current_tick), ImageNoOffset);
 }
 
 static void background_center() {
@@ -180,9 +180,9 @@ static void background_center() {
 		return;
 	auto frame = p->ganim(gui.normal, current_tick);
 	auto& f = p->get(frame);
-	gui.offset.x = (getwidth() - f.sx) / 2 + caret.x;
-	gui.offset.y = (getheight() - f.sy) / 2 + caret.y;
-	image(gui.offset.x, gui.offset.y, p, frame, ImageNoOffset);
+	gui.shift.x = (getwidth() - f.sx) / 2 + caret.x;
+	gui.shift.y = (getheight() - f.sy) / 2 + caret.y;
+	image(gui.shift.x, gui.shift.y, p, frame, ImageNoOffset);
 }
 
 static void label() {

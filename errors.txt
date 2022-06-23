@@ -1,2 +1,3 @@
 ﻿In file `forms/CharacterGame.txt`:
- Line 6: Not found identifier `ActionButton`
+ Line 16: Not found identifier `HotKey`
+ Line 17: Not found identifier `HotKey`
