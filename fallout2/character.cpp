@@ -11,6 +11,10 @@ static void apply_skill_tag() {
 	}
 }
 
+void character::apply_equipment() {
+	stats[AC] += wear[BodyArmor].geti().armor.ac;
+}
+
 static bool update_minmax() {
 	auto p = character::last;
 	auto need_update = false;
@@ -59,7 +63,9 @@ void character::update() {
 		need_update = update_minmax();
 	}
 	apply_skill_tag();
+	apply_equipment();
 	character::last = push_character;
+	setanimate(animate);
 }
 
 character* character::add(const char* id) {
@@ -76,8 +82,8 @@ character* character::add(const char* id) {
 		if(pa)
 			p->settag((stat_s)getbsi(pa), 1);
 	}
+	p->naked = res::HMJMPS;
 	p->update();
-	p->naked = res::HMWARR;
 	return p;
 }
 

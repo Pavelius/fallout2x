@@ -115,7 +115,12 @@ enum damage_s : unsigned char {
 };
 enum action_s : unsigned char {
 	NoAction,
-	Examine, DropItem, ReloadWeapon, UseItem, UseSkillOnItem,
+	ThrowPunch, KickLeg,
+	Swing, Thrust, Throw,
+	FireSingle, FireBurst, Reload,
+	Drop, Look, Talk, Turn, Unload,
+	Use, UseOnObject, UseSkill,
+	//Examine, DropItem, ReloadWeapon, UseItem, UseSkillOnItem,
 };
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
@@ -132,6 +137,7 @@ struct actioni : nameable {
 	short				frame;
 	fnevent				proc;
 };
+typedef adat<action_s, 16> actiona;
 struct weari : nameable {
 };
 struct lighti : nameable {
@@ -301,6 +307,8 @@ struct character : animable {
 	void				settag(valuet v, int i);
 	void				update();
 	void				write(const char* id) const;
+private:
+	void				apply_equipment();
 };
 struct anminfo {
 	unsigned short		fps, frame_count, frame_act;

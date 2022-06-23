@@ -420,9 +420,9 @@ static void item_button() {
 	if(a) {
 		hilite_object = pi;
 		if(info_mode) {
-			addaction(Examine, get_object_information, pi);
+			addaction(Look, get_object_information, pi);
 			if(pi->getclip())
-				addaction(ReloadWeapon, 0, pi);
+				addaction(Reload, 0, pi);
 		} else {
 			if(hot.key == MouseLeft && hot.pressed) {
 				dragbegin(pi);
@@ -582,16 +582,19 @@ static void number(int digits, int value) {
 		render_number(digits, -value, gres(res::INTRFACE), 170, 12 * 14, 14, true);
 }
 
-static void numbersm(int digits, int value) {
-	render_number(digits, value, gres(res::INTRFACE), 82, 0, 9, true);
-}
-
 static void numberap(int digits, int value) {
 	render_number(digits, value, gres(res::INTRFACE), 290, 0, 10, false);
 }
 
 static void number_standart() {
+	auto n = gui.normal;
+	if(!n)
+		n = 2;
 	number(2, gui.number);
+}
+
+static void number_small() {
+	render_number(gui.normal, gui.number, gres(res::INTRFACE), 82, 0, 9, true);
 }
 
 static void line_info() {
@@ -990,6 +993,31 @@ void control_map() {
 
 void paint_drawables();
 
+static void action_item_button() {
+	auto pi = (item*)gui.data;
+	if(!pi)
+		return;
+	auto a = ishilite();
+	if(a && hot.pressed) {
+		caret.y -= 2;
+		caret.x += 1;
+	}
+	if(!(*pi))
+		return;
+	gui.number = pi->geti().avatar.inventory;
+	if(true) {
+		rectpush push;
+		setoffset(4, 4);
+		item_avatar();
+	}
+}
+
+static void action_button() {
+	button_no_text();
+	gui.data = character::last->wear + RightHandItem;
+	action_item_button();
+}
+
 static void paint_game() {
 	auto push_clip = clipping;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
@@ -1194,6 +1222,7 @@ int start_application(fnevent proc, fnevent afterread) {
 
 BSDATA(widget) = {
 	{"ApplyInfoMode", apply_info_mode},
+	{"ActionButton", action_button},
 	{"Background", background},
 	{"BackgroundC", background_center},
 	{"Button", button_radio},
@@ -1211,6 +1240,7 @@ BSDATA(widget) = {
 	{"LineInfo", line_info},
 	{"List", text_list},
 	{"Number", number_standart},
+	{"NumberSM", number_small},
 	{"ObjectInformation", object_information},
 	{"PaintGame", paint_game},
 	{"PaperDoll", paper_doll},

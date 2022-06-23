@@ -43,7 +43,7 @@ static void start() {
 	character::last->wearable::additem("BigBookOfScience");
 	character::last->wearable::additem("N10mmAP");
 	character::last->wearable::additem("N10mmAP");
-	character::last->setanimate(character::last->animate);
+	character::last->update();
 	//draw::scene(editor);
 	//draw::scene(adventure);
 	draw::opendialog("CharacterGame");

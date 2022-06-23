@@ -3,5 +3,13 @@
 UpdateAnimation 0 0
 PaintGame 0 0 size(640 381)
 Background 0 381 normal(16)
+ActionButton 265 29 size(183 64) normal(32) pressed(31)
 ButtonNT 210 40 normal(47) pressed(46) command(CharacterInventory)
 ButtonNT 210 60 normal(18) pressed(17) command(GameOptions)
+ButtonNT 526 38 normal(13) pressed(10) command(GameMap)
+ButtonNT 526 58 normal(57) pressed(56) command(CharacterSheet)
+ButtonNT 526 78 normal(59) pressed(58) command(CharacterPipboy)
+ButtonNT 218 6 normal(6) pressed(7) command(ChangeWeapon)
+ButtonNT 523 6 normal(6) pressed(7) command(CharacterSkill)
+NumberSM 472 39 normal(4) data(HP)
+NumberSM 472 75 normal(4) data(AC)

@@ -116,6 +116,9 @@ static void character_export() {
 static void game_exit() {
 }
 
+static void change_weapon() {
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -123,6 +126,7 @@ BSDATA(command) = {
 	{"AddTrait", KeySpace, add_trait},
 	{"Adventure", 0, opendialog},
 	{"Cancel", KeyEscape, buttoncancel},
+	{"ChangeWeapon", 'W', change_weapon},
 	{"CharacterAge", 'A', opendialog},
 	{"CharacterDelete", 'D', character_delete},
 	{"CharacterExport", 'E', character_export},
@@ -130,10 +134,14 @@ BSDATA(command) = {
 	{"CharacterGenerator", 'E', opendialog},
 	{"CharacterLoad", 'L', character_load},
 	{"CharacterName", 'N', opendialog},
+	{"CharacterPipboy", 'P', opendialog},
 	{"CharacterSave", 'S', character_save},
+	{"CharacterSheet", 'C', opendialog},
+	{"CharacterSkill", 'S', opendialog},
 	{"CharacterInventory", 'I', opendialog},
 	{"GameExit", 'E', game_exit},
 	{"GameLoad", 'L', opendialog},
+	{"GameMap", 'M', opendialog},
 	{"GameSave", 'S', opendialog},
 	{"GameOptions", KeyEscape, opendialog},
 	{"GameSetting", 'O', opendialog},

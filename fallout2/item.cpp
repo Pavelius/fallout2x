@@ -47,6 +47,12 @@ void item::transfer(item& i1, item& i2) {
 		put(i2, *this);
 		put(i1, i2_item);
 	}
+	auto p1 = i1.getowner();
+	auto p2 = i2.getowner();
+	if(p1)
+		p1->update();
+	if(p2 && p2 != p1)
+		p2->update();
 }
 
 bool item::isallow(wear_s id) const {

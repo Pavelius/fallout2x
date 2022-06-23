@@ -109,6 +109,8 @@ static void correctposition(drawable* pd, const sprite* ps, animate_s a) {
 void animable::setanimate(animate_s v) {
 	animate = v;
 	auto ps = gres(getlook());
+	if(!ps)
+		return;
 	auto cicle = getframe(animate, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
 	if(!pc || !pc->count)

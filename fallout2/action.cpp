@@ -2,10 +2,21 @@
 
 BSDATA(actioni) = {
 	{"NoAction", 252},
-	{"Examine", 258},
-	{"DropItem", 254},
-	{"ReloadWeapon"},
-	{"UseItem", 256},
-	{"UseSkillOnItem"},
+	{"ThrowPunch"},
+	{"KickLeg"},
+	{"Swing"},
+	{"Thrust"},
+	{"Throw"},
+	{"FireSingle"},
+	{"FireBurst"},
+	{"Reload"},
+	{"Drop", 254},
+	{"Look", 258},
+	{"Talk"},
+	{"Turn"},
+	{"Unload"},
+	{"Use", 256},
+	{"UseOnObject"},
+	{"UseSkill"},
 };
-assert_enum(actioni, UseSkillOnItem)
+assert_enum(actioni, UseSkill)
