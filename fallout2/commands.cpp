@@ -113,6 +113,9 @@ static void character_export() {
 	draw::buttonok();
 }
 
+static void game_exit() {
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -128,6 +131,12 @@ BSDATA(command) = {
 	{"CharacterLoad", 'L', character_load},
 	{"CharacterName", 'N', opendialog},
 	{"CharacterSave", 'S', character_save},
+	{"CharacterInventory", 'I', opendialog},
+	{"GameExit", 'E', game_exit},
+	{"GameLoad", 'L', opendialog},
+	{"GameSave", 'S', opendialog},
+	{"GameOptions", KeyEscape, opendialog},
+	{"GameSetting", 'O', opendialog},
 	{"Next", KeyEnter, buttonok},
 	{"Options", 'O', opendialog},
 	{"SubNumber", '-', sub_number},

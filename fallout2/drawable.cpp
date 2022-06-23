@@ -41,9 +41,6 @@ static void sort_drawables() {
 	qsort(drawables.data, drawables.count, sizeof(drawables.data[0]), compare);
 }
 
-static void cleanup_drawables() {
-}
-
 void paint_drawables() {
 	rectpush push;
 	prepare_drawables();

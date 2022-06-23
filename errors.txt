@@ -1,2 +1,7 @@
-﻿In file `rules/Items.txt`:
- Line 0: Expected symbol `#`
+﻿In file `forms/CharacterGame.txt`:
+ Line 7: Not found identifier `GameOptions`
+In file `forms/GameOptions.txt`:
+ Line 4: Not found identifier `GameSave`
+ Line 5: Not found identifier `GameLoad`
+ Line 6: Not found identifier `GameSetting`
+ Line 7: Not found identifier `GameExit`

@@ -29,6 +29,10 @@ FastShoot: Скорострел
 Finesse: Утонченный
 FirstAid: Первая помощь
 Gambling: Игра
+GameExit: Выход
+GameLoad: Загрузить
+GameSave: Сохранить
+GameSetting: Настройки
 Gender: Пол
 Gifted: Талантливый
 GoodNatured: Добродушный

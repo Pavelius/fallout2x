@@ -1,0 +1,8 @@
+#Control
+
+BackgroundC 0 -32 normal(220)
+ButtonDF 14 16 size(136 34) normal(221) pressed(222) command(GameSave)
+ButtonDF 14 53 size(136 34) normal(221) pressed(222) command(GameLoad)
+ButtonDF 14 90 size(136 34) normal(221) pressed(222) command(GameSetting)
+ButtonDF 14 127 size(136 34) normal(221) pressed(222) command(GameExit)
+ButtonDF 14 164 size(136 34) normal(221) pressed(222) command(Cancel)

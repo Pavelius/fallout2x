@@ -1,0 +1,7 @@
+#Control
+
+UpdateAnimation 0 0
+PaintGame 0 0 size(640 381)
+Background 0 381 normal(16)
+ButtonNT 210 40 normal(47) pressed(46) command(CharacterInventory)
+ButtonNT 210 60 normal(18) pressed(17) command(GameOptions)

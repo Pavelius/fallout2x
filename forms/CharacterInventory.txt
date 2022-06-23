@@ -1,0 +1,13 @@
+#Control
+
+Background 70 0 normal(48)
+ApplyInfoMode 0 0
+ButtonNT 432 322 normal(299) pressed(300) command(Cancel)
+ItemButton 152 184 size(92 60) normal(1) data(BodyArmor)
+ItemButton 152 287 size(92 60) normal(1) data(RightHandItem)
+ItemButton 245 287 size(92 60) normal(1) data(LeftHandItem)
+ItemList 42 40 size(70 300) lines(50) format(Wears)
+ScrollUp 122 36 normal(49) pressed(50)
+ScrollDown 122 58 normal(51) pressed(52)
+PaperDoll 176 40 size(62 90)
+ObjectInformation 295 48 size(148 180)

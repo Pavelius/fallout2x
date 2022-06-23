@@ -32,9 +32,11 @@ void focus_beforemodal();
 void focus_finish();
 void load_pallette(unsigned char* p1, int koeff = 4);
 void post_setfocus();
+void update_animation();
 
 static screenshoot* screen;
 static color default_palette[256];
+static color temp_palette[256];
 static adat<number_widget, 32> number_widgets;
 static adat<actionparam, 16> actions;
 static rect last_rect;
@@ -52,9 +54,10 @@ static bool info_mode, mouse_clicked, allow_quick_info;
 static int* list_current;
 
 static int caret_position;
-static int list_maximum;
+static int list_maximum, list_perpage;
 
 spriteable cursor;
+indext current_hexagon;
 
 int last_list_current;
 
@@ -63,6 +66,12 @@ static unsigned long last_tick, mouse_tick;
 
 color getcolor(unsigned char i) {
 	return default_palette[i];
+}
+
+static void gray_pallette() {
+	memcpy(temp_palette, default_palette, sizeof(default_palette));
+	for(auto& e : temp_palette)
+		e = e.gray();
 }
 
 static void openerror() {
@@ -278,7 +287,11 @@ static bool buttonf(int cicles_normal, int cicle_pressed, unsigned key, bool che
 		a = true;
 	if(result_pressed)
 		*result_pressed = a;
-	image(ps, a ? pressed : normal, ImageNoOffset);
+	if(disabled) {
+		gray_pallette();
+		image(ps, normal, ImageNoOffset, temp_palette);
+	} else
+		image(ps, a ? pressed : normal, ImageNoOffset);
 	return result;
 }
 
@@ -672,11 +685,11 @@ static void list_input_nocurrent(int& origin, int perpage, int perline) {
 static void list_paint(int& origin, int& current, int perline, fnlistrow prow) {
 	if(!perline)
 		return;
-	auto perpage = height / perline;
-	if(!perpage)
+	list_perpage = height / perline;
+	if(!list_perpage)
 		return;
 	list_maximum = gui.count;
-	list_input(current, origin, perpage, perline);
+	list_input(current, origin, list_perpage, perline);
 	auto push_height = height;
 	height = perline;
 	for(auto i = origin; i < list_maximum; i++) {
@@ -694,15 +707,13 @@ static void list_paint(int& origin, int& current, int perline, fnlistrow prow) {
 }
 
 static void list_paint_nocurrent(int& origin, int perline, fnlistrow prow) {
-	if(!perline)
+	if(!perline || !prow)
 		return;
-	auto perpage = height / perline;
-	if(!perpage)
-		return;
-	if(!prow)
+	list_perpage = height / perline;
+	if(!list_perpage)
 		return;
 	list_maximum = gui.count;
-	list_input_nocurrent(origin, perpage, perline);
+	list_input_nocurrent(origin, list_perpage, perline);
 	auto push_height = height;
 	auto push_clip = clipping;
 	rect rc = {caret.x, caret.y, caret.x + width, caret.y + height};
@@ -884,9 +895,110 @@ static void scroll_up() {
 
 static void scroll_down() {
 	if(list_current) {
-		if(buttonf(gui.normal, gui.pressed, KeyDown, false, false, 0, false))
+		if(buttonf(gui.normal, gui.pressed, KeyDown, false, false, 0, (*list_current + list_perpage) >= list_maximum))
 			execute(cbsetint, *list_current + 1, 0, list_current);
 	}
+}
+
+void set_hexagon_position() {
+	current_hexagon = Blocked;
+	if(ishilite())
+		current_hexagon = h2i(s2h(hot.mouse + camera));
+}
+
+void redraw_hexagon() {
+	if(current_hexagon == Blocked)
+		return;
+	cursor.clear();
+	auto pt = h2s(i2h(current_hexagon)) - camera;
+	image(pt.x - 15, pt.y - 7, gres(res::INTRFACE), 1, 0);
+}
+
+void redraw_floor() {
+	auto ps = gres(res::TILES);
+	if(!ps)
+		return;
+	auto tm = current_tick;
+	rect rc = {-tile_width, -tile_height, 640 + tile_width, 480 + tile_height};
+	for(short y = 0; y < 100; y++) {
+		for(short x = 0; x < 100; x++) {
+			caret = t2s({x, y}) - camera;
+			caret.x += 8;
+			caret.y += 26;
+			if(caret.in(rc)) {
+				auto tv = bsdata<tilei>::elements[loc.getfloor(t2i({x, y}))].frame;
+				if(tv > 1)
+					draw::image(ps, ps->ganim(tv, tm), 0);
+			}
+		}
+	}
+}
+
+static void addpoint() {
+	auto p = (point*)hot.object;
+	p->x += (short)hot.param;
+	p->y += (short)hot.param2;
+}
+
+static void scrollmap(int x, int y, int cicle) {
+	const int w = 640;
+	const int h = 480;
+	const int s = 4;
+	const int dx = 16;
+	const int dy = 12;
+	rect rc = {};
+	if(x == 0) {
+		rc.x1 = s + 1;
+		rc.x2 = w - s - 1;
+	} else {
+		rc.x1 = (x < 0) ? 0 : w - s;
+		rc.x2 = rc.x1 + s;
+	}
+	if(y == 0) {
+		rc.y1 = s + 1;
+		rc.y2 = h - s - 1;
+	} else {
+		rc.y1 = (y < 0) ? 0 : h - s;
+		rc.y2 = rc.y1 + s;
+	}
+	if(hot.mouse.in(rc)) {
+		current_hexagon = Blocked;
+		cursor.set(res::INTRFACE, cicle);
+		if(hot.key == InputTimer)
+			execute(addpoint, x * dx, y * dy, &camera);
+	}
+}
+
+void control_map() {
+	const int dx = 16;
+	const int dy = 12;
+	switch(hot.key) {
+	case KeyLeft: execute(addpoint, -dx, 0, &camera); break;
+	case KeyRight: execute(addpoint, dx, 0, &camera); break;
+	case KeyUp: execute(addpoint, 0, -dy, &camera); break;
+	case KeyDown: execute(addpoint, 0, dy, &camera); break;
+	}
+	scrollmap(-1, -1, 270);
+	scrollmap(0, -1, 271);
+	scrollmap(1, -1, 272);
+	scrollmap(1, 0, 273);
+	scrollmap(1, 1, 274);
+	scrollmap(0, 1, 275);
+	scrollmap(-1, 1, 276);
+	scrollmap(-1, 0, 277);
+}
+
+void paint_drawables();
+
+static void paint_game() {
+	auto push_clip = clipping;
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	set_hexagon_position();
+	control_map();
+	redraw_floor();
+	redraw_hexagon();
+	paint_drawables();
+	clipping = push_clip;
 }
 
 static void hotkey() {
@@ -1094,7 +1206,13 @@ BSDATA(widget) = {
 	{"ItemAvatar", item_avatar},
 	{"ItemButton", item_button},
 	{"ItemList", items_list},
+	{"Label", label_left},
+	{"LabelSM", label_checked},
+	{"LineInfo", line_info},
+	{"List", text_list},
+	{"Number", number_standart},
 	{"ObjectInformation", object_information},
+	{"PaintGame", paint_game},
 	{"PaperDoll", paper_doll},
 	{"ScrollDown", scroll_down},
 	{"ScrollUp", scroll_up},
@@ -1102,10 +1220,6 @@ BSDATA(widget) = {
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},
 	{"TextL", text_font3},
-	{"Label", label_left},
-	{"LabelSM", label_checked},
-	{"LineInfo", line_info},
-	{"List", text_list},
-	{"Number", number_standart},
+	{"UpdateAnimation", update_animation},
 };
 BSDATAF(widget)

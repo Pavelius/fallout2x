@@ -78,22 +78,13 @@ int color::find(const void* pallette, int count) const {
 
 int	color::scanline(int width, int bpp) {
 	switch(iabs(bpp)) {
-	case 1:
-		return ((width + 31) / 32) * 4;
-	case 2:
-		return ((width + 15) / 16) * 4;
-	case 4:
-		return ((width + 7) / 8) * 4;
-	case 8:
-		return ((width + 3) / 4) * 4;
-	case 24:
-	case -24:
-		return ((width * 3 + 3) / 4) * 4;
-	case 32:
-	case -32:
-		return width * 4;
-	default:
-		return 0;
+	case 1: return ((width + 31) / 32) * 4;
+	case 2: return ((width + 15) / 16) * 4;
+	case 4: return ((width + 7) / 8) * 4;
+	case 8: return ((width + 3) / 4) * 4;
+	case 24: case -24: return ((width * 3 + 3) / 4) * 4;
+	case 32: case -32: return width * 4;
+	default: return 0;
 	}
 }
 

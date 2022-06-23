@@ -21,23 +21,32 @@ itemkind_s item::getkind() const {
 	return Misc;
 }
 
+static void putbackpack(item& it, item& itv) {
+	auto p = it.getowner();
+	if(p)
+		p->additem(itv);
+}
+
 static void put(item& it, item& itv) {
 	auto slot = it.getownerslot();
 	if(slot != Backpack && itv.isallow(slot))
 		it = itv;
-	else {
-		auto p = it.getowner();
-		if(p)
-			p->additem(itv);
-	}
+	else
+		putbackpack(it, itv);
 }
 
 void item::transfer(item& i1, item& i2) {
-	auto i1_item = *this;
-	auto i2_item = i2;
-	i2.clear();
-	put(i2, i1_item);
-	put(i1, i2_item);
+	auto dest_slot = i2.getownerslot();
+	if(!isallow(dest_slot))
+		i1 = *this;
+	else if(dest_slot==Backpack)
+		putbackpack(i2, *this);
+	else {
+		auto i2_item = i2;
+		i2.clear();
+		put(i2, *this);
+		put(i1, i2_item);
+	}
 }
 
 bool item::isallow(wear_s id) const {

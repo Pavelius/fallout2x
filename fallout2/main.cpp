@@ -10,9 +10,7 @@ void add_locale_descriptions(const char* id);
 void initialize_adventure();
 void initialize_script();
 void initialize_dialog();
-void character_generate();
 void main_util();
-void adventure();
 void editor();
 void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
@@ -47,8 +45,8 @@ static void start() {
 	character::last->wearable::additem("N10mmAP");
 	character::last->setanimate(character::last->animate);
 	//draw::scene(editor);
-	draw::scene(adventure);
-	//draw::opendialog("CharacterGenerator");
+	//draw::scene(adventure);
+	draw::opendialog("CharacterGame");
 }
 
 static void initialize() {

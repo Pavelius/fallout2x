@@ -13,13 +13,17 @@ static int list_origin;
 
 extern indext current_hexagon;
 
-void cancel_hotkey();
 void control_map();
 size_t filter_walls(void** pbegin);
 void paint_drawables();
 void paint_editor(point h, const walli* p);
 void redraw_floor();
 void redraw_hexagon();
+
+static void cancel_hotkey() {
+	if(hot.key == KeyEscape)
+		execute(buttoncancel);
+}
 
 static void place_editor(point bt, const tilegroup* p) {
 	auto index = p->start;
