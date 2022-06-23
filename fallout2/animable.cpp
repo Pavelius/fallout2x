@@ -132,7 +132,7 @@ void animable::setanimate(animate_s v) {
 	auto cicle = getframe(animate, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
 	if(pc && pc->count) {
-		if(frame < pc->start || frame >(pc->start + pc->count)) {
+		if(frame < pc->start || frame >= (pc->start + pc->count)) {
 			drawable::setanimate(pc->start, pc->count);
 			correctposition(this, ps, animate);
 		}
