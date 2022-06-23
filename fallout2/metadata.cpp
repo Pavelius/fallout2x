@@ -65,7 +65,8 @@ BSMETA(itemi::imagei) = {
 	{}};
 BSMETA(itemi::weaponi) = {
 	BSREQ(min), BSREQ(max),
-	BSENM(mode, actioni),
+	BSENM(mode1, actioni),
+	BSENM(mode2, actioni),
 	BSREQ(strenght),
 	BSENM(type, damagei),
 	BSREQ(ap), BSREQ(range),

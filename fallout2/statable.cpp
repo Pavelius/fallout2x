@@ -30,5 +30,7 @@ int	statable::getactionpoints(action_s v, const item& it) const {
 	auto& ai = bsdata<actioni>::elements[v];
 	if(ai.is(Aimed))
 		r++;
+	if(v == FireBurst)
+		r++;
 	return r;
 }

@@ -102,10 +102,10 @@ static void addaction(actiona& result, action_s v) {
 actiona item::getactions() const {
 	actiona result;
 	auto& ei = geti();
-	if(ei.weapon.mode[0]) {
-		addaction(result, ei.weapon.mode[0]);
-		if(ei.weapon.mode[1])
-			result.add(ei.weapon.mode[1]);
+	if(ei.weapon.mode1) {
+		addaction(result, ei.weapon.mode1);
+		if(ei.weapon.mode2)
+			addaction(result, ei.weapon.mode2);
 		if(ei.weapon.ammo && ammo_count < ei.weapon.ammo_count)
 			result.add(Reload);
 	} else

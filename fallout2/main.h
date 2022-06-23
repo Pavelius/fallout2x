@@ -207,7 +207,7 @@ struct itemi : nameable {
 		unsigned char	ammo_count;
 		unsigned char	burst;
 		short unsigned	critical_fail; // Number of critical failure table
-		action_s		mode[2];
+		action_s		mode1, mode2;
 	};
 	int					size, weight, cost;
 	imagei				avatar;

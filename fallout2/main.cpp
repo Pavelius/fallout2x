@@ -48,8 +48,8 @@ static void start() {
 	character::last->update();
 	//draw::scene(editor);
 	//draw::scene(adventure);
-	//draw::opendialog("CharacterGame");
-	test_animate();
+	draw::opendialog("CharacterGame");
+	//test_animate();
 }
 
 static void initialize() {
