@@ -1000,6 +1000,10 @@ static void action_number(int x, int y, int v) {
 	caret = push_caret;
 }
 
+static void next_action() {
+	character::last->nextaction();
+}
+
 static void action_item_button() {
 	auto ps = gres(res::INTRFACE);
 	auto pi = (item*)gui.data;
@@ -1019,16 +1023,18 @@ static void action_item_button() {
 		if(index > actions.getcount())
 			index = actions.getcount() - 1;
 		auto ac = actions.data[index];
-		auto ap = pi->geti().weapon.ap;
 		auto& ai = bsdata<actioni>::elements[ac];
 		image(caret.x + width - 30, caret.y + 16, ps, ps->ganim(ai.frame, current_tick), 0);
 		if(ai.is(Aimed))
 			image(caret.x + width - 10, caret.y + 36, ps, ps->ganim(288, current_tick), 0);
 		image(caret.x + 16, caret.y + 56, ps, ps->ganim(289, 0), 0);
+		auto ap = character::last->getactionpoints(ac, *pi);
 		action_number(30, 45, ap);
 		rectpush push;
 		setoffset(4, 4);
 		item_avatar();
+		if(a && hot.key == MouseRight && !hot.pressed)
+			execute(next_action);
 	}
 }
 

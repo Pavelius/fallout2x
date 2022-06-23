@@ -254,6 +254,7 @@ struct statable {
 	bool				iswoman() const { return false; }
 	void				load(const statable& v);
 	int					getplayerstats() const;
+	int					getactionpoints(action_s v, const item& it) const;
 	int					total(const list& source) const;
 };
 struct prototype : nameable, statable {
@@ -265,7 +266,11 @@ struct itemwear : item {
 };
 struct wearable : nameable, statable {
 	item				wear[LeftHandItem + 1];
+	char				action_index[2];
 	void				additem(item v);
+	actiona				getactions() const { return wear[RightHandItem].getactions(); }
+	void				nextaction() { action_index[0]++; updateaction(); }
+	void				updateaction();
 };
 struct itemlist : adat<item*, 256> {
 	void				select(const wearable* pv);
@@ -299,7 +304,6 @@ struct character : animable {
 	skilla				tags;
 	int					experience;
 	specie_s			species;
-	char				action_index[2];
 	static character*	last;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }

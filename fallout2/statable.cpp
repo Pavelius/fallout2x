@@ -22,3 +22,13 @@ int	statable::total(const statable::list& source) const {
 int	statable::getplayerstats() const {
 	return 40 - total(primary_list);
 }
+
+int	statable::getactionpoints(action_s v, const item& it) const {
+	auto r = it.geti().weapon.ap;
+	if(!r)
+		r = 3;
+	auto& ai = bsdata<actioni>::elements[v];
+	if(ai.is(Aimed))
+		r++;
+	return r;
+}
