@@ -166,9 +166,6 @@
     <ClCompile Include="terrain.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="animable.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
     <ClCompile Include="anminfo.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -225,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="draw_textf.cpp">
       <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="animable.cpp">
+      <Filter>draw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

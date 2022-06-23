@@ -117,6 +117,7 @@ static void game_exit() {
 }
 
 static void change_weapon() {
+	character::last->changeweapon();
 }
 
 BSDATA(command) = {

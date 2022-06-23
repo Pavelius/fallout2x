@@ -1044,6 +1044,14 @@ static void action_button() {
 	action_item_button();
 }
 
+void paint_animation() {
+	auto push_clip = clipping;
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	redraw_floor();
+	paint_drawables();
+	clipping = push_clip;
+}
+
 static void paint_game() {
 	auto push_clip = clipping;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);

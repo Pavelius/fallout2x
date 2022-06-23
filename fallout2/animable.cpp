@@ -1,3 +1,4 @@
+#include "dialog.h"
 #include "draw.h"
 #include "main.h"
 
@@ -15,8 +16,8 @@ BSDATA(animationi) = {
 	{"AnimateUnarmed2"},
 	{"AnimateThrown"},
 	{"AnimateRun"},
-	{"AnimateKnockOutBack", AnimateDeadBackNoBlood, AnimateBloodedBack},
-	{"AnimateKnockOutForward", AnimateDeadForwardNoBlood, AnimateBloodedForward},
+	{"AnimateKnockOutBack", AnimateDeadBackNoBlood},
+	{"AnimateKnockOutForward", AnimateDeadForwardNoBlood},
 	{"AnimateKilledSingle", AnimateDeadSingle},
 	{"AnimateKilledBurst", AnimateDeadBurst},
 	{"AnimateKilledBurstAuto", AnimateDeadBurstAuto},
@@ -51,9 +52,13 @@ BSDATA(animationi) = {
 };
 assert_enum(animationi, AnimateWeaponAimEnd)
 
+static bool need_stop;
+
 static bool isweaponanimate(animate_s v) {
 	return v >= FirstWeaponAnimate;
 }
+
+static animable* last_wait;
 
 res	animable::getlook() const {
 	if(wear[BodyArmor]) {
@@ -106,6 +111,13 @@ static void correctposition(drawable* pd, const sprite* ps, animate_s a) {
 	}
 }
 
+int animable::getdelay() const {
+	auto pi = anminfo::get(getlook());
+	if(pi && pi->fps)
+		return 1000 / pi->fps;
+	return 1000 / 10;
+}
+
 void animable::setanimate(animate_s v) {
 	animate = v;
 	auto ps = gres(getlook());
@@ -113,10 +125,13 @@ void animable::setanimate(animate_s v) {
 		return;
 	auto cicle = getframe(animate, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
-	if(!pc || !pc->count)
-		return;
-	drawable::setanimate(pc->start, pc->count);
-	correctposition(this, ps, animate);
+	if(pc && pc->count) {
+		if(frame < pc->start || frame >(pc->start + pc->count)) {
+			drawable::setanimate(pc->start, pc->count);
+			correctposition(this, ps, animate);
+		}
+	}
+	timer = getdelay();
 }
 
 void animable::appear(point h) {
@@ -145,12 +160,17 @@ short animable::getframe(direction_s d) {
 	}
 }
 
+void animable::clearanimate() {
+	setanimate(AnimateStand);
+	timer += xrand(3, 7) * 1000;
+}
+
 void animable::nextanimate() {
-	switch(animate) {
-	case AnimateStand:
-		timer += xrand(3, 7) * 1000;
-		break;
-	}
+	auto& ei = bsdata<animationi>::elements[animate];
+	if(ei.next)
+		setanimate(ei.next);
+	else if(animate == AnimateStand)
+		clearanimate();
 }
 
 int	animable::getweaponindex() const {
@@ -181,12 +201,14 @@ void animable::updateframe() {
 			frame = frame_start;
 		}
 	}
-	if(next_action)
+	if(next_action) {
 		nextanimate();
+		if(last_wait == this)
+			need_stop = true;
+	}
 }
 
 void update_animation() {
-	const int fps = 150;
 	static unsigned long last_tick;
 	if(!last_tick)
 		last_tick = current_tick;
@@ -200,7 +222,36 @@ void update_animation() {
 		e.timer -= d;
 		if(e.timer > 0)
 			continue;
-		e.timer += fps;
+		e.timer += e.getdelay();
 		e.updateframe();
 	}
+}
+
+void paint_animation();
+
+void animable::wait() {
+	auto push_last = last_wait;
+	last_wait = this;
+	need_stop = false;
+	while(!need_stop && ismodal()) {
+		height = 381;
+		paint_animation();
+		cursor.position = hot.mouse;
+		cursor.set(res::INTRFACE, 295);
+		cursor.paint();
+		doredraw();
+		update_animation();
+		waitcputime(1);
+	}
+	last_wait = push_last;
+}
+
+void animable::changeweapon() {
+	setanimate(AnimateWeaponTakeOff);
+	wait();
+	iswap(wear[LeftHandItem], wear[RightHandItem]);
+	iswap(action_index[0], action_index[1]);
+	setanimate(AnimateWeaponTakeOn);
+	wait();
+	clearanimate();
 }

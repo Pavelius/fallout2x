@@ -152,7 +152,7 @@ struct objectfi : lighti {
 struct directioni : nameable {
 };
 struct animationi : nameable {
-	animate_s			next, next_dead;
+	animate_s			next;
 };
 struct materiali : nameable {
 };
@@ -285,9 +285,13 @@ struct animable : wearable, spriteable {
 	res					naked;
 	animate_s			animate;
 	direction_s			direction;
+	static animable*	last;
 	void				appear(point h);
+	void				clearanimate();
+	void				changeweapon();
 	void				focusing() const;
 	static animate_s	getbase(animate_s v, int* w);
+	int					getdelay() const;
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
@@ -295,8 +299,8 @@ struct animable : wearable, spriteable {
 	void				nextanimate();
 	void				paint() const;
 	void				setanimate(animate_s v);
-	static void			updateui();
 	void				updateframe();
+	void				wait();
 };
 struct character : animable {
 	statable			basic;
