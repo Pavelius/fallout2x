@@ -165,7 +165,8 @@ struct materiali : nameable {
 struct list : nameable {
 	variants			elements;
 };
-struct stati : nameable {
+struct stati {
+	const char*			id;
 	int					avatar;
 	variants			formula;
 	short				minimum, maximum;

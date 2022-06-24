@@ -1,2 +1,20 @@
-﻿In file `rules/Items.txt`:
- Line 133: Expected symbol `(`
+﻿In file `rules/Basic.txt`:
+ Line 12: Can't find variant `Strenght`
+ Line 21: Can't find variant `Strenght`
+ Line 25: Can't find variant `Strenght`
+ Line 67: Can't find variant `Strenght`
+ Line 67: Can't find variant `Strenght`
+ Line 69: Can't find variant `Strenght`
+ Line 69: Can't find variant `Strenght`
+ Line 103: Can't find variant `Strenght`
+In file `rules/Perks.txt`:
+ Line 6: Can't find variant `Strenght`
+ Line 8: Can't find variant `Strenght`
+ Line 28: Can't find variant `Strenght`
+In file `rules/Prototype.txt`:
+ Line 4: Not found field `Strenght` in dataset `stats`
+In file `forms/CharacterGenerator.txt`:
+ Line 20: Can't find variant `Strenght`
+ Line 21: Can't find variant `Strenght`
+ Line 22: Can't find variant `Strenght`
+ Line 23: Can't find variant `Strenght`

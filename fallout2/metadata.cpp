@@ -22,7 +22,6 @@ BSDATAC(itemwear, 4096)
 BSDATAC(list, 128)
 BSDATAC(perki, 256)
 BSDATAC(prototype, 32)
-BSDATAC(stati, 64)
 BSDATAC(terrain, 16)
 BSDATAD(variant)
 
