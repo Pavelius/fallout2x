@@ -13,6 +13,7 @@ enum direction_s : unsigned char {
 class areai {
 	unsigned short		floor[mps * mps];
 	unsigned short		roof[mps * mps];
+	unsigned char		blocks[mps * mps / 8];
 public:
 	void				clear();
 	unsigned short		getfloor(indext i) const { return floor[i]; }

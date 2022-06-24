@@ -32,7 +32,8 @@ enum stat_s : unsigned char {
 	Science, Repair, Speech, Barter, Gambling, Outdoorsman
 };
 enum perk_s : unsigned char {
-
+	FastMetabolism, Bruiser, SmallFrame, OneHanded, Finesse, Kamikaze, HeavyHanded, FastShoot,
+	BloodyMess, Jinxed, GoodNatured, ChemReliant, ChemResistant, SexAppeal, Skilled, Gifted
 };
 enum wear_s : unsigned char {
 	BodyArmor, RightHandItem, LeftHandItem, Backpack,
@@ -331,6 +332,7 @@ struct character : animable {
 	int					getperkstotal() const;
 	int					gettaggedskills() const;
 	bool				istagged(valuet v) const;
+	bool				is(perk_s v) const { return perks.is(v); }
 	static void			initialize();
 	void				read(const char* id);
 	void				set(stat_s v, int i) { stats[v] = i; }

@@ -37,7 +37,9 @@ static void put(item& it, item& itv) {
 
 void item::transfer(item& i1, item& i2) {
 	auto dest_slot = i2.getownerslot();
-	if(!isallow(dest_slot))
+	if(&i1 == &i2)
+		i1 = *this;
+	else if(!isallow(dest_slot))
 		i1 = *this;
 	else if(dest_slot==Backpack)
 		putbackpack(i2, *this);

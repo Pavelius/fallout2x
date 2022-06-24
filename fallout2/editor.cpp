@@ -10,6 +10,7 @@ static array* choose_source;
 const void* current_tool;
 static bool show_tile_index = false;
 static int list_origin;
+static point border[2];
 
 extern indext current_hexagon;
 
@@ -603,11 +604,47 @@ static void set_hexagon_position() {
 
 void update_animation();
 
+static void place_rect() {
+}
+
+static void correct(point& p1, point& p2) {
+	if(p2.x < p1.x)
+		iswap(p2.x, p1.x);
+	if(p2.y < p1.y)
+		iswap(p2.y, p1.y);
+}
+
+static void draw_choosed_rect() {
+	if(!hot.pressed)
+		return;
+	if(hot.key==MouseLeft && hot.pressed)
+		border[0] = s2h(hot.mouse + camera);
+	if(hot.pressed)
+		border[1] = s2h(hot.mouse + camera);
+	if(border[0] == border[1])
+		return;
+	correct(border[0], border[1]);
+	if(hot.key == MouseLeft && !hot.pressed)
+		execute(place_rect);
+	auto push_caret = caret;
+	caret = h2s(border[0]) - camera;
+	auto p2 = h2s({border[1].x, border[0].y}) - camera;
+	line(p2.x, p2.y);
+	auto p3 = h2s({border[1].x, border[1].y}) - camera;
+	line(p3.x, p3.y);
+	auto p4 = h2s({border[0].x, border[1].y}) - camera;
+	line(p4.x, p4.y);
+	auto p5 = h2s({border[0].x, border[0].y}) - camera;
+	line(p5.x, p5.y);
+	caret = push_caret;
+}
+
 void editor() {
 	update_animation();
 	set_hexagon_position();
 	control_map();
 	redraw_floor();
+	draw_choosed_rect();
 	redraw_hexagon();
 	paint_drawables();
 	redraw_select_tool();
