@@ -16,7 +16,7 @@ const int tile_width = 80; // Width of isometric tile
 const int tile_height = 36; // Height of isometric tile
 
 enum stat_s : unsigned char {
-	Strenght, Perception, Endurance, Charisma, Intellegence, Agility, Luck,
+	Strenght, Perception, Endurance, Charisma, Intelligence, Agility, Luck,
 	HP, HPCur, AP, APCur, AC,
 	DamageMelee, EnemyDamageResistance, DamageResistance, CarryWeight,
 	CriticalHit, CriticalHitTable,
@@ -30,6 +30,9 @@ enum stat_s : unsigned char {
 	FirstAid, Doctor,
 	Sneak, Lockpick, Steal, Traps,
 	Science, Repair, Speech, Barter, Gambling, Outdoorsman
+};
+enum perk_s : unsigned char {
+
 };
 enum wear_s : unsigned char {
 	BodyArmor, RightHandItem, LeftHandItem, Backpack,

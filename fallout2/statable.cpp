@@ -5,7 +5,7 @@ BSDATA(stati) = {
 	{"Perception"},
 	{"Endurance"},
 	{"Charisma"},
-	{"Intellegence"},
+	{"Intelligence"},
 	{"Agility"},
 	{"Luck"},
 	{"HP"},
