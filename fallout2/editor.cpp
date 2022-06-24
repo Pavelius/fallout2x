@@ -604,9 +604,6 @@ static void set_hexagon_position() {
 
 void update_animation();
 
-static void place_rect() {
-}
-
 static void correct(point& p1, point& p2) {
 	if(p2.x < p1.x)
 		iswap(p2.x, p1.x);
@@ -614,7 +611,21 @@ static void correct(point& p1, point& p2) {
 		iswap(p2.y, p1.y);
 }
 
+static void place_rect() {
+	correct(border[0], border[1]);
+	auto push_hex = current_hexagon;
+	for(short y = border[0].y; y < border[1].y; y++) {
+		for(short x = border[0].x; x < border[1].x; x++) {
+			current_hexagon = h2i({x, y});
+			place_tool();
+		}
+	}
+	current_hexagon = push_hex;
+}
+
 static void draw_choosed_rect() {
+	if(hot.key == MouseLeft && !hot.pressed)
+		execute(place_rect, 0, 0, current_tool);
 	if(!hot.pressed)
 		return;
 	if(hot.key==MouseLeft && hot.pressed)
@@ -623,9 +634,6 @@ static void draw_choosed_rect() {
 		border[1] = s2h(hot.mouse + camera);
 	if(border[0] == border[1])
 		return;
-	correct(border[0], border[1]);
-	if(hot.key == MouseLeft && !hot.pressed)
-		execute(place_rect);
 	auto push_caret = caret;
 	caret = h2s(border[0]) - camera;
 	auto p2 = h2s({border[1].x, border[0].y}) - camera;
