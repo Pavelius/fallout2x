@@ -16,12 +16,15 @@ N10mmPistol size(2) weight(3) cost(250) avatar(4 34 5) material(Metal) use(Small
 
 Sledgehammer size(4) weight(12) cost(120) avatar(5 40 3) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(4) max(9) strenght(6) type(Phisycal) ap(4) range(2) critical_fail(1)
+ flags TwoHanded
 
 Minigun size(6) weight(28) cost(3800) avatar(6 31 9) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(7) max(11) strenght(7) type(Phisycal) ap(6) range(35) ammo_count(120) burst(40) critical_fail(2)
+ flags TwoHanded
 
-RocketLauncher size(6) weight(15) cost(2300) avatar(7 37 10) material(Metal) use(SmallGuns)
+RocketLauncher size(6) weight(15) cost(2300) avatar(7 37 10) material(Metal) use(BigGuns)
  weapon mode1(FireSingle) min(35) max(100) strenght(6) type(Explosive) ap(6) range(40) ammo_count(1) critical_fail(5)
+ flags TwoHanded
 
 ExplosiveRocket weight(3) cost(200) avatar(28 38) material(Metal)
  ammo count(1) dr(-25)
@@ -29,11 +32,13 @@ ExplosiveRocket weight(3) cost(200) avatar(28 38) material(Metal)
 Club size(2) weight(3) cost(30) avatar(9 16 2) material(Wood) use(MeleeWeapon)
  weapon mode1(Swing) min(1) max(6) strenght(3) type(Phisycal) ap(3) range(1) critical_fail(1)
 
-Flamer size(6) weight(18) cost(2000) avatar(10 24 8) material(Metal) use(SmallGuns)
+Flamer size(6) weight(18) cost(2000) avatar(10 24 8) material(Metal) use(BigGuns)
  weapon min(45) max(90) strenght(6) type(Fire) ap(6) range(5) ammo_count(5) burst(1) critical_fail(6)
+ flags TwoHanded
 
 HuntingRifle size(4) weight(9) cost(1000) avatar(23 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(8) max(20) strenght(5) type(Phisycal) ap(5) range(40) ammo_count(10) critical_fail(2)
+ flags TwoHanded
 
 Knife size(1) weight(1) cost(40) avatar(96 28 1) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(1) max(6) strenght(2) type(Phisycal) ap(3) range(1) critical_fail(1)
@@ -46,6 +51,7 @@ PowerArmor size(15) weight(85) cost(12500) avatar(15 35) material(Metal)
 
 PlasmaRifle size(5) weight(12) cost(4000) avatar(14 24 8) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(30) max(65) strenght(6) type(Plasma) ap(5) range(25) ammo_count(10) critical_fail(3)
+ flags TwoHanded
 
 LaserPistol size(2) weight(4) cost(1400) avatar(21 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(10) max(22) strenght(3) type(Laser) ap(5) range(35) ammo_count(12) critical_fail(3)
@@ -56,7 +62,7 @@ CombatArmor size(10) weight(20) cost(6500) avatar(16 17) material(Metal)
 DesertEagle44 size(2) weight(4) cost(800) avatar(18 34 5) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(10) max(16) strenght(4) type(Phisycal) ap(5) range(25) ammo_count(8) critical_fail(2)
 
-Rock size(1) weight(1) avatar(17 53) material(Stone) use(BigGuns)
+Rock size(1) weight(1) avatar(17 53) material(Stone) use(Throwing)
  weapon mode1(Throw) mode2(ThrowPunch) min(1) max(4) strenght(1) type(Phisycal) ap(4) range(15) critical_fail(1)
 
 Crowbar size(3) weight(5) cost(65) avatar(19 16 2) material(Metal) use(MeleeWeapon)
@@ -70,21 +76,23 @@ N14mmPistol size(3) weight(4) cost(1100) avatar(22 44 6) material(Metal) use(Sma
 
 AssaultRifle size(5) weight(7) cost(1300) avatar(11 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(8) max(16) strenght(5) type(Phisycal) ap(5) range(45) ammo_count(24) burst(8) critical_fail(2)
+ flags TwoHanded
 
 PlasmaPistol size(2) weight(4) cost(2750) avatar(24 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(15) max(35) strenght(4) type(Plasma) ap(5) range(20) ammo_count(16) critical_fail(3)
 
-GrenadeFrag size(1) weight(1) cost(150) avatar(25 122) material(Metal) use(BigGuns)
+GrenadeFrag size(1) weight(1) cost(150) avatar(25 122) material(Metal) use(Throwing)
  weapon mode1(Throw) min(20) max(35) strenght(3) type(Explosive) ap(4) range(15) critical_fail(4)
 
 GrenadePlasma size(1) weight(1) cost(300) avatar(26 122) material(Metal) use(EnergyWeapon)
  weapon mode1(Throw) min(40) max(90) strenght(4) type(Plasma) ap(4) range(15) critical_fail(4)
 
-GrenadePulse size(1) weight(1) cost(250) avatar(27 122) material(Metal) use(BigGuns)
+GrenadePulse size(1) weight(1) cost(250) avatar(27 122) material(Metal) use(Throwing)
  weapon mode1(Throw) min(100) max(150) strenght(4) type(EMP) ap(4) range(15) critical_fail(4)
 
 GatlingLaser size(6) weight(24) cost(7500) avatar(41 31 9) material(Metal) use(EnergyWeapon)
  weapon mode1(FireBurst) min(20) max(40) strenght(6) type(Laser) ap(6) range(40) ammo_count(30) burst(10) critical_fail(3)
+ flags TwoHanded
 
 N10mmJHP weight(1) cost(75) avatar(31 1) material(Metal)
  ammo count(24) dr(25) dam_bonus(200)
@@ -120,27 +128,54 @@ MicroFusionCell weight(5) cost(1000) avatar(37 4) material(Metal)
  ammo count(50)
 
 Stimpak cost(175) avatar(115 15) material(Metal)
+
 Money cost(1) avatar(40 3) material(Metal)
 
+
 IceChest size(1) weight(30) avatar(50 27) material(Metal)
+ flags Usable
+
 IceChest size(1) weight(30) avatar(50 26) material(Metal)
-ThrowingKnife size(1) weight(1) cost(100) avatar(78 28 1) material(Metal) use(BigGuns)
+ flags Usable
+
+ThrowingKnife size(1) weight(1) cost(100) avatar(78 28 1) material(Metal) use(Throwing)
  weapon mode1(Throw) mode2(Swing) min(3) max(6) strenght(3) type(Phisycal) ap(5) range(16) critical_fail(1)
 
 Bag weight(3) cost(25) avatar(138 3) material(Leather)
+ flags Usable
+
 FirstAidKit size(1) weight(2) cost(200) avatar(42 15) material(Metal)
+
 RadAway cost(500) avatar(48 15) material(Plastic)
+
 Antidote weight(1) cost(50) avatar(44 15) material(Metal)
+
 ReservedItem size(1) weight(10) avatar(45 173) material(Metal)
+
 Dynamite size(1) weight(5) cost(500) avatar(46 23) material(Metal)
+ flags Usable
+
 GeigerCounter size(1) weight(4) cost(650) avatar(47 121) material(Metal)
+ flags Usable
+
 Mentats cost(280) avatar(72 15) material(Metal)
+
 StealthBoy size(1) weight(3) cost(1800) avatar(49 14) material(Metal)
+ flags Usable
+
 WaterChip size(1) weight(2) cost(1) avatar(84 48) material(Metal)
+
 DogTags size(1) cost(50) avatar(73 41) material(Metal)
+
 Bug size(1) weight(2) cost(50) avatar(53 41) material(Metal)
+ flags Usable UsableOnSomething
+
 Tape size(1) weight(4) cost(40) avatar(75 14) material(Metal)
+ flags Usable
+
 MotionSensor size(1) weight(7) cost(800) avatar(67 123) material(Metal)
+ flags Usable
+
 
 
 
@@ -153,72 +188,124 @@ MotionSensor size(1) weight(7) cost(800) avatar(67 123) material(Metal)
 
 
 Fruit weight(1) cost(10) avatar(61 14) material(Wood)
+
 Briefcase size(1) weight(5) cost(35) avatar(52 5) material(Leather)
+
 BigBookOfScience weight(5) cost(400) avatar(88 13) material(Wood)
+ flags Usable
+
 LeatherJacket size(7) weight(5) cost(250) avatar(77 30) material(Leather)
  armor ac(8) male(HMMAXX) female(HFMAXX) threshold(0 0 0 0 0 0 0) resistance(20 20 10 10 30 0 20)
 
 Tool size(1) weight(1) cost(200) avatar(54 41) material(Metal)
+
 DeansElectronics size(1) weight(2) cost(130) avatar(55 13) material(Wood)
+ flags Usable
+
 ElectronicLockpick size(1) weight(2) cost(375) avatar(57 118) material(Metal)
+
 FuzzyPainting size(1) weight(12) cost(300) avatar(58 119) material(Metal)
-Flare size(1) weight(1) cost(35) avatar(59 46) material(Metal) use(BigGuns)
+
+Flare size(1) weight(1) cost(35) avatar(59 46) material(Metal) use(Throwing)
  weapon mode1(Throw) min(1) max(1) type(Phisycal) range(15)
+ flags Usable
 
 FirstAidBook size(1) weight(2) cost(175) avatar(60 13) material(Metal)
+ flags Usable
+
 IguanaOnAStick weight(1) cost(20) avatar(62 41) material(Leather)
+
 Key size(1) cost(4) avatar(63 41) material(Metal)
+
 KeyRing cost(4) avatar(64 41) material(Metal)
+
 Lockpicks size(1) weight(1) cost(150) avatar(66 41) material(Metal)
+
 PlasticExplosives size(1) weight(4) cost(850) avatar(70 125) material(Metal)
+ flags Usable
+
 ScoutHandbook size(1) weight(3) cost(200) avatar(71 13) material(Wood)
+ flags Usable
+
 Buffout cost(200) avatar(45 15) material(Metal)
+
 Watch size(1) weight(1) avatar(306 173) material(Metal)
+
 Motor size(1) weight(14) cost(210) avatar(68 32) material(Metal)
+
 BackPack weight(5) cost(100) avatar(69 2) material(Leather)
+ flags Usable
+
 DoctorBag size(1) weight(5) cost(300) avatar(56 117) material(Leather)
+
 ScorpionTail size(1) weight(20) cost(10) avatar(90 39) material(Metal)
+
 Bag weight(3) cost(25) avatar(138 3) material(Leather)
+ flags Usable
+
 Shotgun size(3) weight(5) cost(800) avatar(95 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(12) max(22) strenght(4) type(Phisycal) ap(5) range(14) ammo_count(2) burst(2) critical_fail(2)
+ flags TwoHanded
 
 N12GaShotgunShells weight(1) cost(225) avatar(91 1) material(Metal)
  ammo count(20) ac(10)
 
 RedPassKey size(1) weight(1) cost(10) avatar(79 41) material(Plastic)
+
 BluePassKey size(1) weight(1) cost(10) avatar(80 41) material(Plastic)
+
 Junk size(1) weight(12) cost(40) avatar(81 49) material(Metal)
+
 GoldLocket size(1) weight(1) cost(400) avatar(82 41) material(Metal)
+
 Radio size(1) weight(6) cost(350) avatar(83 6) material(Metal)
+ flags Usable
+
 Lighter size(1) cost(100) avatar(85 41) material(Metal)
+
 GunsAndBullets size(1) weight(2) cost(425) avatar(86 13) material(Leather)
+ flags Usable
+
 IguanaOnAStick weight(1) cost(8) avatar(87 41) material(Leather)
+
 TapeRecorder size(1) weight(5) cost(80) avatar(89 14) material(Metal)
+ flags Usable
+
 Key cost(25) avatar(94 41) material(Metal)
+
 NukaCola cost(3) avatar(93 116) material(Metal)
 
 
+
 RadX cost(300) avatar(43 15) material(Metal)
+
 Psycho cost(400) avatar(92 15) material(Metal)
+
 N44MagnumFMJ weight(2) cost(50) avatar(33 1) material(Metal)
  ammo count(20) dr(-20)
 
 Urn weight(6) cost(130) avatar(97 127) material(Metal)
+
 Robes size(8) weight(10) cost(90) avatar(98 52) material(Leather)
  armor ac(5) male(HAROBE) female(HAROBE) threshold(0 0 0 0 0 0 0) resistance(20 25 10 10 40 0 20)
 
 TanglerHand size(1) weight(3) cost(200) avatar(99 128) material(Metal)
+
 SuperSledge size(4) weight(12) cost(3750) avatar(100 40 3) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(18) max(36) strenght(5) type(Phisycal) ap(3) range(2) critical_fail(1)
+ flags TwoHanded
 
 Ripper size(2) weight(2) cost(900) avatar(102 28 1) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(15) max(32) strenght(4) type(Phisycal) ap(4) range(1) ammo_count(30) critical_fail(1)
 
 Flower size(1) weight(1) cost(5) avatar(101 120) material(Metal)
+
 LaserRifle size(5) weight(12) cost(5000) avatar(103 24 8) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(25) max(50) strenght(6) type(Laser) ap(5) range(45) ammo_count(12) burst(2) critical_fail(3)
+ flags TwoHanded
 
 Necklace size(1) weight(2) cost(700) avatar(104 41) material(Glass)
+
 AlienBlaster size(2) weight(2) cost(10000) avatar(105 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(30) max(90) strenght(2) type(Electrical) ap(4) range(10) ammo_count(30) critical_fail(3)
 
@@ -229,9 +316,13 @@ N9mmMauser size(2) weight(3) cost(1500) avatar(107 34 5) material(Metal) use(Sma
  weapon mode1(FireSingle) min(5) max(10) strenght(3) type(Phisycal) ap(4) range(22) ammo_count(7) critical_fail(2)
 
 PsychicNullifier size(1) weight(3) cost(1000) avatar(108 14) material(Metal)
+
 Beer size(1) cost(5) avatar(117 116) material(Glass)
+
 Booze size(1) weight(1) cost(10) avatar(121 116) material(Glass)
+
 WaterFlask size(1) weight(2) cost(25) avatar(109 41) material(Metal)
+
 Rope size(1) weight(10) cost(25) avatar(110 126) material(Leather)
 
 
@@ -245,11 +336,16 @@ Rope size(1) weight(10) cost(25) avatar(110 126) material(Leather)
 
 
 
+
 AccessCard size(1) weight(1) cost(25) avatar(111 41) material(Metal)
+
 COCBadge size(1) weight(1) cost(400) avatar(112 41) material(Metal)
+
 COCBadge size(1) weight(1) cost(12) avatar(113 41) material(Metal)
+
 SniperRifle size(5) weight(8) cost(2200) avatar(114 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(14) max(34) strenght(5) type(Phisycal) ap(6) range(50) ammo_count(6) critical_fail(2)
+ flags TwoHanded
 
 SuperStimpak size(1) weight(1) cost(350) avatar(29 15) material(Metal)
 
@@ -266,7 +362,8 @@ SuperStimpak size(1) weight(1) cost(350) avatar(29 15) material(Metal)
 
 
 
-MolotovCocktail size(1) weight(1) cost(50) avatar(118 116) material(Metal) use(BigGuns)
+
+MolotovCocktail size(1) weight(1) cost(50) avatar(118 116) material(Metal) use(Throwing)
  weapon mode1(Throw) min(8) max(20) strenght(3) type(Explosive) ap(5) range(12) critical_fail(4)
 
 CattleProd size(2) weight(3) cost(600) avatar(129 16 2) material(Metal) use(MeleeWeapon)
@@ -274,14 +371,18 @@ CattleProd size(2) weight(3) cost(600) avatar(129 16 2) material(Metal) use(Mele
 
 RedRyderBBGun size(4) weight(5) cost(200) avatar(119 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(1) max(3) strenght(3) type(Phisycal) ap(5) range(22) ammo_count(100) critical_fail(2)
+ flags TwoHanded
 
 RedRyderLEBBGun size(4) weight(5) cost(3500) avatar(120 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(25) max(25) strenght(3) type(Phisycal) ap(4) range(32) ammo_count(100) critical_fail(2)
+ flags TwoHanded
 
 BB size(1) weight(2) cost(20) avatar(116 1) material(Metal)
  ammo count(20)
 
 BrotherhoodTape size(1) weight(1) cost(70) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 
 
 
@@ -308,12 +409,25 @@ BrotherhoodTape size(1) weight(1) cost(70) avatar(75 41) material(Metal)
 
 
 FEVDisk size(1) weight(1) cost(200) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 SecurityDisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 AlphaExperimentDisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 DeltaExperimentDisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 VreeExperimentDisk size(1) weight(1) cost(75) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 BrotherhoodHonorCode size(1) weight(1) cost(50) avatar(0 173) material(Metal)
+ flags Usable UsableOnSomething
+
 MutantTransmissions size(1) weight(1) cost(125) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
 
 
 
@@ -322,40 +436,78 @@ MutantTransmissions size(1) weight(1) cost(125) avatar(75 41) material(Metal)
 
 
 
-Flare size(1) weight(1) cost(60) avatar(123 46) material(Metal) use(BigGuns)
+
+Flare size(1) weight(1) cost(60) avatar(123 46) material(Metal) use(Throwing)
  weapon mode1(Throw) min(1) max(1) type(Phisycal) range(15)
+ flags Usable
 
 Dynamite size(1) weight(5) cost(500) avatar(122 23) material(Metal)
+ flags Usable
+
 GeigerCounter size(1) weight(4) cost(650) avatar(124 121) material(Metal)
+ flags Usable
+
 MotionSensor size(1) weight(7) cost(800) avatar(125 123) material(Metal)
+ flags Usable
+
 PlasticExplosives size(1) weight(4) cost(850) avatar(126 125) material(Metal)
+ flags Usable
+
 StealthBoy size(1) weight(3) cost(1800) avatar(127 14) material(Metal)
+ flags Usable
+
 
 Tandi size(1) weight(10) cost(600) avatar(128 173) material(Leather)
 
 
+
 BrotherhoodHistory size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MaxsonHistory size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MaxsonJournal size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 LightHealing size(1) cost(25) avatar(306 173) material(Metal)
+
 MediumHealing size(1) cost(50) avatar(306 173) material(Metal)
+
 HeavyHealing size(1) cost(100) avatar(306 173) material(Metal)
+
 SecurityCard size(1) cost(40) avatar(130 41) material(Metal)
+
 FieldSwitch size(1) weight(1) avatar(131 41) material(Metal)
+ flags Usable
+
 YellowPassKey size(1) cost(40) avatar(132 41) material(Plastic)
+
 SmallStatuette size(1) weight(3) cost(300) avatar(133 6) material(Wood)
+
 CatPawMagazine size(1) weight(1) cost(5) avatar(134 13) material(Leather)
+
 BoxOfNoodles size(1) weight(1) cost(35) avatar(135 41) material(Wood)
+
 SmallDustyBoxOfSomeSort size(1) weight(2) cost(20) avatar(136 41) material(Metal)
+
 TechnicalManual size(1) weight(2) cost(200) avatar(137 13) material(Metal)
+ flags Usable
+
 SmallPieceOfMachinery size(1) weight(1) cost(150) avatar(139 41) material(Metal)
+
 VaultRecords size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable
+
 MilitaryBaseSecurityCode size(1) weight(1) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 HardenedPowerArmor size(15) weight(100) cost(15000) avatar(15 35) material(Metal)
  armor ac(25) male(HAPOWR) female(HAPOWR) threshold(13 19 14 13 13 0 20) resistance(50 90 70 50 50 505 60)
 
 TurboPlasmaRifle size(5) weight(14) cost(10000) avatar(143 24 8) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(35) max(70) strenght(6) type(Plasma) ap(5) range(35) ammo_count(10) burst(1) critical_fail(3)
+ flags TwoHanded
 
 SpikedKnuckles size(2) weight(1) cost(250) avatar(20 47) material(Metal) use(MeleeWeapon)
  weapon mode1(ThrowPunch) min(4) max(10) strenght(1) type(Phisycal) ap(3) range(1)
@@ -367,7 +519,10 @@ CombatKnife size(2) weight(2) cost(165) avatar(142 28 1) material(Metal) use(Mel
  weapon mode1(Swing) mode2(Thrust) min(3) max(10) strenght(2) type(Phisycal) ap(3) range(1) critical_fail(1)
 
 ChemistryJournals size(1) weight(5) cost(100) avatar(88 13) material(Metal)
+
 RegulatorTransmission size(1) weight(1) cost(25) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 BrotherhoodArmor size(11) weight(25) cost(4800) avatar(144 17) material(Metal)
  armor ac(20) male(HMCMBT) female(HFCMBT) threshold(8 8 7 7 6 0 8) resistance(40 70 50 60 60 0 40)
 
@@ -379,6 +534,7 @@ N223Pistol size(4) weight(5) cost(3500) avatar(146 44 6) material(Metal) use(Sma
 
 CombatShotgun size(5) weight(10) cost(2750) avatar(147 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(15) max(25) strenght(5) type(Phisycal) ap(5) range(22) ammo_count(12) burst(3) critical_fail(2)
+ flags TwoHanded
 
 
 
@@ -389,60 +545,97 @@ CombatShotgun size(5) weight(10) cost(2750) avatar(147 36 7) material(Metal) use
 
 
 AnnaBones size(1) weight(10) avatar(148 136) material(Stone)
+
 AnnaGoldLocket size(1) weight(1) avatar(149 41) material(Metal)
+
 FuelCellController size(1) weight(5) avatar(150 6) material(Metal)
+
 FuelCellRegulator size(1) weight(5) avatar(151 14) material(Metal)
+
 DayPass size(1) weight(1) avatar(152 41) material(Leather)
+
 FalseCitizenshipPapers size(1) weight(1) avatar(153 41) material(Metal)
+
 CorneliusGoldWatch size(1) weight(1) avatar(154 41) material(Metal)
+
 HydroelectricPart size(2) weight(10) avatar(155 14) material(Metal)
+
 Jet size(1) cost(25) avatar(156 15) material(Metal)
+
 JetAntidote size(1) cost(25) avatar(157 15) material(Metal)
+
 JonnyBBGun size(4) weight(5) cost(200) avatar(158 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(1) max(3) strenght(3) type(Phisycal) ap(5) range(22) ammo_count(100) critical_fail(2)
+ flags TwoHanded
 
 RubberBoots size(1) weight(2) avatar(159 6) material(Plastic)
+
 SlagMessage size(1) weight(1) avatar(160 41) material(Metal)
+
 SmithCoolItem size(1) weight(1) avatar(161 41) material(Metal)
+
 CombatLeatherJacket size(7) weight(7) cost(1000) avatar(162 30) material(Leather)
  armor ac(18) male(HMMAXX) female(HFMAXX) threshold(2 0 2 0 0 0 0) resistance(30 20 25 10 30 0 20)
 
 VicRadio size(1) weight(5) cost(50) avatar(163 14) material(Metal)
+
 VicWaterFlask size(1) weight(2) avatar(164 41) material(Metal)
+
 HKCAWS size(3) weight(5) cost(4750) avatar(165 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(15) max(25) strenght(6) type(Phisycal) ap(5) range(30) ammo_count(10) burst(5) critical_fail(2)
+ flags TwoHanded
 
 RobotParts size(1) weight(300) avatar(166 6) material(Metal)
-RoboRocketLauncher size(1) weight(1) avatar(167 137 10) material(Metal) use(SmallGuns)
+
+RoboRocketLauncher size(1) weight(1) avatar(167 137 10) material(Metal) use(BigGuns)
  weapon mode1(FireSingle) min(10) max(30) strenght(1) type(Explosive) ap(3) range(30) ammo_count(6) critical_fail(5)
+ flags TwoHanded
 
 BrocFlower cost(1) avatar(168 139) material(Metal)
+
 XanderRoot cost(2) avatar(169 140) material(Metal)
+
 HealingPowder weight(1) cost(20) avatar(170 15) material(Leather)
+
 RoboRocketAmmo weight(10) avatar(171 138) material(Metal)
  ammo count(6) dr(-25)
 
 TrophyOfRecognition size(1) weight(10) cost(2000) avatar(97 127) material(Metal)
+
 GeckoPelt size(2) weight(2) cost(25) avatar(172 14) material(Leather)
+
 GoldenGeckoPelt size(3) weight(5) cost(125) avatar(173 14) material(Leather)
+
 Flint size(1) weight(2) cost(5) avatar(174 41) material(Stone)
+
 NeuralInterface size(1) weight(3) cost(800) avatar(108 6) material(Metal)
+
 SharpenedSpear size(4) weight(4) cost(100) avatar(176 42 4) material(Wood) use(MeleeWeapon)
  weapon mode1(Thrust) mode2(Throw) min(4) max(12) strenght(4) type(Phisycal) ap(4) range(2) critical_fail(1)
 
 DixonEye size(1) weight(1) avatar(177 155) material(Glass)
+
 CliftonEye size(1) weight(1) avatar(178 155) material(Glass)
+
 TommyGun size(5) weight(7) cost(1200) avatar(179 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(3) max(20) strenght(6) type(Phisycal) ap(5) range(32) ammo_count(50) burst(10) critical_fail(2)
+ flags TwoHanded
 
 MeatJerky weight(1) cost(5) avatar(180 41) material(Leather)
+ flags Usable UsableOnSomething
+
 RadscorpionLimbs size(2) weight(10) avatar(181 142) material(Stone)
+
 Firewood size(3) weight(10) avatar(182 141) material(Wood)
+
 ScopedHuntingRifle size(4) weight(11) cost(1500) avatar(183 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(8) max(20) strenght(5) type(Phisycal) ap(5) range(40) ammo_count(10) critical_fail(2)
+ flags TwoHanded
 
 CarFuelCell size(2) weight(10) avatar(184 6) material(Metal)
+
 Shovel size(3) weight(10) cost(15) avatar(185 143) material(Metal)
+
 RoboMeleeWeapon1 size(1) weight(1) avatar(186 144) material(Metal) use(MeleeWeapon)
  weapon mode1(ThrowPunch) min(7) max(15) strenght(1) type(Electrical) ap(3) range(1)
 
@@ -456,38 +649,64 @@ PlatedBoxingGloves size(2) weight(10) cost(300) avatar(338 47) material(Leather)
  weapon mode1(ThrowPunch) min(2) max(5) strenght(1) type(Phisycal) ap(3) range(1)
 
 Vault13Holodisk size(1) weight(1) cost(200) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 CheezyPoofs size(1) weight(1) cost(5) avatar(189 41) material(Leather)
+
 HKP90c size(4) weight(8) cost(2500) avatar(190 44 6) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(12) max(16) strenght(4) type(Phisycal) ap(4) range(30) ammo_count(24) burst(12) critical_fail(2)
 
 MetalPole size(5) weight(10) cost(5) avatar(191 145) material(Wood)
+
 TrapperTownKey size(1) avatar(63 41) material(Metal)
+
 PipeRifle size(4) weight(10) cost(200) avatar(193 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(5) max(12) strenght(5) type(Phisycal) ap(5) range(20) ammo_count(1) critical_fail(2)
+ flags TwoHanded
 
 ZipGun size(2) weight(4) cost(150) avatar(192 34 5) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(5) max(12) strenght(4) type(Phisycal) ap(4) range(15) ammo_count(1) critical_fail(2)
 
 Clipboard size(1) weight(1) avatar(194 41) material(Metal)
+
 GeckoHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 ReactorHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 DeckOfTragicCards size(1) weight(1) cost(50) avatar(195 41) material(Leather)
+
 YellowReactorKeycard size(1) weight(1) cost(25) avatar(132 41) material(Metal)
+
 RedReactorKeycard size(1) weight(1) cost(25) avatar(79 41) material(Metal)
+
 PlasmaTransformer size(1) weight(1) cost(200) avatar(196 41) material(Metal)
+
 SuperToolKit size(3) weight(10) cost(1000) avatar(197 146) material(Metal)
+
 Talisman size(1) weight(1) cost(25) avatar(198 41) material(Stone)
+
 GammaGulpBeer size(1) cost(5) avatar(199 116) material(Glass)
+
 RoentgenRum size(1) cost(10) avatar(200 116) material(Glass)
+
 PartRequisitionForm size(1) weight(1) cost(10) avatar(201 41) material(Leather)
+
 N44MagnumRevolver size(2) weight(5) cost(600) avatar(202 34 5) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(12) max(18) strenght(5) type(Phisycal) ap(4) range(15) ammo_count(6) critical_fail(2)
 
 CondomBluePackage size(1) cost(2) avatar(203 41) material(Plastic)
+
 CondomGreenPackage size(1) cost(2) avatar(204 41) material(Plastic)
+
 CondomRedPackage size(1) cost(2) avatar(205 41) material(Plastic)
+
 CosmeticsCase size(1) weight(1) cost(25) avatar(206 41) material(Plastic)
+ flags Usable
+
 EmptyHypodermic size(1) weight(1) cost(2) avatar(207 41) material(Glass)
+
 Switchblade size(1) weight(1) cost(50) avatar(208 28 1) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(2) max(5) strenght(1) type(Phisycal) ap(3) range(1) critical_fail(1)
 
@@ -495,30 +714,57 @@ SharpenedPole size(4) weight(3) cost(5) avatar(209 42 4) material(Wood) use(Mele
  weapon mode1(Thrust) mode2(Throw) min(2) max(4) strenght(4) type(Phisycal) ap(4) range(2) critical_fail(1)
 
 CyberneticBrain size(1) weight(8) cost(2000) avatar(210 155) material(Metal)
+
 HumanBrain size(1) weight(5) avatar(211 155) material(Leather)
+
 ChimpanzeeBrain size(1) weight(4) avatar(212 155) material(Leather)
+
 AbnormalBrain size(1) weight(5) avatar(213 155) material(Leather)
+
 Dice size(1) cost(5) avatar(214 41) material(Plastic)
+
 LoadedDice size(1) cost(20) avatar(215 41) material(Plastic)
+
 EasterEgg size(1) cost(1) avatar(216 41) material(Leather)
+ flags Usable UsableOnSomething
+
 Magic8Ball size(1) weight(1) cost(50) avatar(217 41) material(Metal)
+ flags Usable
+
 MutagenicSerum size(1) avatar(218 15) material(Plastic)
 
+
 CatPawIssue5 size(1) cost(50) avatar(219 13) material(Leather)
+ flags Usable
+
 M3A1GreaseGunSMG size(3) weight(7) cost(1750) avatar(220 44 6) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(10) max(20) strenght(4) type(Phisycal) ap(4) range(20) ammo_count(30) burst(8) critical_fail(2)
 
 HeartPills size(1) cost(50) avatar(221 15) material(Plastic)
+
 Poison size(1) cost(200) avatar(222 15) material(Plastic)
+
 MooreBriefcase size(1) weight(5) cost(35) avatar(52 5) material(Leather)
+
 MooreBriefcase size(1) weight(5) cost(35) avatar(52 5) material(Leather)
+
 LynetteHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 WestinHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 NCRSpyHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 DoctorPapers size(1) avatar(223 41) material(Leather)
+
 PresidentialPass size(1) avatar(224 41) material(Leather)
+
 RangerPin size(1) weight(1) cost(10) avatar(225 41) material(Metal)
+
 RangerMap size(1) weight(1) avatar(226 41) material(Metal)
+
 
 
 
@@ -531,23 +777,30 @@ AdvPowerArmorMKII size(15) weight(100) cost(25000) avatar(227 152) material(Meta
 
 Bozar size(6) weight(20) cost(5250) avatar(228 24 8) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(25) max(35) strenght(6) type(Phisycal) ap(6) range(35) ammo_count(30) burst(15) critical_fail(2)
+ flags TwoHanded
 
 FNFAL size(5) weight(9) cost(1500) avatar(229 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(9) max(18) strenght(5) type(Phisycal) ap(5) range(35) ammo_count(20) burst(10) critical_fail(2)
+ flags TwoHanded
 
 HKG11 size(5) weight(8) cost(6500) avatar(230 44 6) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(10) max(20) strenght(5) type(Phisycal) ap(5) range(35) ammo_count(50) burst(5) critical_fail(2)
+ flags TwoHanded
 
 XL70E3 size(5) weight(9) cost(3000) avatar(231 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(12) max(19) strenght(5) type(Phisycal) ap(5) range(35) ammo_count(20) burst(8) critical_fail(2)
+ flags TwoHanded
 
 PancorJackhammer size(5) weight(12) cost(5500) avatar(232 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(18) max(29) strenght(5) type(Phisycal) ap(5) range(35) ammo_count(10) burst(5) critical_fail(2)
+ flags TwoHanded
 
 LightSupportWeapon size(6) weight(20) cost(4750) avatar(233 24 8) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(20) max(30) strenght(6) type(Phisycal) ap(6) range(40) ammo_count(30) burst(10) critical_fail(2)
+ flags TwoHanded
 
 ComputerVoiceModule size(1) weight(1) cost(3000) avatar(234 41) material(Metal)
+
 N45Caliber weight(1) cost(75) avatar(236 1) material(Metal)
  ammo count(10)
 
@@ -570,10 +823,12 @@ N762mm weight(1) cost(150) avatar(241 1) material(Metal)
  ammo count(20) ac(5) dr(-10)
 
 RobotMotivator size(3) weight(20) cost(50) avatar(68 32) material(Metal)
-PlantSpike size(1) avatar(242 153) material(Metal) use(BigGuns)
+
+PlantSpike size(1) avatar(242 153) material(Metal) use(Throwing)
  weapon mode1(Throw) min(1) max(2) strenght(2) type(Phisycal) ap(4) range(8) critical_fail(1)
 
 GECK size(1) weight(10) avatar(243 154) material(Metal)
+
 
 
 
@@ -588,8 +843,11 @@ Vault15Keycard size(1) weight(1) avatar(79 41) material(Metal)
 
 
 
+
 Vault15ComputerParts size(2) weight(10) cost(100) avatar(246 14) material(Metal)
+
 Cookie size(1) avatar(247 41) material(Leather)
+
 LeatherArmorMarkII size(10) weight(10) cost(1000) avatar(250 29) material(Leather)
  armor ac(20) male(HMLTHR) female(HFLTHR) threshold(3 1 1 1 1 0 1) resistance(25 20 25 10 40 0 25)
 
@@ -613,24 +871,29 @@ SawedOffShotgun size(3) weight(4) cost(800) avatar(278 36 7) material(Metal) use
 
 LouisvilleSlugger size(2) weight(4) cost(2700) avatar(276 16 2) material(Wood) use(MeleeWeapon)
  weapon mode1(Swing) min(12) max(30) strenght(4) type(Phisycal) ap(3) range(1) critical_fail(1)
+ flags TwoHanded
 
 M60 size(6) weight(23) cost(3500) avatar(266 24 8) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(18) max(26) strenght(7) type(Phisycal) ap(6) range(35) ammo_count(50) burst(10) critical_fail(2)
+ flags TwoHanded
 
 NeedlerPistol size(2) weight(4) cost(2200) avatar(270 34 5) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(12) max(24) strenght(3) type(Phisycal) ap(5) range(24) ammo_count(10) critical_fail(2)
 
 AvengerMinigun size(6) weight(28) cost(5500) avatar(253 31 9) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(10) max(14) strenght(7) type(Phisycal) ap(6) range(40) ammo_count(120) burst(40) critical_fail(2)
+ flags TwoHanded
 
 SolarScorcher size(2) weight(5) cost(2000) avatar(277 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(20) max(60) strenght(3) type(Laser) ap(4) range(20) ammo_count(6) critical_fail(3)
 
 HKG11E size(5) weight(8) cost(8000) avatar(263 44 6) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(13) max(23) strenght(6) type(Phisycal) ap(5) range(40) ammo_count(50) burst(7) critical_fail(2)
+ flags TwoHanded
 
 M72GaussRifle size(5) weight(9) cost(8250) avatar(267 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(32) max(43) strenght(6) type(Phisycal) ap(5) range(50) ammo_count(20) burst(1) critical_fail(2)
+ flags TwoHanded
 
 Phazer size(2) weight(4) cost(7500) avatar(271 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(20) max(30) strenght(3) type(Laser) ap(4) range(25) ammo_count(12) critical_fail(3)
@@ -640,12 +903,14 @@ PPK12GaussPistol size(2) weight(5) cost(5250) avatar(262 34 5) material(Metal) u
 
 VindicatorMinigun size(6) weight(28) cost(15250) avatar(279 31 9) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(14) max(19) strenght(7) type(Phisycal) ap(6) range(30) ammo_count(100) burst(25) critical_fail(2)
+ flags TwoHanded
 
 YK32PulsePistol size(2) weight(5) cost(12500) avatar(273 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(32) max(46) strenght(3) type(Electrical) ap(4) range(15) ammo_count(5) critical_fail(3)
 
 YK42BPulseRifle size(5) weight(9) cost(17500) avatar(274 24 8) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(54) max(78) strenght(6) type(Electrical) ap(5) range(30) ammo_count(10) burst(1) critical_fail(3)
+ flags TwoHanded
 
 N44MagnumSpeedLoad size(2) weight(5) cost(600) avatar(252 34 5) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(12) max(18) strenght(5) type(Phisycal) ap(4) range(20) ammo_count(6) critical_fail(2)
@@ -653,23 +918,27 @@ N44MagnumSpeedLoad size(2) weight(5) cost(600) avatar(252 34 5) material(Metal) 
 SuperCattleProd size(2) weight(3) cost(600) avatar(255 16 2) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(20) max(32) strenght(4) type(Electrical) ap(4) range(1) ammo_count(20) critical_fail(1)
 
-ImprovedFlamer size(6) weight(19) cost(2000) avatar(264 24 8) material(Metal) use(SmallGuns)
+ImprovedFlamer size(6) weight(19) cost(2000) avatar(264 24 8) material(Metal) use(BigGuns)
  weapon min(45) max(90) strenght(6) type(Fire) ap(6) range(5) ammo_count(5) burst(1) critical_fail(6)
+ flags TwoHanded
 
 LaserRifleExtCap size(5) weight(12) cost(5000) avatar(265 24 8) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(25) max(50) strenght(6) type(Laser) ap(5) range(45) ammo_count(24) burst(2) critical_fail(3)
+ flags TwoHanded
 
 MagnetoLaserPistol size(2) weight(4) cost(1400) avatar(268 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(10) max(22) strenght(3) type(Laser) ap(5) range(35) ammo_count(12) critical_fail(3)
 
 FNFALNightSight size(5) weight(10) cost(2000) avatar(261 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(9) max(18) strenght(5) type(Phisycal) ap(5) range(35) ammo_count(20) burst(10) critical_fail(2)
+ flags TwoHanded
 
 DesertEagleExpMag size(2) weight(4) cost(800) avatar(256 34 5) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) min(10) max(16) strenght(4) type(Phisycal) ap(5) range(25) ammo_count(20) critical_fail(2)
 
 AssaultRifleExpMag size(5) weight(8) cost(1300) avatar(254 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(8) max(16) strenght(5) type(Phisycal) ap(5) range(45) ammo_count(100) burst(8) critical_fail(2)
+ flags TwoHanded
 
 PlasmaPistolExtCap size(2) weight(5) cost(2750) avatar(272 34 5) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) min(15) max(35) strenght(4) type(Plasma) ap(5) range(20) ammo_count(32) critical_fail(3)
@@ -678,105 +947,202 @@ MegaPowerFist size(2) weight(7) cost(2200) avatar(269 47) material(Metal) use(Me
  weapon mode1(ThrowPunch) min(20) max(40) strenght(1) type(Phisycal) ap(3) range(1) ammo_count(25)
 
 FieldMedicFirstAidKit size(1) weight(2) cost(400) avatar(251 15) material(Metal)
+
 ParamedicsBag size(1) weight(6) cost(600) avatar(257 117) material(Leather)
+
 ExpandedLockpickSet size(1) weight(1) cost(400) avatar(259 41) material(Metal)
+
 ElectronicLockpickMKII size(1) weight(2) cost(700) avatar(258 118) material(Metal)
+
 OilCan size(1) weight(3) cost(150) avatar(281 155) material(Metal)
+
 StablesIDBadge size(1) avatar(282 41) material(Plastic)
+
 Vault15ShackKey size(1) avatar(318 41) material(Metal)
+
 Spectacles size(1) cost(50) avatar(283 41) material(Metal)
+
 EmptyJetCanister size(1) avatar(284 15) material(Metal)
+
 OxygenTank size(3) weight(5) cost(20) avatar(285 14) material(Metal)
+
 PoisonTank size(3) weight(5) avatar(286 6) material(Metal)
+
 MineParts size(1) weight(10) avatar(287 14) material(Metal)
+
 MorningstarMineScrip size(1) cost(1) avatar(288 41) material(Leather)
-HolyHandGrenade size(1) weight(2) cost(1) avatar(289 122) material(Metal) use(BigGuns)
+
+HolyHandGrenade size(1) weight(2) cost(1) avatar(289 122) material(Metal) use(Throwing)
  weapon mode1(Throw) min(300) max(500) strenght(2) type(Explosive) ap(4) range(20) critical_fail(4)
 
 ExcavatorChip size(1) weight(1) cost(50) avatar(290 48) material(Metal)
-GoldNugget size(1) weight(10) cost(50) avatar(291 165) material(Metal) use(BigGuns)
+
+GoldNugget size(1) weight(10) cost(50) avatar(291 165) material(Metal) use(Throwing)
  weapon mode1(Throw) mode2(ThrowPunch) min(3) max(6) strenght(2) type(Phisycal) ap(4) range(10) critical_fail(1)
 
 MonumentChunk size(1) weight(5) avatar(292 53) material(Metal)
+ flags Usable UsableOnSomething
 
-UraniumOre size(1) weight(10) avatar(293 165) material(Metal) use(BigGuns)
+
+UraniumOre size(1) weight(10) avatar(293 165) material(Metal) use(Throwing)
  weapon mode1(Throw) mode2(ThrowPunch) min(3) max(6) strenght(2) type(Phisycal) ap(4) range(10) critical_fail(1)
 
 FlameBreath size(1) weight(1) avatar(294 167 8) material(Metal) use(SmallGuns)
  weapon min(35) max(50) strenght(1) type(Fire) ap(6) range(5) ammo_count(4) burst(1) critical_fail(6)
 
 MedicalSupplies size(2) weight(25) cost(50) avatar(295 15) material(Leather)
+
 GoldTooth size(1) cost(50) avatar(296 41) material(Stone)
+
 HowitzerShell size(3) weight(40) cost(20) avatar(297 38) material(Metal)
+
 RamirezBoxClosed size(1) weight(2) cost(500) avatar(298 41) material(Wood)
+ flags Usable
+
 RamirezBoxOpen size(1) weight(2) avatar(299 41) material(Wood)
+
 MirroredShades size(1) weight(1) cost(20) avatar(300 41) material(Plastic)
 
 
+
 DeckOfCards size(1) weight(1) cost(2) avatar(301 41) material(Leather)
+
 PackOfMarkedCards size(1) weight(1) cost(1) avatar(302 41) material(Leather)
+
 TempleKey size(1) avatar(303 41) material(Metal)
+
 PocketLint size(1) avatar(305 41) material(Leather)
+
 BiomedGel size(1) weight(1) avatar(304 155) material(Glass)
+
 BlondieDogTags size(1) avatar(73 41) material(Metal)
+
 AngelEyesDogTags size(1) avatar(73 41) material(Metal)
+
 TucoDogTags size(1) avatar(73 41) material(Metal)
+
 RaidersMap size(1) weight(1) avatar(307 41) material(Metal)
+ flags Usable
+
 SheriffBadge size(1) weight(1) cost(5) avatar(308 41) material(Metal)
+
 VertibirdPlans size(1) avatar(309 41) material(Metal)
+
 BishopHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 AccountBook size(1) weight(2) avatar(310 41) material(Metal)
+
 Unused size(1) weight(1) avatar(306 173) material(Metal)
+
 TornPaper1 size(1) avatar(311 41) material(Leather)
+
 TornPaper2 size(1) avatar(312 41) material(Leather)
+
 TornPaper3 size(1) avatar(313 41) material(Leather)
+
 PasswordPaper size(1) avatar(314 41) material(Leather)
+
 ExplosiveSwitch size(1) weight(5) avatar(131 41) material(Metal)
 
+
 CellDoorKey size(1) avatar(320 41) material(Metal)
+
 HubologistFieldReport size(1) weight(1) avatar(316 41) material(Wood)
+
 MBHolodisk5 size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MBHolodisk1 size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MBHolodisk2 size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MBHolodisk3 size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MBHolodisk4 size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 EvacuationHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 ExperimentHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MedicalHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 PasswordPaper size(1) weight(1) cost(5) avatar(335 41) material(Metal)
 
+
 SmittyMeal size(1) weight(3) avatar(317 41) material(Metal)
+
 RotGut size(1) cost(5) avatar(321 116) material(Metal)
+
 BallGag size(1) weight(2) cost(20) avatar(322 41) material(Metal)
+
 TheLavenderFlower size(1) weight(2) avatar(323 13) material(Metal)
+ flags Usable
+
 HubologistHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MutatedToe size(1) weight(1) avatar(324 15) material(Metal)
+
 Daisies size(1) weight(5) avatar(325 14) material(Cement)
+
 Unused size(1) avatar(306 173) material(Metal)
+
 EnlightenedOneLetter size(1) avatar(336 41) material(Metal)
+
 BroadcastHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 SierraMissionHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 NavComParts size(1) weight(1) avatar(337 41) material(Metal)
+
 Bonus1Agility size(1) avatar(339 15) material(Metal)
+
 Bonus1Intelligence size(1) avatar(340 15) material(Metal)
+
 Bonus1Strength size(1) avatar(341 15) material(Metal)
+
 Fallout2Hintbook size(1) avatar(342 13) material(Leather)
+ flags Usable
+
 PlayerEar size(1) avatar(343 41) material(Metal)
+
 MasticatorEar size(1) cost(750) avatar(344 41) material(Metal)
-RefinedUraniumOre size(1) weight(15) avatar(293 165) material(Metal) use(BigGuns)
+
+RefinedUraniumOre size(1) weight(15) avatar(293 165) material(Metal) use(Throwing)
  weapon mode1(Throw) mode2(ThrowPunch) min(3) max(6) strenght(2) type(Phisycal) ap(4) range(10) critical_fail(1)
 
 NoteFromFrancis size(1) avatar(334 41) material(Leather)
+ flags Usable
+
 K9Motivator size(3) weight(20) cost(50) avatar(68 32) material(Metal)
+
 SpecialBoxerWeapon size(1) avatar(345 172 2) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(1) max(1) strenght(1) type(Phisycal) ap(3) range(1)
 
 NCRHistoryHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 MrNixonDoll size(1) avatar(346 41) material(Leather)
+
 TankerFob size(1) avatar(347 41) material(Metal)
+
 TeachingsHolodisk size(1) weight(1) cost(50) avatar(75 41) material(Metal)
+ flags Usable UsableOnSomething
+
 KokoweefMineScrip size(1) cost(1) avatar(348 41) material(Leather)
+
 PresidentialAccessKey size(1) avatar(349 41) material(Metal)
+
 BoxingGloves size(2) weight(5) cost(250) avatar(187 47) material(Leather) use(MeleeWeapon)
  weapon mode1(ThrowPunch) min(1) max(1) strenght(1) type(Phisycal) ap(3) range(1)
 
@@ -787,17 +1153,26 @@ DualPlasmaCannon size(1) weight(10) avatar(350 174 5) material(Metal) use(Energy
  weapon mode1(FireSingle) min(45) max(90) strenght(1) type(Plasma) ap(5) range(25) ammo_count(200) critical_fail(3)
 
 PipBoyLingualEnhancer size(2) weight(8) cost(200) avatar(351 41) material(Metal)
+ flags Usable
+
 FNFALHPFA size(5) weight(10) cost(2250) avatar(229 36 7) material(Metal) use(SmallGuns)
  weapon mode1(FireSingle) mode2(FireBurst) min(11) max(22) strenght(5) type(Phisycal) ap(5) range(35) ammo_count(20) burst(20) critical_fail(2)
+ flags TwoHanded
 
 
 
 BlueMemoryModule size(1) avatar(352 41) material(Metal)
+
 GreenMemoryModule size(1) avatar(353 41) material(Metal)
+
 RedMemoryModule size(1) avatar(354 41) material(Metal)
+
 YellowMemoryModule size(1) avatar(355 41) material(Metal)
+
 DecomposingBody size(10) weight(125) avatar(356 177) material(Leather)
+
 RubberDoll size(5) weight(20) cost(50) avatar(357 6) material(Plastic)
+
 DamagedRubberDoll size(5) weight(20) avatar(358 14) material(Plastic)
 
 
@@ -805,26 +1180,35 @@ DamagedRubberDoll size(5) weight(20) avatar(358 14) material(Plastic)
 
 
 
+
 PipBoyMedicalEnhancer size(2) weight(8) cost(200) avatar(359 41) material(Metal)
+ flags Usable
+
 LittleJesus size(1) weight(2) cost(200) avatar(360 28 1) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(5) max(14) strenght(2) type(Phisycal) ap(3) range(1) critical_fail(1)
 
 DualMinigun size(1) weight(10) avatar(361 184 9) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(10) max(14) strenght(1) type(Phisycal) ap(6) range(40) ammo_count(800) burst(40) critical_fail(2)
+ flags TwoHanded
 
 BottleCaps size(1) avatar(362 3) material(Metal)
+
 HeavyDualMinigun size(1) weight(10) avatar(361 184 9) material(Metal) use(BigGuns)
  weapon mode1(FireBurst) min(16) max(24) strenght(1) type(Phisycal) ap(6) range(40) ammo_count(800) burst(40) critical_fail(2)
+ flags TwoHanded Usable
 
 
 WakizashiBlade size(1) weight(3) cost(200) avatar(363 28 1) material(Metal) use(MeleeWeapon)
  weapon mode1(Swing) mode2(Thrust) min(4) max(12) strenght(2) type(Phisycal) ap(3) range(1) critical_fail(2)
 
 SurveyMap size(1) avatar(307 41) material(Leather)
+ flags Usable
+
 BridgekeeperRobes size(8) weight(10) cost(5) avatar(98 52) material(Leather)
  armor ac(20) male(HAROBE) female(HAROBE) threshold(5 8 4 4 2 0 6) resistance(40 60 30 50 50 0 40)
 
 Hypo size(1) cost(500) avatar(364 15) material(Metal)
+
 
 
 
@@ -834,5 +1218,6 @@ EndBossKnife size(1) weight(1) avatar(365 190 1) material(Metal) use(MeleeWeapon
 
 EndBossPlasmaGun size(1) weight(1) avatar(366 191 8) material(Metal) use(EnergyWeapon)
  weapon mode1(FireSingle) mode2(FireBurst) min(30) max(70) type(Plasma) ap(5) range(35) ammo_count(50) burst(3) critical_fail(3)
+ flags TwoHanded
 
 

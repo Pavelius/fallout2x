@@ -87,6 +87,10 @@ BSMETA(itemi) = {
 	BSREQ(armor),
 	BSREQ(ammo),
 	BSENM(use, stati),
+	BSFLG(flags, itemfi),
+	{}};
+BSMETA(itemfi) = {
+	BSREQ(id),
 	{}};
 BSMETA(list) = {
 	BSREQ(id),

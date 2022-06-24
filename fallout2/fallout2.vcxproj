@@ -144,7 +144,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="action.cpp" />
-    <ClCompile Include="adventure.cpp" />
     <ClCompile Include="animable.cpp" />
     <ClCompile Include="anminfo.cpp" />
     <ClCompile Include="archive.cpp" />
@@ -178,6 +177,7 @@
     <ClCompile Include="io_bsreq.cpp" />
     <ClCompile Include="io_stream.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="itemf.cpp" />
     <ClCompile Include="itemlist.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="log.cpp" />

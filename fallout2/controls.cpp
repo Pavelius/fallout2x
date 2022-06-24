@@ -909,6 +909,20 @@ void set_hexagon_position() {
 		current_hexagon = h2i(s2h(hot.mouse + camera));
 }
 
+static void point_of_view() {
+	auto p2 = h2s(i2h((indext)hot.param));
+	auto p1 = character::last->position;
+	character::last->direction = animable::getdirection(p1, p2);
+	character::last->upadateanimate();
+}
+
+static void click_command() {
+	if(current_hexagon != Blocked) {
+		if(hot.key == MouseLeft && hot.pressed)
+			execute(point_of_view, current_hexagon);
+	}
+}
+
 void redraw_hexagon() {
 	if(current_hexagon == Blocked)
 		return;
@@ -1060,6 +1074,7 @@ static void paint_game() {
 	redraw_floor();
 	redraw_hexagon();
 	paint_drawables();
+	click_command();
 	clipping = push_clip;
 }
 

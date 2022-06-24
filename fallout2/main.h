@@ -125,6 +125,9 @@ enum action_s : unsigned char {
 	Drop, Look, Talk, Turn, Unload,
 	Use, UseOnObject, UseSkill,
 };
+enum itemf : unsigned char {
+	TwoHanded, Usable, UsableOnSomething,
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90,
@@ -144,6 +147,8 @@ struct actioni : nameable {
 };
 typedef adat<action_s, 16> actiona;
 struct weari : nameable {
+};
+struct itemfi : nameable {
 };
 struct lighti : nameable {
 	unsigned			value;
@@ -217,6 +222,7 @@ struct itemi : nameable {
 	ammoi				ammo;
 	stat_s				use;
 	variants			effect;
+	unsigned			flags;
 };
 struct character;
 struct item {
@@ -241,6 +247,7 @@ struct item {
 	character*			getowner() const;
 	wear_s				getownerslot() const;
 	void				join(item& v);
+	bool				is(itemf v) const { return geti().flags & FG(v); }
 	bool				isallow(wear_s id) const;
 	void				transfer(item& from, item& to);
 };
@@ -293,6 +300,7 @@ struct animable : wearable, spriteable {
 	void				focusing() const;
 	static animate_s	getbase(animate_s v, int* w);
 	int					getdelay() const;
+	static direction_s	getdirection(point s, point d);
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
@@ -301,6 +309,7 @@ struct animable : wearable, spriteable {
 	void				paint() const;
 	void				setanimate(animate_s v);
 	void				turn(int d);
+	void				upadateanimate() { setanimate(animate); }
 	void				updateframe();
 	void				wait();
 };
