@@ -259,7 +259,7 @@ struct statable {
 	static list			trait_list;
 	static list			primary_list;
 	static valuet		first_skill;
-	short				stats[64];
+	short				stats[Outdoorsman + 1];
 	bool				iswoman() const { return false; }
 	void				load(const statable& v);
 	int					getplayerstats() const;
