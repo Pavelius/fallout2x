@@ -9,7 +9,7 @@ static order* find_empthy() {
 }
 
 order* animable::addanimate(animate_s a, order* parent) {
-	if(animate == AnimateStand) {
+	if(animate == AnimateStand && a!=AnimateWalk) {
 		setanimate(a);
 		return 0;
 	}

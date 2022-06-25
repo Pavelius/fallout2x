@@ -189,6 +189,7 @@
     <ClCompile Include="objectf.cpp" />
     <ClCompile Include="order.cpp" />
     <ClCompile Include="pallette.cpp" />
+    <ClCompile Include="pathfind.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="pro_criters_util.cpp" />
     <ClCompile Include="pro_scenery.cpp" />
@@ -244,6 +245,7 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="main_util.h" />
     <ClInclude Include="my_initialize_list.h" />
+    <ClInclude Include="pathfind.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="resid.h" />

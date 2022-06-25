@@ -56,7 +56,7 @@ short areai::find(short v, short x0, short x1, short y, bool need_roof) const {
 	return -1;
 }
 
-indext areai::tot(indext i, direction_s d) {
+indext areai::tot(indext i, int d) {
 	point t = i2t(i);
 	switch(d) {
 	case Up:

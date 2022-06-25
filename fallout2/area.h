@@ -25,7 +25,7 @@ public:
 	void				setfloor(indext i, int v) { floor[i] = v; }
 	void				set(indext i, short unsigned v, short w, short h);
 	void				set(indext i, short unsigned v, short w, short h, int random);
-	static indext		tot(indext i, direction_s d);
+	static indext		tot(indext i, int d);
 	void				write(const char* id) const;
 };
 

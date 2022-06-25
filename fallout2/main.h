@@ -315,6 +315,7 @@ struct animable : wearable, spriteable {
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
 	int					getweaponindex() const;
+	void				moveto(indext i);
 	void				nextanimate();
 	void				paint() const;
 	void				setanimate(animate_s v);

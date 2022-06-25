@@ -914,6 +914,7 @@ static void point_of_view() {
 	auto p1 = character::last->position;
 	character::last->direction = animable::getdirection(p1, p2);
 	character::last->upadateanimate();
+	character::last->moveto((indext)hot.param);
 }
 
 static void click_command() {
@@ -924,6 +925,8 @@ static void click_command() {
 }
 
 void redraw_hexagon() {
+	if(hot.key == InputUpdate || !hot.key)
+		return;
 	if(current_hexagon == Blocked)
 		return;
 	cursor.clear();
@@ -1145,7 +1148,7 @@ static void update_animation() {
 void animable::wait() {
 	auto need_stop = false;
 	while(!need_stop && ismodal()) {
-		hot.key = 0;
+		hot.key = InputUpdate;
 		dialog::paint();
 		cursor.position = hot.mouse;
 		cursor.set(res::INTRFACE, 295);
@@ -1162,7 +1165,7 @@ void animable::wait() {
 void animable::waitall() {
 	auto need_stop = false;
 	while(!need_stop && ismodal()) {
-		hot.key = 0;
+		hot.key = InputUpdate;
 		dialog::paint();
 		cursor.position = hot.mouse;
 		cursor.set(res::INTRFACE, 295);

@@ -1,6 +1,7 @@
 #include "dialog.h"
 #include "draw.h"
 #include "main.h"
+#include "pathfind.h"
 
 using namespace draw;
 
@@ -120,6 +121,9 @@ static drawable** select_drawables(drawable** ps, drawable* const* pe) {
 }
 
 void initialize_adventure() {
+	pathfind::to = areai::tot;
+	pathfind::maxcount = mps * mps;
+	pathfind::maxdir = 6;
 	drawable::paint = paint_drawable;
 	drawable::getorder = getorder;
 	drawable::select = select_drawables;
@@ -302,6 +306,13 @@ int	animable::getweaponindex() const {
 	if(wear[RightHandItem])
 		return wear[RightHandItem].geti().avatar.animation;
 	return 0;
+}
+
+void animable::moveto(indext i) {
+	if(i == Blocked)
+		return;
+	auto po = addanimate(AnimateWalk);
+	po->position = h2s(i2h(i));
 }
 
 void animable::updateframe() {

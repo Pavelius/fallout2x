@@ -229,6 +229,9 @@
     <ClCompile Include="order.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="pathfind.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -369,6 +372,9 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="draw.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="pathfind.h">
       <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
