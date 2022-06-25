@@ -64,8 +64,8 @@ void character::update() {
 	}
 	apply_skill_tag();
 	apply_equipment();
+	clearanimate();
 	character::last = push_character;
-	setanimate(animate);
 }
 
 character* character::add(const char* id) {

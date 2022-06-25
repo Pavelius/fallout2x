@@ -913,7 +913,7 @@ static void point_of_view() {
 	auto p2 = h2s(i2h((indext)hot.param));
 	auto p1 = character::last->position;
 	character::last->direction = animable::getdirection(p1, p2);
-	character::last->upadateanimate();
+	character::last->clearanimate();
 	character::last->moveto((indext)hot.param);
 }
 

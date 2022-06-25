@@ -28,4 +28,5 @@ struct drawable {
 	static drawable*	find(const void* object);
 	static drawable*	find(const point pt);
 	static drawable*	findadd(const point pt, const void* object);
+	void				updateframe();
 };

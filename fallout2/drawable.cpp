@@ -96,3 +96,23 @@ void drawable::setanimate(unsigned short v, unsigned short count) {
 	frame_start = frame;
 	frame_stop = frame_start + count - 1;
 }
+
+void drawable::updateframe() {
+	if(frame_start == frame_stop)
+		timer += 2000; // Dead body lying on ground check every two seconds
+	else if(frame_start < frame_stop) {
+		if(frame < frame_stop)
+			frame++;
+		else {
+			drawable::set(WaitNewAnimation);
+			frame = frame_start;
+		}
+	} else {
+		if(frame > frame_stop)
+			frame--;
+		else {
+			drawable::set(WaitNewAnimation);
+			frame = frame_start;
+		}
+	}
+}

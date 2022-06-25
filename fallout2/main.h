@@ -300,10 +300,9 @@ struct spriteable : drawable {
 struct order;
 struct animable : wearable, spriteable {
 	res					naked;
-	animate_s			animate;
 	direction_s			direction;
 	static animable*	last;
-	order*				addanimate(animate_s a, order* parent = 0);
+	order*				addanimate(animate_s a);
 	void				appear(point h);
 	void				clearanimate();
 	void				changeweapon();
@@ -318,10 +317,9 @@ struct animable : wearable, spriteable {
 	void				moveto(indext i);
 	void				nextanimate();
 	void				paint() const;
+	void				removeanimate();
 	void				setanimate(animate_s v);
 	void				turn(int d);
-	void				upadateanimate() { setanimate(animate); }
-	void				updateframe();
 	void				wait();
 	static void			waitall();
 };
@@ -421,7 +419,6 @@ struct order {
 	point				position;
 	animable*			object;
 	animate_s			animate;
-	order*				parent;
 	constexpr explicit operator bool() const { return object != 0; }
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				update();

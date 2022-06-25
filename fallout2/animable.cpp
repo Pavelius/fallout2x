@@ -243,20 +243,19 @@ int animable::getdelay() const {
 void animable::turn(int d) {
 	unsigned w = (int)direction + d;
 	direction = direction_s(w % 6);
-	setanimate(animate);
+	clearanimate();
 }
 
 void animable::setanimate(animate_s v) {
-	animate = v;
 	auto ps = gres(getlook());
 	if(!ps)
 		return;
-	auto cicle = getframe(animate, getweaponindex()) + getframe(direction);
+	auto cicle = getframe(v, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
 	if(pc && pc->count) {
 		if(frame < pc->start || frame >= (pc->start + pc->count)) {
 			drawable::setanimate(pc->start, pc->count);
-			correctposition(this, ps, animate);
+			correctposition(this, ps, v);
 		}
 	}
 	timer = getdelay();
@@ -295,11 +294,7 @@ void animable::clearanimate() {
 }
 
 void animable::nextanimate() {
-	auto& ei = bsdata<animationi>::elements[animate];
-	if(ei.next)
-		setanimate(ei.next);
-	else
-		clearanimate();
+	clearanimate();
 }
 
 int	animable::getweaponindex() const {
@@ -313,29 +308,6 @@ void animable::moveto(indext i) {
 		return;
 	auto po = addanimate(AnimateWalk);
 	po->position = h2s(i2h(i));
-}
-
-void animable::updateframe() {
-	auto ps = gres(getlook());
-	if(frame_start == frame_stop)
-		timer += 2000; // Dead body lying on ground check every two seconds
-	else if(frame_start < frame_stop) {
-		if(frame < frame_stop) {
-			frame++;
-			correctposition(this, ps, animate);
-		} else {
-			flags |= FG(WaitNewAnimation);
-			frame = frame_start;
-			correctposition(this, ps, animate);
-		}
-	} else {
-		if(frame > frame_stop)
-			frame--;
-		else {
-			flags |= FG(WaitNewAnimation);
-			frame = frame_start;
-		}
-	}
 }
 
 void animable::changeweapon() {

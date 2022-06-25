@@ -8,25 +8,22 @@ static order* find_empthy() {
 	return 0;
 }
 
-order* animable::addanimate(animate_s a, order* parent) {
-	if(animate == AnimateStand && a!=AnimateWalk) {
-		setanimate(a);
-		return 0;
-	}
+order* animable::addanimate(animate_s a) {
 	auto p = find_empthy();
 	if(!p)
 		p = bsdata<order>::add();
 	p->position.clear();
 	p->object = this;
 	p->animate = a;
-	p->parent = parent;
 	return p;
 }
 
-static void clean_parent() {
+void animable::removeanimate() {
 	for(auto& e : bsdata<order>()) {
-		if(e.parent && !(*e.parent))
-			e.parent = 0;
+		if(e.object == this) {
+			e.clear();
+			break;
+		}
 	}
 }
 
@@ -49,10 +46,9 @@ void order::update() {
 
 void order::updateall() {
 	for(auto& e : bsdata<order>()) {
-		if(!e || e.parent || !e.object->animable::is(WaitNewAnimation))
+		if(!e || !e.object->animable::is(WaitNewAnimation))
 			continue;
 		e.update();
 	}
-	clean_parent();
 	clean_last();
 }
