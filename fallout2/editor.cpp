@@ -602,8 +602,6 @@ static void set_hexagon_position() {
 		current_hexagon = h2i(s2h(hot.mouse + camera));
 }
 
-void update_animation();
-
 static void correct(point& p1, point& p2) {
 	if(p2.x < p1.x)
 		iswap(p2.x, p1.x);
@@ -648,7 +646,6 @@ static void draw_choosed_rect() {
 }
 
 void editor() {
-	update_animation();
 	set_hexagon_position();
 	control_map();
 	redraw_floor();

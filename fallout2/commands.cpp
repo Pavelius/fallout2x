@@ -128,6 +128,13 @@ static void turn_left() {
 	character::last->turn(-1);
 }
 
+static void test_shoot() {
+	character::last->addanimate(AnimateWeaponAim);
+	character::last->addanimate(AnimateWeaponSingle);
+	character::last->addanimate(AnimateWeaponAimEnd);
+	character::last->waitall();
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -158,6 +165,7 @@ BSDATA(command) = {
 	{"Options", 'O', opendialog},
 	{"SubNumber", '-', sub_number},
 	{"SubStat", '-', sub_stat},
+	{"TestShoot", 'T', test_shoot},
 	{"TurnRight", '.', turn_left},
 	{"TurnLeft", ',', turn_right},
 };

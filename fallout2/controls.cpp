@@ -1116,6 +1116,66 @@ static void update_mouse_tick() {
 		mouse_clicked = true;
 }
 
+static void update_next_animate() {
+	for(auto& e : bsdata<character>()) {
+		if(e.animable::is(WaitNewAnimation))
+			e.nextanimate();
+	}
+}
+
+static void update_animation() {
+	static unsigned long last_tick;
+	if(!last_tick)
+		last_tick = current_tick;
+	auto d = current_tick - last_tick;
+	last_tick = current_tick;
+	if(d > 1000) // Game resume from pause
+		return;
+	for(auto& e : bsdata<character>()) {
+		if(!e)
+			continue;
+		e.timer -= d;
+		if(e.timer > 0)
+			continue;
+		e.timer += e.getdelay();
+		e.updateframe();
+	}
+}
+
+void animable::wait() {
+	auto need_stop = false;
+	while(!need_stop && ismodal()) {
+		hot.key = 0;
+		dialog::paint();
+		cursor.position = hot.mouse;
+		cursor.set(res::INTRFACE, 295);
+		cursor.paint();
+		doredraw();
+		update_animation();
+		need_stop = is(WaitNewAnimation);
+		order::updateall();
+		update_next_animate();
+		waitcputime(1);
+	}
+}
+
+void animable::waitall() {
+	auto need_stop = false;
+	while(!need_stop && ismodal()) {
+		hot.key = 0;
+		dialog::paint();
+		cursor.position = hot.mouse;
+		cursor.set(res::INTRFACE, 295);
+		cursor.paint();
+		doredraw();
+		update_animation();
+		order::updateall();
+		need_stop = (bsdata<order>::source.getcount()==0);
+		update_next_animate();
+		waitcputime(1);
+	}
+}
+
 static void beforemodal() {
 	update_tick();
 	update_mouse_tick();
@@ -1239,6 +1299,9 @@ static void finish() {
 
 static void tips() {
 	cursor.paint();
+	update_animation();
+	order::updateall();
+	update_next_animate();
 }
 
 int start_application(fnevent proc, fnevent afterread) {
@@ -1299,6 +1362,5 @@ BSDATA(widget) = {
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},
 	{"TextL", text_font3},
-	{"UpdateAnimation", update_animation},
 };
 BSDATAF(widget)

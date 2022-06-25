@@ -132,6 +132,9 @@ enum action_s : unsigned char {
 enum itemf : unsigned char {
 	TwoHanded, Usable, UsableOnSomething,
 };
+enum characterf : unsigned char {
+	NeedNewAnimation,
+};
 enum {
 	ColorDisable = 0x60, ColorText = 0xD7, ColorCheck = 0x03, ColorInfo = 0xE4, ColorButton = 0x3D,
 	ColorState = 0x90,
@@ -294,11 +297,13 @@ struct spriteable : drawable {
 	void				paint() const;
 	void				set(res r, short cicle);
 };
+struct order;
 struct animable : wearable, spriteable {
 	res					naked;
 	animate_s			animate;
 	direction_s			direction;
 	static animable*	last;
+	order*				addanimate(animate_s a, order* parent = 0);
 	void				appear(point h);
 	void				clearanimate();
 	void				changeweapon();
@@ -317,6 +322,7 @@ struct animable : wearable, spriteable {
 	void				upadateanimate() { setanimate(animate); }
 	void				updateframe();
 	void				wait();
+	static void			waitall();
 };
 struct character : animable {
 	statable			basic;
@@ -324,6 +330,7 @@ struct character : animable {
 	skilla				tags;
 	int					experience;
 	specie_s			species;
+	flagable<4>			flags;
 	static character*	last;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }
@@ -332,12 +339,14 @@ struct character : animable {
 	int					getperkstotal() const;
 	int					gettaggedskills() const;
 	bool				istagged(valuet v) const;
+	bool				is(characterf v) const { return flags.is(v); }
 	bool				is(perk_s v) const { return perks.is(v); }
 	static void			initialize();
 	void				read(const char* id);
 	void				set(stat_s v, int i) { stats[v] = i; }
 	void				settag(valuet v, int i);
 	void				update();
+	void				use(action_s v) const;
 	void				write(const char* id) const;
 private:
 	void				apply_equipment();
@@ -406,6 +415,16 @@ struct walli : nameable {
 	static short		next(short i);
 	void				paint() const;
 	static void			set(point h, short i);
+};
+struct order {
+	point				position;
+	animable*			object;
+	animate_s			animate;
+	order*				parent;
+	constexpr explicit operator bool() const { return object != 0; }
+	void				clear() { memset(this, 0, sizeof(*this)); }
+	void				update();
+	static void			updateall();
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);

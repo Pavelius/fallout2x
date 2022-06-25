@@ -226,6 +226,9 @@
     <ClCompile Include="itemf.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="order.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

@@ -187,6 +187,7 @@
     <ClCompile Include="material.cpp" />
     <ClCompile Include="metadata.cpp" />
     <ClCompile Include="objectf.cpp" />
+    <ClCompile Include="order.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="point.cpp" />
     <ClCompile Include="pro_criters_util.cpp" />

@@ -36,19 +36,19 @@ BSDATA(animationi) = {
 	{"AnimateDeadMelt", AnimateDeadMelt},
 	{"AnimateDeadBack", AnimateDeadBack},
 	{"AnimateDeadForward", AnimateDeadForward},
-	{"AnimateWeaponTakeOn", AnimateWeaponStand},
-	{"AnimateWeaponStand", AnimateWeaponStand},
+	{"AnimateWeaponTakeOn"},
+	{"AnimateWeaponStand"},
 	{"AnimateWeaponTakeOff"},
-	{"AnimateWeaponWalk", AnimateWeaponStand},
-	{"AnimateWeaponDodge", AnimateWeaponStand},
-	{"AnimateWeaponThrust", AnimateWeaponStand},
-	{"AnimateWeaponSwing", AnimateWeaponStand},
+	{"AnimateWeaponWalk"},
+	{"AnimateWeaponDodge"},
+	{"AnimateWeaponThrust"},
+	{"AnimateWeaponSwing"},
 	{"AnimateWeaponAim", AnimateWeaponSingle},
 	{"AnimateWeaponSingle", AnimateWeaponAimEnd},
 	{"AnimateWeaponBurst", AnimateWeaponAimEnd},
 	{"AnimateWeaponFlame", AnimateWeaponAimEnd},
-	{"AnimateWeaponThrow", AnimateWeaponStand},
-	{"AnimateWeaponAimEnd", AnimateWeaponStand},
+	{"AnimateWeaponThrow"},
+	{"AnimateWeaponAimEnd"},
 };
 assert_enum(animationi, AnimateWeaponAimEnd)
 
@@ -166,7 +166,7 @@ void animable::paint() const {
 	auto rs = gres(getlook());
 	if(!rs)
 		return;
-	image(rs, frame, flags);
+	image(rs, frame, 0);
 }
 
 void tilei::paint() const {
@@ -177,8 +177,6 @@ void tilei::paint() const {
 static bool isweaponanimate(animate_s v) {
 	return v >= FirstWeaponAnimate;
 }
-
-static animable* last_wait;
 
 res	animable::getlook() const {
 	if(wear[BodyArmor]) {
@@ -258,6 +256,7 @@ void animable::setanimate(animate_s v) {
 		}
 	}
 	timer = getdelay();
+	remove(WaitNewAnimation);
 }
 
 void animable::appear(point h) {
@@ -295,7 +294,7 @@ void animable::nextanimate() {
 	auto& ei = bsdata<animationi>::elements[animate];
 	if(ei.next)
 		setanimate(ei.next);
-	else if(animate == AnimateStand)
+	else
 		clearanimate();
 }
 
@@ -306,7 +305,6 @@ int	animable::getweaponindex() const {
 }
 
 void animable::updateframe() {
-	auto next_action = false;
 	auto ps = gres(getlook());
 	if(frame_start == frame_stop)
 		timer += 2000; // Dead body lying on ground check every two seconds
@@ -315,7 +313,7 @@ void animable::updateframe() {
 			frame++;
 			correctposition(this, ps, animate);
 		} else {
-			next_action = true;
+			flags |= FG(WaitNewAnimation);
 			frame = frame_start;
 			correctposition(this, ps, animate);
 		}
@@ -323,53 +321,10 @@ void animable::updateframe() {
 		if(frame > frame_stop)
 			frame--;
 		else {
-			next_action = true;
+			flags |= FG(WaitNewAnimation);
 			frame = frame_start;
 		}
 	}
-	if(next_action) {
-		nextanimate();
-		if(last_wait == this)
-			need_stop = true;
-	}
-}
-
-void update_animation() {
-	static unsigned long last_tick;
-	if(!last_tick)
-		last_tick = current_tick;
-	auto d = current_tick - last_tick;
-	last_tick = current_tick;
-	if(d > 1000) // Game resume from pause
-		return;
-	for(auto& e : bsdata<character>()) {
-		if(!e)
-			continue;
-		e.timer -= d;
-		if(e.timer > 0)
-			continue;
-		e.timer += e.getdelay();
-		e.updateframe();
-	}
-}
-
-void paint_animation();
-
-void animable::wait() {
-	auto push_last = last_wait;
-	last_wait = this;
-	need_stop = false;
-	while(!need_stop && ismodal()) {
-		height = 381;
-		paint_animation();
-		cursor.position = hot.mouse;
-		cursor.set(res::INTRFACE, 295);
-		cursor.paint();
-		doredraw();
-		update_animation();
-		waitcputime(1);
-	}
-	last_wait = push_last;
 }
 
 void animable::changeweapon() {

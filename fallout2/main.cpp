@@ -47,8 +47,7 @@ static void start() {
 	character::last->wearable::additem("N10mmAP");
 	character::last->wearable::additem("N10mmAP");
 	character::last->update();
-	draw::scene(editor);
-	//draw::scene(adventure);
+	//draw::scene(editor);
 	draw::opendialog("CharacterGame");
 	//test_animate();
 }
