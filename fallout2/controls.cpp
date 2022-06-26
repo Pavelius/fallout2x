@@ -923,14 +923,46 @@ static void click_command() {
 	}
 }
 
+static void marker() {
+	auto push_caret = caret;
+	caret.x -= 4; line(caret.x + 4, caret.y);
+	caret = push_caret;
+	caret.y -= 4; line(caret.x, caret.y + 4);
+	caret = push_caret;
+}
+
+static void textac(const char* format) {
+	auto push_caret = caret;
+	caret.x -= textw(format) / 2;
+	caret.y -= texth() / 2;
+	text(format);
+	caret = push_caret;
+}
+
 void redraw_hexagon() {
 	if(hot.key == InputUpdate || !hot.key)
 		return;
 	if(current_hexagon == Blocked)
 		return;
+	char temp[32]; stringbuilder sb(temp);
 	cursor.clear();
-	auto pt = h2s(i2h(current_hexagon)) - camera;
-	image(pt.x - 15, pt.y - 7, gres(res::INTRFACE), 1, 0);
+	auto h0 = i2h(current_hexagon);
+	auto p1 = h2s(h0);
+	auto push_caret = caret;
+	caret = p1 - camera;
+	//marker();
+	sb.clear(); sb.add("%1i,%2i", h0.x, h0.y);
+	image(caret.x - 16, caret.y - 12, gres(res::INTRFACE), 1, 0);
+	textac(temp);
+	for(auto i = 0; i < 6; i++) {
+		auto i1 = pathfind::to(current_hexagon, i);
+		if(i1 == Blocked)
+			continue;
+		sb.clear(); sb.add("%1i", i);
+		caret = h2s(i2h(i1)) - camera;
+		textac(temp);
+	}
+	caret = push_caret;
 }
 
 void redraw_floor() {
@@ -1241,10 +1273,7 @@ static void paint_quickaction() {
 
 static void context_menu() {
 	static const void* tips_object;
-	auto ps = gres(res::INTRFACE);
-	if(!ps)
-		return;
-	if(ps && cursor.resource == res::INTRFACE && cursor.frame == ps->gcicle(250)->start) {
+	if(cursor.resource == res::INTRFACE && cursor.frame == 250) {
 		if(actions) {
 			if(istips(500)) {
 				paint_quickaction();

@@ -193,8 +193,8 @@ static void clean_last_order() {
 
 static point getdirection(point hex, int direction) {
 	static point evenr_directions[2][6] = {
-		{{1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, 0}, {0, 1}},
-		{{0, 1}, {1, 0}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}},
+		{{1, 0}, {1, -1}, {0, -1}, {-1, 0}, {0, 1}, {1, 1}},
+		{{1, 0}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}, {0, 1}},
 	};
 	auto parity = hex.y & 1;
 	auto offset = evenr_directions[parity][direction];
@@ -205,7 +205,7 @@ static indext getdirection(indext index, int direction) {
 	if(index == Blocked)
 		return Blocked;
 	auto hex = getdirection(i2h(index), direction);
-	if(hex.x < 0 || hex.y < 0 || hex.x >= mps || hex.y >= mps)
+	if(hex.x < 0 || hex.y < 0 || hex.x >= mps * 2 || hex.y >= mps * 2)
 		return Blocked;
 	return h2i(hex);
 }
@@ -478,4 +478,30 @@ bool animable::isanimate(animate_s v) const {
 	if(!pc)
 		return false;
 	return frame >= pc->start && frame <= (pc->start + pc->count - 1);
+}
+
+void animable::addanimate(action_s v) {
+	switch(v) {
+	case FireSingle:
+	case FireSingleAimed:
+		addanimate(AnimateWeaponAim);
+		addanimate(AnimateWeaponSingle);
+		addanimate(AnimateWeaponAimEnd);
+		break;
+	case FireBurst:
+		addanimate(AnimateWeaponAim);
+		addanimate(AnimateWeaponBurst);
+		addanimate(AnimateWeaponAimEnd);
+		break;
+	case Swing:
+	case SwingAimed:
+		addanimate(AnimateWeaponSwing);
+		break;
+	case Thrust:
+	case ThrustAimed:
+		addanimate(AnimateWeaponThrust);
+		break;
+	default:
+		break;
+	}
 }

@@ -132,3 +132,10 @@ void character::initialize() {
 	preparelist(skill_list, first_skill, "Skills");
 	preparelist(primary_list, first_stat, "PrimaryStats");
 }
+
+void character::useaction() {
+	auto action = getaction();
+	if(!action)
+		return;
+	addanimate(action);
+}

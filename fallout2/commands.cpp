@@ -129,9 +129,7 @@ static void turn_left() {
 }
 
 static void test_shoot() {
-	character::last->addanimate(AnimateWeaponAim);
-	character::last->addanimate(AnimateWeaponSingle);
-	character::last->addanimate(AnimateWeaponAimEnd);
+	character::last->useaction();
 	character::last->wait();
 }
 

@@ -284,6 +284,7 @@ struct wearable : nameable, statable {
 	item				wear[LeftHandItem + 1];
 	char				action_index[2];
 	void				additem(item v);
+	action_s			getaction() const;
 	actiona				getactions() const { return wear[RightHandItem].getactions(); }
 	void				nextaction() { action_index[0]++; updateaction(); }
 	void				updateaction();
@@ -313,6 +314,7 @@ struct animable : wearable, moveable, spriteable {
 	direction_s			direction;
 	static animable*	last;
 	void				addanimate(animate_s a, point pt = {});
+	void				addanimate(action_s v);
 	void				appear(point h);
 	void				clearanimate();
 	void				clearallanimate();
@@ -357,7 +359,7 @@ struct character : animable {
 	void				set(stat_s v, int i) { stats[v] = i; }
 	void				settag(valuet v, int i);
 	void				update();
-	void				use(action_s v) const;
+	void				useaction();
 	void				write(const char* id) const;
 private:
 	void				apply_equipment();

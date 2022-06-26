@@ -33,3 +33,10 @@ void wearable::updateaction() {
 	if(action_index[0] < 0)
 		action_index[0] = 0;
 }
+
+action_s wearable::getaction() const {
+	auto a = getactions();
+	if(!a)
+		return NoAction;
+	return a[0];
+}

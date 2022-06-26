@@ -4,7 +4,7 @@
 
 const unsigned short Blocked = 0xFFFF;
 typedef unsigned short indext;
-const int				mps = 128;
+const int				mps = 100;
 
 enum direction_s : unsigned char {
 	Center, Up, RightUp, Right, RightDown, Down, LeftDown, Left, LeftUp,

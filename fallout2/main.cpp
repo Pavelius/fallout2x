@@ -2,11 +2,13 @@
 #include "dialog.h"
 #include "draw.h"
 #include "main.h"
+#include "pathfind.h"
 
 extern const void* current_tool;
 
 void add_locale_names(const char* id, bool required);
 void add_locale_descriptions(const char* id);
+long distance(point p1, point p2);
 void initialize_adventure();
 void initialize_script();
 void initialize_dialog();
@@ -16,7 +18,62 @@ void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
 void test_animate();
 
+static int backward(int w) {
+	switch(w) {
+	case 0: return 3;
+	case 1: return 4;
+	case 2: return 5;
+	case 3: return 0;
+	case 4: return 1;
+	default: return 2;
+	}
+}
+
+static bool test_map() {
+	for(short x = 0; x < mps * 2; x++) {
+		for(short y = 0; y < mps * 2; y++) {
+			auto i0 = h2i({x, y});
+			for(auto i = 0; i < 6; i++) {
+				auto i1 = pathfind::to(i0, i);
+				if(i1 == Blocked)
+					continue;
+				auto i2 = pathfind::to(i1, backward(i));
+				if(i0 != i2)
+					return false;
+			}
+		}
+	}
+	return true;
+}
+
+static bool test_map2() {
+	const auto m = 32;
+	for(short x = 10; x < mps * 2 - 10; x++) {
+		for(short y = 10; y < mps * 2 - 10; y++) {
+			auto i0 = h2i({x, y});
+			auto p0 = h2s({x, y});
+			for(auto i = 0; i < 6; i++) {
+				auto i1 = pathfind::to(i0, i);
+				if(i1 == Blocked)
+					return false;
+				auto h1 = i2h(i1);
+				auto p1 = h2s(h1);
+				auto dx = p0.x - p1.x;
+				auto dy = p0.y - p1.y;
+				auto n1 = distance(p0, p1);
+				if(n1 > m)
+					return false;
+			}
+		}
+	}
+	return true;
+}
+
 static void start() {
+	//if(!test_map())
+	//	return;
+	//if(!test_map2())
+	//	return;
 	auto is = sizeof(item);
 	point t = {10, 6};
 	point h = t2h(t);
@@ -46,6 +103,7 @@ static void start() {
 	character::last->wearable::additem("BigBookOfScience");
 	character::last->wearable::additem("N10mmAP");
 	character::last->wearable::additem("N10mmAP");
+	character::last->wearable::additem("Minigun");
 	character::last->update();
 	//draw::scene(editor);
 	draw::opendialog("CharacterGame");
