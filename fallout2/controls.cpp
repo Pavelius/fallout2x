@@ -5,6 +5,7 @@
 #include "io_stream.h"
 #include "log.h"
 #include "main.h"
+#include "pathfind.h"
 #include "screenshoot.h"
 
 using namespace draw;
@@ -912,8 +913,6 @@ void set_hexagon_position() {
 static void point_of_view() {
 	auto p2 = h2s(i2h((indext)hot.param));
 	auto p1 = character::last->position;
-	character::last->direction = animable::getdirection(p1, p2);
-	character::last->clearanimate();
 	character::last->moveto((indext)hot.param);
 }
 
@@ -1276,6 +1275,21 @@ static void finish() {
 	context_menu();
 }
 
+void paint_pathfind() {
+	auto p = character::last->path;
+	if(!p)
+		return;
+	auto push_caret = caret;
+	rect rc = {caret.x, caret.y, caret.x + width, caret.y + height};
+	caret = character::last->position - camera;
+	while(*p != Blocked) {
+		auto pt = h2s(i2h(*p)) - camera;
+		line(pt.x, pt.y);
+		p++;
+	}
+	caret = push_caret;
+}
+
 static void tips() {
 	cursor.paint();
 	update_animation();
@@ -1331,6 +1345,7 @@ BSDATA(widget) = {
 	{"Number", number_standart},
 	{"NumberSM", number_small},
 	{"ObjectInformation", object_information},
+	{"PaintBlock", paint_pathfind},
 	{"PaintGame", paint_game},
 	{"PaperDoll", paper_doll},
 	{"ScrollDown", scroll_down},

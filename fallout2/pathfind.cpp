@@ -72,29 +72,21 @@ indext pathfind::getnearest(const indext* source) {
 unsigned pathfind::getpath(indext start, indext goal, indext* result, unsigned maximum) {
 	auto pb = result;
 	auto pe = result + maximum;
-	auto curr = goal;
+	auto curr = start;
 	auto cost = Blocked;
-	while(pb < pe && curr != start) {
+	while(pb < pe && curr != goal) {
 		auto next = curr;
 		for(auto i = 0; i < maxdir; i++) {
 			auto i1 = to(curr, i);
 			if(i1 == Blocked)
 				continue;
-			if(i1 == start) {
-				next = i1;
-				break;
-			}
 			auto c1 = movement_rate[i1];
 			if(c1 >= cost)
 				continue;
 			next = i1;
 			cost = c1;
 		}
-		if(next == curr || next == start)
-			break;
-		if(curr == goal)
-			break;
-		if(pb >= pe)
+		if(next == curr)
 			break;
 		*pb++ = next;
 		curr = next;
@@ -137,13 +129,14 @@ indext pathfind::getwave() {
 void pathfind::makewavex() {
 	while(pop_counter != push_counter) {
 		auto index = getwave();
+		auto debug_count = push_counter - pop_counter;
 		auto cost = movement_rate[index] + 1;
 		for(int d = 0; d < maxdir; d++) {
 			auto i1 = to(index, d);
 			if(i1 == Blocked)
 				continue;
 			auto c1 = movement_rate[i1];
-			if(c1 == Blocked || (c1 < NotCalculatedMovement && c1 < cost))
+			if(c1 == Blocked || (c1 < NotCalculatedMovement && c1 <= cost))
 				continue;
 			movement_rate[i1] = cost;
 			addwave(i1);

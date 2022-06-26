@@ -298,11 +298,19 @@ struct spriteable : drawable {
 	void				paint() const;
 	void				set(res r, short cicle);
 };
-struct animable : wearable, spriteable {
+struct moveable {
+	indext*				path_start;
+	indext*				path;
+	moveable() : path_start(0), path(0) {}
+	~moveable() { clearpath(); }
+	void				clearpath();
+	bool				ismoving() const { return path_start != 0; }
+	void				makepath(indext start, indext goal);
+};
+struct animable : wearable, moveable, spriteable {
 	unsigned short		frame_start, frame_stop;
 	res					naked;
 	direction_s			direction;
-	point				order_position;
 	static animable*	last;
 	void				addanimate(animate_s a, point pt = {});
 	void				appear(point h);

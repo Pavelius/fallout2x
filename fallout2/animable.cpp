@@ -136,10 +136,9 @@ static order* find_empthy() {
 }
 
 void animable::addanimate(animate_s a, point pt) {
-	if(isanimate(AnimateStand)) {
+	if(isanimate(AnimateStand))
 		setanimate(a);
-		order_position = pt;
-	} else {
+	else {
 		auto p = find_empthy();
 		if(!p)
 			p = bsdata<order>::add();
@@ -151,6 +150,24 @@ void animable::addanimate(animate_s a, point pt) {
 
 bool is_special_animate() {
 	return bsdata<order>::source.getcount() != 0;
+}
+
+void moveable::clearpath() {
+	if(path_start)
+		delete[] path_start;
+	path_start = path = 0;
+}
+
+void moveable::makepath(indext start, indext goal) {
+	static indext temp[256 * 16];
+	clearpath();
+	pathfind::clearpath();
+	pathfind::makewave(goal);
+	auto count = pathfind::getpath(start, goal, temp, sizeof(temp) / sizeof(temp[0]));
+	path_start = new indext[count + 1];
+	memcpy(path_start, temp, sizeof(temp[0]) * count);
+	path_start[count] = Blocked;
+	path = path_start;
 }
 
 void animable::clearallanimate() {
@@ -174,12 +191,27 @@ static void clean_last_order() {
 	bsdata<order>::source.count = p - pb + 1;
 }
 
-static indext dtot(indext i, int d) {
-	return areai::tot(i, animable::getdirection(d));
+static point getdirection(point hex, int direction) {
+	static point evenr_directions[2][6] = {
+		{{1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, 0}, {0, 1}},
+		{{0, 1}, {1, 0}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}},
+	};
+	auto parity = hex.y & 1;
+	auto offset = evenr_directions[parity][direction];
+	return hex + offset;
+}
+
+static indext getdirection(indext index, int direction) {
+	if(index == Blocked)
+		return Blocked;
+	auto hex = getdirection(i2h(index), direction);
+	if(hex.x < 0 || hex.y < 0 || hex.x >= mps || hex.y >= mps)
+		return Blocked;
+	return h2i(hex);
 }
 
 void initialize_adventure() {
-	pathfind::to = dtot;
+	pathfind::to = getdirection;
 	pathfind::maxcount = mps * mps;
 	pathfind::maxdir = 6;
 	drawable::paint = paint_drawable;
@@ -272,31 +304,20 @@ short animable::getframe(animate_s v, int weapon_index) {
 	return v * 6;
 }
 
-static bool ismoving(animate_s v) {
-	switch(animable::getbase(v, 0)) {
-	case AnimateWalk:
-	case AnimateWeaponWalk:
-	case AnimateRun:
-		return true;
-	default:
-		return false;
-	}
-}
-
 long distance(point p1, point p2);
 
 static void correctposition(animable* pd, const sprite* ps) {
-	if(pd->order_position) {
+	if(pd->ismoving()) {
 		auto pt = anminfo::getoffset(ps, pd->frame);
-		pt.x += pd->position.x;
-		pt.y += pd->position.y;
-		auto n1 = distance(pt, pd->order_position);
-		auto n2 = distance(pd->position, pd->order_position);
-		if(n1 > n2 && n2 < 16) {
-			pd->position = pd->order_position;
-			pd->clearanimate();
-		} else
-			pd->position = pt;
+		pd->position.x += pt.x;
+		pd->position.y += pt.y;
+		//auto n1 = distance(pt, pd->order_position);
+		//auto n2 = distance(pd->position, pd->order_position);
+		//if(n1 > n2 && n2 < 16) {
+		//	pd->position = pd->order_position;
+		//	pd->clearanimate();
+		//} else
+		//	pd->position = pt;
 	}
 }
 
@@ -308,8 +329,10 @@ int animable::getdelay() const {
 }
 
 void animable::turn(int d) {
-	unsigned w = (int)direction + d;
-	direction = direction_s(w % 6);
+	auto w = getframe(direction) + d;
+	if(w < 0)
+		w += 6;
+	direction = getdirection(w % 6);
 	clearanimate();
 }
 
@@ -321,7 +344,6 @@ void animable::setanimate(animate_s v, point target) {
 	auto pc = ps->gcicle(cicle);
 	if(pc && pc->count) {
 		if(frame < pc->start || frame >= (pc->start + pc->count)) {
-			order_position = target;
 			frame = pc->start;
 			frame_start = frame;
 			frame_stop = frame_start + pc->count - 1;
@@ -370,7 +392,7 @@ direction_s animable::getdirection(int d) {
 }
 
 void animable::clearanimate() {
-	order_position.clear();
+	clearpath();
 	setanimate(AnimateStand);
 	timer += xrand(3, 7) * 1000;
 }
@@ -398,15 +420,21 @@ int	animable::getweaponindex() const {
 	return 0;
 }
 
-void animable::moveto(indext target) {
-	static indext path[256 * 16];
-	if(target == Blocked)
+direction_s getnextdirection(indext start, indext goal) {
+	for(auto i = 0; i < pathfind::maxdir; i++) {
+		if(pathfind::to(start, i) == goal)
+			return animable::getdirection(i);
+	}
+	return Center;
+}
+
+void animable::moveto(indext goal) {
+	if(goal == Blocked)
 		return;
 	auto start = h2i(s2h(position));
-	pathfind::clearpath();
-	pathfind::makewave(target);
-	auto mp = pathfind::getpath(target, start, path, sizeof(path)/sizeof(path[0]));
-	addanimate(AnimateWalk, h2s(i2h(target)));
+	makepath(start, goal);
+	direction = getnextdirection(start, path_start[0]);
+	setanimate(AnimateWalk);
 }
 
 void animable::changeweapon() {
