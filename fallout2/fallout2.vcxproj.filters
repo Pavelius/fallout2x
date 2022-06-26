@@ -76,18 +76,6 @@
     <ClCompile Include="character.cpp">
       <Filter>logic</Filter>
     </ClCompile>
-    <ClCompile Include="resid.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
-    <ClCompile Include="pallette.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
-    <ClCompile Include="cicling.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
-    <ClCompile Include="controls.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="grade.cpp">
       <Filter>logic</Filter>
     </ClCompile>
@@ -111,9 +99,6 @@
     </ClCompile>
     <ClCompile Include="datasource.cpp">
       <Filter>support</Filter>
-    </ClCompile>
-    <ClCompile Include="spriteable.cpp">
-      <Filter>draw</Filter>
     </ClCompile>
     <ClCompile Include="main_util.cpp">
       <Filter>util</Filter>
@@ -150,9 +135,6 @@
     </ClCompile>
     <ClCompile Include="objectf.cpp">
       <Filter>logic</Filter>
-    </ClCompile>
-    <ClCompile Include="editor.cpp">
-      <Filter>draw</Filter>
     </ClCompile>
     <ClCompile Include="tilegroup.cpp">
       <Filter>logic</Filter>
@@ -220,17 +202,32 @@
     <ClCompile Include="draw_textf.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="animable.cpp">
-      <Filter>draw</Filter>
-    </ClCompile>
     <ClCompile Include="itemf.cpp">
-      <Filter>logic</Filter>
-    </ClCompile>
-    <ClCompile Include="order.cpp">
       <Filter>logic</Filter>
     </ClCompile>
     <ClCompile Include="pathfind.cpp">
       <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="animable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="cicling.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="controls.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="editor.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="pallette.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="resid.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="spriteable.cpp">
+      <Filter>logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -242,9 +239,6 @@
     </Filter>
     <Filter Include="platform">
       <UniqueIdentifier>{45cba693-bc67-4095-98c6-83f488c469b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="draw">
-      <UniqueIdentifier>{d508057c-c134-4b47-a678-be792d24421b}</UniqueIdentifier>
     </Filter>
     <Filter Include="data">
       <UniqueIdentifier>{bd15eacb-de0b-4458-aec5-ef3dd236d9f1}</UniqueIdentifier>
@@ -317,9 +311,6 @@
     <ClInclude Include="script.h">
       <Filter>support</Filter>
     </ClInclude>
-    <ClInclude Include="resid.h">
-      <Filter>draw</Filter>
-    </ClInclude>
     <ClInclude Include="stringlist.h">
       <Filter>support</Filter>
     </ClInclude>
@@ -376,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="pathfind.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="resid.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

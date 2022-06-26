@@ -55,9 +55,6 @@ drawable* drawable::add(point pt, const void* object) {
 	auto p = bsdata<drawable>::add();
 	p->position = pt;
 	p->data = object;
-	p->flags = 0;
-	p->frame = 0;
-	p->frame_stop = 0;
 	return p;
 }
 
@@ -87,32 +84,4 @@ drawable* drawable::findadd(const point pt, const void* object) {
 
 void drawable::clear() {
 	memset(this, 0, sizeof(*this));
-}
-
-void drawable::setanimate(unsigned short v, unsigned short count) {
-	if(!count)
-		return;
-	frame = v;
-	frame_start = frame;
-	frame_stop = frame_start + count - 1;
-}
-
-void drawable::updateframe() {
-	if(frame_start == frame_stop)
-		timer += 2000; // Dead body lying on ground check every two seconds
-	else if(frame_start < frame_stop) {
-		if(frame < frame_stop)
-			frame++;
-		else {
-			drawable::set(WaitNewAnimation);
-			frame = frame_start;
-		}
-	} else {
-		if(frame > frame_stop)
-			frame--;
-		else {
-			drawable::set(WaitNewAnimation);
-			frame = frame_start;
-		}
-	}
 }

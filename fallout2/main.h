@@ -292,19 +292,21 @@ struct itemlist : adat<item*, 256> {
 	void				select(const wearable* pv);
 };
 struct spriteable : drawable {
+	unsigned short		frame, flags;
 	res					resource;
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				paint() const;
 	void				set(res r, short cicle);
 };
-struct order;
 struct animable : wearable, spriteable {
+	unsigned short		frame_start, frame_stop;
 	res					naked;
 	direction_s			direction;
 	static animable*	last;
-	order*				addanimate(animate_s a);
+	void				addanimate(animate_s a, point pt = {});
 	void				appear(point h);
 	void				clearanimate();
+	void				clearallanimate();
 	void				changeweapon();
 	void				focusing() const;
 	static animate_s	getbase(animate_s v, int* w);
@@ -314,14 +316,15 @@ struct animable : wearable, spriteable {
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
 	int					getweaponindex() const;
+	bool				isanimate(animate_s v) const;
 	void				moveto(indext i);
 	void				nextanimate();
 	void				paint() const;
-	void				removeanimate();
 	void				setanimate(animate_s v);
+	void				setanimate(unsigned short v, unsigned short count);
 	void				turn(int d);
+	void				updateframe();
 	void				wait();
-	static void			waitall();
 };
 struct character : animable {
 	statable			basic;
@@ -414,15 +417,6 @@ struct walli : nameable {
 	static short		next(short i);
 	void				paint() const;
 	static void			set(point h, short i);
-};
-struct order {
-	point				position;
-	animable*			object;
-	animate_s			animate;
-	constexpr explicit operator bool() const { return object != 0; }
-	void				clear() { memset(this, 0, sizeof(*this)); }
-	void				update();
-	static void			updateall();
 };
 namespace draw {
 void					messagev(const char* format, const char* format_param);

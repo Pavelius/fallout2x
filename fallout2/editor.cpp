@@ -52,14 +52,12 @@ static void paint_editor(const tilegroup* p) {
 	caret = push_caret;
 }
 
-void add_object(point h, const void* p, short frame) {
+void add_object(point h, const void* p) {
 	auto pt = h2s(h);
 	auto pd = drawable::find(pt);
 	if(!pd)
 		pd = drawable::add(pt, p);
 	pd->data = p;
-	pd->frame = frame;
-	pd->frame_stop = pd->frame;
 }
 
 static void textac(const char* format) {
@@ -85,7 +83,7 @@ static void place_tool() {
 		return;
 	auto h = i2h(current_hexagon);
 	if(bsdata<sceneryi>::have(hot.object))
-		add_object(h, hot.object, ((sceneryi*)hot.object)->frame);
+		add_object(h, hot.object);
 	if(bsdata<walli>::have(hot.object))
 		walli::set(h, ((walli*)hot.object)->index);
 	else if(bsdata<tilei>::have(hot.object)) {

@@ -132,7 +132,7 @@ static void test_shoot() {
 	character::last->addanimate(AnimateWeaponAim);
 	character::last->addanimate(AnimateWeaponSingle);
 	character::last->addanimate(AnimateWeaponAimEnd);
-	character::last->waitall();
+	character::last->wait();
 }
 
 BSDATA(command) = {

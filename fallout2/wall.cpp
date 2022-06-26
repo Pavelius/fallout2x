@@ -98,13 +98,11 @@ static bool have(const std::initializer_list<short>& source, short value) {
 }
 
 static void adds(point pt, short v) {
-	auto pd = drawable::find(pt);
 	auto p = bsdata<walli>::elements + (v - 1);
+	auto pd = drawable::find(pt);
 	if(!pd)
 		pd = drawable::add(pt, p);
 	pd->data = p;
-	pd->frame = p->frame;
-	pd->frame_stop = pd->frame;
 }
 
 static void next(point& h, direction d) {

@@ -53,7 +53,14 @@ BSDATA(animationi) = {
 };
 assert_enum(animationi, AnimateWeaponAimEnd)
 
-static bool need_stop;
+struct order {
+	point				position;
+	animable*			object;
+	animate_s			animate;
+	constexpr explicit operator bool() const { return object != 0; }
+	void				clear() { memset(this, 0, sizeof(*this)); }
+};
+BSDATAC(order, 256)
 
 point t2s(point v) {
 	return {
@@ -118,6 +125,52 @@ static drawable** select_drawables(drawable** ps, drawable* const* pe) {
 			*ps++ = &e;
 	}
 	return ps;
+}
+
+static order* find_empthy() {
+	for(auto& e : bsdata<order>()) {
+		if(!e)
+			return &e;
+	}
+	return 0;
+}
+
+void animable::addanimate(animate_s a, point pt) {
+	if(isanimate(AnimateStand))
+		setanimate(a);
+	else {
+		auto p = find_empthy();
+		if(!p)
+			p = bsdata<order>::add();
+		p->position = pt;
+		p->object = this;
+		p->animate = a;
+	}
+}
+
+bool is_special_animate() {
+	return bsdata<order>::source.getcount() != 0;
+}
+
+void animable::clearallanimate() {
+	for(auto& e : bsdata<order>()) {
+		if(e.object == this) {
+			e.clear();
+			break;
+		}
+	}
+	clearanimate();
+}
+
+static void clean_last_order() {
+	auto pb = bsdata<order>::begin();
+	auto p = bsdata<order>::end() - 1;
+	while(p >= pb) {
+		if(*p)
+			break;
+		p--;
+	}
+	bsdata<order>::source.count = p - pb + 1;
 }
 
 void initialize_adventure() {
@@ -225,8 +278,8 @@ static bool ismoving(animate_s v) {
 	}
 }
 
-static void correctposition(drawable* pd, const sprite* ps, animate_s a) {
-	if(ismoving(a)) {
+static void correctposition(animable* pd, const sprite* ps) {
+	if(pd->isanimate(AnimateWalk) || pd->isanimate(AnimateRun)) {
 		auto pt = anminfo::getoffset(ps, pd->frame);
 		pd->position.x += pt.x;
 		pd->position.y += pt.y;
@@ -254,12 +307,13 @@ void animable::setanimate(animate_s v) {
 	auto pc = ps->gcicle(cicle);
 	if(pc && pc->count) {
 		if(frame < pc->start || frame >= (pc->start + pc->count)) {
-			drawable::setanimate(pc->start, pc->count);
-			correctposition(this, ps, v);
+			frame = pc->start;
+			frame_start = frame;
+			frame_stop = frame_start + pc->count - 1;
+			correctposition(this, ps);
 		}
 	}
 	timer = getdelay();
-	remove(WaitNewAnimation);
 }
 
 void animable::appear(point h) {
@@ -293,8 +347,21 @@ void animable::clearanimate() {
 	timer += xrand(3, 7) * 1000;
 }
 
+static order* findorder(const animable* pv) {
+	for(auto& e : bsdata<order>()) {
+		if(e.object == pv)
+			return &e;
+	}
+	return 0;
+}
+
 void animable::nextanimate() {
-	clearanimate();
+	auto po = findorder(this);
+	if(po) {
+		setanimate(po->animate);
+		po->clear();
+	} else
+		clearanimate();
 }
 
 int	animable::getweaponindex() const {
@@ -306,8 +373,7 @@ int	animable::getweaponindex() const {
 void animable::moveto(indext i) {
 	if(i == Blocked)
 		return;
-	auto po = addanimate(AnimateWalk);
-	po->position = h2s(i2h(i));
+	addanimate(AnimateWalk, h2s(i2h(i)));
 }
 
 void animable::changeweapon() {
@@ -318,4 +384,45 @@ void animable::changeweapon() {
 	setanimate(AnimateWeaponTakeOn);
 	wait();
 	clearanimate();
+}
+
+void animable::updateframe() {
+	auto ps = gres(getlook());
+	if(frame_start == frame_stop)
+		timer += 2000; // Dead body lying on ground check every two seconds
+	else if(frame_start < frame_stop) {
+		if(frame < frame_stop) {
+			frame++;
+			correctposition(this, ps);
+		} else {
+			frame = frame_start;
+			correctposition(this, ps);
+			nextanimate();
+		}
+	} else {
+		if(frame > frame_stop)
+			frame--;
+		else {
+			nextanimate();
+			frame = frame_start;
+		}
+	}
+}
+
+void animable::setanimate(unsigned short v, unsigned short count) {
+	if(!count)
+		return;
+	frame = v;
+	frame_start = frame;
+	frame_stop = frame_start + count - 1;
+}
+
+bool animable::isanimate(animate_s v) const {
+	auto ps = gres(getlook());
+	if(!ps)
+		return false;
+	auto pc = ps->gcicle(getframe(v, getweaponindex()) + getframe(direction));
+	if(!pc)
+		return false;
+	return frame >= pc->start && frame <= (pc->start + pc->count - 1);
 }

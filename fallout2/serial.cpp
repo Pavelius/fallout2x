@@ -19,9 +19,6 @@ template<> void archive::set<areai>(areai& e) {
 template<> void archive::set<drawable>(drawable& e) {
 	set(e.position);
 	set(e.data);
-	set(e.frame);
-	set(e.frame_stop);
-	set(e.flags);
 }
 
 static void serial(character* p, const char* id, bool writemode) {

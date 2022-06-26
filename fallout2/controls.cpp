@@ -1119,13 +1119,6 @@ static void update_mouse_tick() {
 		mouse_clicked = true;
 }
 
-static void update_next_animate() {
-	for(auto& e : bsdata<character>()) {
-		if(e.animable::is(WaitNewAnimation))
-			e.nextanimate();
-	}
-}
-
 static void update_animation() {
 	static unsigned long last_tick;
 	if(!last_tick)
@@ -1155,29 +1148,12 @@ void animable::wait() {
 		cursor.paint();
 		doredraw();
 		update_animation();
-		need_stop = is(WaitNewAnimation);
-		order::updateall();
-		update_next_animate();
+		need_stop = isanimate(AnimateStand);
 		waitcputime(1);
 	}
 }
 
-void animable::waitall() {
-	auto need_stop = false;
-	while(!need_stop && ismodal()) {
-		hot.key = InputUpdate;
-		dialog::paint();
-		cursor.position = hot.mouse;
-		cursor.set(res::INTRFACE, 295);
-		cursor.paint();
-		doredraw();
-		update_animation();
-		order::updateall();
-		need_stop = (bsdata<order>::source.getcount()==0);
-		update_next_animate();
-		waitcputime(1);
-	}
-}
+bool is_special_animate();
 
 static void beforemodal() {
 	update_tick();
@@ -1303,8 +1279,6 @@ static void finish() {
 static void tips() {
 	cursor.paint();
 	update_animation();
-	order::updateall();
-	update_next_animate();
 }
 
 int start_application(fnevent proc, fnevent afterread) {
