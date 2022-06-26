@@ -302,6 +302,7 @@ struct animable : wearable, spriteable {
 	unsigned short		frame_start, frame_stop;
 	res					naked;
 	direction_s			direction;
+	point				order_position;
 	static animable*	last;
 	void				addanimate(animate_s a, point pt = {});
 	void				appear(point h);
@@ -312,6 +313,7 @@ struct animable : wearable, spriteable {
 	static animate_s	getbase(animate_s v, int* w);
 	int					getdelay() const;
 	static direction_s	getdirection(point s, point d);
+	static direction_s	getdirection(int d);
 	static short		getframe(direction_s v);
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
@@ -320,8 +322,7 @@ struct animable : wearable, spriteable {
 	void				moveto(indext i);
 	void				nextanimate();
 	void				paint() const;
-	void				setanimate(animate_s v);
-	void				setanimate(unsigned short v, unsigned short count);
+	void				setanimate(animate_s v, point target_position = {});
 	void				turn(int d);
 	void				updateframe();
 	void				wait();

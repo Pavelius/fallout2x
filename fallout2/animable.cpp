@@ -136,9 +136,10 @@ static order* find_empthy() {
 }
 
 void animable::addanimate(animate_s a, point pt) {
-	if(isanimate(AnimateStand))
+	if(isanimate(AnimateStand)) {
 		setanimate(a);
-	else {
+		order_position = pt;
+	} else {
 		auto p = find_empthy();
 		if(!p)
 			p = bsdata<order>::add();
@@ -173,8 +174,12 @@ static void clean_last_order() {
 	bsdata<order>::source.count = p - pb + 1;
 }
 
+static indext dtot(indext i, int d) {
+	return areai::tot(i, animable::getdirection(d));
+}
+
 void initialize_adventure() {
-	pathfind::to = areai::tot;
+	pathfind::to = dtot;
 	pathfind::maxcount = mps * mps;
 	pathfind::maxdir = 6;
 	drawable::paint = paint_drawable;
@@ -278,11 +283,20 @@ static bool ismoving(animate_s v) {
 	}
 }
 
+long distance(point p1, point p2);
+
 static void correctposition(animable* pd, const sprite* ps) {
-	if(pd->isanimate(AnimateWalk) || pd->isanimate(AnimateRun)) {
+	if(pd->order_position) {
 		auto pt = anminfo::getoffset(ps, pd->frame);
-		pd->position.x += pt.x;
-		pd->position.y += pt.y;
+		pt.x += pd->position.x;
+		pt.y += pd->position.y;
+		auto n1 = distance(pt, pd->order_position);
+		auto n2 = distance(pd->position, pd->order_position);
+		if(n1 > n2 && n2 < 16) {
+			pd->position = pd->order_position;
+			pd->clearanimate();
+		} else
+			pd->position = pt;
 	}
 }
 
@@ -299,7 +313,7 @@ void animable::turn(int d) {
 	clearanimate();
 }
 
-void animable::setanimate(animate_s v) {
+void animable::setanimate(animate_s v, point target) {
 	auto ps = gres(getlook());
 	if(!ps)
 		return;
@@ -307,6 +321,7 @@ void animable::setanimate(animate_s v) {
 	auto pc = ps->gcicle(cicle);
 	if(pc && pc->count) {
 		if(frame < pc->start || frame >= (pc->start + pc->count)) {
+			order_position = target;
 			frame = pc->start;
 			frame_start = frame;
 			frame_stop = frame_start + pc->count - 1;
@@ -342,7 +357,20 @@ short animable::getframe(direction_s d) {
 	}
 }
 
+direction_s animable::getdirection(int d) {
+	switch(d) {
+	case 0: return RightUp;
+	case 1: return Right;
+	case 2: return RightDown;
+	case 3: return LeftDown;
+	case 4: return Left;
+	case 5: return LeftUp;
+	default: return Center;
+	}
+}
+
 void animable::clearanimate() {
+	order_position.clear();
 	setanimate(AnimateStand);
 	timer += xrand(3, 7) * 1000;
 }
@@ -358,7 +386,7 @@ static order* findorder(const animable* pv) {
 void animable::nextanimate() {
 	auto po = findorder(this);
 	if(po) {
-		setanimate(po->animate);
+		setanimate(po->animate, po->position);
 		po->clear();
 	} else
 		clearanimate();
@@ -370,10 +398,15 @@ int	animable::getweaponindex() const {
 	return 0;
 }
 
-void animable::moveto(indext i) {
-	if(i == Blocked)
+void animable::moveto(indext target) {
+	static indext path[256 * 16];
+	if(target == Blocked)
 		return;
-	addanimate(AnimateWalk, h2s(i2h(i)));
+	auto start = h2i(s2h(position));
+	pathfind::clearpath();
+	pathfind::makewave(target);
+	auto mp = pathfind::getpath(target, start, path, sizeof(path)/sizeof(path[0]));
+	addanimate(AnimateWalk, h2s(i2h(target)));
 }
 
 void animable::changeweapon() {
@@ -407,14 +440,6 @@ void animable::updateframe() {
 			frame = frame_start;
 		}
 	}
-}
-
-void animable::setanimate(unsigned short v, unsigned short count) {
-	if(!count)
-		return;
-	frame = v;
-	frame_start = frame;
-	frame_stop = frame_start + count - 1;
 }
 
 bool animable::isanimate(animate_s v) const {

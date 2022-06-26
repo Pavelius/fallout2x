@@ -6,9 +6,9 @@ using namespace pathfind;
 static indext stack[256 * 256];
 static indext* push_counter;
 static indext* pop_counter;
-static indext movement_rate[64 * 64];
+static indext movement_rate[256 * 256];
 
-int	pathfind::maxcount = 64 * 64;
+int	pathfind::maxcount = 256 * 256;
 int pathfind::maxdir = 6;
 fnto pathfind::to;
 
@@ -92,11 +92,10 @@ unsigned pathfind::getpath(indext start, indext goal, indext* result, unsigned m
 		}
 		if(next == curr || next == start)
 			break;
-		if(curr == goal) {
-			*pb++ = goal;
-			if(pb >= pe)
-				break;
-		}
+		if(curr == goal)
+			break;
+		if(pb >= pe)
+			break;
 		*pb++ = next;
 		curr = next;
 	}
