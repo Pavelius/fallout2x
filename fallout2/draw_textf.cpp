@@ -129,11 +129,15 @@ void draw::textf(const char* p) {
 	height = push_height;
 }
 
-void draw::textfs(const char* string) {
+void draw::textfs(const char* string, const char** string_cashe, int* string_origin) {
 	auto push_caret = caret;
 	auto push_clipping = clipping;
 	clipping.clear(); caret = {};
 	textf(string);
+	if(string_cashe)
+		*string_cashe = text_start_string;
+	if(string_origin)
+		*string_origin = text_start_horiz;
 	clipping = push_clipping;
 	caret = push_caret;
 	width = maxcaret.x;

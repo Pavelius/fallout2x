@@ -204,6 +204,7 @@
     <ClCompile Include="spriteable.cpp" />
     <ClCompile Include="sprite_util.cpp" />
     <ClCompile Include="statable.cpp" />
+    <ClCompile Include="status.cpp" />
     <ClCompile Include="stringbuilder.cpp" />
     <ClCompile Include="stringcopy.cpp" />
     <ClCompile Include="stringlib.cpp" />

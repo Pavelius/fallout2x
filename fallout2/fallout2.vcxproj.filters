@@ -235,6 +235,9 @@
     <ClCompile Include="game.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="status.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

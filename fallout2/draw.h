@@ -235,7 +235,7 @@ void					textas(const char* string);
 void					textc(const char* string, int count = -1, unsigned flags = 0);
 int						textbc(const char* string, int width);
 void					textf(const char* p);
-void					textfs(const char* p);
+void					textfs(const char* p, const char** string_cashe = 0, int* string_origin = 0);
 int						texth();
 int						texth(const char* string, int width);
 int						textw(int sym);

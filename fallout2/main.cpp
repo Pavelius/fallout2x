@@ -70,6 +70,7 @@ static bool test_map2() {
 }
 
 static void start() {
+	status("Start game...");
 	//if(!test_map())
 	//	return;
 	//if(!test_map2())
@@ -111,6 +112,7 @@ static void start() {
 }
 
 static void initialize() {
+	status("Initialization...");
 	initialize_adventure();
 	initialize_script();
 	initialize_dialog();

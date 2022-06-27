@@ -1123,6 +1123,19 @@ static void apply_info_mode() {
 	cursor.set(res::INTRFACE, info_mode ? 250 : 286);
 }
 
+static void scrolltext(const char* format, const char*& format_cashe, int& format_origin, int& format_maximum) {
+	if(format != format_cashe) {
+		auto push_height = height;
+		auto push_width = width;
+		textfs(format);
+		format_maximum = height;
+		format_cashe = format;
+		format_origin = format_origin;
+		width = push_width;
+		height = push_height;
+	}
+}
+
 int draw::opendialog(const char* id) {
 	auto p = bsdata<dialog>::find(id);
 	if(!p)

@@ -456,8 +456,11 @@ extern unsigned long	current_tick;
 inline int				d100() { return rand() % 100; }
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();
+const char*				getstatusmessage();
 extern point			h2s(point v);
 indext					h2i(point pt);
 extern point			s2h(point pt);
 extern point			s2t(point v);
+void					statusv(const char* format, const char* format_param);
+inline void				status(const char* format, ...) { statusv(format, xva_start(format)); }
 extern point			t2s(point v);
