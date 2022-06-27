@@ -306,18 +306,38 @@ short animable::getframe(animate_s v, int weapon_index) {
 
 long distance(point p1, point p2);
 
+static hexdir_s getnextdirection(indext start, indext goal) {
+	for(auto i = 0; i < pathfind::maxdir; i++) {
+		if(pathfind::to(start, i) == goal)
+			return (hexdir_s)i;
+	}
+	return HexRD;
+}
+
 static void correctposition(animable* pd, const sprite* ps) {
 	if(pd->ismoving()) {
 		auto pt = anminfo::getoffset(ps, pd->frame);
+		auto prev_position = pd->position;
 		pd->position.x += pt.x;
 		pd->position.y += pt.y;
-		//auto n1 = distance(pt, pd->order_position);
-		//auto n2 = distance(pd->position, pd->order_position);
-		//if(n1 > n2 && n2 < 16) {
-		//	pd->position = pd->order_position;
-		//	pd->clearanimate();
-		//} else
-		//	pd->position = pt;
+		auto next_position = h2s(i2h(pd->path[0]));
+		auto change_index = (prev_position.x < next_position.x && next_position.x <= pd->position.x)
+			|| (prev_position.x > next_position.x && next_position.x >= pd->position.x)
+			|| (prev_position.y < next_position.y && next_position.y <= pd->position.y)
+			|| (prev_position.y > next_position.y && next_position.y >= pd->position.y);
+		if(change_index) {
+			pd->path++;
+			if(pd->path[0] == Blocked)
+				pd->clearanimate();
+			else {
+				auto new_direction = getnextdirection(pd->path[-1], pd->path[0]);
+				if(new_direction != pd->direction) {
+					pd->direction = new_direction;
+					pd->position = next_position;
+					pd->setanimate(AnimateWalk);
+				}
+			}
+		}
 	}
 }
 
@@ -382,6 +402,8 @@ static order* findorder(const animable* pv) {
 }
 
 void animable::nextanimate() {
+	if(ismoving())
+		return;
 	auto po = findorder(this);
 	if(po) {
 		setanimate(po->animate, po->position);
@@ -394,14 +416,6 @@ int	animable::getweaponindex() const {
 	if(wear[RightHandItem])
 		return wear[RightHandItem].geti().avatar.animation;
 	return 0;
-}
-
-hexdir_s getnextdirection(indext start, indext goal) {
-	for(auto i = 0; i < pathfind::maxdir; i++) {
-		if(pathfind::to(start, i) == goal)
-			return (hexdir_s)i;
-	}
-	return HexRD;
 }
 
 void animable::moveto(indext goal) {

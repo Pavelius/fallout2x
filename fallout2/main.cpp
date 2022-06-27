@@ -105,8 +105,8 @@ static void start() {
 	character::last->wearable::additem("N10mmAP");
 	character::last->wearable::additem("Minigun");
 	character::last->update();
-	draw::scene(editor);
-	//draw::opendialog("CharacterGame");
+	//draw::scene(editor);
+	draw::opendialog("CharacterGame");
 	//test_animate();
 }
 
