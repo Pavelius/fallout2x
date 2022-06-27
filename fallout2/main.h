@@ -15,6 +15,9 @@
 const int tile_width = 80; // Width of isometric tile
 const int tile_height = 36; // Height of isometric tile
 
+enum hexdir_s : unsigned char {
+	HexRU, HexR, HexRD, HexLD, HexL, HexLU
+};
 enum stat_s : unsigned char {
 	Strenght, Perception, Endurance, Charisma, Intelligence, Agility, Luck,
 	HP, HPCur, AP, APCur, AC,
@@ -311,7 +314,7 @@ struct moveable {
 struct animable : wearable, moveable, spriteable {
 	unsigned short		frame_start, frame_stop;
 	res					naked;
-	direction_s			direction;
+	hexdir_s			direction;
 	static animable*	last;
 	void				addanimate(animate_s a, point pt = {});
 	void				addanimate(action_s v);
@@ -322,9 +325,8 @@ struct animable : wearable, moveable, spriteable {
 	void				focusing() const;
 	static animate_s	getbase(animate_s v, int* w);
 	int					getdelay() const;
-	static direction_s	getdirection(point s, point d);
-	static direction_s	getdirection(int d);
-	static short		getframe(direction_s v);
+	static hexdir_s		getdirection(point s, point d);
+	static short		getframe(hexdir_s v) { return v; }
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
 	int					getweaponindex() const;

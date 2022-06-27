@@ -219,20 +219,20 @@ void initialize_adventure() {
 	drawable::select = select_drawables;
 }
 
-direction_s animable::getdirection(point s, point d) {
-	static const direction_s orientations[25] = {
-		LeftUp, LeftUp, RightUp, RightUp, RightUp,
-		LeftUp, LeftUp, LeftUp, RightUp, RightUp,
-		Left, Left, Center, Right, Right,
-		LeftDown, LeftDown, RightDown, RightDown, RightDown,
-		LeftDown, LeftDown, LeftDown, RightDown, RightDown
+hexdir_s animable::getdirection(point s, point d) {
+	static const hexdir_s orientations[25] = {
+		HexLU, HexLU, HexRU, HexRU, HexRU,
+		HexLU, HexLU, HexLU, HexRU, HexRU,
+		HexL, HexL, HexRD, HexR, HexR,
+		HexLD, HexLD, HexRD, HexRD, HexRD,
+		HexLD, HexLD, HexLD, HexRD, HexRD
 	};
 	const int osize = 5;
 	int dx = d.x - s.x;
 	int dy = d.y - s.y;
 	int st = (2 * imax(iabs(dx), iabs(dy)) + osize - 1) / osize;
 	if(!st)
-		return Center;
+		return HexRD;
 	int ax = dx / st;
 	int ay = dy / st;
 	return orientations[(ay + (osize / 2)) * osize + ax + (osize / 2)];
@@ -332,7 +332,7 @@ void animable::turn(int d) {
 	auto w = getframe(direction) + d;
 	if(w < 0)
 		w += 6;
-	direction = getdirection(w % 6);
+	direction = hexdir_s(w % 6);
 	clearanimate();
 }
 
@@ -356,7 +356,7 @@ void animable::setanimate(animate_s v, point target) {
 void animable::appear(point h) {
 	data = this;
 	position = h2s(h);
-	direction = RightDown;
+	direction = HexRD;
 	setanimate(AnimateStand);
 }
 
@@ -365,30 +365,6 @@ void animable::focusing() const {
 	pt.x -= 640 / 2;
 	pt.y -= 480 / 2;
 	camera = pt;
-}
-
-short animable::getframe(direction_s d) {
-	switch(d) {
-	case RightUp: return 0;
-	case Right: return 1;
-	case RightDown: return 2;
-	case LeftDown: return 3;
-	case Left: return 4;
-	case LeftUp: return 5;
-	default: return 0;
-	}
-}
-
-direction_s animable::getdirection(int d) {
-	switch(d) {
-	case 0: return RightUp;
-	case 1: return Right;
-	case 2: return RightDown;
-	case 3: return LeftDown;
-	case 4: return Left;
-	case 5: return LeftUp;
-	default: return Center;
-	}
 }
 
 void animable::clearanimate() {
@@ -420,12 +396,12 @@ int	animable::getweaponindex() const {
 	return 0;
 }
 
-direction_s getnextdirection(indext start, indext goal) {
+hexdir_s getnextdirection(indext start, indext goal) {
 	for(auto i = 0; i < pathfind::maxdir; i++) {
 		if(pathfind::to(start, i) == goal)
-			return animable::getdirection(i);
+			return (hexdir_s)i;
 	}
-	return Center;
+	return HexRD;
 }
 
 void animable::moveto(indext goal) {
