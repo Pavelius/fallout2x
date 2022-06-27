@@ -17,6 +17,7 @@ void statusv(const char* format, const char* format_param) {
 	char temp[2048]; stringbuilder sb(temp);
 	if(messages)
 		sb.add("\n");
+	sb.add("~ ");
 	sb.addv(format, format_param);
 	statusv(temp, sb.getlenght());
 }

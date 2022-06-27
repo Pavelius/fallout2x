@@ -1136,6 +1136,10 @@ static void scrolltext(const char* format, const char*& format_cashe, int& forma
 	}
 }
 
+static void status_bar() {
+	textf(getstatusmessage());
+}
+
 int draw::opendialog(const char* id) {
 	auto p = bsdata<dialog>::find(id);
 	if(!p)
@@ -1391,6 +1395,7 @@ BSDATA(widget) = {
 	{"PaperDoll", paper_doll},
 	{"ScrollDown", scroll_down},
 	{"ScrollUp", scroll_up},
+	{"StatusBar", status_bar},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},
