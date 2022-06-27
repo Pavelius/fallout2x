@@ -54,9 +54,9 @@ BSDATA(animationi) = {
 assert_enum(animationi, AnimateWeaponAimEnd)
 
 struct order {
-	point				position;
 	animable*			object;
 	animate_s			animate;
+	indext				goal;
 	constexpr explicit operator bool() const { return object != 0; }
 	void				clear() { memset(this, 0, sizeof(*this)); }
 };
@@ -135,14 +135,14 @@ static order* find_empthy() {
 	return 0;
 }
 
-void animable::addanimate(animate_s a, point pt) {
+void animable::addanimate(animate_s a, indext goal) {
 	if(isanimate(AnimateStand))
 		setanimate(a);
 	else {
 		auto p = find_empthy();
 		if(!p)
 			p = bsdata<order>::add();
-		p->position = pt;
+		p->goal = goal;
 		p->object = this;
 		p->animate = a;
 	}
@@ -371,10 +371,17 @@ void animable::turn(int d) {
 	clearanimate();
 }
 
-void animable::setanimate(animate_s v, point target) {
+void animable::setanimate(animate_s v, indext goal) {
 	auto ps = gres(getlook());
 	if(!ps)
 		return;
+	if(goal != Blocked && (v == AnimateWalk || v == AnimateRun)) {
+		auto start = h2i(s2h(position));
+		if(start == goal)
+			return;
+		makepath(start, goal);
+		direction = getnextdirection(start, path_start[0]);
+	}
 	animate = v;
 	auto cicle = getframe(v, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
@@ -431,7 +438,7 @@ void animable::nextanimate() {
 		return;
 	auto po = findorder(this);
 	if(po) {
-		setanimate(po->animate, po->position);
+		setanimate(po->animate, po->goal);
 		po->clear();
 	} else
 		clearanimate();
@@ -444,12 +451,7 @@ int	animable::getweaponindex() const {
 }
 
 void animable::moveto(indext goal, bool run) {
-	if(goal == Blocked)
-		return;
-	auto start = h2i(s2h(position));
-	makepath(start, goal);
-	direction = getnextdirection(start, path_start[0]);
-	setanimate(run ? AnimateRun : AnimateWalk);
+	setanimate(run ? AnimateRun : AnimateWalk, goal);
 }
 
 void animable::changeweapon() {

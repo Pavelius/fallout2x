@@ -318,7 +318,7 @@ struct animable : wearable, moveable, spriteable {
 	res					naked;
 	hexdir_s			direction;
 	static animable*	last;
-	void				addanimate(animate_s a, point pt = {});
+	void				addanimate(animate_s a, indext goal = Blocked);
 	void				addanimate(action_s v);
 	void				appear(point h);
 	void				clearanimate();
@@ -337,7 +337,7 @@ struct animable : wearable, moveable, spriteable {
 	void				nextanimate();
 	void				paint() const;
 	void				readyweapon(bool takeon);
-	void				setanimate(animate_s v, point target_position = {});
+	void				setanimate(animate_s v, indext goal = Blocked);
 	void				turn(int d);
 	void				updateframe();
 	void				wait();
