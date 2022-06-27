@@ -158,10 +158,20 @@ void moveable::clearpath() {
 	path_start = path = 0;
 }
 
+static void blockcharacters(const moveable* exclude) {
+	for(auto& e : bsdata<character>()) {
+		if(!e)
+			continue;
+		auto index = h2i(s2h(e.position));
+		pathfind::setmove(index, Blocked);
+	}
+}
+
 void moveable::makepath(indext start, indext goal) {
 	static indext temp[256 * 16];
 	clearpath();
 	pathfind::clearpath();
+	blockcharacters(this);
 	pathfind::makewave(goal);
 	auto count = pathfind::getpath(start, goal, temp, sizeof(temp) / sizeof(temp[0]));
 	path_start = new indext[count + 1];
@@ -332,6 +342,7 @@ static void correctposition(animable* pd, const sprite* ps) {
 			if(pd->path[0] == Blocked) {
 				pd->position = next_position;
 				pd->clearanimate();
+				pd->readyweapon(true);
 			} else {
 				auto new_direction = getnextdirection(pd->path[-1], pd->path[0]);
 				if(new_direction != pd->direction) {
@@ -346,10 +357,10 @@ static void correctposition(animable* pd, const sprite* ps) {
 }
 
 int animable::getdelay() const {
-	auto pi = anminfo::get(getlook());
+	auto pi = anminfo::get(getlook()) + getframe(animate, getweaponindex()) / 6;
 	if(pi && pi->fps)
-		return 1000 / pi->fps;
-	return 1000 / 10;
+		return 1300 / pi->fps;
+	return 1300 / 10;
 }
 
 void animable::turn(int d) {
@@ -364,6 +375,7 @@ void animable::setanimate(animate_s v, point target) {
 	auto ps = gres(getlook());
 	if(!ps)
 		return;
+	animate = v;
 	auto cicle = getframe(v, getweaponindex()) + getframe(direction);
 	auto pc = ps->gcicle(cicle);
 	if(pc && pc->count) {
@@ -403,6 +415,15 @@ static order* findorder(const animable* pv) {
 			return &e;
 	}
 	return 0;
+}
+
+void animable::readyweapon(bool takeon) {
+	if(!wear[RightHandItem].geti().avatar.animation)
+		return;
+	if(takeon)
+		addanimate(AnimateWeaponTakeOn);
+	else
+		addanimate(AnimateWeaponTakeOff);
 }
 
 void animable::nextanimate() {

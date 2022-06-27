@@ -69,10 +69,18 @@ static bool test_map2() {
 	return true;
 }
 
+static bool test_animation() {
+	auto pa = anminfo::get(res::HMLTHR);
+	auto& e1 = pa[AnimateWalk * 6];
+	auto& e2 = pa[AnimateRun * 6];
+	auto& e3 = pa[AnimateStand * 6];
+	return true;
+}
+
 static void start() {
 	status("Start game...");
-	//if(!test_map())
-	//	return;
+	if(!test_animation())
+		return;
 	//if(!test_map2())
 	//	return;
 	auto is = sizeof(item);
@@ -82,6 +90,8 @@ static void start() {
 	point t1 = i2t(i);
 	indext i1 = loc.tot(i, Up);
 	point t2 = i2t(i);
+	character::last = character::add("Farmer");
+	character::last->appear({35, 35});
 	character::last = character::add("Narg");
 	//choose_scenery();
 	loc.set(0, 90, 100, 100, 4);

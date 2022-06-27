@@ -112,6 +112,7 @@ BSMETA(prototype) = {
 	BSDST(stats, stati),
 	BSREQ(tags),
 	BSFLG(perks, perki),
+	BSENM(naked, residi),
 	{}};
 BSMETA(sceneryi) = {
 	BSREQ(id),

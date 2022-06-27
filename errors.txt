@@ -1,2 +1,5 @@
-﻿In file `forms/CharacterGame.txt`:
- Line 3: Not found identifier `UpdateAnimation`
+﻿In file `rules/Prototype.txt`:
+ Line 4: Not found field `naked` in dataset `stats`
+ Line 4: Not found identifier `HMJMPS`
+ Line 9: Not found field `naked` in dataset `stats`
+ Line 9: Not found identifier `NMBRLP`

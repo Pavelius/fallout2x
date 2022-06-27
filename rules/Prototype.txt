@@ -1,6 +1,10 @@
 #Prototype
 
-Narg
+Narg naked(HMJMPS)
  stats Strenght(8) Perception(5) Endurance(9) Charisma(3) Intelligence(4) Agility(7) Luck(4) Age(21)
  tags MeleeWeapon Unarmed Throwing
  perks Gifted HeavyHanded
+
+Farmer naked(NMBRLP)
+ stats Strenght(5) Perception(5) Endurance(6) Charisma(3) Intelligence(4) Agility(5) Luck(5) Age(40)
+ tags MeleeWeapon Unarmed Outdoorsman

@@ -82,7 +82,7 @@ character* character::add(const char* id) {
 		if(pa)
 			p->settag((stat_s)getbsi(pa), 1);
 	}
-	p->naked = res::HMJMPS;
+	p->naked = pt->naked;
 	p->update();
 	return p;
 }

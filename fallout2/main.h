@@ -279,6 +279,7 @@ struct statable {
 struct prototype : nameable, statable {
 	const stati*		tags[3];
 	perka				perks;
+	res					naked;
 };
 struct itemwear : item {
 	character*			owner;
@@ -312,6 +313,7 @@ struct moveable {
 	void				makepath(indext start, indext goal);
 };
 struct animable : wearable, moveable, spriteable {
+	animate_s			animate;
 	unsigned short		frame_start, frame_stop;
 	res					naked;
 	hexdir_s			direction;
@@ -334,6 +336,7 @@ struct animable : wearable, moveable, spriteable {
 	void				moveto(indext i, bool run);
 	void				nextanimate();
 	void				paint() const;
+	void				readyweapon(bool takeon);
 	void				setanimate(animate_s v, point target_position = {});
 	void				turn(int d);
 	void				updateframe();
