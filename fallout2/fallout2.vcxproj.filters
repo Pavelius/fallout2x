@@ -229,6 +229,12 @@
     <ClCompile Include="spriteable.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="worldmap.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

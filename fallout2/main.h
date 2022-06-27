@@ -431,11 +431,23 @@ struct walli : nameable {
 	void				paint() const;
 	static void			set(point h, short i);
 };
+struct worldmapi {
+	static const int width = 28; // Width of world map int tiles
+	static const int height = 30; // Height of world map int tiles
+	unsigned char		data[height][width];
+	int					get(point w) const;
+	void				set(point w, int value);
+};
+struct gamei : worldmapi {
+	point				position;
+	unsigned long		rounds;
+};
 namespace draw {
 void					messagev(const char* format, const char* format_param);
 inline void				message(const char* format, ...) { messagev(format, xva_start(format)); }
 int						opendialog(const char* id);
 }
+extern gamei			game;
 extern spriteable		cursor;
 extern areai			loc;
 extern int				last_value, last_stat;

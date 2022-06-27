@@ -171,6 +171,7 @@
     <ClCompile Include="filelist.cpp" />
     <ClCompile Include="focus.cpp" />
     <ClCompile Include="function.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="gender.cpp" />
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="information.cpp" />
@@ -219,6 +220,7 @@
     <ClCompile Include="win_draw.cpp" />
     <ClCompile Include="win_io_file.cpp" />
     <ClCompile Include="win_time.cpp" />
+    <ClCompile Include="worldmap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="archive.h" />
