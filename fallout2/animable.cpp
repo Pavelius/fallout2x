@@ -316,8 +316,8 @@ static hexdir_s getnextdirection(indext start, indext goal) {
 
 static void correctposition(animable* pd, const sprite* ps) {
 	if(pd->ismoving()) {
-		auto pt = anminfo::getoffset(ps, pd->frame);
 		auto prev_position = pd->position;
+		auto pt = anminfo::getoffset(ps, pd->frame);
 		pd->position.x += pt.x;
 		pd->position.y += pt.y;
 		auto next_position = h2s(i2h(pd->path[0]));
@@ -327,9 +327,10 @@ static void correctposition(animable* pd, const sprite* ps) {
 			|| (prev_position.y > next_position.y && next_position.y >= pd->position.y);
 		if(change_index) {
 			pd->path++;
-			if(pd->path[0] == Blocked)
+			if(pd->path[0] == Blocked) {
+				pd->position = next_position;
 				pd->clearanimate();
-			else {
+			} else {
 				auto new_direction = getnextdirection(pd->path[-1], pd->path[0]);
 				if(new_direction != pd->direction) {
 					pd->direction = new_direction;

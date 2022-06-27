@@ -947,9 +947,8 @@ void redraw_hexagon() {
 	char temp[32]; stringbuilder sb(temp);
 	cursor.clear();
 	auto h0 = i2h(current_hexagon);
-	auto p1 = h2s(h0);
 	auto push_caret = caret;
-	caret = p1 - camera;
+	caret = h2s(h0) - camera;
 	//marker();
 	//sb.clear(); sb.add("%1i,%2i", h0.x, h0.y);
 	image(caret.x - 16, caret.y - 12, gres(res::INTRFACE), 1, 0);
