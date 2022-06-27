@@ -38,5 +38,5 @@ action_s wearable::getaction() const {
 	auto a = getactions();
 	if(!a)
 		return NoAction;
-	return a[0];
+	return a[action_index[0]];
 }
