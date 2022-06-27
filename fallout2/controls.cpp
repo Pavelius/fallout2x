@@ -913,7 +913,7 @@ void set_hexagon_position() {
 static void point_of_view() {
 	auto p2 = h2s(i2h((indext)hot.param));
 	auto p1 = character::last->position;
-	character::last->moveto((indext)hot.param);
+	character::last->moveto((indext)hot.param, true);
 }
 
 static void click_command() {

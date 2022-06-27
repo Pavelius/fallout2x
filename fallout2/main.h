@@ -331,7 +331,7 @@ struct animable : wearable, moveable, spriteable {
 	res					getlook() const;
 	int					getweaponindex() const;
 	bool				isanimate(animate_s v) const;
-	void				moveto(indext i);
+	void				moveto(indext i, bool run);
 	void				nextanimate();
 	void				paint() const;
 	void				setanimate(animate_s v, point target_position = {});

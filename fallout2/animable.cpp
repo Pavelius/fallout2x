@@ -298,6 +298,8 @@ short animable::getframe(animate_s v, int weapon_index) {
 		case AnimateThrown: v = AnimateWeaponThrow; break;
 		case AnimateUnarmed1: v = AnimateWeaponSwing; break;
 		case AnimateUnarmed2: v = AnimateWeaponThrust; break;
+		case AnimateRun:
+			return v * 6;
 		}
 		return (v + (weapon_index - 1) * 13) * 6;
 	}
@@ -333,9 +335,10 @@ static void correctposition(animable* pd, const sprite* ps) {
 			} else {
 				auto new_direction = getnextdirection(pd->path[-1], pd->path[0]);
 				if(new_direction != pd->direction) {
+					auto run = pd->isanimate(AnimateRun);
 					pd->direction = new_direction;
 					pd->position = next_position;
-					pd->setanimate(AnimateWalk);
+					pd->setanimate(run ? AnimateRun : AnimateWalk);
 				}
 			}
 		}
@@ -419,13 +422,13 @@ int	animable::getweaponindex() const {
 	return 0;
 }
 
-void animable::moveto(indext goal) {
+void animable::moveto(indext goal, bool run) {
 	if(goal == Blocked)
 		return;
 	auto start = h2i(s2h(position));
 	makepath(start, goal);
 	direction = getnextdirection(start, path_start[0]);
-	setanimate(AnimateWalk);
+	setanimate(run ? AnimateRun : AnimateWalk);
 }
 
 void animable::changeweapon() {
