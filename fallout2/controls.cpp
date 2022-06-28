@@ -921,13 +921,13 @@ void set_hexagon_position() {
 static void point_of_view() {
 	auto p2 = h2s(i2h((indext)hot.param));
 	auto p1 = character::last->position;
-	character::last->moveto((indext)hot.param, true);
+	character::last->moveto((indext)hot.param, hot.param2);
 }
 
 static void click_command() {
 	if(!info_mode && current_hexagon != Blocked) {
-		if(hot.key == MouseLeft && hot.pressed)
-			execute(point_of_view, current_hexagon);
+		if((hot.key & 0xFF) == MouseLeft && hot.pressed)
+			execute(point_of_view, current_hexagon, (hot.key & Shift) ? 0 : 1);
 	}
 }
 

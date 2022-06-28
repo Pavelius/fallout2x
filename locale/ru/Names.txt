@@ -24,6 +24,7 @@ Endurance: Выносливость
 EnergyWeapon: Энерго оружие
 ErrorTagLimit: У вас уже есть максимум из двух особенностей!
 EyeDamaged: Поврежден глаз
+Farmer: Фермер
 FastMetabolism: Живчик
 FastShoot: Скорострел
 Finesse: Утонченный
@@ -74,5 +75,6 @@ Throwing: Метание
 Traits: Особенности
 Traps: Ловушки
 Unarmed: Рукопашная
+YouSee: Вы видите
 Weight: Вес
 Years: Лет
