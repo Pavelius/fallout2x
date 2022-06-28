@@ -2,6 +2,7 @@
 #include "stringbuilder.h"
 
 static array messages(1);
+int status_origin, status_maximum;
 
 void statusv(const char* format, unsigned count) {
 	int n = messages.getcount();
@@ -18,6 +19,8 @@ void statusv(const char* format, unsigned count) {
 		p[count] = 0;
 		messages.count += count;
 	}
+	status_origin = 32000;
+	status_maximum = 0;
 }
 
 void statusv(const char* format, const char* format_param) {

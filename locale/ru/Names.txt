@@ -71,10 +71,10 @@ Speech: Разговор
 Steal: Воровать
 Strenght: Сила
 Tags: Специализация
+ThisIs: Это
 Throwing: Метание
 Traits: Особенности
 Traps: Ловушки
 Unarmed: Рукопашная
-YouSee: Вы видите
 Weight: Вес
 Years: Лет

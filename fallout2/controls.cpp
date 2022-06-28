@@ -26,6 +26,7 @@ struct actionparam {
 }
 
 extern "C" int system(const char* command);
+extern int status_origin, status_maximum;
 
 void apply_pallette_cicle(unsigned char* pal, unsigned dwCurrentTime);
 void initialize_translation(const char* locale);
@@ -113,10 +114,7 @@ static void addaction(action_s v, fnevent proc, const void* object = 0) {
 		return;
 	pa = actions.add();
 	pa->action = v;
-	if(proc)
-		pa->proc = proc;
-	//else
-	//	pa->proc = bsdata<actioni>::elements[v].proc;
+	pa->proc = proc;
 	pa->object = object;
 }
 
@@ -298,7 +296,6 @@ static bool buttonf(int cicles_normal, int cicle_pressed, unsigned key, bool che
 
 static void text_block() {
 	texta(gui.title, gui.flags);
-	//rectb();
 }
 
 static void text_info() {
@@ -391,7 +388,10 @@ static void get_object_information() {
 
 static void look_object() {
 	auto pi = (nameable*)hot.object;
-	status("%YouSee %1.", pi->getname());
+	status("%ThisIs %1.", pi->getname());
+}
+
+static void talk_object() {
 }
 
 static void turn_object() {
@@ -1131,8 +1131,10 @@ static void hiliting_object() {
 		return;
 	if(bsdata<character>::have(hilite_object)) {
 		auto p = static_cast<character*>(((drawable*)hilite_object));
+		if(character::last != p)
+			addaction(Talk, talk_object, p);
 		addaction(Look, look_object, static_cast<nameable*>(p));
-		addaction(Turn, look_object, static_cast<nameable*>(p));
+		addaction(Turn, turn_object, p);
 	}
 }
 
@@ -1156,21 +1158,66 @@ static void hotkey() {
 		execute_button_command();
 }
 
-static void scrolltext(const char* format, const char*& format_cashe, int& format_origin, int& format_maximum) {
-	if(format != format_cashe) {
-		auto push_height = height;
-		auto push_width = width;
-		textfs(format);
-		format_maximum = height;
-		format_cashe = format;
-		format_origin = format_origin;
-		width = push_width;
-		height = push_height;
+static void list_input_nocurrent_nokeys(int& origin, int maximum) {
+	if(!maximum)
+		return;
+	if(origin + height >= maximum)
+		origin = maximum - height;
+	if(origin < 0)
+		origin = 0;
+	const int dy = 8;
+	rect rb = {caret.x, caret.y, caret.x + width, caret.y + height};
+	if(hot.mouse.in(rb)) {
+		rect ru = rb; ru.y2 = ru.y1 + dy;
+		rect rd = rb; rd.y1 = rd.y2 - dy;
+		if(hot.mouse.in(ru) && origin > 0) {
+			cursor.set(res::INTRFACE, 268);
+			if(hot.key == MouseLeft && hot.pressed)
+				execute(cbsetint, origin - texth(), 0, &origin);
+		} else if(hot.mouse.in(rd) && (origin + height < maximum)) {
+			cursor.set(res::INTRFACE, 269);
+			if(hot.key == MouseLeft && hot.pressed)
+				execute(cbsetint, origin + texth(), 0, &origin);
+		}
+		switch(hot.key) {
+		case MouseWheelUp:
+			execute(cbsetint, origin - texth(), 0, &origin);
+			break;
+		case MouseWheelDown:
+			execute(cbsetint, origin + texth(), 0, &origin);
+			break;
+		}
 	}
 }
 
+static void scrolltext(const char* format, int& origin, int& origin_cashe, int& format_maximum) {
+	static const char* format_cashe;
+	static int format_origin;
+	list_input_nocurrent_nokeys(origin, format_maximum);
+	if(origin_cashe != origin || !format_maximum) {
+		if(origin_cashe < origin)
+			origin_cashe++;
+		else if(origin_cashe > origin)
+			origin_cashe--;
+		auto push_height = height;
+		auto push_width = width;
+		textfs(format, origin_cashe, format_cashe, format_origin);
+		format_maximum = height;
+		width = push_width;
+		height = push_height;
+	}
+	auto push_clipping = clipping;
+	clipping = {caret.x, caret.y, caret.x + width, caret.y + height};
+	auto push_caret = caret;
+	caret.y += format_origin;
+	textf(format_cashe);
+	caret = caret;
+	clipping = push_clipping;
+}
+
 static void status_bar() {
-	textf(getstatusmessage());
+	static int origin_cashe;
+	scrolltext(getstatusmessage(), status_origin, origin_cashe, status_maximum);
 }
 
 int draw::opendialog(const char* id) {
@@ -1271,7 +1318,7 @@ static void paint_action_list() {
 	caret = cursor.position;
 	caret.x += 48;
 	caret.y += dy;
-	current_action = (hot.mouse.y - cursor.position.y) / (dy / 20);
+	current_action = (hot.mouse.y - cursor.position.y) / dy;
 	list_paint(origin, current_action, dy, action_row);
 }
 
@@ -1325,12 +1372,12 @@ static void context_menu() {
 				if(mouse_clicked && hot.pressed)
 					execute(context_menu_modal);
 				else if(allow_quick_info) {
-					auto& e = actions[0];
-					if(tips_object != e.object) {
-						tips_object = e.object;
+					if(tips_object != hilite_object) {
+						tips_object = hilite_object;
 						cursor.paint();
-						if(e.proc)
-							execute(e.proc, e.action, 0, e.object);
+						auto pa = findaction(Look);
+						if(pa)
+							execute(look_object, Look, 0, pa->object);
 					}
 				}
 			} else {

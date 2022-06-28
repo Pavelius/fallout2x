@@ -93,7 +93,8 @@ static const char* text_block(const char* p, int x1, int x2) {
 		if(caret.y < clipping.y1) {
 			text_start_string = p;
 			text_start_horiz = caret.y - clipping.y1;
-		}
+		} else if(caret.y > clipping.y2)
+			return p;
 		if(match(&p, "###")) // Header 3
 			p = textfln(skipsp(p), x1, x2, fore, metrics::h3);
 		else if(match(&p, "##")) // Header 2
@@ -129,15 +130,32 @@ void draw::textf(const char* p) {
 	height = push_height;
 }
 
-void draw::textfs(const char* string, const char** string_cashe, int* string_origin) {
+void draw::textfs(const char* string, int origin, const char*& format_cashe, int& format_origin) {
 	auto push_caret = caret;
 	auto push_clipping = clipping;
-	clipping.clear(); caret = {};
+	clipping.clear();
+	clipping.y1 = origin;
+	clipping.y2 = 32000;
+	caret = {};
+	format_cashe = string;
+	format_origin = 0;
 	textf(string);
-	if(string_cashe)
-		*string_cashe = text_start_string;
-	if(string_origin)
-		*string_origin = text_start_horiz;
+	if(text_start_string) {
+		format_cashe = text_start_string;
+		format_origin = text_start_horiz;
+	}
+	clipping = push_clipping;
+	caret = push_caret;
+	width = maxcaret.x;
+	height = maxcaret.y;
+}
+
+void draw::textfs(const char* string) {
+	auto push_caret = caret;
+	auto push_clipping = clipping;
+	clipping.clear(); clipping.y2 = 32000;
+	caret = {};
+	textf(string);
 	clipping = push_clipping;
 	caret = push_caret;
 	width = maxcaret.x;
