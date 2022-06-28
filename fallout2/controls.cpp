@@ -389,6 +389,14 @@ static void get_object_information() {
 	pi->getinfo(sb);
 }
 
+static void look_object() {
+	auto pi = (nameable*)hot.object;
+	status("%YouSee %1.", pi->getname());
+}
+
+static void turn_object() {
+}
+
 static void drag_item() {
 	drag_target = 0;
 	if(!hot.pressed)
@@ -917,7 +925,7 @@ static void point_of_view() {
 }
 
 static void click_command() {
-	if(current_hexagon != Blocked) {
+	if(!info_mode && current_hexagon != Blocked) {
 		if(hot.key == MouseLeft && hot.pressed)
 			execute(point_of_view, current_hexagon);
 	}
@@ -940,7 +948,7 @@ static void textac(const char* format) {
 }
 
 void redraw_hexagon() {
-	if(hot.key == InputUpdate || !hot.key)
+	if(hot.key == InputUpdate || !hot.key || info_mode)
 		return;
 	if(current_hexagon == Blocked)
 		return;
@@ -1099,14 +1107,46 @@ void paint_animation() {
 	clipping = push_clip;
 }
 
+static void set_allow_quick_info() {
+	allow_quick_info = gui.normal;
+}
+
+static void apply_info_mode() {
+	set_allow_quick_info();
+	if(hot.key == MouseRight && hot.pressed)
+		execute(cbsetbool, !info_mode, 0, &info_mode);
+	switch(gui.normal) {
+	case 2:
+		if(info_mode)
+			cursor.set(res::INTRFACE, 250);
+		break;
+	default:
+		cursor.set(res::INTRFACE, info_mode ? 250 : 286);
+		break;
+	}
+}
+
+static void hiliting_object() {
+	if(!hilite_object)
+		return;
+	if(bsdata<character>::have(hilite_object)) {
+		auto p = static_cast<character*>(((drawable*)hilite_object));
+		addaction(Look, look_object, static_cast<nameable*>(p));
+		addaction(Turn, look_object, static_cast<nameable*>(p));
+	}
+}
+
 static void paint_game() {
 	auto push_clip = clipping;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	if(hot.mouse.in(clipping))
+		apply_info_mode();
 	set_hexagon_position();
 	control_map();
 	redraw_floor();
 	redraw_hexagon();
 	paint_drawables();
+	hiliting_object();
 	click_command();
 	clipping = push_clip;
 }
@@ -1114,13 +1154,6 @@ static void paint_game() {
 static void hotkey() {
 	if(gui.key == hot.key)
 		execute_button_command();
-}
-
-static void apply_info_mode() {
-	allow_quick_info = gui.normal;
-	if(hot.key == MouseRight && hot.pressed)
-		execute(cbsetbool, !info_mode, 0, &info_mode);
-	cursor.set(res::INTRFACE, info_mode ? 250 : 286);
 }
 
 static void scrolltext(const char* format, const char*& format_cashe, int& format_origin, int& format_maximum) {
@@ -1248,10 +1281,6 @@ static void context_menu_loop() {
 	if(!hot.pressed)
 		execute(buttonparam, current_action);
 	paint_action_list();
-}
-
-static void set_allow_quick_info() {
-	allow_quick_info = gui.normal;
 }
 
 static void do_nothing() {

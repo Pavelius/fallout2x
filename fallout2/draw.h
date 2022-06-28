@@ -193,6 +193,7 @@ const sprite*			gres(const char* name, const char* folder = 0, point size = {}, 
 void					hexagon();
 int						hittest(int x, int test_x, const char* string, int lenght);
 int						hittest(rect rc, const char* string, unsigned state, point mouse);
+bool					hittest(int x, int y, const sprite* e, int id, int flags, point mouse);
 bool					isdragtarget();
 bool					ishilite(const rect& rc);
 inline bool				ishilite() { return ishilite({caret.x, caret.y, caret.x + width, caret.y + height}); }

@@ -1788,6 +1788,44 @@ void draw::image(int x, int y, const sprite* e, int id, int flags) {
 	}
 }
 
+bool draw::hittest(int x, int y, const sprite* e, int id, int flags, point mouse) {
+	int x2, y2;
+	if(!e)
+		return false;
+	const sprite::frame& f = e->get(id);
+	if(!f.shift)
+		return false;
+	if(!mouse.in(f.getrect(x, y, flags)))
+		return false;
+	if(f.encode == sprite::RAW || f.encode == sprite::RAW8)
+		return true;
+	if(flags & ImageMirrorH) {
+		x2 = x;
+		if((flags & ImageNoOffset) == 0)
+			x2 += f.ox;
+		x = x2 - f.sx;
+	} else {
+		if((flags & ImageNoOffset) == 0)
+			x -= f.ox;
+		x2 = x + f.sx;
+	}
+	if(flags & ImageMirrorV) {
+		y2 = y;
+		if((flags & ImageNoOffset) == 0)
+			y2 += f.oy;
+		y = y2 - f.sy;
+	} else {
+		if((flags & ImageNoOffset) == 0)
+			y -= f.oy;
+		y2 = y + f.sy;
+	}
+	unsigned char* s = (unsigned char*)e + f.shift;
+	int wd = (flags & ImageMirrorV) ? -canvas->scanline : canvas->scanline;
+	int sy = (flags & ImageMirrorV) ? y2 - 1 : y;
+	// TODO: make precise hittest
+	return true;
+}
+
 void draw::image(const sprite* e, int id, int flags, color* pal) {
 	auto pal_push = draw::palt;
 	draw::palt = pal;

@@ -9,6 +9,7 @@ struct drawable {
 	point				position;
 	const void*			data;
 	int					timer;
+	static fnget		ishilite;
 	static fnget		getorder;
 	static fnevent		paint;
 	static fnselect		select;

@@ -332,6 +332,7 @@ struct animable : wearable, moveable, spriteable {
 	static short		getframe(animate_s v, int weapon_index = 0);
 	res					getlook() const;
 	int					getweaponindex() const;
+	int					hittest() const;
 	bool				isanimate(animate_s v) const;
 	void				moveto(indext i, bool run);
 	void				nextanimate();
@@ -383,6 +384,7 @@ struct sceneryi : nameable {
 	material_s			material;
 	unsigned			light, object, action;
 	void				getinfoed(stringbuilder& sb) const;
+	int					hittest() const;
 	bool				is(objectf v) const { return (object & v) != 0; }
 	void				paint() const;
 	static const sceneryi* last;

@@ -8,6 +8,7 @@ BSDATAC(drawable, 2048)
 static adat<drawable*, 1024> drawables;
 drawable::fnevent drawable::paint;
 drawable::fnget drawable::getorder;
+drawable::fnget drawable::ishilite;
 drawable::fnselect drawable::select;
 
 static int compare(const void* v1, const void* v2) {
@@ -42,12 +43,22 @@ static void sort_drawables() {
 }
 
 void paint_drawables() {
+	const int hs = 64;
 	rectpush push;
 	prepare_drawables();
 	sort_drawables();
 	for(auto p : drawables) {
 		caret = p->position - camera;
 		drawable::paint(p);
+		if(drawable::ishilite) {
+			rect rc = {caret.x - hs, caret.y - hs, caret.x + hs, caret.y + hs};
+			if(hot.mouse.in(rc)) {
+				if(drawable::ishilite(p)) {
+					hilite_position = caret;
+					hilite_object = p;
+				}
+			}
+		}
 	}
 }
 
@@ -76,7 +87,7 @@ drawable* drawable::find(const point pt) {
 
 drawable* drawable::findadd(const point pt, const void* object) {
 	for(auto& e : bsdata<drawable>()) {
-		if(e.position == pt && e.data==object)
+		if(e.position == pt && e.data == object)
 			return &e;
 	}
 	return add(pt, object);

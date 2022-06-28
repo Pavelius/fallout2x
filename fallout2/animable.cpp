@@ -113,6 +113,14 @@ static void paint_drawable(const drawable* p) {
 		((character*)p->data)->paint();
 }
 
+static int hittest_drawable(const drawable* p) {
+	if(bsdata<sceneryi>::have(p->data))
+		return ((sceneryi*)p->data)->hittest();
+	else if(bsdata<character>::have(p->data))
+		return ((character*)p->data)->hittest();
+	return 0;
+}
+
 static int getorder(const drawable* p) {
 	if(bsdata<sceneryi>::have(p->data))
 		return ((sceneryi*)p->data)->is(Flat) ? 0 : 1;
@@ -224,6 +232,7 @@ void initialize_adventure() {
 	pathfind::to = getdirection;
 	pathfind::maxcount = mps * mps;
 	pathfind::maxdir = 6;
+	drawable::ishilite = hittest_drawable;
 	drawable::paint = paint_drawable;
 	drawable::getorder = getorder;
 	drawable::select = select_drawables;
@@ -261,6 +270,11 @@ void sceneryi::paint() const {
 	image(rs, rs->ganim(frame, current_tick / 200), 0);
 }
 
+int sceneryi::hittest() const {
+	auto rs = gres(res::SCENERY);
+	return draw::hittest(caret.x, caret.y, rs, rs->ganim(frame, current_tick / 200), 0, hot.mouse) ? 1 : 0;
+}
+
 void walli::paint() const {
 	auto rs = gres(res::WALLS);
 	image(rs, rs->ganim(frame, current_tick / 200), 0);
@@ -271,6 +285,13 @@ void animable::paint() const {
 	if(!rs)
 		return;
 	image(rs, frame, 0);
+}
+
+int animable::hittest() const {
+	auto rs = gres(getlook());
+	if(!rs)
+		return false;
+	return draw::hittest(caret.x, caret.y, rs, frame, 0, hot.mouse) ? 1 : 0;
 }
 
 void tilei::paint() const {
