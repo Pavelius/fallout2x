@@ -271,6 +271,9 @@ static void pbefore(const control& e) {
 	if(e.data.iskind<stati>()) {
 		gui.link(pd->stats[e.data.value]);
 		gui.number = pd->stats[e.data.value];
+	} else if(e.data.iskind<globalstati>()) {
+		gui.link(bsdata<globalstati>::elements[e.data.value].value);
+		gui.number = bsdata<globalstati>::elements[e.data.value].value;
 	} else if(e.data.iskind<script>()) {
 		auto p = bsdata<script>::elements + e.data.value;
 		gui.data = p; gui.size = 0;

@@ -238,6 +238,9 @@
     <ClCompile Include="status.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="global.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">

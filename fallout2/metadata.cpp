@@ -48,6 +48,7 @@ BSMETA(decorator) = {
 	{}};
 BSMETA(globalstati) = {
 	BSREQ(id),
+	BSREQ(value),
 	{}};
 BSMETA(gradei) = {
 	BSREQ(id),

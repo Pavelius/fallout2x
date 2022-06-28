@@ -181,9 +181,8 @@ struct stati {
 	variants			formula;
 	short				minimum, maximum;
 };
-struct globalstati {
-	const char*			id;
-	short				value;
+struct globalstati : nameable {
+	int					value;
 };
 struct perki {
 	const char*			id;
@@ -461,6 +460,7 @@ extern unsigned long	current_tick;
 inline int				d100() { return rand() % 100; }
 extern color			getcolor(unsigned char i);
 extern const char*		getedit();
+int						getglobal(const char* id);
 const char*				getstatusmessage();
 extern point			h2s(point v);
 indext					h2i(point pt);

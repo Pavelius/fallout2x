@@ -1220,6 +1220,40 @@ static void scrolltext(const char* format, int& origin, int& origin_cashe, int& 
 	clipping = push_clipping;
 }
 
+static void tab_paint(int& current, int* frames, const char** names) {
+	auto ps = gres(res::INTRFACE);
+	if(!ps)
+		return;
+	auto frame = ps->ganim(frames[current], current_tick / 200);
+	image(gres(res::INTRFACE), frame, ImageNoOffset);
+	auto push_caret = caret;
+	auto push_font = font;
+	auto push_fore = fore;
+	font = metrics::h2;
+	fore = getcolor(ColorButton);
+	for(auto i = 0; i < 3; i++) {
+		auto x1 = push_caret.x + width * i + 10;
+		rect rc = {x1 + 4, push_caret.y, x1 + width - 4, push_caret.y + 28};
+		if((ishilite(rc) && hot.key == MouseLeft && hot.pressed)
+			|| (hot.key == ('1' + i)))
+			execute(cbsetint, i, 0, &current);
+		auto pn = getnm(names[i]);
+		caret.x = x1 + (width - textw(pn)) / 2;
+		caret.y = push_caret.y + ((i == current) ? 4 : 6);
+		text(pn);
+	}
+	fore = push_fore;
+	font = push_font;
+	caret = push_caret;
+}
+
+static void tab_paint_page() {
+	static int frames[] = {180, 178, 179};
+	static const char* names[] = {"Bonuses", "Karma", "Kills"};
+	static int current;
+	tab_paint(current, frames, names);
+}
+
 static void status_bar() {
 	static int origin_cashe;
 	scrolltext(getstatusmessage(), status_origin, origin_cashe, status_maximum);
@@ -1478,6 +1512,7 @@ BSDATA(widget) = {
 	{"ScrollDown", scroll_down},
 	{"ScrollUp", scroll_up},
 	{"StatusBar", status_bar},
+	{"Tab", tab_paint_page},
 	{"Text", center_text_font2},
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},

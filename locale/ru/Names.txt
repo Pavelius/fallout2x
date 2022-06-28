@@ -7,6 +7,7 @@ Back: Назад
 Barter: Бартер
 BigGuns: Тяжелое оружие
 BloodyMess: Мясник
+Bonuses: Бонусы
 BrokeLeftArm: Сломна левая рука
 BrokeLeftLeg: Сломна левая нога
 BrokeRightArm: Сломна прав. рука
@@ -46,6 +47,8 @@ HeavyHanded: Драчун
 Intellegence: Интеллект
 Jinxed: Проклятый
 Kamikaze: Камикадзе
+Karma: Карма
+Kills: Убито
 Level: Уровень
 Lockpick: Взлом
 Luck: Удача

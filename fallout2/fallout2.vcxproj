@@ -173,6 +173,7 @@
     <ClCompile Include="function.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gender.cpp" />
+    <ClCompile Include="global.cpp" />
     <ClCompile Include="grade.cpp" />
     <ClCompile Include="information.cpp" />
     <ClCompile Include="io_bsreq.cpp" />
