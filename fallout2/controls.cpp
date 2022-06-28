@@ -459,6 +459,11 @@ static void button_no_text() {
 		execute_button_command(1);
 }
 
+static void button_no_focus() {
+	if(buttonf(gui.normal, gui.pressed, gui.key, gui.checked, false, 0, gui.disabled))
+		execute_button_command(1);
+}
+
 static void button_def() {
 	auto old_font = font;
 	auto old_fore = fore;
@@ -1452,6 +1457,7 @@ BSDATA(widget) = {
 	{"Button", button_radio},
 	{"ButtonDF", button_def},
 	{"ButtonNT", button_no_text},
+	{"ButtonNF", button_no_focus},
 	{"Edit", edit},
 	{"Hotkey", hotkey},
 	{"Information", block_information},

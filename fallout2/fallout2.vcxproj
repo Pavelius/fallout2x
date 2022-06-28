@@ -273,6 +273,7 @@
     <Text Include="..\forms\CharacterLoad.txt" />
     <Text Include="..\forms\CharacterName.txt" />
     <Text Include="..\forms\CharacterSave.txt" />
+    <Text Include="..\forms\CharacterSheet.txt" />
     <Text Include="..\forms\GameOptions.txt" />
     <Text Include="..\forms\Message.txt" />
     <Text Include="..\forms\Options.txt" />

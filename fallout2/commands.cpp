@@ -139,6 +139,7 @@ BSDATA(command) = {
 	{"AddTag", KeySpace, add_tag},
 	{"AddTrait", KeySpace, add_trait},
 	{"Adventure", 0, opendialog},
+	{"Back", KeyEscape, buttoncancel},
 	{"Cancel", KeyEscape, buttoncancel},
 	{"ChangeWeapon", 'W', change_weapon},
 	{"CharacterAge", 'A', opendialog},
@@ -149,6 +150,7 @@ BSDATA(command) = {
 	{"CharacterLoad", 'L', character_load},
 	{"CharacterName", 'N', opendialog},
 	{"CharacterPipboy", 'P', opendialog},
+	{"CharacterPrint", 'P', opendialog},
 	{"CharacterSave", 'S', character_save},
 	{"CharacterSheet", 'C', opendialog},
 	{"CharacterSkill", 'S', opendialog},
@@ -190,17 +192,17 @@ static void character_trait(const control& e) {
 static void character_skill(const control& e) {
 	auto id = e.data.value;
 	gui.checked = character::last->istagged(id);
-	sb.clear(); sb.add("%1i%%", gui.get());
+	sb.clear(); sb.add("%1i%%", gui.number);
 	gui.value = sb.begin();
 }
 
 static void character_stat(const control& e) {
-	sb.clear(); sb.add("%1i", gui.get());
+	sb.clear(); sb.add("%1i", gui.number);
 	gui.value = sb.begin();
 }
 
 static void character_stat_percent(const control& e) {
-	sb.clear(); sb.add("%1i%%", gui.get());
+	sb.clear(); sb.add("%1i%%", gui.number);
 	gui.value = sb.begin();
 }
 
@@ -269,6 +271,11 @@ static void pbefore(const control& e) {
 	if(e.data.iskind<stati>()) {
 		gui.link(pd->stats[e.data.value]);
 		gui.number = pd->stats[e.data.value];
+	} else if(e.data.iskind<script>()) {
+		auto p = bsdata<script>::elements + e.data.value;
+		gui.data = p; gui.size = 0;
+		p->proc(e.data.counter, p->param);
+		gui.number = last_value;
 	} else if(e.data.iskind<perki>()) {
 		auto v = e.data.value;
 		gui.link(pd->perks.getbyte(v), pd->perks.getmask(v));

@@ -39,6 +39,14 @@ static int getbonus(int i, int ci) {
 	}
 }
 
+static void set_experience(int bonus, int param) {
+	last_value = character::last->experience;
+}
+
+static void next_level(int bonus, int param) {
+	last_value = 1000;
+}
+
 static void script_run(variant v) {
 	if(v.iskind<stati>()) {
 		last_stat = v.value;
@@ -61,8 +69,10 @@ void initialize_script() {
 BSDATA(script) = {
 	{"AddValue", add_value},
 	{"Divide", divide_value},
+	{"Experience", set_experience},
 	{"Minimum", minimum_value},
 	{"Multiply", multiply_value},
+	{"NextLevel", next_level},
 	{"Value", set_value},
 };
 BSDATAF(script)

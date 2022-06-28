@@ -457,5 +457,8 @@
     <Text Include="..\forms\GameOptions.txt">
       <Filter>forms</Filter>
     </Text>
+    <Text Include="..\forms\CharacterSheet.txt">
+      <Filter>forms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

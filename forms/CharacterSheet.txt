@@ -1,0 +1,82 @@
+#Control
+
+Background 0 0 normal(177)
+
+ButtonDF 13 0 size(138) normal(185) pressed(184) command(CharacterName) format(Name)
+ButtonDF 154 0 size(80) normal(188) pressed(189) command(CharacterAge) format(Age) data(Age)
+ButtonDF 235 0 size(80) normal(188) pressed(189) command(CharacterGender) format(Gender)
+
+Text 383 5 size(220) text(Skills)
+TextL 360 233 text(SkillPoints)
+Number 524 228 format(TagsTotal)
+
+Button 345 454 size(90) command(CharacterPrint)
+Button 456 453 size(80) command(Next)
+Button 553 454 size(80) command(Back)
+
+Number 59 37 data(Strenght)
+LabelSM 101 46 size(60) data(Strenght) format(Grade)
+
+Number 59 70 data(Perception)
+LabelSM 101 79 size(60) data(Perception) format(Grade)
+
+Number 59 103 data(Endurance)
+LabelSM 101 112 size(60) data(Endurance) format(Grade)
+
+Number 59 136 data(Charisma)
+LabelSM 101 145 size(60) data(Charisma) format(Grade)
+
+Number 59 169 data(Intelligence)
+LabelSM 101 178 size(60) data(Intelligence) format(Grade)
+
+Number 59 202 data(Agility)
+LabelSM 101 211 size(60) data(Agility) format(Grade)
+
+Number 59 235 data(Luck)
+LabelSM 101 244 size(60) data(Luck) format(Grade)
+
+Label 30 278 size(120) data(Level) format(Stat)
+Label 30 291 size(120) data(Experience) format(Stat)
+Label 30 304 size(120) data(NextLevel) format(Stat)
+
+Label 194 46 size(120) data(HP) format(Stat)
+Label 194 59 size(120) data(PoisonPoints) format(StatLeveled)
+Label 194 72 size(120) data(RadiationPoints) format(StatLeveled)
+Label 194 85 size(120) data(EyeDamaged) format(StatLeveled)
+Label 194 98 size(120) data(BrokeLeftArm) format(StatLeveled)
+Label 194 111 size(120) data(BrokeRightArm) format(StatLeveled)
+Label 194 124 size(120) data(BrokeLeftLeg) format(StatLeveled)
+Label 194 137 size(120) data(BrokeRightLeg) format(StatLeveled)
+
+Label 194 182 size(120) data(AC) format(Stat)
+Label 194 195 size(120) data(AP) format(Stat)
+Label 194 208 size(120) data(CarryWeight) format(Stat)
+Label 194 221 size(120) data(DamageMelee) format(Stat)
+Label 194 234 size(120) data(Sequence) format(Stat)
+Label 194 247 size(120) data(DamageResistance) format(StatPercent)
+Label 194 260 size(120) data(PoisonResistance) format(StatPercent)
+Label 194 273 size(120) data(RadiationResistance) format(StatPercent)
+Label 194 286 size(120) data(HealingRate) format(Stat)
+Label 194 299 size(120) data(CriticalHit) format(StatPercent)
+
+Label 375 27 size(230) data(SmallGuns) format(Skill)
+Label 375 38 size(230) data(BigGuns) format(Skill)
+Label 375 49 size(230) data(EnergyWeapon) format(Skill)
+Label 375 60 size(230) data(Unarmed) format(Skill)
+Label 375 71 size(230) data(MeleeWeapon) format(Skill)
+Label 375 82 size(230) data(Throwing) format(Skill)
+Label 375 93 size(230) data(FirstAid) format(Skill)
+Label 375 104 size(230) data(Doctor) format(Skill)
+Label 375 115 size(230) data(Sneak) format(Skill)
+Label 375 126 size(230) data(Lockpick) format(Skill)
+Label 375 137 size(230) data(Steal) format(Skill)
+Label 375 148 size(230) data(Traps) format(Skill)
+Label 375 159 size(230) data(Science) format(Skill)
+Label 375 170 size(230) data(Repair) format(Skill)
+Label 375 181 size(230) data(Speech) format(Skill)
+Label 375 192 size(230) data(Barter) format(Skill)
+Label 375 203 size(230) data(Gambling) format(Skill)
+Label 375 214 size(230) data(Outdoorsman) format(Skill)
+
+Information 348 275 size(245 135)
+LineInfo 348 300 size(245 2)

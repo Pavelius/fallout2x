@@ -3,6 +3,7 @@ AP: Очки действия
 Age: Возраст
 Agility: Подвижность
 AppTitle: Ремейк Fallout 2
+Back: Назад
 Barter: Бартер
 BigGuns: Тяжелое оружие
 BloodyMess: Мясник
@@ -13,6 +14,7 @@ BrokeRightLeg: Сломна прав. нога
 Bruiser: Верзила
 Cancel: Отмена
 CarryWeight: Макс. груз
+CharacterPrint: Печать
 Charisma: Обаяние
 ChemReliant: Наркозаисимый
 ChemResistant: Наркоустойчивый
@@ -23,6 +25,7 @@ Doctor: Доктор
 Endurance: Выносливость
 EnergyWeapon: Энерго оружие
 ErrorTagLimit: У вас уже есть максимум из двух особенностей!
+Experience: Опыт
 EyeDamaged: Поврежден глаз
 Farmer: Фермер
 FastMetabolism: Живчик
@@ -43,12 +46,14 @@ HeavyHanded: Драчун
 Intellegence: Интеллект
 Jinxed: Проклятый
 Kamikaze: Камикадзе
+Level: Уровень
 Lockpick: Взлом
 Luck: Удача
 MeleeWeapon: Хололдное оружие
 Name: Имя
 Narg: Нарг
 Next: Далее
+NextLevel: След. ур.
 OneHanded: Праворукий
 Options: Опции
 Outdoorsman: Скиталец
@@ -66,6 +71,7 @@ Skilled: Умелый
 Skills: Навыки
 SmallFrame: Маленький
 SmallGuns: Ручное оружие
+SkillPoints: Очки навыков
 Sneak: Красться
 Speech: Разговор
 Steal: Воровать
