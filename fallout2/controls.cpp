@@ -575,6 +575,24 @@ static void render_number(int digits, int value, sprite* ps, int cicle, int symb
 	clipping = push_clip;
 }
 
+static void rollup() {
+	static stat_s current = SmallGuns;
+	auto p = getfocus();
+	auto isfocused = false;
+	if(bsdata<stati>::have(p)) {
+		auto s = (stat_s)((stati*)p - bsdata<stati>::elements);
+		if(s >= SmallGuns && s <= Outdoorsman) {
+			current = s;
+			isfocused = true;
+		}
+	}
+	caret.y += 11 * (current - SmallGuns);
+	auto ps = gres(res::INTRFACE);
+	if(!ps)
+		return;
+	image(ps, ps->ganim(190, current_tick / 200), 0);
+}
+
 static bool radio(int cicle, unsigned key) {
 	static rect	button_rect;
 	auto ps = gres(res::INTRFACE);
@@ -1509,6 +1527,7 @@ BSDATA(widget) = {
 	{"PaintBlock", paint_pathfind},
 	{"PaintGame", paint_game},
 	{"PaperDoll", paper_doll},
+	{"RollUp", rollup},
 	{"ScrollDown", scroll_down},
 	{"ScrollUp", scroll_up},
 	{"StatusBar", status_bar},

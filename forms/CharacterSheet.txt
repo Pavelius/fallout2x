@@ -78,6 +78,8 @@ Label 375 192 size(230) data(Barter) format(Skill)
 Label 375 203 size(230) data(Gambling) format(Skill)
 Label 375 214 size(230) data(Outdoorsman) format(Skill)
 
+RollUp 634 32
+
 Tab 10 326 size(100 28)
 
 Information 348 275 size(245 135)
