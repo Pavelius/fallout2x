@@ -241,6 +241,9 @@
     <ClCompile Include="global.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="floatstring.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -382,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="resid.h">
       <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="floatstring.h">
+      <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

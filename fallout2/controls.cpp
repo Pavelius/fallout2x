@@ -1320,6 +1320,7 @@ static void update_animation() {
 		e.timer += e.getdelay();
 		e.updateframe();
 	}
+	update_floatstring();
 }
 
 void animable::wait() {

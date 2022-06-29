@@ -3,6 +3,7 @@
 #include "crt.h"
 #include "drawable.h"
 #include "flagable.h"
+#include "floatstring.h"
 #include "point.h"
 #include "rect.h"
 #include "resid.h"

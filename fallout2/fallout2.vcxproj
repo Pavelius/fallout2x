@@ -169,6 +169,7 @@
     <ClCompile Include="draw_textf.cpp" />
     <ClCompile Include="editor.cpp" />
     <ClCompile Include="filelist.cpp" />
+    <ClCompile Include="floatstring.cpp" />
     <ClCompile Include="focus.cpp" />
     <ClCompile Include="function.cpp" />
     <ClCompile Include="game.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="drawable.h" />
     <ClInclude Include="filelist.h" />
     <ClInclude Include="flagable.h" />
+    <ClInclude Include="floatstring.h" />
     <ClInclude Include="focus.h" />
     <ClInclude Include="function.h" />
     <ClInclude Include="gender.h" />
