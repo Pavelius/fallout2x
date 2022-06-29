@@ -150,6 +150,7 @@
     <ClCompile Include="area.cpp" />
     <ClCompile Include="bsreq.cpp" />
     <ClCompile Include="character.cpp" />
+    <ClCompile Include="chat.cpp" />
     <ClCompile Include="cicling.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="command.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="archive.h" />
     <ClInclude Include="area.h" />
     <ClInclude Include="bsreq.h" />
+    <ClInclude Include="chat.h" />
     <ClInclude Include="color.h" />
     <ClInclude Include="command.h" />
     <ClInclude Include="condition.h" />
@@ -266,6 +268,7 @@
     <ClInclude Include="win.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="..\chats\Melor.txt" />
     <Text Include="..\forms\CharacterAge.txt" />
     <Text Include="..\forms\CharacterDelete.txt" />
     <Text Include="..\forms\CharacterExport.txt" />

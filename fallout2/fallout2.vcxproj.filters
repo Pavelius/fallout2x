@@ -244,6 +244,9 @@
     <ClCompile Include="floatstring.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="chat.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -272,6 +275,9 @@
     </Filter>
     <Filter Include="localize">
       <UniqueIdentifier>{9b8ac0be-98e9-4671-94eb-101e1c686719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="chat">
+      <UniqueIdentifier>{49ee3ef8-9d22-4604-9c12-03881dd7fc41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -389,6 +395,9 @@
     <ClInclude Include="floatstring.h">
       <Filter>support</Filter>
     </ClInclude>
+    <ClInclude Include="chat.h">
+      <Filter>support</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\rules\Basic.txt">
@@ -468,6 +477,9 @@
     </Text>
     <Text Include="..\forms\CharacterSheet.txt">
       <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\chats\Melor.txt">
+      <Filter>chat</Filter>
     </Text>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ const char* log::read(const char* url, bool error_if_not_exist) {
 
 void log::close() {
 	if(current_file)
-		delete current_file;
+		delete[] current_file;
 	current_file = 0;
 }
 
