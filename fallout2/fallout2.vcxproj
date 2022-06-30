@@ -253,6 +253,7 @@
     <ClInclude Include="logparse.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="main_util.h" />
+    <ClInclude Include="modifier.h" />
     <ClInclude Include="my_initialize_list.h" />
     <ClInclude Include="pathfind.h" />
     <ClInclude Include="point.h" />

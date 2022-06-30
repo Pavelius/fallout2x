@@ -38,17 +38,16 @@ void answers::clear() {
 static const char* find_separator(const char* pb) {
 	auto p = pb;
 	while(*p) {
-		if(*p == '-' && p[1] == '-' && p[2] == '-' && (p[3] == 10 || p[3] == 13) && p > pb && (p[-1] == 10 || p[-1] == 13))
+		if(*p == '-' && p[1] == '=' && p[2] == '-' && (p[3] == 10 || p[3] == 13) && p > pb && (p[-1] == 10 || p[-1] == 13))
 			return p;
 		p++;
 	}
 	return 0;
 }
 
-void answers::message(const char* format) {
+const char* answers::message(const char* format) {
 	if(!format)
-		return;
-	answers an;
+		return 0;
 	while(true) {
 		auto p = find_separator(format);
 		if(!p)
@@ -56,14 +55,14 @@ void answers::message(const char* format) {
 		auto pn = skipspcr(p + 3);
 		while(p < format && (p[-1] == 10 || p[-1] == 13))
 			p--;
-		char temp[4096];
 		auto count = p - format;
-		if(count > sizeof(temp) / sizeof(temp[0]) - 1)
-			count = sizeof(temp) / sizeof(temp[0]) - 1;
-		memcpy(temp, format, count);
-		temp[count] = 0;
-		an.choose(temp, getnm("Continue"));
+		answers an; an.clear();
+		if(count > sizeof(an.buffer) / sizeof(an.buffer[0]) - 1)
+			count = sizeof(an.buffer) / sizeof(an.buffer[0]) - 1;
+		memcpy(an.buffer, format, count);
+		an.buffer[count] = 0;
+		an.choose(an.buffer, getnm("Continue"));
 		format = pn;
 	}
-	an.choose(format, getnm("Continue"));
+	return format;
 }

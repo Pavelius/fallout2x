@@ -2,7 +2,7 @@
 #include "condition.h"
 #include "script.h"
 
-int last_value, last_stat;
+int last_value, last_stat, difficult;
 
 static void clear_value(int bonus, int param) {
 	last_value = 0;
@@ -52,11 +52,27 @@ static bool is_random(int bonud, int param) {
 	return d100() < 30;
 }
 
+void chat::play(const speech* p) {
+	while(p && p->text) {
+		answers an;
+		auto pe = elements.end();
+		for(auto p1 = p + 1; p1 < pe && p->index == p1->index; p1++)
+			an.add(p1, p1->text);
+		p = (speech*)an.choose(an.message(p->text), 0);
+		if(p) {
+			p = find(p->next);
+		}
+	}
+}
+
 bool speech::isallow() const {
+	difficult = 1;
 	for(auto v : tags) {
 		if(v.iskind<conditioni>())
 			return bsdata<conditioni>::elements[v.value].proc(v.counter,
 				bsdata<conditioni>::elements[v.value].param);
+		else if(v.iskind<modifier>())
+			bsdata<modifier>::elements[v.value].variable = bsdata<modifier>::elements[v.value].value;
 		else
 			return true;
 	}
@@ -64,13 +80,16 @@ bool speech::isallow() const {
 }
 
 static void script_run(variant v) {
+	difficult = 1;
 	if(v.iskind<stati>()) {
 		last_stat = v.value;
 		if(!v.counter)
 			last_value += character::last->stats[v.value];
 		else
 			character::last->stats[v.value] += getbonus(v.counter, character::last->stats[v.value]);
-	} else {
+	} else if(v.iskind<modifier>())
+		bsdata<modifier>::elements[v.value].variable = bsdata<modifier>::elements[v.value].value;
+	else {
 
 	}
 }
@@ -92,7 +111,12 @@ BSDATA(script) = {
 	{"Value", set_value},
 };
 BSDATAF(script)
-
+BSDATA(modifier) = {
+	{"Low", difficult, 0},
+	{"Normal", difficult, 1},
+	{"Hight", difficult, 2},
+};
+BSDATAF(modifier)
 BSDATA(conditioni) = {
 	{"Random", is_random},
 };

@@ -1178,6 +1178,18 @@ static void paint_game() {
 	clipping = push_clip;
 }
 
+static void redraw_game() {
+	rectpush push;
+	auto push_clip = clipping;
+	caret.x = caret.y = 0;
+	width = 640; height = 381;
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	redraw_floor();
+	redraw_hexagon();
+	paint_drawables();
+	clipping = push_clip;
+}
+
 static void hotkey() {
 	if(gui.key == hot.key)
 		execute_button_command();
@@ -1328,9 +1340,15 @@ static void paint_answer(int index, const void* data, const char* format, unsign
 
 void* answers::choose(const char* promt, const char* cancel) const {
 	int origin = 0, origin_cashe = 0, format_maximum = 0;
+	auto push_strings = disable_floatstring;
+	disable_floatstring = true;
+	redraw_game();
+	disable_floatstring = push_strings;
+	image(0, 0, res::INTRFACE, 103, ImageNoOffset);
+	screenshoot push;
 	while(ismodal()) {
+		push.restore();
 		paintstart();
-		image(0, 0, res::INTRFACE, 103, ImageNoOffset);
 		image(0, 290, res::INTRFACE, 99, ImageNoOffset);
 		caret = {140, 232};
 		width = 370; height = 45;

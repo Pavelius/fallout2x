@@ -88,6 +88,8 @@ static const char* textfln(const char* p, int x1, int x2, color new_fore, const 
 }
 
 static const char* text_block(const char* p, int x1, int x2) {
+	if(!p)
+		return 0;
 	while(p[0]) {
 		caret.x = x1; width = x2 - x1;
 		if(caret.y < clipping.y1) {

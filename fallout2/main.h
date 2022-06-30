@@ -6,6 +6,7 @@
 #include "drawable.h"
 #include "flagable.h"
 #include "floatstring.h"
+#include "modifier.h"
 #include "point.h"
 #include "rect.h"
 #include "resid.h"
@@ -327,7 +328,7 @@ struct animable : wearable, moveable, spriteable {
 	void				clearanimate();
 	void				clearallanimate();
 	void				changeweapon();
-	void				focusing() const;
+	void				focusing(int offset = 0) const;
 	static animate_s	getbase(animate_s v, int* w);
 	int					getdelay() const;
 	static hexdir_s		getdirection(point s, point d);
@@ -476,3 +477,5 @@ extern point			s2t(point v);
 void					statusv(const char* format, const char* format_param);
 inline void				status(const char* format, ...) { statusv(format, xva_start(format)); }
 extern point			t2s(point v);
+
+extern bool disable_floatstring;

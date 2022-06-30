@@ -62,6 +62,8 @@ struct order {
 };
 BSDATAC(order, 256)
 
+bool disable_floatstring;
+
 point t2s(point v) {
 	return {
 		(short)(32 * v.y + 48 * v.x),
@@ -136,9 +138,11 @@ static drawable** select_drawables(drawable** ps, drawable* const* pe) {
 		if(ps < pe)
 			*ps++ = &e;
 	}
-	for(auto& e : bsdata<floatstring>()) {
-		if(ps < pe)
-			*ps++ = &e;
+	if(!disable_floatstring) {
+		for(auto& e : bsdata<floatstring>()) {
+			if(ps < pe)
+				*ps++ = &e;
+		}
 	}
 	return ps;
 }
@@ -432,10 +436,11 @@ void animable::appear(point h) {
 	setanimate(AnimateStand);
 }
 
-void animable::focusing() const {
+void animable::focusing(int offset) const {
 	auto pt = position;
 	pt.x -= 640 / 2;
 	pt.y -= 480 / 2;
+	pt.y += offset;
 	camera = pt;
 }
 

@@ -25,7 +25,7 @@ public:
 	int					getcount() const { return elements.getcount(); }
 	const char*			getname(void* v);
 	int					indexof(const void* v) const { return elements.indexof(v); }
-	static void			message(const char* format);
+	static const char*	message(const char* format);
 	void*				random() const;
 	void				remove(int index) { elements.remove(index, 1); }
 	void				sort();

@@ -102,6 +102,9 @@ BSMETA(list) = {
 BSMETA(materiali) = {
 	BSREQ(id),
 	{}};
+BSMETA(modifier) = {
+	BSREQ(id),
+	{}};
 BSMETA(perki) = {
 	BSREQ(id),
 	BSREQ(use),
@@ -152,6 +155,7 @@ BSDATA(varianti) = {
 	{"Grade", VRSTD(gradei), 1},
 	{"Item", VRSTD(itemi), 1},
 	{"List", VRSTD(list), 1},
+	{"Modifier", VRSTD(modifier), 1},
 	{"Perk", VRSTD(perki), 1},
 	{"Prototype", VRSTD(prototype), 1},
 	{"Resource", VRSTD(residi), 1},

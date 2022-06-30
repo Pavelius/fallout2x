@@ -17,6 +17,7 @@ struct chat {
 	static chat*	last;
 	static const char* folder;
 	const speech*	find(short index);
+	void			play(const speech* p);
 	void			read();
 	static void		readall();
 };
