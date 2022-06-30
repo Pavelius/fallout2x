@@ -147,5 +147,8 @@ void character::talk() {
 	auto p = chat->find(1);
 	if(!p)
 		return;
-	say(p->text);
+	if(p->isdialog())
+		draw::opendialog("CharacterDialog");
+	else
+		say(p->text);
 }

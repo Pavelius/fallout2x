@@ -1,0 +1,6 @@
+#Control
+
+Background 0 0 normal(103)
+Image 0 290 normal(99)
+ButtonNF 13 444 normal(97) pressed(98)
+ButtonNF 593 331 normal(96) pressed(95)

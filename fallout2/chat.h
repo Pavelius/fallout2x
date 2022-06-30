@@ -9,6 +9,7 @@ struct speech {
 	void			clear() { memset(this, 0, sizeof(*this)); }
 	bool			isallow() const;
 	constexpr bool	isanswer() const { return next != -1; }
+	bool			isdialog() const;
 };
 struct chat {
 	const char*		id;

@@ -144,6 +144,7 @@ BSMETA(weari) = {
 
 BSDATA(varianti) = {
 	{"NoVariant"},
+	{"Chat", VRSTD(chat), 1},
 	{"Condition", VRSTD(conditioni), 1},
 	{"Control", VRSTD(control), 3},
 	{"Function", VRSTD(function), 1},

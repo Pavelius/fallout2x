@@ -481,5 +481,11 @@
     <Text Include="..\chats\ChatFarmer.txt">
       <Filter>chat</Filter>
     </Text>
+    <Text Include="..\forms\CharacterDialog.txt">
+      <Filter>forms</Filter>
+    </Text>
+    <Text Include="..\chats\ChatMelon.txt">
+      <Filter>chat</Filter>
+    </Text>
   </ItemGroup>
 </Project>

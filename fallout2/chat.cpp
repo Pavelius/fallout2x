@@ -114,6 +114,15 @@ const speech* chat::find(short index) {
 	return 0;
 }
 
+bool speech::isdialog() const {
+	if(isanswer())
+		return false;
+	if(getbsi(this) >= bsdata<speech>::source.getcount() - 1)
+		return false;
+	auto p1 = this + 1;
+	return index == p1->index && p1->isanswer();
+}
+
 void chat::read() {
 	auto p = log::read(getfilename(id), true);
 	if(!p)

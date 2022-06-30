@@ -269,7 +269,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\chats\ChatFarmer.txt" />
+    <Text Include="..\chats\ChatMelon.txt" />
     <Text Include="..\forms\CharacterAge.txt" />
+    <Text Include="..\forms\CharacterDialog.txt" />
     <Text Include="..\forms\CharacterDelete.txt" />
     <Text Include="..\forms\CharacterExport.txt" />
     <Text Include="..\forms\CharacterGame.txt" />
