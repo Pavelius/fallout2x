@@ -13,10 +13,15 @@ void floatstring::clear() {
 }
 
 void floatstring::paint() const {
+	if(!this->text)
+		return;
+	rectpush push;
 	auto push_fore = fore;
+	width = height = 200;
+	caret.x -= width / 2;
+	caret.y -= height / 2;
 	fore = color(255, 255, 255);
-	caret.x -= textw(text) / 2;
-	draw::text(text);
+	texta(text, AlignCenterCenter);
 	fore = push_fore;
 }
 
@@ -41,9 +46,22 @@ void update_floatstring() {
 	cleanup();
 }
 
-void addstring(point position, const char* string, unsigned long delay) {
-	auto p = bsdata<floatstring>::add();
+static floatstring* findstring(const void* data) {
+	for(auto& e : bsdata<floatstring>()) {
+		if(e.data == data)
+			return &e;
+	}
+	return 0;
+}
+
+void addstring(point position, const char* string, unsigned long delay, void* data) {
+	floatstring* p = 0;
+	if(data)
+		p = findstring(data);
+	if(!p)
+		p = bsdata<floatstring>::add();
 	p->position = position;
 	p->text = string;
 	p->stop = current_tick + delay;
+	p->data = data;
 }

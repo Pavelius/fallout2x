@@ -109,7 +109,7 @@ static void paint_drawable(const drawable* p) {
 		((sceneryi*)p->data)->paint();
 	else if(bsdata<walli>::have(p->data))
 		((walli*)p->data)->paint();
-	else if(bsdata<character>::have(p->data))
+	else if(bsdata<character>::have(p))
 		((character*)p->data)->paint();
 	else if(bsdata<floatstring>::have(p))
 		((floatstring*)p)->paint();
@@ -491,6 +491,15 @@ void animable::changeweapon() {
 	setanimate(AnimateWeaponTakeOn);
 	wait();
 	clearanimate();
+}
+
+void animable::say(const char* format) {
+	auto ps = gres(getlook());
+	if(!ps)
+		return;
+	auto pt = position;
+	pt.y -= ps->get(frame).sy + texth();
+	addstring(pt, format, 5000, this);
 }
 
 void animable::updateframe() {

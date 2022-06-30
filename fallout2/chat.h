@@ -3,15 +3,19 @@
 #pragma once
 
 struct speech {
-	short			param, next;
+	short			index, next;
 	const char*		text;
-	variants		effect;
+	variants		tags;
+	void			clear() { memset(this, 0, sizeof(*this)); }
+	bool			isallow() const;
 	constexpr bool	isanswer() const { return next != -1; }
 };
 struct chat {
 	const char*		id;
 	sliceu<speech>	elements;
+	static chat*	last;
 	static const char* folder;
+	const speech*	find(short index);
 	void			read();
 	static void		readall();
 };

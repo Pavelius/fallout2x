@@ -1,4 +1,5 @@
 #include "area.h"
+#include "chat.h"
 #include "color.h"
 #include "crt.h"
 #include "drawable.h"
@@ -280,6 +281,7 @@ struct prototype : nameable, statable {
 	const stati*		tags[3];
 	perka				perks;
 	res					naked;
+	struct chat*		chat;
 };
 struct itemwear : item {
 	character*			owner;
@@ -338,6 +340,7 @@ struct animable : wearable, moveable, spriteable {
 	void				nextanimate();
 	void				paint() const;
 	void				readyweapon(bool takeon);
+	void				say(const char* format);
 	void				setanimate(animate_s v, indext goal = Blocked);
 	void				turn(int d);
 	void				updateframe();
@@ -350,6 +353,7 @@ struct character : animable {
 	int					experience;
 	specie_s			species;
 	flagable<4>			flags;
+	struct chat*		chat;
 	static character*	last;
 	static character*	add(const char* id);
 	void				clear() { memset(this, 0, sizeof(*this)); }
@@ -364,6 +368,7 @@ struct character : animable {
 	void				read(const char* id);
 	void				set(stat_s v, int i) { stats[v] = i; }
 	void				settag(valuet v, int i);
+	void				talk();
 	void				update();
 	void				useaction();
 	void				write(const char* id) const;

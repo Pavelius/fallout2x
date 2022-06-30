@@ -1,4 +1,2 @@
-﻿In file `rules/Basic.txt`:
- Line 1: Not find data type for `Clobal`
-In file `forms/CharacterSheet.txt`:
- Line 81: Can't find variant `CurrentTabControl`
+﻿In file `rules/Prototype.txt`:
+ Line 8: Not found requisit `chat`

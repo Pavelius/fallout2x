@@ -31,6 +31,9 @@ BSMETA(varianti) = {BSREQ(id), {}};
 BSMETA(actioni) = {
 	BSREQ(id),
 	{}};
+BSMETA(chat) = {
+	BSREQ(id),
+	{}};
 BSMETA(control) = {
 	BSREQ(type), BSREQ(x), BSREQ(y),
 	BSREQ(size), BSREQ(data),
@@ -114,6 +117,7 @@ BSMETA(prototype) = {
 	BSREQ(tags),
 	BSFLG(perks, perki),
 	BSENM(naked, residi),
+	BSREQ(chat),
 	{}};
 BSMETA(sceneryi) = {
 	BSREQ(id),

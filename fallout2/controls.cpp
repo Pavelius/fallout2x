@@ -392,6 +392,8 @@ static void look_object() {
 }
 
 static void talk_object() {
+	auto p = (character*)hot.object;
+	p->talk();
 }
 
 static void turn_object() {
@@ -1154,7 +1156,7 @@ static void hiliting_object() {
 		return;
 	if(bsdata<character>::have(hilite_object)) {
 		auto p = static_cast<character*>(((drawable*)hilite_object));
-		if(character::last != p)
+		if(character::last != p && p->chat)
 			addaction(Talk, talk_object, p);
 		addaction(Look, look_object, static_cast<nameable*>(p));
 		addaction(Turn, turn_object, p);

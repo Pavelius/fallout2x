@@ -93,6 +93,7 @@ static void start() {
 	point t2 = i2t(i);
 	character::last = character::add("Farmer");
 	character::last->appear({35, 35});
+	character::last->talk();
 	character::last = character::add("Narg");
 	//choose_scenery();
 	loc.set(0, 90, 100, 100, 4);
@@ -129,8 +130,10 @@ static void initialize() {
 	initialize_adventure();
 	initialize_script();
 	initialize_dialog();
+	chat::folder = "chats";
 	bsreq::read("rules/Items.txt");
 	bsreq::read("rules/Perks.txt");
+	chat::readall(); // Prototype after all chats
 	bsreq::read("rules/Prototype.txt");
 	bsreq::read("rules/Terrain.txt");
 	character::initialize();

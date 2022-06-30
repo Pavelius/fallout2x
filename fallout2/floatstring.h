@@ -10,5 +10,5 @@ struct floatstring : drawable {
 	void			paint() const;
 };
 
-void addstring(point position, const char* string, unsigned long delay = 2000);
+void addstring(point position, const char* string, unsigned long delay = 2000, void* data = 0);
 void update_floatstring();

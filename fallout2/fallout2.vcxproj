@@ -268,7 +268,7 @@
     <ClInclude Include="win.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\chats\Melor.txt" />
+    <Text Include="..\chats\ChatFarmer.txt" />
     <Text Include="..\forms\CharacterAge.txt" />
     <Text Include="..\forms\CharacterDelete.txt" />
     <Text Include="..\forms\CharacterExport.txt" />

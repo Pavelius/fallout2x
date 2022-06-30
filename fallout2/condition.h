@@ -3,7 +3,7 @@
 struct conditioni {
 	typedef bool(*fnproc)(int counter, int param);
 	const char*	id;
-	int			param;
 	fnproc		proc;
+	int			param;
 	static conditioni* add(const char* id, fnproc proc, int param = 0);
 };

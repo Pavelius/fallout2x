@@ -83,6 +83,7 @@ character* character::add(const char* id) {
 			p->settag((stat_s)getbsi(pa), 1);
 	}
 	p->naked = pt->naked;
+	p->chat = pt->chat;
 	p->update();
 	return p;
 }
@@ -138,4 +139,13 @@ void character::useaction() {
 	if(!action)
 		return;
 	addanimate(action);
+}
+
+void character::talk() {
+	if(!chat)
+		return;
+	auto p = chat->find(1);
+	if(!p)
+		return;
+	say(p->text);
 }

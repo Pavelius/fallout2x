@@ -1,7 +1,7 @@
 #include "bsreq.h"
 #include "condition.h"
 
-BSDATAC(conditioni, 128)
+//BSDATAC(conditioni, 128)
 BSMETA(conditioni) = {
 	BSREQ(id), BSREQ(param)
 };

@@ -5,6 +5,6 @@ Narg naked(HMJMPS)
  tags MeleeWeapon Unarmed Throwing
  perks Gifted HeavyHanded
 
-Farmer naked(NMBRLP)
+Farmer naked(NMBRLP) chat(ChatFarmer)
  stats Strenght(5) Perception(5) Endurance(6) Charisma(3) Intelligence(4) Agility(5) Luck(5) Age(40) Level(3)
  tags MeleeWeapon Unarmed Outdoorsman

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "condition.h"
 #include "script.h"
 
 int last_value, last_stat;
@@ -47,6 +48,21 @@ static void next_level(int bonus, int param) {
 	last_value = 1000;
 }
 
+static bool is_random(int bonud, int param) {
+	return d100() < 30;
+}
+
+bool speech::isallow() const {
+	for(auto v : tags) {
+		if(v.iskind<conditioni>())
+			return bsdata<conditioni>::elements[v.value].proc(v.counter,
+				bsdata<conditioni>::elements[v.value].param);
+		else
+			return true;
+	}
+	return true;
+}
+
 static void script_run(variant v) {
 	if(v.iskind<stati>()) {
 		last_stat = v.value;
@@ -76,3 +92,8 @@ BSDATA(script) = {
 	{"Value", set_value},
 };
 BSDATAF(script)
+
+BSDATA(conditioni) = {
+	{"Random", is_random},
+};
+BSDATAF(conditioni)
