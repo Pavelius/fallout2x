@@ -119,7 +119,6 @@ static void start() {
 	character::last->wearable::additem("N10mmAP");
 	character::last->wearable::additem("Minigun");
 	character::last->update();
-	addstring(character::last->position, "Test string", 3000);
 	status("Generating test character and give then some part of equipment. This eqipment would be usable.");
 	//draw::scene(view_palette);
 	draw::opendialog("CharacterGame");

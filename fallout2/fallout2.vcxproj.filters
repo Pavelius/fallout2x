@@ -247,6 +247,9 @@
     <ClCompile Include="chat.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="answers.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -396,6 +399,9 @@
       <Filter>support</Filter>
     </ClInclude>
     <ClInclude Include="chat.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="answers.h">
       <Filter>support</Filter>
     </ClInclude>
   </ItemGroup>

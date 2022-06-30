@@ -141,6 +141,12 @@ void character::useaction() {
 	addanimate(action);
 }
 
+static void start_conversation() {
+	answers an;
+	an.choose("Гангстеры занимаются преступной деятельностью в различных поселениях Содружества, локализуясь на своей основной базе в Убежище 114. Организация действует по образу и подобию довоенной мафии и, судя по тому, что среди гангстеров есть гули, которые занимались этим родом криминала и до Великой войны, банда увеличивалась за счёт примыкания других гулей и людей уже и в послевоенное время.",
+		getnm("Continue"));
+}
+
 void character::talk() {
 	if(!chat)
 		return;
@@ -148,7 +154,7 @@ void character::talk() {
 	if(!p)
 		return;
 	if(p->isdialog())
-		draw::opendialog("CharacterDialog");
+		start_conversation();
 	else
 		say(p->text);
 }

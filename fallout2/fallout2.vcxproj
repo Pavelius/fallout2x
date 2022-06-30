@@ -146,6 +146,7 @@
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animable.cpp" />
     <ClCompile Include="anminfo.cpp" />
+    <ClCompile Include="answers.cpp" />
     <ClCompile Include="archive.cpp" />
     <ClCompile Include="area.cpp" />
     <ClCompile Include="bsreq.cpp" />
@@ -227,6 +228,7 @@
     <ClCompile Include="worldmap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="answers.h" />
     <ClInclude Include="archive.h" />
     <ClInclude Include="area.h" />
     <ClInclude Include="bsreq.h" />

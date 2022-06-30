@@ -1279,6 +1279,81 @@ static void status_bar() {
 	scrolltext(getstatusmessage(), status_origin, origin_cashe, status_maximum);
 }
 
+static void image(int x, int y, res id, int cicle, unsigned flags) {
+	auto ps = gres(id);
+	if(!ps)
+		return;
+	image(x, y, ps, ps->ganim(cicle, current_tick / 200), flags);
+}
+
+static void open_dialog() {
+	draw::opendialog((const char*)hot.object);
+}
+
+static unsigned gethotkey(int index) {
+	if(index == -1)
+		return KeyEscape;
+	else if(index <= 8)
+		return '1' + index;
+	else if(index == 9)
+		return '0';
+	else
+		return 'A' + (index-10);
+}
+
+static void paint_answer(int index, const void* data, const char* format, unsigned key) {
+	auto push_caret = caret;
+	auto push_width = width;
+	auto push_height = height;
+	auto push_fore = fore;
+	auto dx = textw("~");
+	text("~"); caret.x += dx + 6; width -= dx + 6;
+	textfs(format);
+	if(ishilite()) {
+		if(hot.pressed)
+			fore = fore.mix(color(0, 0, 0), 128);
+		else
+			fore = fore.mix(color(255, 255, 255), 128);
+		if(hot.key == MouseLeft && !hot.pressed)
+			execute(buttonparam, (long)data);
+	}
+	textf(format);
+	if(hot.key == gethotkey(index) || (key && key==hot.key))
+		execute(buttonparam, (long)data);
+	fore = push_fore;
+	height = push_height;
+	width = push_width;
+	caret.x = push_caret.x;
+}
+
+void* answers::choose(const char* promt, const char* cancel) const {
+	int origin = 0, origin_cashe = 0, format_maximum = 0;
+	while(ismodal()) {
+		paintstart();
+		image(0, 0, res::INTRFACE, 103, ImageNoOffset);
+		image(0, 290, res::INTRFACE, 99, ImageNoOffset);
+		caret = {140, 232};
+		width = 370; height = 45;
+		scrolltext(promt, origin, origin_cashe, format_maximum);
+		caret = {13, 444};
+		if(buttonf(97, 98, 'V', false, false, 0, false))
+			execute(open_dialog, 0, 0, "ChatHistory");
+		caret = {593, 331};
+		if(buttonf(96, 95, 'T', false, false, 0, false))
+			execute(open_dialog, 0, 0, "ChatTrade");
+		caret = {130, 340};
+		width = 370; height = 108;
+		auto index = 0;
+		for(auto& e : elements)
+			paint_answer(index++, e.value, e.text, 0);
+		if(cancel)
+			paint_answer(index++, 0, cancel, KeyEscape);
+		paintfinish();
+		domodal();
+	}
+	return (void*)getresult();
+}
+
 int draw::opendialog(const char* id) {
 	auto p = bsdata<dialog>::find(id);
 	if(!p)

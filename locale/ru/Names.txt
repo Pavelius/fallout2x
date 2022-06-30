@@ -19,6 +19,7 @@ CharacterPrint: Печать
 Charisma: Обаяние
 ChemReliant: Наркозаисимый
 ChemResistant: Наркоустойчивый
+Continue: Продолжить
 CriticalHit: Шанс крит.
 DamageMelee: Урон рукопаш.
 DamageResistance: Уст. к урону
