@@ -983,8 +983,7 @@ void redraw_hexagon() {
 	auto push_caret = caret;
 	caret = h2s(h0) - camera;
 	//marker();
-	//sb.clear(); sb.add("%1i,%2i", h0.x, h0.y);
-	image(caret.x - 16, caret.y - 12, gres(res::INTRFACE), 1, 0);
+	image(caret.x, caret.y, gres(res::INTRFACE), 1, 0);
 	//textac(temp);
 	//for(auto i = 0; i < 6; i++) {
 	//	auto i1 = pathfind::to(current_hexagon, i);
