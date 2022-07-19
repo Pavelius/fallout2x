@@ -78,7 +78,12 @@ static point vert(point h) {
 	return h;
 }
 
-static void place_tool() {
+static void after_place_tool() {
+	if(bsdata<terrain>::have(hot.object))
+		terrain::correct();
+}
+
+static void place_tool_part() {
 	if(current_hexagon == Blocked)
 		return;
 	auto h = i2h(current_hexagon);
@@ -94,11 +99,15 @@ static void place_tool() {
 		auto p = (terrain*)hot.object;
 		auto i = t2i(h2t(i2h(current_hexagon)));
 		loc.setfloor(i, p->blocks[Center]);
-		terrain::correct();
 	} else if(bsdata<tilegroup>::have(hot.object)) {
 		auto p = (tilegroup*)hot.object;
 		place_editor(h2t(i2h(current_hexagon)), p);
 	}
+}
+
+static void place_tool() {
+	place_tool_part();
+	after_place_tool();
 }
 
 static void paint_tool() {
@@ -613,9 +622,10 @@ static void place_rect() {
 	for(short y = border[0].y; y < border[1].y; y++) {
 		for(short x = border[0].x; x < border[1].x; x++) {
 			current_hexagon = h2i({x, y});
-			place_tool();
+			place_tool_part();
 		}
 	}
+	after_place_tool();
 	current_hexagon = push_hex;
 }
 

@@ -289,7 +289,6 @@
     <Text Include="..\forms\Message.txt" />
     <Text Include="..\forms\Options.txt" />
     <Text Include="..\locale\ru\Descriptions.txt" />
-    <Text Include="..\locale\ru\Items.txt" />
     <Text Include="..\locale\ru\Names.txt" />
     <Text Include="..\locale\ru\NamesSh.txt" />
     <Text Include="..\locale\ru\Scenery.txt" />

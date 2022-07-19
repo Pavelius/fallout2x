@@ -7,6 +7,6 @@ CaveRocks
 PavingSlabs alternate(161 162 163)
  blocks Center(160) Left(152) Right(155) Up(157) Down(146) RightDown(154) RightUp(158) LeftUp(159) LeftDown(145)
 Asfalt alternate(231 233 234)
- blocks Center(197) Left(209) Right(215) Up(212) Down(206) RightDown(223) RightUp(220) LeftUp(217) LeftDown(226)
+ blocks Center(197) Left(228) Right(222) Up(218) Down(224) RightDown(223) RightUp(220) LeftUp(217) LeftDown(226)
 Floor1 alternate(240 241 242)
  blocks Center(239) Left(246) Right(244) Up(243) Down(245) RightDown(248) RightUp(247) LeftUp(250) LeftDown(249)

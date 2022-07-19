@@ -472,9 +472,6 @@
     <Text Include="..\forms\CharacterInventory.txt">
       <Filter>forms</Filter>
     </Text>
-    <Text Include="..\locale\ru\Items.txt">
-      <Filter>localize</Filter>
-    </Text>
     <Text Include="..\rules\Items.txt">
       <Filter>data</Filter>
     </Text>
