@@ -973,26 +973,16 @@ static void textac(const char* format) {
 }
 
 void redraw_hexagon() {
-	if(hot.key == InputUpdate || !hot.key || info_mode)
+	if(hot.key == InputUpdate || info_mode)
 		return;
 	if(current_hexagon == Blocked)
 		return;
-	char temp[32]; stringbuilder sb(temp);
 	cursor.clear();
 	auto h0 = i2h(current_hexagon);
 	auto push_caret = caret;
 	caret = h2s(h0) - camera;
 	//marker();
 	image(caret.x, caret.y, gres(res::INTRFACE), 1, 0);
-	//textac(temp);
-	//for(auto i = 0; i < 6; i++) {
-	//	auto i1 = pathfind::to(current_hexagon, i);
-	//	if(i1 == Blocked)
-	//		continue;
-	//	sb.clear(); sb.add("%1i", i);
-	//	caret = h2s(i2h(i1)) - camera;
-	//	textac(temp);
-	//}
 	caret = push_caret;
 }
 

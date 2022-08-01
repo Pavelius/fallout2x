@@ -59,8 +59,9 @@ static void start() {
 	character::last->wearable::additem("Minigun");
 	character::last->update();
 	status("Generating test character and give then some part of equipment. This eqipment would be usable.");
-	draw::scene(editor);
-	//draw::opendialog("CharacterGame");
+	//draw::scene(editor);
+	//draw::scene(editor);
+	draw::opendialog("CharacterGame");
 	//test_animate();
 }
 
