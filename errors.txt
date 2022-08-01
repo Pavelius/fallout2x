@@ -1,2 +1,2 @@
-﻿In file `rules/Prototype.txt`:
- Line 8: Not found requisit `chat`
+﻿In file `rules/Items.txt`:
+ Line 7: Not found requisit `ground_flags`

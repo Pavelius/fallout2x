@@ -92,6 +92,7 @@ BSMETA(itemi) = {
 	BSREQ(ammo),
 	BSENM(use, stati),
 	BSFLG(flags, itemfi),
+	//BSFLG(ground_flags, objectfi),
 	{}};
 BSMETA(itemfi) = {
 	BSREQ(id),
@@ -104,6 +105,9 @@ BSMETA(materiali) = {
 	BSREQ(id),
 	{}};
 BSMETA(modifier) = {
+	BSREQ(id),
+	{}};
+BSMETA(objectfi) = {
 	BSREQ(id),
 	{}};
 BSMETA(perki) = {

@@ -128,7 +128,10 @@ static void turn_left() {
 	character::last->turn(-1);
 }
 
+void animate_combat_mode(int open);
+
 static void test_shoot() {
+	animate_combat_mode(1);
 	character::last->useaction();
 	character::last->wait();
 }

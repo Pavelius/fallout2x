@@ -1330,6 +1330,32 @@ static void paint_answer(int index, const void* data, const char* format, unsign
 	caret.x = push_caret.x;
 }
 
+static void animate_image(int x, int y, res id, int frame) {
+	auto push_cursor = cursor;
+	screenshoot push;
+	auto pi = gres(id);
+	auto pc = pi->gcicle(frame);
+	auto bs = getcputime();
+	auto index = 0;
+	while(ismodal()) {
+		push.restore();
+		image(x, y, pi, pc->start + index, 0);
+		cursor.position = hot.mouse;
+		cursor.set(res::INTRFACE, 295);
+		cursor.paint();
+		doredraw();
+		waitcputime(1);
+		index = (getcputime() - bs) / 200;
+		if(index >= pc->count)
+			break;
+	}
+	cursor = push_cursor;
+}
+
+void animate_combat_mode(int open) {
+	animate_image(608, 477, res::INTRFACE, 104);
+}
+
 void* answers::choose(const char* promt, const char* cancel) const {
 	int origin = 0, origin_cashe = 0, format_maximum = 0;
 	auto push_strings = disable_floatstring;
