@@ -251,6 +251,7 @@ struct item {
 	constexpr operator bool() const { return count != 0; }
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				dropdown();
+	void				dropdown(indext index);
 	actiona				getactions() const;
 	item				getclip() const { return item(ammo_type, ammo_count); }
 	int					getcount() const { return count; }
@@ -287,6 +288,10 @@ struct prototype : nameable, statable {
 };
 struct itemwear : item {
 	character*			owner;
+};
+struct itemground : item {
+	indext				index;
+	void				paint() const;
 };
 struct wearable : nameable, statable {
 	item				wear[LeftHandItem + 1];

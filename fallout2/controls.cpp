@@ -421,6 +421,11 @@ static void begin_drag_item() {
 		drag_copy.transfer(*p1, *((item*)drag_target));
 }
 
+static void drop_item() {
+	auto pi = (item*)hot.object;
+	pi->dropdown();
+}
+
 static void item_button() {
 	auto pi = (item*)gui.data;
 	if(!pi)
@@ -434,6 +439,7 @@ static void item_button() {
 			addaction(Look, get_object_information, pi);
 			if(pi->getclip())
 				addaction(Reload, 0, pi);
+			addaction(Drop, drop_item, pi);
 		} else {
 			if(hot.key == MouseLeft && hot.pressed) {
 				dragbegin(pi);
@@ -973,16 +979,13 @@ static void textac(const char* format) {
 }
 
 void redraw_hexagon() {
-	if(hot.key == InputUpdate || info_mode)
-		return;
-	if(current_hexagon == Blocked)
+	if(hot.key == InputUpdate || info_mode || current_hexagon==Blocked)
 		return;
 	cursor.clear();
-	auto h0 = i2h(current_hexagon);
 	auto push_caret = caret;
-	caret = h2s(h0) - camera;
+	caret = h2s(i2h(current_hexagon)) - camera;
+	image(gres(res::INTRFACE), 1, 0);
 	//marker();
-	image(caret.x, caret.y, gres(res::INTRFACE), 1, 0);
 	caret = push_caret;
 }
 
@@ -997,11 +1000,11 @@ void redraw_floor() {
 			caret = t2s({x, y}) - camera;
 			caret.x += 8;
 			caret.y += 26;
-			if(caret.in(rc)) {
-				auto tv = bsdata<tilei>::elements[loc.getfloor(t2i({x, y}))].frame;
-				if(tv > 1)
-					draw::image(ps, ps->ganim(tv, tm), 0);
-			}
+			if(!caret.in(rc))
+				continue;
+			auto tv = bsdata<tilei>::elements[loc.getfloor(t2i({x, y}))].frame;
+			if(tv > 1)
+				draw::image(ps, ps->ganim(tv, tm), 0);
 		}
 	}
 }
@@ -1172,7 +1175,7 @@ static void redraw_game() {
 	auto push_clip = clipping;
 	caret.x = caret.y = 0;
 	width = 640; height = 381;
-	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	clipping.set(0, 0, width, height);
 	redraw_floor();
 	redraw_hexagon();
 	paint_drawables();

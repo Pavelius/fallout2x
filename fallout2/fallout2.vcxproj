@@ -183,6 +183,7 @@
     <ClCompile Include="io_stream.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="itemf.cpp" />
+    <ClCompile Include="itemground.cpp" />
     <ClCompile Include="itemlist.cpp" />
     <ClCompile Include="light.cpp" />
     <ClCompile Include="log.cpp" />

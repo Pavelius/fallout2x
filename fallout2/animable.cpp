@@ -115,6 +115,8 @@ static void paint_drawable(const drawable* p) {
 		((character*)p->data)->paint();
 	else if(bsdata<floatstring>::have(p))
 		((floatstring*)p)->paint();
+	else if(bsdata<itemground>::have(p->data))
+		((itemground*)p->data)->paint();
 }
 
 static int hittest_drawable(const drawable* p) {
@@ -128,6 +130,8 @@ static int hittest_drawable(const drawable* p) {
 static int getorder(const drawable* p) {
 	if(bsdata<sceneryi>::have(p->data))
 		return ((sceneryi*)p->data)->is(Flat) ? 0 : 1;
+	if(bsdata<itemground>::have(p->data))
+		return 0;
 	if(bsdata<floatstring>::have(p))
 		return 5;
 	return 1;

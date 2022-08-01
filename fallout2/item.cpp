@@ -114,3 +114,9 @@ actiona item::getactions() const {
 		result.add(Throw);
 	return result;
 }
+
+void item::dropdown() {
+	auto p = getowner();
+	if(p)
+		dropdown(h2i(s2h(p->position)));
+}

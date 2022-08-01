@@ -250,6 +250,9 @@
     <ClCompile Include="answers.cpp">
       <Filter>support</Filter>
     </ClCompile>
+    <ClCompile Include="itemground.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
