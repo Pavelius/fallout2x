@@ -1,7 +1,6 @@
 #Control
 
-UpdateAnimation 0 0
-PaintGame 0 0 size(640 381) normal(2)
+PaintCombat 0 0 size(640 381) normal(2)
 Background 0 381 normal(16)
 ActionButton 265 29 size(183 64) normal(32) pressed(31) command(TestShoot)
 ButtonNF 210 40 normal(47) pressed(46) command(CharacterInventory)
@@ -14,5 +13,11 @@ ButtonNF 523 6 normal(6) pressed(7) command(CharacterSkill)
 NumberSM 472 39 normal(4) data(HP)
 NumberSM 472 75 normal(4) data(AC)
 StatusBar 26 32 size(160 50)
+
+Image 580 38 normal(104) pressed(4)
+Image 580 38 normal(109)
+ButtonNF 590 43 normal(105) pressed(106) command(EndTurn)
+ButtonNF 590 65 normal(107) pressed(108) command(EndCombat)
+
 Hotkey 0 0 command(TurnLeft)
 Hotkey 0 0 command(TurnRight)

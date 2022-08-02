@@ -18,6 +18,7 @@ void choose_scenery();
 int start_application(fnevent proc, fnevent afterread);
 void test_animate();
 void view_palette();
+void game_mode();
 
 static void start() {
 	status("Start game...");

@@ -130,10 +130,29 @@ static void turn_left() {
 
 void animate_combat_mode(int open);
 
-static void test_shoot() {
+void game_mode() {
+	opendialog("CharacterGame");
+}
+
+static void combat_mode() {
 	animate_combat_mode(1);
-	character::last->useaction();
-	character::last->wait();
+	opendialog("CharacterCombat");
+	animate_combat_mode(-1);
+	setnext(game_mode);
+}
+
+static void test_shoot() {
+	setnext(combat_mode);
+	//combat_mode();
+	//character::last->useaction();
+	//character::last->wait();
+}
+
+static void end_turn() {
+}
+
+static void end_combat() {
+	buttoncancel();
 }
 
 BSDATA(command) = {
@@ -158,6 +177,8 @@ BSDATA(command) = {
 	{"CharacterSheet", 'C', opendialog},
 	{"CharacterSkill", 'S', opendialog},
 	{"CharacterInventory", 'I', opendialog},
+	{"EndCombat", KeyEnter, end_combat},
+	{"EndTurn", 'E', end_turn},
 	{"GameExit", 'E', game_exit},
 	{"GameLoad", 'L', opendialog},
 	{"GameMap", 'M', opendialog},

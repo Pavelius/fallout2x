@@ -1,2 +1,2 @@
-﻿In file `rules/Items.txt`:
- Line 7: Not found requisit `ground_flags`
+﻿In file `forms/CharacterCombat.txt`:
+ Line 12: Expected line feed

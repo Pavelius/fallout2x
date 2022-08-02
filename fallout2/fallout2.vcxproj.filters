@@ -496,5 +496,8 @@
     <Text Include="..\chats\ChatMelon.txt">
       <Filter>chat</Filter>
     </Text>
+    <Text Include="..\forms\CharacterCombat.txt">
+      <Filter>forms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

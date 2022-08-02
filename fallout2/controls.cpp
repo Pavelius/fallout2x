@@ -877,7 +877,10 @@ static void edit() {
 
 static void custom_image() {
 	auto p = gres(res::INTRFACE);
-	image(p, p->ganim(gui.normal, current_tick), ImageNoOffset);
+	if(gui.pressed)
+		image(p, p->ganim(gui.normal, gui.pressed), ImageNoOffset);
+	else
+		image(p, p->ganim(gui.normal, current_tick / 200), ImageNoOffset);
 }
 
 static void block_information() {
@@ -979,7 +982,7 @@ static void textac(const char* format) {
 }
 
 void redraw_hexagon() {
-	if(hot.key == InputUpdate || info_mode || current_hexagon==Blocked)
+	if(hot.key == InputUpdate || info_mode || current_hexagon == Blocked)
 		return;
 	cursor.clear();
 	auto push_caret = caret;
@@ -1155,6 +1158,21 @@ static void hiliting_object() {
 	}
 }
 
+static void paint_combat() {
+	auto push_clip = clipping;
+	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
+	if(hot.mouse.in(clipping))
+		apply_info_mode();
+	set_hexagon_position();
+	control_map();
+	redraw_floor();
+	redraw_hexagon();
+	paint_drawables();
+	hiliting_object();
+	click_command();
+	clipping = push_clip;
+}
+
 static void paint_game() {
 	auto push_clip = clipping;
 	clipping.set(caret.x, caret.y, caret.x + width, caret.y + height);
@@ -1302,7 +1320,7 @@ static unsigned gethotkey(int index) {
 	else if(index == 9)
 		return '0';
 	else
-		return 'A' + (index-10);
+		return 'A' + (index - 10);
 }
 
 static void paint_answer(int index, const void* data, const char* format, unsigned key) {
@@ -1322,7 +1340,7 @@ static void paint_answer(int index, const void* data, const char* format, unsign
 			execute(buttonparam, (long)data);
 	}
 	textf(format);
-	if(hot.key == gethotkey(index) || (key && key==hot.key))
+	if(hot.key == gethotkey(index) || (key && key == hot.key))
 		execute(buttonparam, (long)data);
 	fore = push_fore;
 	height = push_height;
@@ -1330,16 +1348,20 @@ static void paint_answer(int index, const void* data, const char* format, unsign
 	caret.x = push_caret.x;
 }
 
-static void animate_image(int x, int y, res id, int frame) {
+static void animate_image(int x, int y, res id, int frame, int step) {
 	auto push_cursor = cursor;
 	screenshoot push;
 	auto pi = gres(id);
 	auto pc = pi->gcicle(frame);
 	auto bs = getcputime();
 	auto index = 0;
-	while(ismodal()) {
+	while(true) {
+		ismodal();
 		push.restore();
-		image(x, y, pi, pc->start + index, 0);
+		if(step == -1)
+			image(x, y, pi, pc->start + pc->count - (index + 1), 0);
+		else
+			image(x, y, pi, pc->start + index, 0);
 		cursor.position = hot.mouse;
 		cursor.set(res::INTRFACE, 295);
 		cursor.paint();
@@ -1353,7 +1375,7 @@ static void animate_image(int x, int y, res id, int frame) {
 }
 
 void animate_combat_mode(int open) {
-	animate_image(608, 477, res::INTRFACE, 104);
+	animate_image(608, 477, res::INTRFACE, 104, open);
 }
 
 void* answers::choose(const char* promt, const char* cancel) const {
@@ -1584,7 +1606,6 @@ void paint_pathfind() {
 
 static void tips() {
 	cursor.paint();
-	update_animation();
 }
 
 int start_application(fnevent proc, fnevent afterread) {
@@ -1639,6 +1660,7 @@ BSDATA(widget) = {
 	{"NumberSM", number_small},
 	{"ObjectInformation", object_information},
 	{"PaintBlock", paint_pathfind},
+	{"PaintCombat", paint_combat},
 	{"PaintGame", paint_game},
 	{"PaperDoll", paper_doll},
 	{"RollUp", rollup},
@@ -1650,5 +1672,6 @@ BSDATA(widget) = {
 	{"TextBlock", text_block},
 	{"TextInfo", text_info},
 	{"TextL", text_font3},
+	{"UpdateAnimation", update_animation},
 };
 BSDATAF(widget)
