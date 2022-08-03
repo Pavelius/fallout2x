@@ -626,6 +626,25 @@ static void numberap(int digits, int value) {
 	render_number(digits, value, gres(res::INTRFACE), 290, 0, 10, false);
 }
 
+static void horizontal(int d, sprite* ps, int frame, int count) {
+	for(auto i = 0; i < count; i++) {
+		image(ps, frame, 0);
+		caret.x += d;
+	}
+}
+
+static void redraw_ap(int green, int yellow, int red) {
+	auto ps = gres(res::INTRFACE);
+	if(!ps)
+		return;
+	auto push_caret = caret;
+	const int w = 9;
+	horizontal(w, ps, ps->ganim(83, 0), green);
+	horizontal(w, ps, ps->ganim(85, 0), yellow);
+	horizontal(w, ps, ps->ganim(84, 0), red);
+	caret = push_caret;
+}
+
 static void number_standart() {
 	auto n = gui.normal;
 	if(!n)
@@ -635,6 +654,10 @@ static void number_standart() {
 
 static void number_small() {
 	render_number(gui.normal, gui.number, gres(res::INTRFACE), 82, 0, 9, true);
+}
+
+static void number_actions() {
+	redraw_ap(gui.number, 10 - gui.number, 0);
 }
 
 static void line_info() {
@@ -1657,6 +1680,7 @@ BSDATA(widget) = {
 	{"LineInfo", line_info},
 	{"List", text_list},
 	{"Number", number_standart},
+	{"NumberAction", number_actions},
 	{"NumberSM", number_small},
 	{"ObjectInformation", object_information},
 	{"PaintBlock", paint_pathfind},
