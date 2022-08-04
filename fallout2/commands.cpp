@@ -169,6 +169,18 @@ static void end_combat() {
 static void set_pipboy_page() {
 }
 
+static void combat_inventory() {
+	auto player = character::last;
+	auto cost = 2;
+	if(player->get(APCur) < cost) {
+		status(getnm("ErrorOpenNeedAP"), cost);
+		return;
+	}
+	player->set(APCur, player->get(APCur) - cost);
+	dialog::paint();
+	opendialog("CharacterInventory");
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -185,6 +197,8 @@ BSDATA(command) = {
 	{"CharacterExport", 'E', character_export},
 	{"CharacterGender", 'G', opendialog},
 	{"CharacterGenerator", 'E', opendialog},
+	{"CharacterInventory", 'I', opendialog},
+	{"CharacterInventoryCombat", 'I', combat_inventory},
 	{"CharacterLoad", 'L', character_load},
 	{"CharacterName", 'N', opendialog},
 	{"CharacterPipboy", 'P', opendialog},
@@ -194,7 +208,6 @@ BSDATA(command) = {
 	{"CharacterSheet", 'C', opendialog},
 	{"CharacterSkill", 'S', opendialog},
 	{"CharacterStatus", 'S', set_pipboy_page},
-	{"CharacterInventory", 'I', opendialog},
 	{"EndCombat", KeyEnter, end_combat},
 	{"EndTurn", 'E', end_turn},
 	{"GameExit", 'E', game_exit},
