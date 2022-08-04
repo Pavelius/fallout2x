@@ -499,5 +499,8 @@
     <Text Include="..\forms\CharacterCombat.txt">
       <Filter>forms</Filter>
     </Text>
+    <Text Include="..\forms\CharacterPipboy.txt">
+      <Filter>forms</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -134,10 +134,10 @@ void game_mode() {
 	opendialog("CharacterGame");
 }
 
-static void choose_combat_action(character* player) {
+void character::chooseaction() {
 	while(true) {
-		auto hex = h2i(s2h(player->position));
-		player->makepath(hex);
+		if(!beforechooseaction())
+			break;
 		opendialog("CharacterCombat");
 		if(!getresult())
 			break;
@@ -146,7 +146,7 @@ static void choose_combat_action(character* player) {
 
 static void combat_mode() {
 	animate_combat_mode(1);
-	choose_combat_action(character::last);
+	character::last->combataction();
 	animate_combat_mode(-1);
 	setnext(game_mode);
 }
@@ -166,6 +166,9 @@ static void end_combat() {
 	buttoncancel();
 }
 
+static void set_pipboy_page() {
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -176,6 +179,8 @@ BSDATA(command) = {
 	{"Cancel", KeyEscape, buttoncancel},
 	{"ChangeWeapon", 'W', change_weapon},
 	{"CharacterAge", 'A', opendialog},
+	{"CharacterArchives", 'A', set_pipboy_page},
+	{"CharacterAutomaps", 'M', set_pipboy_page},
 	{"CharacterDelete", 'D', character_delete},
 	{"CharacterExport", 'E', character_export},
 	{"CharacterGender", 'G', opendialog},
@@ -184,9 +189,11 @@ BSDATA(command) = {
 	{"CharacterName", 'N', opendialog},
 	{"CharacterPipboy", 'P', opendialog},
 	{"CharacterPrint", 'P', opendialog},
+	{"CharacterRest", 'W', set_pipboy_page},
 	{"CharacterSave", 'S', character_save},
 	{"CharacterSheet", 'C', opendialog},
 	{"CharacterSkill", 'S', opendialog},
+	{"CharacterStatus", 'S', set_pipboy_page},
 	{"CharacterInventory", 'I', opendialog},
 	{"EndCombat", KeyEnter, end_combat},
 	{"EndTurn", 'E', end_turn},

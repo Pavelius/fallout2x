@@ -1,5 +1,6 @@
 #include "dialog.h"
 #include "main.h"
+#include "pathfind.h"
 
 const int skill_tag_bonus = 20;
 character* character::last;
@@ -152,4 +153,23 @@ void character::talk() {
 		chat->play(p);
 	} else
 		say(p->text);
+}
+
+void character::startcombatround() {
+	set(APCur, get(AP));
+}
+
+void character::combataction() {
+	startcombatround();
+	chooseaction();
+}
+
+bool character::beforechooseaction() {
+	auto points = get(APCur);
+	if(!points)
+		return false;
+	auto hex = h2i(s2h(position));
+	makepath(hex);
+	pathfind::blockrange(points);
+	return true;
 }

@@ -364,6 +364,9 @@ struct character : animable {
 	struct chat*		chat;
 	static character*	last;
 	static character*	add(const char* id);
+	bool				beforechooseaction();
+	void				combataction();
+	void				chooseaction();
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				exporting(const char* id) const;
 	int					get(stat_s v) const { return stats[v]; }
@@ -376,6 +379,7 @@ struct character : animable {
 	void				read(const char* id);
 	void				set(stat_s v, int i) { stats[v] = i; }
 	void				settag(valuet v, int i);
+	void				startcombatround();
 	void				talk();
 	void				update();
 	void				useaction();

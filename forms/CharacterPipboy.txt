@@ -1,0 +1,9 @@
+#Control
+
+Background 0 0 normal(127)
+
+ButtonNF 126 15 normal(132) pressed(131) command(CharacterRest)
+ButtonNF 53 340 normal(8) pressed(9) command(CharacterStatus)
+ButtonNF 53 394 normal(8) pressed(9) command(CharacterAutomaps)
+ButtonNF 53 422 normal(8) pressed(9) command(CharacterArchives)
+ButtonNF 53 448 normal(8) pressed(9) command(Cancel)

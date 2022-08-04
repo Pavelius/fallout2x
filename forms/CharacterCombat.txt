@@ -12,7 +12,7 @@ ButtonNF 218 6 normal(6) pressed(7) command(ChangeWeapon)
 ButtonNF 523 6 normal(6) pressed(7) command(CharacterSkill)
 NumberSM 472 39 normal(4) data(HP)
 NumberSM 472 75 normal(4) data(AC)
-NumberAction 317 19 data(AP)
+NumberAction 317 19 data(APCur)
 StatusBar 26 32 size(160 50)
 
 Image 580 38 normal(104) pressed(4)
