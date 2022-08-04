@@ -1209,11 +1209,21 @@ static void apply_info_mode() {
 	}
 }
 
+static void stroke_character(character* player) {
+	auto push_stroke = fore_stroke;
+	fore_stroke = getcolor(ColorButton);
+	auto pr = gres(player->getlook());
+	auto ps = player->position - camera;
+	stroke(ps.x, ps.y, pr, player->frame, 0, 1);
+	fore_stroke = push_stroke;
+}
+
 static void hiliting_object() {
 	if(!hilite_object)
 		return;
 	if(bsdata<character>::have(hilite_object)) {
 		auto p = static_cast<character*>(((drawable*)hilite_object));
+		stroke_character(p);
 		if(character::last != p && p->chat)
 			addaction(Talk, talk_object, p);
 		addaction(Look, look_object, static_cast<nameable*>(p));

@@ -9,6 +9,7 @@ static stringbuilder sb(result_text);
 static filelist files;
 static itemlist items;
 static array any_source;
+static bool need_end_combat;
 extern int last_list_current;
 
 void setedit(const char* format, ...);
