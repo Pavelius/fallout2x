@@ -1,5 +1,6 @@
 #Control
 
 Background 70 0 normal(171)
+ButtonNF 457 339 normal(172) pressed(173) command(MapResolution)
 ButtonNF 110 454 normal(8) pressed(9) command(MapScanner)
 ButtonNF 276 454 normal(8) pressed(9) command(Cancel)

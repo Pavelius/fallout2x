@@ -189,6 +189,9 @@ static void map_scanner() {
 	message(getnm("ErrorNoScanner"));
 }
 
+static void map_resolution() {
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -225,6 +228,7 @@ BSDATA(command) = {
 	{"GameSave", 'S', opendialog},
 	{"GameOptions", KeyEscape, opendialog},
 	{"GameSetting", 'O', opendialog},
+	{"MapResolution", 'R', map_resolution},
 	{"MapScanner", 'S', map_scanner},
 	{"Next", KeyEnter, buttonok},
 	{"Options", 'O', opendialog},

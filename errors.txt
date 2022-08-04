@@ -1,2 +1,2 @@
 ﻿In file `forms/GameMap.txt`:
- Line 4: Not found identifier `MapScanner`
+ Line 4: Not found identifier `MapResolution`
