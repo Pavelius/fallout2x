@@ -26,6 +26,7 @@ DamageResistance: Уст. к урону
 Doctor: Доктор
 Endurance: Выносливость
 EnergyWeapon: Энерго оружие
+ErrorNoPipboyCombat: Во время боя нельзя использовать лаптоп!
 ErrorOpenNeedAP: Необходимо %1i очка действия.
 ErrorTagLimit: У вас уже есть максимум из двух особенностей!
 Experience: Опыт

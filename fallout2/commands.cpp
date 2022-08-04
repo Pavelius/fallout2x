@@ -181,6 +181,10 @@ static void combat_inventory() {
 	opendialog("CharacterInventory");
 }
 
+static void show_error() {
+	message(getnm(gui.id));
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -210,6 +214,7 @@ BSDATA(command) = {
 	{"CharacterStatus", 'S', set_pipboy_page},
 	{"EndCombat", KeyEnter, end_combat},
 	{"EndTurn", 'E', end_turn},
+	{"ErrorNoPipboyCombat", 'P', show_error},
 	{"GameExit", 'E', game_exit},
 	{"GameLoad", 'L', opendialog},
 	{"GameMap", 'M', opendialog},

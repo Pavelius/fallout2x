@@ -1,2 +1,2 @@
-﻿In file `forms/CharacterCombat.txt`:
- Line 12: Expected line feed
+﻿In file `forms/GameMap.txt`:
+ Line 6: Not found identifier `Prev`

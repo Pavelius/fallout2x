@@ -275,6 +275,7 @@
     <Text Include="..\chats\ChatFarmer.txt" />
     <Text Include="..\chats\ChatMelon.txt" />
     <Text Include="..\forms\CharacterAge.txt" />
+    <Text Include="..\forms\GameMap.txt" />
     <Text Include="..\forms\CharacterCombat.txt" />
     <Text Include="..\forms\CharacterDialog.txt" />
     <Text Include="..\forms\CharacterDelete.txt" />
