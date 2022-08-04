@@ -134,9 +134,19 @@ void game_mode() {
 	opendialog("CharacterGame");
 }
 
+static void choose_combat_action(character* player) {
+	while(true) {
+		auto hex = h2i(s2h(player->position));
+		player->makepath(hex);
+		opendialog("CharacterCombat");
+		if(!getresult())
+			break;
+	}
+}
+
 static void combat_mode() {
 	animate_combat_mode(1);
-	opendialog("CharacterCombat");
+	choose_combat_action(character::last);
 	animate_combat_mode(-1);
 	setnext(game_mode);
 }
@@ -149,6 +159,7 @@ static void test_shoot() {
 }
 
 static void end_turn() {
+	buttonok();
 }
 
 static void end_combat() {

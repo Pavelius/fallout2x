@@ -19,7 +19,7 @@ size_t filter_walls(void** pbegin);
 void paint_drawables();
 void paint_editor(point h, const walli* p);
 void redraw_floor();
-void redraw_hexagon();
+void redraw_hexagon(bool show_movement);
 
 static void cancel_hotkey() {
 	if(hot.key == KeyEscape)
@@ -658,7 +658,7 @@ void editor() {
 	control_map();
 	redraw_floor();
 	draw_choosed_rect();
-	redraw_hexagon();
+	redraw_hexagon(false);
 	paint_drawables();
 	redraw_select_tool();
 	status_window();

@@ -191,12 +191,16 @@ static void blockcharacters(const moveable* exclude) {
 	}
 }
 
-void moveable::makepath(indext start, indext goal) {
-	static indext temp[256 * 16];
+void moveable::makepath(indext start) {
 	clearpath();
 	pathfind::clearpath();
 	blockcharacters(this);
-	pathfind::makewave(goal);
+	pathfind::makewave(start);
+}
+
+void moveable::makepath(indext start, indext goal) {
+	static indext temp[256 * 16];
+	makepath(goal);
 	auto count = pathfind::getpath(start, goal, temp, sizeof(temp) / sizeof(temp[0]));
 	path_start = new indext[count + 1];
 	memcpy(path_start, temp, sizeof(temp[0]) * count);

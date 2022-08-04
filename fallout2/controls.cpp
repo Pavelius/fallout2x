@@ -1004,13 +1004,31 @@ static void textac(const char* format) {
 	caret = push_caret;
 }
 
-void redraw_hexagon() {
+static void textwc(const char* format, void(*proc)(const char*)) {
+	auto push_fore = fore;
+	fore = getcolor(ColorCheck);
+	proc(format);
+	fore = push_fore;
+}
+
+static void textacw(int number) {
+	char temp[32]; stringbuilder sb(temp);
+	sb.add("%1i", number);
+	textwc(temp, textac);
+}
+
+void redraw_hexagon(bool show_movement) {
 	if(hot.key == InputUpdate || info_mode || current_hexagon == Blocked)
 		return;
 	cursor.clear();
 	auto push_caret = caret;
 	caret = h2s(i2h(current_hexagon)) - camera;
 	image(gres(res::INTRFACE), 1, 0);
+	if(show_movement) {
+		auto cost = pathfind::getmove(current_hexagon);
+		if(cost != Blocked)
+			textacw(cost);
+	}
 	//marker();
 	caret = push_caret;
 }
@@ -1189,7 +1207,7 @@ static void paint_combat() {
 	set_hexagon_position();
 	control_map();
 	redraw_floor();
-	redraw_hexagon();
+	redraw_hexagon(true);
 	paint_drawables();
 	hiliting_object();
 	click_command();
@@ -1204,7 +1222,7 @@ static void paint_game() {
 	set_hexagon_position();
 	control_map();
 	redraw_floor();
-	redraw_hexagon();
+	redraw_hexagon(false);
 	paint_drawables();
 	hiliting_object();
 	click_command();
@@ -1218,7 +1236,6 @@ static void redraw_game() {
 	width = 640; height = 381;
 	clipping.set(0, 0, width, height);
 	redraw_floor();
-	redraw_hexagon();
 	paint_drawables();
 	clipping = push_clip;
 }

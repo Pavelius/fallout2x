@@ -319,6 +319,7 @@ struct moveable {
 	~moveable() { clearpath(); }
 	void				clearpath();
 	bool				ismoving() const { return path_start != 0; }
+	void				makepath(indext start);
 	void				makepath(indext start, indext goal);
 };
 struct animable : wearable, moveable, spriteable {
