@@ -185,6 +185,10 @@ static void show_error() {
 	message(getnm(gui.id));
 }
 
+static void map_scanner() {
+	message(getnm("ErrorNoScanner"));
+}
+
 BSDATA(command) = {
 	{"AddNumber", '+', add_number},
 	{"AddStat", '+', add_stat},
@@ -221,6 +225,7 @@ BSDATA(command) = {
 	{"GameSave", 'S', opendialog},
 	{"GameOptions", KeyEscape, opendialog},
 	{"GameSetting", 'O', opendialog},
+	{"MapScanner", 'S', map_scanner},
 	{"Next", KeyEnter, buttonok},
 	{"Options", 'O', opendialog},
 	{"SubNumber", '-', sub_number},

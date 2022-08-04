@@ -27,6 +27,7 @@ Doctor: Доктор
 Endurance: Выносливость
 EnergyWeapon: Энерго оружие
 ErrorNoPipboyCombat: Во время боя нельзя использовать лаптоп!
+ErrorNoScanner: У вас не установлено специальное оборудование!
 ErrorOpenNeedAP: Необходимо %1i очка действия.
 ErrorTagLimit: У вас уже есть максимум из двух особенностей!
 Experience: Опыт

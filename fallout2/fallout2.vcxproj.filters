@@ -502,6 +502,9 @@
     <Text Include="..\forms\CharacterPipboy.txt">
       <Filter>forms</Filter>
     </Text>
+    <Text Include="..\forms\GameMap2.txt">
+      <Filter>forms</Filter>
+    </Text>
     <Text Include="..\forms\GameMap.txt">
       <Filter>forms</Filter>
     </Text>
