@@ -988,6 +988,28 @@ static void click_command() {
 	}
 }
 
+static void move_to_combat() {
+	auto index = (indext)hot.param;
+	auto cost = pathfind::getmove(index);
+	auto p2 = h2s(i2h(index));
+	auto p1 = character::last->position;
+	character::last->moveto(index, hot.param2);
+	character::last->set(APCur, character::last->get(APCur) - cost);
+	character::last->wait();
+	buttonok();
+}
+
+static void click_command_combat() {
+	if(current_hexagon == Blocked)
+		return;
+	if(pathfind::getmove(current_hexagon) == Blocked)
+		return;
+	if(!info_mode) {
+		if((hot.key & 0xFF) == MouseLeft && hot.pressed)
+			execute(move_to_combat, current_hexagon, 0);
+	}
+}
+
 static void marker() {
 	auto push_caret = caret;
 	caret.x -= 4; line(caret.x + 4, caret.y);
@@ -1210,7 +1232,7 @@ static void paint_combat() {
 	redraw_hexagon(true);
 	paint_drawables();
 	hiliting_object();
-	click_command();
+	click_command_combat();
 	clipping = push_clip;
 }
 
@@ -1415,6 +1437,8 @@ static void animate_image(int x, int y, res id, int frame, int step) {
 }
 
 void animate_combat_mode(int open) {
+	if(dialog::last)
+		dialog::paint();
 	animate_image(608, 477, res::INTRFACE, 104, open);
 }
 

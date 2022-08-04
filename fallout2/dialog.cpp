@@ -40,6 +40,7 @@ int dialog::open() const {
 	if(isfullscreen()) {
 		screen = 0;
 		draw::scene(paint);
+		paint();
 	} else {
 		screenshoot push(false);
 		screen = &push;

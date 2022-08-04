@@ -382,8 +382,10 @@ static void correctposition(animable* pd, const sprite* ps) {
 			pd->path++;
 			if(pd->path[0] == Blocked) {
 				pd->position = next_position;
+				auto need_ready_weapon = pd->isanimate(AnimateRun);
 				pd->clearanimate();
-				pd->readyweapon(true);
+				if(need_ready_weapon)
+					pd->readyweapon(true);
 			} else {
 				auto new_direction = getnextdirection(pd->path[-1], pd->path[0]);
 				if(new_direction != pd->direction) {
