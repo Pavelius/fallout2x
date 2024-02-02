@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -192,6 +192,7 @@
     <ClCompile Include="main_util.cpp" />
     <ClCompile Include="material.cpp" />
     <ClCompile Include="metadata.cpp" />
+    <ClCompile Include="nameable.cpp" />
     <ClCompile Include="objectf.cpp" />
     <ClCompile Include="pallette.cpp" />
     <ClCompile Include="pathfind.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="worldmap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animable.h" />
     <ClInclude Include="answers.h" />
     <ClInclude Include="archive.h" />
     <ClInclude Include="area.h" />
@@ -250,12 +252,16 @@
     <ClInclude Include="function.h" />
     <ClInclude Include="gender.h" />
     <ClInclude Include="io_stream.h" />
+    <ClInclude Include="light.h" />
     <ClInclude Include="log.h" />
     <ClInclude Include="logparse.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="main_util.h" />
+    <ClInclude Include="material.h" />
     <ClInclude Include="modifier.h" />
+    <ClInclude Include="moveable.h" />
     <ClInclude Include="my_initialize_list.h" />
+    <ClInclude Include="nameable.h" />
     <ClInclude Include="pathfind.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="rect.h" />

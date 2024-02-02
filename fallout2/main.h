@@ -1,12 +1,16 @@
-#include "area.h"
 #include "answers.h"
+#include "animable.h"
 #include "chat.h"
 #include "color.h"
 #include "crt.h"
 #include "drawable.h"
 #include "flagable.h"
 #include "floatstring.h"
+#include "light.h"
+#include "material.h"
 #include "modifier.h"
+#include "moveable.h"
+#include "nameable.h"
 #include "point.h"
 #include "rect.h"
 #include "resid.h"
@@ -45,52 +49,8 @@ enum perk_s : unsigned char {
 enum wear_s : unsigned char {
 	BodyArmor, RightHandItem, LeftHandItem, Backpack,
 };
-enum material_s : unsigned char {
-	Glass, Metal, Plastic, Wood, Dirt, Stone, Cement, Leather
-};
 enum itemkind_s : unsigned char {
 	Armor, Container, Drug, Weapon, Ammo, Misc, LockKey
-};
-enum animate_s : unsigned char {
-	AnimateStand, AnimateWalk, AnimatePickup, AnimateUse, AnimateDodge,
-	AnimateDamaged, AnimateDamagedRear,
-	AnimateUnarmed1, AnimateUnarmed2, AnimateThrown, AnimateRun,
-	AnimateKnockOutBack, AnimateKnockOutForward,
-	// Kill animation
-	AnimateKilledSingle, AnimateKilledBurst, AnimateKilledBurstAuto, AnimateKilledBlowup, AnimateKilledMelt,
-	AnimateBloodedBack, AnimateBloodedForward,
-	AnimateStandUpBack, AnimateStandUpForward,
-	// Dead body (1 frame animation)
-	AnimateDeadBackNoBlood, AnimateDeadForwardNoBlood,
-	AnimateDeadSingle, AnimateDeadBurst, AnimateDeadBurstAuto, AnimateDeadBlowup, AnimateDeadMelt,
-	AnimateDeadBack, AnimateDeadForward,
-	// Weapon Block (Animate Knife)
-	FirstWeaponAnimate,
-	AnimateWeaponTakeOn = FirstWeaponAnimate, AnimateWeaponStand, AnimateWeaponTakeOff,
-	AnimateWeaponWalk, AnimateWeaponDodge,
-	AnimateWeaponThrust, AnimateWeaponSwing,
-	AnimateWeaponAim,
-	AnimateWeaponSingle, AnimateWeaponBurst, AnimateWeaponFlame,
-	AnimateWeaponThrow, AnimateWeaponAimEnd,
-	// Weapon Animate
-	AnimateClub,
-	AnimateHammer = AnimateClub + 13,
-	AnimateSpear = AnimateHammer + 13,
-	AnimatePistol = AnimateSpear + 13,
-	AnimateSMG = AnimatePistol + 13,
-	AnimateRifle = AnimateSMG + 13,
-	AnimateHeavyGun = AnimateRifle + 13,
-	AnimateMachineGun = AnimateHeavyGun + 13,
-	AnimateRocketLauncher = AnimateMachineGun + 13,
-	LastAnimation = AnimateRocketLauncher + 13
-};
-enum lightf : short unsigned {
-	NorthSouth = 0,
-	EastWest = 0x0800,
-	NorthCorner = 0x1000,
-	SouthCorner = 0x2000,
-	EastCorner = 0x4000,
-	WestCorner = 0x8000
 };
 enum actionof {
 	KneelDownWhenUsing = 0x0001,
@@ -149,10 +109,6 @@ enum {
 };
 typedef flagable<16>	perka;
 typedef flagable<4>		skilla;
-struct nameable {
-	const char*			id;
-	const char*			getname() const { return getnm(id); }
-};
 struct actioni : nameable {
 	short				frame;
 	action_s			base;
@@ -164,17 +120,9 @@ struct weari : nameable {
 };
 struct itemfi : nameable {
 };
-struct lighti : nameable {
-	unsigned			value;
-};
 struct objectfi : lighti {
 };
 struct directioni : nameable {
-};
-struct animationi : nameable {
-	animate_s			next;
-};
-struct materiali : nameable {
 };
 struct list : nameable {
 	variants			elements;
@@ -311,16 +259,6 @@ struct spriteable : drawable {
 	void				clear() { memset(this, 0, sizeof(*this)); }
 	void				paint() const;
 	void				set(res r, short cicle);
-};
-struct moveable {
-	indext*				path_start;
-	indext*				path;
-	moveable() : path_start(0), path(0) {}
-	~moveable() { clearpath(); }
-	void				clearpath();
-	bool				ismoving() const { return path_start != 0; }
-	void				makepath(indext start);
-	void				makepath(indext start, indext goal);
 };
 struct animable : wearable, moveable, spriteable {
 	animate_s			animate;

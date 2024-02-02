@@ -253,6 +253,9 @@
     <ClCompile Include="itemground.cpp">
       <Filter>logic</Filter>
     </ClCompile>
+    <ClCompile Include="nameable.cpp">
+      <Filter>logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="logic">
@@ -409,6 +412,21 @@
     </ClInclude>
     <ClInclude Include="modifier.h">
       <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="animable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="nameable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="moveable.h">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
